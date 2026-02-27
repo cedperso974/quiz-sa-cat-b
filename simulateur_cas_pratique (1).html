@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur Cas Pratique — SA Catégorie B</title>
+<style>
+:root{--navy:#0f1f3d;--navy2:#1a3055;--gold:#f0b429;--green:#065f46;--red:#dc2626;--blue:#1e3a8a;--bg:#f8fafc;--card:#fff;--muted:#64748b;--border:#e2e8f0;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:#1e293b;min-height:100vh}
+.app-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:16px 20px;display:flex;align-items:center;gap:12px}
+.app-header h1{font-size:1.1em;color:var(--gold);font-weight:700}
+.app-header p{font-size:.75em;color:#94a3b8}
+.screen{display:none;padding:20px;max-width:900px;margin:0 auto;animation:fadeIn .3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* MENU */
+.hero{text-align:center;padding:24px 0 16px}
+.hero h2{font-size:1.6em;color:var(--navy);margin-bottom:8px}
+.hero p{color:var(--muted);font-size:.9em}
+.cases-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
+.case-card{background:var(--card);border-radius:var(--radius);padding:16px;border:1.5px solid var(--border);cursor:pointer;transition:.2s}
+.case-card:hover{border-color:var(--gold);box-shadow:0 4px 12px rgba(240,180,41,.2)}
+.case-card .c-tag{font-size:.7em;font-weight:700;text-transform:uppercase;color:var(--gold);letter-spacing:.05em;margin-bottom:6px}
+.case-card .c-title{font-size:1em;font-weight:700;color:var(--navy);margin-bottom:4px}
+.case-card .c-desc{font-size:.82em;color:var(--muted);line-height:1.5}
+.case-card .c-meta{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.c-badge{font-size:.72em;background:#f1f5f9;border-radius:20px;padding:3px 10px;color:var(--muted);font-weight:600}
+
+/* EXAM */
+.exam-layout{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:700px){.exam-layout{grid-template-columns:1fr 1fr}}
+.panel{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.panel-header{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;font-size:.85em;display:flex;align-items:center;gap:8px}
+.panel-body{padding:14px;font-size:.83em;line-height:1.6;max-height:60vh;overflow-y:auto}
+.doc-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.doc-section:last-child{border-bottom:none;margin-bottom:0}
+.doc-title{font-weight:700;color:var(--navy);margin-bottom:6px;font-size:.85em}
+.doc-source{font-size:.73em;color:var(--muted);margin-top:4px;font-style:italic}
+.questions-list{padding:14px}
+.question-item{margin-bottom:12px;padding:10px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--gold)}
+.question-item .q-num{font-size:.72em;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:3px}
+.question-item .q-text{font-size:.85em;color:var(--navy);font-weight:600;line-height:1.4}
+.question-item .q-pts{font-size:.72em;color:var(--muted);margin-top:3px}
+
+/* Rédaction */
+.redaction-area{padding:14px}
+.redaction-label{font-size:.78em;font-weight:700;color:var(--navy);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.redaction-label .word-count{font-weight:400;color:var(--muted)}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px;font-size:.85em;line-height:1.6;min-height:200px;resize:vertical;font-family:'DM Sans',sans-serif;color:#1e293b}
+textarea:focus{outline:none;border-color:var(--navy)}
+.timer-bar{background:var(--navy);color:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--radius);margin-bottom:12px}
+.timer-display{font-size:1.3em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.timer-label{font-size:.78em;color:#94a3b8}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.88em;transition:.2s}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{opacity:.9}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{opacity:.85}
+.btn-red{background:var(--red);color:#fff}
+.btn-green{background:#06d6a0;color:var(--navy)}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--navy)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* CORRIGÉ */
+.corrected{background:var(--card);border-radius:var(--radius);border:1.5px solid #06d6a0}
+.corrected-header{background:#d1fae5;padding:12px 16px;border-radius:var(--radius) var(--radius) 0 0}
+.corrected-header h3{color:var(--green);font-size:.95em}
+.corrected-body{padding:16px;font-size:.83em;line-height:1.7}
+.corrected-body h4{color:var(--navy);margin:12px 0 4px;font-size:.9em}
+.corrected-body .barème{color:var(--gold);font-weight:700;font-size:.78em}
+.corrected-body p{margin-bottom:8px}
+.corrected-body ul{padding-left:16px;margin-bottom:8px}
+.corrected-body li{margin-bottom:3px}
+.jury-tips{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;margin-top:12px}
+.jury-tips h4{color:#92400e;margin-bottom:6px;font-size:.85em}
+.jury-tips ul{padding-left:16px}
+.jury-tips li{font-size:.82em;color:#78350f;margin-bottom:3px}
+
+.score-section{background:#f0fdf4;border:1.5px solid #86efac;border-radius:var(--radius);padding:14px;margin-top:14px;text-align:center}
+.score-big{font-size:2.5em;font-weight:700;color:var(--green)}
+.score-label{font-size:.8em;color:var(--muted);margin-top:4px}
+
+.tag-diff{display:inline-block;font-size:.7em;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+.diff-facile{background:#d1fae5;color:var(--green)}
+.diff-moyen{background:#fef3c7;color:#b45309}
+.diff-difficile{background:#fee2e2;color:var(--red)}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div>
+    <h1>📋 Simulateur Cas Pratique</h1>
+    <p>Concours Secrétaire Administratif — Catégorie B</p>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="screen active" id="screen-menu">
+  <div class="hero">
+    <h2>Choisissez un dossier</h2>
+    <p>7 cas pratiques inspirés des sujets réels — coefficient 3 — 3 heures</p>
+  </div>
+  <div class="cases-grid" id="cases-list"></div>
+</div>
+
+<!-- EXAMEN -->
+<div class="screen" id="screen-exam">
+  <div class="timer-bar">
+    <div>
+      <div class="timer-label">⏱ Temps restant</div>
+      <div class="timer-display" id="timer-display">3:00:00</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-outline" id="btn-pause" onclick="togglePause()" style="color:#fff;border-color:#fff">⏸ Pause</button>
+      <button class="btn btn-red" onclick="if(confirm('Terminer et voir le corrigé ?')) showCorrection()">Voir corrigé →</button>
+    </div>
+  </div>
+
+  <div class="exam-layout">
+    <!-- Dossier documentaire -->
+    <div>
+      <div class="panel">
+        <div class="panel-header">📄 Dossier documentaire</div>
+        <div class="panel-body" id="dossier-content"></div>
+      </div>
+    </div>
+
+    <!-- Questions + Rédaction -->
+    <div>
+      <div class="panel" style="margin-bottom:12px">
+        <div class="panel-header">❓ Questions posées</div>
+        <div class="questions-list" id="questions-content"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">✍️ Votre réponse</div>
+        <div class="redaction-area">
+          <div class="redaction-label">
+            <span>Rédigez votre réponse ici</span>
+            <span class="word-count" id="word-count">0 mots</span>
+          </div>
+          <textarea id="redaction-zone" placeholder="Commencez votre rédaction...&#10;&#10;Conseils :&#10;• Commencez par une introduction situant le contexte&#10;• Structurez avec des titres apparents&#10;• Reformulez les documents — ne copiez jamais&#10;• Utilisez le vocabulaire administratif" onInput="updateWordCount()"></textarea>
+          <div class="actions">
+            <button class="btn btn-green" onclick="showCorrection()">✅ Terminer — voir corrigé</button>
+            <button class="btn btn-outline" onclick="if(confirm('Revenir au menu ?')){clearInterval(timerInterval);showScreen('menu')}">← Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CORRIGÉ -->
+<div class="screen" id="screen-correction">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+    <h2 style="color:var(--navy);font-size:1.1em">📖 Corrigé indicatif</h2>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" onclick="showScreen('exam')">← Revenir à ma copie</button>
+      <button class="btn btn-navy" onclick="clearInterval(timerInterval);showScreen('menu')">🏠 Menu</button>
+    </div>
+  </div>
+  <div id="correction-content"></div>
+</div>
+
+<script>
+const CASES = [
+  {
+    id:1,
+    title:"Le numérique inclusif dans les services publics",
+    tag:"Politiques publiques / Numérique",
+    desc:"Un EPCI de 45 000 habitants envisage de dématérialiser tous ses services. Vous devez analyser les enjeux et proposer une stratégie.",
+    diff:"moyen",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Rapport sur la fracture numérique en France (2024)",
+        source:"Source : Baromètre numérique CREDOC 2024 — données illustratives",
+        content:`En 2024, 13 millions de Français restent éloignés du numérique, soit environ 20% de la population. Cette fracture touche principalement les personnes âgées de plus de 75 ans (42% non-utilisateurs d'internet), les personnes à faibles revenus (31%) et les habitants de zones rurales isolées (24%).
+
+La dématérialisation des services publics, accélérée depuis 2020, a permis des gains d'efficacité importants : réduction des délais de traitement de 40%, économies estimées à 2,3 milliards d'euros par an. Cependant, le taux d'abandon lors des démarches en ligne atteint 28%, principalement dû à la complexité des interfaces et au manque de maîtrise des outils numériques.
+
+La loi du 7 octobre 2016 pour une République numérique pose le principe que la dématérialisation ne doit pas créer de nouvelles exclusions. L'article L112-9 du CRPA garantit le droit pour tout usager de réaliser ses démarches par voie non-numérique si il ne dispose pas d'un accès internet ou des compétences nécessaires.`
+      },
+      {
+        title:"Document 2 — Programme national Maisons France Services",
+        source:"Source : Circulaire Premier ministre du 1er juillet 2019 — données illustratives",
+        content:`Créées en 2019 en remplacement des Maisons de Services Au Public (MSAP), les Maisons France Services constituent le réseau de proximité pour accompagner les usagers dans leurs démarches administratives. Chaque structure propose l'accès aux services de : la CAF, la CPAM, Pôle Emploi / France Travail, la MSA, La Poste, la CARSAT et les services de l'État.
+
+L'objectif gouvernemental est d'atteindre 2 500 structures sur l'ensemble du territoire d'ici 2022, avec un maillage permettant un accès à moins de 30 minutes de tout domicile. En 2024, le réseau compte 2 674 structures. Le taux de satisfaction des usagers est de 93%.
+
+Coût de fonctionnement moyen : 150 000 € par an et par structure, dont 50% financés par l'État via le fonds national d'aménagement du territoire (FNADT).`
+      },
+      {
+        title:"Document 3 — Note interne — Bilan de la dématérialisation sur la communauté de communes (extrait)",
+        source:"Source : Note de la DSI — Communauté de communes de l'exemple — 2024 (données fictives)",
+        content:`Notre EPCI a engagé depuis 2022 un plan de dématérialisation progressif. Résultats à fin 2024 :
+- 67% des demandes de permis de construire traitées en ligne (objectif : 90% en 2025)
+- 45% des inscriptions aux services périscolaires dématérialisées
+- Réduction du personnel d'accueil physique de 8 à 5 agents
+
+Points de vigilance identifiés :
+→ Les demandes en ligne présentent un taux d'erreur de 34% (dossiers incomplets), générant des délais supplémentaires de traitement
+→ Plaintes en augmentation de 22% liées aux difficultés d'accès en ligne
+→ Les usagers de plus de 65 ans représentent 18% de la population mais 67% des plaintes
+
+Besoin identifié : dispositif d'accompagnement au numérique pour les publics fragilisés, formation des agents d'accueil à l'aidance numérique.`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez les enjeux de la dématérialisation des services publics pour les usagers et pour la collectivité. (8 points)", pts:"8 pts — 30 min conseillés"},
+      {num:2, text:"Proposez un plan d'action concret pour mettre en œuvre une stratégie d'inclusion numérique au sein de cet EPCI. Ce plan devra être réaliste et chiffré. (8 points)", pts:"8 pts — 40 min conseillés"},
+      {num:3, text:"Rédigez une note à destination du Directeur Général des Services résumant les conclusions de votre analyse et vos recommandations. (4 points)", pts:"4 pts — 25 min conseillés"},
+    ],
+    correction:{
+      intro:`Ce cas pratique porte sur l'inclusion numérique dans les services publics. Il teste votre capacité à analyser un problème de politique publique, à proposer des solutions concrètes et à rédiger des documents professionnels.`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse des enjeux",
+          bareme:"/ 8 points",
+          elements:[
+            "ENJEUX POUR LES USAGERS (4 pts) :",
+            "• Positifs : simplification des démarches, disponibilité 24h/24, réduction des délais de traitement (doc.1 : -40%), moins de déplacements",
+            "• Négatifs : 13 millions de Français exclus (doc.1), taux d'abandon de 28%, risque d'une administration à deux vitesses",
+            "• Cadre juridique à citer : art. L112-9 CRPA → droit garanti à une voie non-numérique",
+            "",
+            "ENJEUX POUR LA COLLECTIVITÉ (4 pts) :",
+            "• Gains : économies (2,3 Mds€/an national), efficacité, modernisation de l'image",
+            "• Risques : augmentation des plaintes (+22% doc.3), coûts de formation, taux d'erreur des dossiers en ligne (34%)",
+            "• Obligation légale : la dématérialisation ne doit pas créer de nouvelles exclusions (loi 2016)"
+          ],
+          conseil:"Les meilleures copies organisent en 2 parties équilibrées et citent les données chiffrées des documents."
+        },
+        {
+          num:2,
+          titre:"Plan d'action inclusion numérique",
+          bareme:"/ 8 points",
+          elements:[
+            "Un bon plan doit comporter 3 axes :",
+            "",
+            "AXE 1 — Accompagnement humain (3 pts)",
+            "• Former les 5 agents d'accueil à l'aidance numérique (formation CNFPT)",
+            "• Créer des permanences dédiées aux publics fragilisés (65+, personnes en situation de handicap)",
+            "• Solliciter le réseau France Services si absent sur le territoire",
+            "",
+            "AXE 2 — Simplification des interfaces (3 pts)",
+            "• Audit des formulaires en ligne → simplifier les plus abandonnés",
+            "• Mettre en place des tutoriels vidéo, des FAQ, un numéro d'aide téléphonique",
+            "• Tests utilisateurs avec des panels d'usagers fragilisés avant tout déploiement",
+            "",
+            "AXE 3 — Maintien des voies alternatives (2 pts)",
+            "• Garantir un accueil physique pour toutes les démarches (art. L112-9 CRPA)",
+            "• Horaires d'accueil adaptés aux besoins des publics éloignés du numérique",
+            "• Communication claire sur les droits des usagers"
+          ],
+          conseil:"Les plans chiffrés (budget estimatif, délais de mise en œuvre, indicateurs de suivi) obtiennent les meilleures notes."
+        },
+        {
+          num:3,
+          titre:"Note au DGS",
+          bareme:"/ 4 points",
+          elements:[
+            "STRUCTURE ATTENDUE :",
+            "",
+            "NOTE",
+            "À : Monsieur le Directeur Général des Services",
+            "De : [votre fonction]",
+            "Objet : Stratégie d'inclusion numérique — recommandations",
+            "Date : [date]",
+            "",
+            "Suite à l'analyse du dossier relatif à la dématérialisation de nos services, j'ai l'honneur de vous soumettre les conclusions suivantes.",
+            "",
+            "I. CONSTATS",
+            "La dématérialisation engagée depuis 2022 produit des résultats positifs mais révèle une fracture numérique préoccupante : 67% de plaintes concentrées sur les usagers de +65 ans, taux d'erreur de 34% des dossiers en ligne.",
+            "",
+            "II. RECOMMANDATIONS",
+            "[reprendre les 3 axes du plan d'action]",
+            "",
+            "Je reste à votre disposition pour tout complément d'information.",
+            "[signature]"
+          ],
+          conseil:"La note doit être formellement correcte : destinataire, objet, date, formule finale. 1 point sur 4 porte sur la forme."
+        }
+      ],
+      jury_tips:[
+        "Citez toujours les articles de loi avec leur numéro exact (art. L112-9 CRPA, loi du 7 octobre 2016...)",
+        "Les chiffres des documents doivent apparaître dans votre réponse — le jury vérifie que vous avez lu le dossier",
+        "La note au DGS doit respecter le format administratif strict — pertes de points garanties si pas de destinataire/objet/date",
+        "Évitez les formulations vagues : 'il faudrait former les agents' → 'former les 5 agents d'accueil via le CNFPT, délai : 6 mois, coût estimé : 2 000€/agent'",
+        "La problématique du droit à l'accueil physique (art. L112-9 CRPA) est centrale — ne pas l'oublier"
+      ]
+    }
+  },
+  {
+    id:2,
+    title:"Gestion d'un agent en difficulté professionnelle",
+    tag:"Ressources humaines / Statut",
+    desc:"Un agent de votre service présente des absences répétées et un comportement problématique. Vous devez gérer cette situation en tant que SA.",
+    diff:"difficile",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Extrait du dossier individuel de M. Durand",
+        source:"Source : Dossier fictif à titre pédagogique",
+        content:`M. Laurent Durand, 48 ans, adjoint administratif principal de 2e classe, titulaire depuis 2005, affecté au service des finances depuis 2018. Dernière notation (avant réforme) : 14/20 en 2014. Dernier entretien professionnel (EPA) : mention "à améliorer" en 2023, objectifs non atteints.
+
+Absences sur les 12 derniers mois :
+- Congés maladie ordinaire : 42 jours (4 arrêts)
+- 3 retards signalés non justifiés
+- 1 journée d'absence sans justificatif
+
+Incidents signalés par le responsable de service :
+- 15/09/2024 : altercation verbale avec un collègue (témoin : Mme Martin)
+- 03/11/2024 : refus d'exécuter une tâche demandée par le responsable direct
+- 20/01/2025 : propos déplacés envers un usager (plainte écrite reçue)`
+      },
+      {
+        title:"Document 2 — Extraits du CGFP relatifs aux obligations et à la discipline",
+        source:"Source : CGFP (ordonnance n°2021-1574 du 24 novembre 2021)",
+        content:`Art. L121-1 : Le fonctionnaire exerce ses fonctions avec dignité, impartialité, intégrité et probité.
+
+Art. L121-9 : Le fonctionnaire est responsable de l'exécution des tâches qui lui sont confiées. Il doit se conformer aux instructions de son supérieur hiérarchique, sauf dans le cas où l'ordre donné est manifestement illégal et de nature à compromettre gravement un intérêt public.
+
+Art. L530-1 : Tout manquement aux obligations auxquelles les fonctionnaires sont soumis expose son auteur à une sanction disciplinaire.
+
+Art. L531-1 (sanctions du 1er groupe) : l'avertissement, le blâme, l'exclusion temporaire de fonctions pour une durée maximale de trois jours.
+Art. L531-2 (sanctions du 2e groupe) : la radiation du tableau d'avancement, l'abaissement d'échelon, l'exclusion temporaire de 4 à 15 jours.
+Art. L531-3 (sanctions du 3e groupe) : la rétrogradation, l'exclusion temporaire de 16 jours à 2 ans.
+Art. L531-4 (sanctions du 4e groupe) : la mise à la retraite d'office, la révocation.
+
+Art. L532-4 : La prescription des poursuites disciplinaires est de 3 ans à compter du jour où l'administration a eu connaissance des faits passibles de sanction.`
+      },
+      {
+        title:"Document 3 — Note du médecin de prévention (extrait anonymisé)",
+        source:"Source : Médecin de prévention — Note fictive",
+        content:`Après entretien avec M. D. le 15 janvier 2025, je constate une situation de souffrance au travail. L'agent évoque un sentiment d'isolement dans son service, des difficultés relationnelles avec sa hiérarchie directe et une perte de sens dans ses missions.
+
+Je recommande :
+1. Un entretien avec le responsable RH dans les meilleurs délais
+2. L'orientation vers le dispositif d'aide aux agents en difficulté (DRAD)
+3. L'étude d'un possible aménagement de poste ou d'une mobilité interne
+4. Un suivi médical renforcé
+
+Je souligne que les absences répétées peuvent être le symptôme d'une situation de mal-être professionnel nécessitant une approche bienveillante en complément de la gestion disciplinaire.`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez la situation de M. Durand en distinguant les aspects disciplinaires, médicaux et humains. Quelles obligations l'administration a-t-elle dans ce contexte ? (8 points)", pts:"8 pts — 35 min conseillés"},
+      {num:2, text:"Proposez un plan de traitement de cette situation qui prenne en compte l'ensemble des dimensions identifiées. (7 points)", pts:"7 pts — 35 min conseillés"},
+      {num:3, text:"Rédigez la convocation de M. Durand à un entretien préalable à une éventuelle sanction disciplinaire du 1er groupe. (5 points)", pts:"5 pts — 20 min conseillés"},
+    ],
+    correction:{
+      intro:`Ce cas est complexe : il mêle droit disciplinaire, gestion RH, et dimension humaine (souffrance au travail). Les meilleures copies distinguent soigneusement ces trois dimensions sans en négliger aucune.`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse de la situation",
+          bareme:"/ 8 points",
+          elements:[
+            "DIMENSION DISCIPLINAIRE (3 pts) :",
+            "• Manquements constatés : absences injustifiées, refus d'obéissance (art. L121-9 CGFP), propos déplacés envers usager, altercation",
+            "• Faits passibles de sanction disciplinaire (art. L530-1 CGFP)",
+            "• Prescription : 3 ans (art. L532-4) → vérifier que les faits ne sont pas prescrits",
+            "• Sanctions envisageables : 1er ou 2e groupe selon gravité après instruction",
+            "",
+            "DIMENSION MÉDICALE (2 pts) :",
+            "• 42 jours de CMO sur 12 mois → possible maladie imputable au service ?",
+            "• Médecin de prévention identifie une souffrance au travail",
+            "• L'administration a une obligation de prévention des risques psychosociaux (RPS) — DUERP",
+            "• CLM possible si maladie reconnue grave",
+            "",
+            "DIMENSION HUMAINE (3 pts) :",
+            "• Devoir de sollicitude de l'employeur public → ne pas confondre gestion disciplinaire et accompagnement",
+            "• Obligations RH : entretien bienveillant, orientation vers le DRAD, étude de mobilité interne",
+            "• Protection contre le harcèlement moral : l'employeur doit s'assurer que les comportements ne résultent pas d'un harcèlement"
+          ],
+          conseil:"Un bon candidat n'applique pas le droit disciplinaire mécaniquement. Il prend en compte la note du médecin et montre qu'il sait gérer avec humanité."
+        },
+        {
+          num:2,
+          titre:"Plan de traitement",
+          bareme:"/ 7 points",
+          elements:[
+            "PHASE 1 — IMMÉDIAT (J+1 à J+15) (3 pts) :",
+            "• Entretien RH avec M. Durand : écouter, expliquer les attentes, proposer l'aide du DRAD",
+            "• Réunion avec le responsable de service : clarifier les attentes, prévenir toute escalade",
+            "• Consultation du médecin de prévention pour aménagement de poste éventuel",
+            "",
+            "PHASE 2 — COURT TERME (J+15 à J+60) (2 pts) :",
+            "• Si comportements persistent : engager la procédure disciplinaire formelle",
+            "• Convocation à entretien préalable (pour sanctions 1er groupe sans CAP)",
+            "• Étudier une mobilité interne si le conflit avec le service est structurel",
+            "",
+            "PHASE 3 — SUIVI (3-6 mois) (2 pts) :",
+            "• Nouveau EPA à 3 mois avec objectifs clairs et mesurables",
+            "• Suivi médical avec le médecin de prévention",
+            "• Bilan à 6 mois : si amélioration → accompagnement / si persistance → procédure disciplinaire adaptée"
+          ],
+          conseil:"Le plan doit être chronologique et réaliste. Les sanctions ne doivent pas être la première réponse — montrez que vous avez essayé d'autres approches d'abord."
+        },
+        {
+          num:3,
+          titre:"Convocation à entretien préalable",
+          bareme:"/ 5 points",
+          elements:[
+            "COMMUNAUTÉ DE COMMUNES DE [NOM]",
+            "Direction des Ressources Humaines",
+            "",
+            "CONVOCATION À ENTRETIEN PRÉALABLE",
+            "",
+            "À : M. Laurent DURAND",
+            "Adjoint administratif principal de 2e classe",
+            "Service des finances",
+            "",
+            "Monsieur,",
+            "",
+            "J'ai l'honneur de vous informer que vous êtes convoqué à un entretien préalable à une éventuelle sanction disciplinaire.",
+            "",
+            "Cet entretien aura lieu le [date], à [heure], dans les locaux de la Direction des Ressources Humaines, [adresse].",
+            "",
+            "Il est relatif aux faits suivants, qui vous sont reprochés :",
+            "- Absences non justifiées en date du [date]",
+            "- Refus d'exécuter une tâche demandée par votre supérieur hiérarchique le 03/11/2024",
+            "- Propos déplacés envers un usager le 20/01/2025",
+            "",
+            "Vous pouvez vous faire assister, lors de cet entretien, par un ou plusieurs défenseurs de votre choix.",
+            "Vous avez la possibilité de consulter votre dossier individuel auprès du service RH.",
+            "",
+            "Je vous prie d'agréer, Monsieur, l'expression de mes salutations distinguées.",
+            "",
+            "[Signature]",
+            "[Nom, Prénom]",
+            "[Fonction]",
+            "[Date]"
+          ],
+          conseil:"La convocation doit mentionner : les faits reprochés précis avec dates, le droit à être assisté, la possibilité de consulter son dossier. L'oubli d'un élément fait perdre des points."
+        }
+      ],
+      jury_tips:[
+        "Ne jamais appliquer le droit disciplinaire sans évoquer la dimension humaine — le jury pénalise les copies 'rigides'",
+        "Les articles du CGFP doivent être cités avec leur numéro (art. L530-1, L531-1...)",
+        "La convocation est un acte formel — respecter le format administratif strict",
+        "Le DRAD (dispositif d'aide aux agents en difficulté) est un outil RH peu connu mais apprécié du jury",
+        "Penser à la prescription disciplinaire (3 ans) — un fait prescrit ne peut fonder une sanction"
+      ]
+    }
+  },
+  {
+    id:3,
+    title:"Accessibilité et handicap dans une collectivité",
+    tag:"Politiques publiques / RH",
+    desc:"Votre collectivité n'atteint pas son obligation d'emploi de 6% de travailleurs handicapés. Vous devez proposer un plan d'action.",
+    diff:"facile",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Bilan OETH 2024 de la collectivité",
+        source:"Source : Bilan RH fictif — données illustratives",
+        content:`La Ville de X (1 200 agents) présente au titre de l'exercice 2024 un taux d'emploi de travailleurs handicapés de 3,8%, soit 46 unités bénéficiaires, pour une obligation légale de 72 unités (6% de 1 200 agents).
+
+Écart : 26 unités manquantes.
+Contribution au FIPHFP pour 2024 : 78 000 € (pénalité financière versée à titre obligatoire).
+
+Profil des agents RQTH actuels :
+- 38 agents en situation de handicap physique (mobilité)
+- 5 agents malentendants
+- 3 agents en situation de handicap psychique
+
+Actions déjà menées : adaptation de 12 postes de travail, aménagement de 3 parkings, installation d'un ascenseur en 2022.`
+      },
+      {
+        title:"Document 2 — Loi du 11 février 2005 et dispositifs FIPHFP",
+        source:"Source : Loi n°2005-102 du 11 février 2005 — FIPHFP — données illustratives",
+        content:`La loi du 11 février 2005 pour l'égalité des droits et des chances impose à tout employeur public de plus de 20 agents un taux d'emploi de travailleurs handicapés (OETH) de 6% de l'effectif total.
+
+Modalités de calcul : sont comptabilisées les unités bénéficiaires (UB), calculées selon la nature du handicap et le temps de travail. Un agent à plein temps avec une RQTH compte pour 1 UB. Les contrats avec le STPA (secteur du travail protégé et adapté) et les stages permettent de réduire partiellement l'obligation.
+
+Le FIPHFP (Fonds pour l'Insertion des Personnes Handicapées dans la Fonction Publique) finance :
+- Aménagement de postes (jusqu'à 10 000 €/poste)
+- Prothèses et aides techniques
+- Formation et accompagnement des agents
+- Sensibilisation des équipes (0 à 2 000 €/action)
+- Recrutement par voie contractuelle dérogatoire (RQTH)
+
+Contribution 2024 : entre 400 et 600 fois le SMIC horaire par unité manquante.`
+      },
+      {
+        title:"Document 3 — Guide du recrutement de personnes handicapées dans la FPT",
+        source:"Source : CNFPT — Guide pratique — données illustratives",
+        content:`Les employeurs publics disposent de plusieurs voies pour recruter des agents en situation de handicap :
+
+1. VOIE CONTRACTUELLE DÉROGATOIRE : recrutement direct par contrat (sans concours) pour les personnes reconnues handicapées (RQTH), avec CDI possible après 1 an. Ouverte dans tous les corps et cadres d'emplois.
+
+2. CONCOURS ADAPTÉ : aménagement des épreuves (temps majoré, accessibilité, matériel adapté) sur demande du candidat.
+
+3. APPRENTISSAGE : recrutement d'apprentis en situation de handicap sans limite d'âge (dérogation au plafond de 30 ans).
+
+4. CONVENTIONS FIPHFP : la collectivité peut signer une convention pluriannuelle avec le FIPHFP pour financer un programme global d'actions sur 3 ans, se substituant partiellement à la contribution financière.
+
+5. PARTENARIATS : Cap Emploi (opérateur spécialisé), associations du secteur protégé (ESAT), Missions Locales.
+
+Bonnes pratiques identifiées : désigner un référent handicap dédié, former les managers, sensibiliser les équipes, adapter l'accueil des nouveaux agents RQTH.`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez la situation de la collectivité au regard de ses obligations légales. Quelles sont les conséquences financières et réputationnelles du déficit constaté ? (6 points)", pts:"6 pts — 25 min conseillés"},
+      {num:2, text:"Proposez un plan d'action sur 3 ans pour atteindre l'objectif de 6%. Ce plan doit identifier les actions, les acteurs, les coûts estimatifs et les indicateurs de suivi. (10 points)", pts:"10 pts — 50 min conseillés"},
+      {num:3, text:"Rédigez un courriel à Cap Emploi pour solliciter un partenariat dans le cadre du recrutement de travailleurs handicapés. (4 points)", pts:"4 pts — 20 min conseillés"},
+    ],
+    correction:{
+      intro:`Ce cas pratique est plus accessible car les enjeux sont bien circonscrits : droit, finances, plan d'action. Il récompense la méthode, la rigueur et la connaissance des dispositifs (FIPHFP, Cap Emploi, RQTH).`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse de la situation",
+          bareme:"/ 6 points",
+          elements:[
+            "SITUATION LÉGALE (3 pts) :",
+            "• Obligation légale : 6% des effectifs soit 72 UB (loi du 11/02/2005)",
+            "• Taux actuel : 3,8% = 46 UB → déficit de 26 unités",
+            "• Employeurs concernés : toute administration publique de + de 20 agents",
+            "• La collectivité est en infraction légale depuis au moins 2024",
+            "",
+            "CONSÉQUENCES FINANCIÈRES (2 pts) :",
+            "• Contribution FIPHFP 2024 : 78 000€ (à citer du doc.1)",
+            "• Calcul : entre 400 et 600 fois le SMIC horaire par unité manquante (doc.2)",
+            "• Coût cumulé si rien n'est fait : 78 000€ × 3 ans = 234 000€ minimum",
+            "",
+            "CONSÉQUENCES RÉPUTATIONNELLES (1 pt) :",
+            "• Image employeur dégradée → difficulté à recruter",
+            "• RSU obligatoire → données publiques, consultables par les syndicats et le CST",
+            "• Risque de couverture médiatique négative"
+          ],
+          conseil:"Citer les chiffres exacts des documents valorise votre réponse. 78 000€ de pénalité doit apparaître."
+        },
+        {
+          num:2,
+          titre:"Plan d'action 3 ans",
+          bareme:"/ 10 points",
+          elements:[
+            "STRUCTURE ATTENDUE — PLAN EN 3 AXES :",
+            "",
+            "AXE 1 — RECRUTEMENT (4 pts)",
+            "• An 1 : Recruter 8 agents via voie contractuelle dérogatoire RQTH (sans concours)",
+            "  - Partenariat Cap Emploi → vivier de candidats",
+            "  - Partenariat ESAT → contrats de prestations comptabilisables",
+            "  - Recrutement d'apprentis RQTH (sans limite d'âge)",
+            "• An 2-3 : Maintenir 5-8 recrutements annuels selon départs",
+            "• Budget : 0€ de surcoût (salaires = salaires normaux) + convention FIPHFP",
+            "",
+            "AXE 2 — MAINTIEN DANS L'EMPLOI (3 pts)",
+            "• Désigner un référent handicap dédié (obligation légale si +250 agents)",
+            "• Financer les aménagements via FIPHFP (jusqu'à 10 000€/poste)",
+            "• Former 100% des managers à l'accueil des agents RQTH (financement FIPHFP : 2 000€/action)",
+            "• Sensibiliser les équipes : Semaine SEEPH chaque novembre",
+            "",
+            "AXE 3 — PILOTAGE ET CONVENTION FIPHFP (3 pts)",
+            "• Signer une convention pluriannuelle FIPHFP → réduit la contribution obligatoire",
+            "• Indicateurs : taux OETH trimestriel, nombre UB, budget FIPHFP utilisé vs contribution",
+            "• Objectif : An 1 : 4,5% / An 2 : 5,2% / An 3 : 6%",
+            "• Rapport annuel au CST obligatoire (RSU)"
+          ],
+          conseil:"Un plan avec des objectifs chiffrés annuels et des indicateurs de suivi obtient 2 points de bonus. Ne pas oublier la convention FIPHFP — peu de candidats la citent."
+        },
+        {
+          num:3,
+          titre:"Courriel à Cap Emploi",
+          bareme:"/ 4 points",
+          elements:[
+            "Objet : Demande de partenariat — Recrutement de travailleurs handicapés",
+            "",
+            "Madame, Monsieur,",
+            "",
+            "La Ville de X, employeur public de 1 200 agents, souhaite renforcer sa politique d'inclusion des personnes en situation de handicap dans le cadre de ses obligations au titre de la loi du 11 février 2005.",
+            "",
+            "Dans ce contexte, je me permets de vous contacter afin d'explorer les modalités d'un partenariat avec votre structure pour :",
+            "- L'accès à votre vivier de candidats en situation de handicap (RQTH)",
+            "- L'accompagnement de nos recrutements via la voie contractuelle dérogatoire",
+            "- La formation de nos managers à l'accueil et à l'intégration de ces agents",
+            "",
+            "Pourriez-vous nous indiquer les suites que vous seriez en mesure de donner à cette démarche et nous proposer un rendez-vous de présentation ?",
+            "",
+            "Je reste à votre disposition pour tout renseignement complémentaire.",
+            "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.",
+            "",
+            "[Prénom NOM]",
+            "Responsable RH / Secrétaire Administratif(ve)",
+            "Ville de X — Direction des Ressources Humaines",
+            "Tél : XX XX XX XX XX"
+          ],
+          conseil:"Le courriel doit être professionnel, concis et comporter un objet précis, une présentation de la collectivité, la demande claire, et une formule de politesse adaptée."
+        }
+      ],
+      jury_tips:[
+        "Citer la loi du 11 février 2005 avec sa date exacte est obligatoire",
+        "FIPHFP est le dispositif central — ne pas le mentionner est une faute grave pour un SA",
+        "Le plan doit être SMART : Spécifique, Mesurable, Atteignable, Réaliste, Temporel",
+        "La convention FIPHFP (axe 3) est un élément discriminant que peu de candidats connaissent",
+        "Le courriel vers Cap Emploi doit être formel mais pas protocolaire — Cap Emploi n'est pas un supérieur hiérarchique"
+      ]
+    }
+  }
+,
+  {
+    id:4,
+    title:"Organisation du temps de travail et CET",
+    tag:"Temps de travail / RH",
+    desc:"Votre collectivité doit mettre en œuvre le passage aux 1607h annuelles et gérer les CET de ses agents. Plusieurs agents contestent les nouvelles règles.",
+    diff:"moyen",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Note de la DRH sur le passage aux 1607h",
+        source:"Source : Note interne fictive — données illustratives",
+        content:`La collectivité emploie 320 agents. Suite à la loi du 6 août 2019 de transformation de la FP, l'obligation de respecter la durée légale de 1607h annuelles s'applique à compter du 1er janvier 2022 pour toutes les collectivités (délai de mise en conformité expiré).
+
+Situation actuelle (non conforme) :
+- Régime appliqué depuis 2004 : 1 540h/an (avec des jours de congés supplémentaires historiques accordés par délibération)
+- Nombre d'agents concernés par la remise à niveau : 287 agents
+- Impact moyen par agent : +67h/an soit +8,4 jours travaillés
+- 3 agents ont déposé un recours gracieux contestant la suppression des jours supplémentaires
+
+CET (Compte Épargne Temps) des agents :
+- 45 agents possèdent un CET
+- Soldes : de 3 à 68 jours selon les agents
+- 1 agent (M. Blanc) a 68 jours épargnés depuis 2008
+- Plafond réglementaire : 70 jours maximum`
+      },
+      {
+        title:"Document 2 — Extraits du cadre réglementaire temps de travail FPT",
+        source:"Source : Loi 84-53, décret 2001-623, loi 2019-828 — données illustratives",
+        content:`LOI DU 26 JANVIER 1984 (art. 7-1) : Les collectivités territoriales et établissements publics locaux fixent, par délibération, les règles relatives au temps de travail de leurs agents, dans les limites applicables aux agents de l'État.
+
+DÉCRET DU 12 JUILLET 2001 (n°2001-623) : La durée hebdomadaire de travail est de 35h, soit 1607h annuelles (incluant la journée de solidarité). Des cycles de travail peuvent être mis en place (hebdomadaire, bimensuel, mensuel, annuel).
+
+LOI DU 6 AOÛT 2019 (art. 47) : Suppression des régimes dérogatoires permettant de travailler moins de 1607h. Délai d'adaptation : jusqu'au 1er janvier 2022. Les jours de congés supplémentaires accordés avant cette date ne peuvent être maintenus.
+
+COMPTE ÉPARGNE TEMPS (décret 2002-634) : 
+- Plafond : 70 jours maximum
+- Utilisation : prise en congé, indemnisation, versement sur PERCO/RAFP
+- Agents de 60 ans et plus : peuvent monétiser la totalité du CET
+- En cas de départ (retraite, mutation) : indemnisation obligatoire du solde
+
+HEURES SUPPLÉMENTAIRES : compensées en repos ou par IHTS (indemnité horaire pour travaux supplémentaires). Plafond : 25h/mois.`
+      },
+      {
+        title:"Document 3 — Courriers des agents contestataires (extraits)",
+        source:"Source : Courriers fictifs à titre pédagogique",
+        content:`RECOURS GRACIEUX — Agent A (Mme Petit) :
+"Je conteste la suppression de mes 8 jours de congés supplémentaires accordés depuis 15 ans. Ces jours constituent un avantage acquis que l'administration ne peut supprimer sans compensation."
+
+RECOURS GRACIEUX — Agent B (M. Garcia) :
+"La nouvelle organisation du temps de travail me contraint à modifier mes modes de garde de mes enfants. Je demande un aménagement de mes horaires ou le maintien de mes anciens congés."
+
+RECOURS GRACIEUX — Agent C (Mme Torres) :
+"En tant qu'agent à temps partiel (80%), les 1607h ne me sont pas applicables de la même façon. Je conteste le calcul effectué par la DRH qui me semble erroné."`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez la légalité de la situation actuelle de la collectivité et la solidité juridique des recours gracieux des agents. (7 points)", pts:"7 pts — 30 min conseillés"},
+      {num:2, text:"Proposez une réponse type aux recours gracieux des agents en expliquant le fondement juridique de la décision. (5 points)", pts:"5 pts — 25 min conseillés"},
+      {num:3, text:"M. Blanc souhaite utiliser ses 68 jours de CET. Quelles sont les options qui lui sont ouvertes ? Rédigez une note d'information à son attention. (8 points)", pts:"8 pts — 35 min conseillés"}
+    ],
+    correction:{
+      intro:`Ce cas teste la maîtrise des règles du temps de travail dans la FPT, souvent source d'erreurs au concours. La distinction entre droits acquis et situation réglementaire est centrale.`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse juridique de la situation",
+          bareme:"/ 7 points",
+          elements:[
+            "SITUATION DE LA COLLECTIVITÉ (3 pts) :",
+            "• Infraction caractérisée : le délai légal d'adaptation expirait au 01/01/2022 (loi 2019)",
+            "• La collectivité est en illégalité depuis cette date",
+            "• Risque : contrôle de légalité du préfet, déféré au TA, annulation de la délibération non conforme",
+            "• La mise en conformité est une obligation, pas un choix",
+            "",
+            "SOLIDITÉ DES RECOURS GRACIEUX (4 pts) :",
+            "• Agent A (avantage acquis) : RECOURS SANS FONDEMENT",
+            "  → Principe : pas de droit acquis au maintien d'un règlement (acte réglementaire modifiable à tout moment)",
+            "  → La suppression des jours supplémentaires est légalement imposée par la loi 2019",
+            "  → Jurisprudence constante du CE : les avantages accordés par délibération peuvent être supprimés",
+            "",
+            "• Agent B (mode de garde) : RECOURS SANS FONDEMENT JURIDIQUE mais humainement recevable",
+            "  → Pas de droit à des horaires adaptés pour convenance personnelle",
+            "  → Mais : l'administration peut accorder un aménagement au titre de la bienveillance, non de l'obligation",
+            "",
+            "• Agent C (temps partiel) : RECOURS POTENTIELLEMENT FONDÉ si calcul erroné",
+            "  → À 80% : durée annuelle = 1607h × 80% = 1285,6h soit 160,7 jours",
+            "  → Vérifier le calcul de la DRH avant de répondre"
+          ],
+          conseil:"La notion 'd'avantage acquis' est un piège classique. Dans la FP, il n'existe pas de droit acquis au maintien d'un règlement — le jury teste spécifiquement ce point."
+        },
+        {
+          num:2,
+          titre:"Réponse type aux recours gracieux",
+          bareme:"/ 5 points",
+          elements:[
+            "STRUCTURE DE LA RÉPONSE TYPE :",
+            "",
+            "Madame / Monsieur,",
+            "",
+            "Par courrier du [date], vous avez formé un recours gracieux contre [la décision de suppression de vos jours de congés supplémentaires / la nouvelle organisation du temps de travail].",
+            "",
+            "Après examen attentif de votre demande, j'ai l'honneur de vous informer qu'il n'est pas possible d'y donner une suite favorable pour les raisons suivantes :",
+            "",
+            "L'article 47 de la loi n°2019-828 du 6 août 2019 de transformation de la fonction publique impose à toutes les collectivités territoriales de se conformer à la durée légale de travail fixée à 1607 heures annuelles. Le délai d'adaptation a expiré le 1er janvier 2022.",
+            "",
+            "Les jours de congés supplémentaires accordés par délibération du [date] ne peuvent être maintenus dès lors qu'ils conduisaient à une durée annuelle inférieure à 1607 heures. En application du principe selon lequel nul n'a de droit acquis au maintien d'un règlement (CE, jurisprudence constante), cette modification ne saurait être considérée comme la suppression d'un droit définitivement acquis.",
+            "",
+            "Je vous informe que vous pouvez, dans un délai de 2 mois à compter de la présente notification, former un recours contentieux devant le Tribunal Administratif de [ville].",
+            "",
+            "Je vous prie d'agréer... [formule]"
+          ],
+          conseil:"La réponse doit : rejeter le recours, donner le fondement juridique précis, et obligatoirement indiquer les voies de recours (délai 2 mois + TA compétent). L'absence des voies de recours = perte de points."
+        },
+        {
+          num:3,
+          titre:"Options CET pour M. Blanc (68 jours)",
+          bareme:"/ 8 points",
+          elements:[
+            "NOTE D'INFORMATION",
+            "À : M. Blanc",
+            "Objet : Options d'utilisation de votre Compte Épargne Temps (68 jours)",
+            "",
+            "Monsieur,",
+            "Suite à votre demande, je vous présente les options disponibles pour l'utilisation de votre CET.",
+            "",
+            "OPTION 1 — PRISE EN CONGÉ (toujours possible)",
+            "• Utilisation des jours comme congés classiques",
+            "• Planification avec accord du responsable de service",
+            "• Peut être fractionné sur plusieurs années",
+            "",
+            "OPTION 2 — INDEMNISATION FINANCIÈRE (partielle)",
+            "• Les jours au-delà de 15 peuvent être indemnisés (arrêté fixe les taux)",
+            "• 68 jours - 15 jours maintenus en congé = 53 jours indemnisables maximum",
+            "• Taux d'indemnisation selon grade et échelon",
+            "",
+            "OPTION 3 — VERSEMENT SUR COMPTE RETRAITE",
+            "• Versement sur le RAFP (Retraite Additionnelle FP) ou PERCO si existant",
+            "• Avantage : valorisation pour la retraite",
+            "",
+            "OPTION 4 — COMBINAISON DES 3 OPTIONS",
+            "• Vous pouvez panacher selon vos besoins",
+            "• Exemple : 20 jours en congé + 30 jours indemnisés + 18 jours sur RAFP",
+            "",
+            "ATTENTION : Le plafond de 70 jours ne doit pas être dépassé.",
+            "Vous êtes actuellement à 68 jours — vous ne pouvez épargner que 2 jours supplémentaires.",
+            "",
+            "Je reste à votre disposition pour tout renseignement."
+          ],
+          conseil:"La note doit présenter TOUTES les options (4 options) — oublier l'une d'elles fait perdre des points. Le plafond de 70 jours doit être mentionné."
+        }
+      ],
+      jury_tips:[
+        "Piège majeur : 'avantage acquis' — dans la FP, pas de droit acquis au maintien d'un règlement. Les régimes dérogatoires de temps de travail pouvaient légalement être supprimés.",
+        "La réponse au recours gracieux doit TOUJOURS indiquer les voies de recours contentieux (2 mois, TA compétent)",
+        "Pour le temps partiel (Agent C) : penser à vérifier le calcul proportionnel avant de répondre",
+        "CET : 4 options possibles — les candidats oublient souvent le RAFP",
+        "1607h inclut la journée de solidarité — dire '1607h = 35h × 52 semaines' est faux (35×52=1820h) : c'est 35h × 45,9 semaines travaillées"
+      ]
+    }
+  },
+  {
+    id:5,
+    title:"Commande publique — Marché de restauration collective",
+    tag:"Finances publiques / Commande publique",
+    desc:"Votre collectivité doit renouveler son marché de restauration scolaire. Elle doit intégrer les obligations EGAlim et les critères développement durable.",
+    diff:"difficile",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Note de lancement du marché — Service marchés publics",
+        source:"Source : Note interne fictive — données illustratives",
+        content:`La commune de X (12 500 habitants) exploite en régie directe un service de restauration scolaire desservant 3 écoles primaires, soit 480 repas/jour en période scolaire.
+
+Le marché actuel d'approvisionnement en denrées alimentaires expire le 31 août 2025. Un nouveau marché doit être lancé pour la rentrée de septembre 2025.
+
+Données financières :
+- Coût annuel actuel des denrées : 187 000 €
+- Coût moyen par repas : 1,95 € de denrées
+- Budget prévisionnel 2025-2026 : 200 000 € (augmentation anticipée)
+
+Contraintes identifiées :
+- Obligation EGAlim : 50% de produits durables et de qualité dont 20% bio minimum depuis janvier 2022
+- Taux actuel : 28% de produits durables, 6% de bio (NON CONFORME)
+- Délai : procédure à lancer impérativement avant le 15 mai 2025 pour respecter les délais légaux`
+      },
+      {
+        title:"Document 2 — Extraits du Code de la commande publique",
+        source:"Source : Code de la commande publique — articles illustratifs",
+        content:`ART. L2111-1 : Les acheteurs prennent en compte des objectifs de développement durable dans la définition des besoins. Tout marché public doit comporter au moins une considération relative à l'environnement (depuis loi Climat du 22 août 2021).
+
+SEUILS DE PROCÉDURE (au 1er janvier 2024) :
+- Moins de 40 000 € HT : marché sans publicité ni mise en concurrence formalisée
+- De 40 000 € à 221 000 € HT : procédure adaptée (MAPA) — publicité obligatoire
+- Au-delà de 221 000 € HT : appel d'offres ouvert obligatoire
+
+CRITÈRES D'ATTRIBUTION : Le marché est attribué au soumissionnaire ayant présenté l'offre économiquement la plus avantageuse. Critères possibles : prix, qualité, délais, critères environnementaux et sociaux. Pondération obligatoire. Le critère prix seul est interdit depuis 2016.
+
+ALLOTISSEMENT : L'acheteur est tenu de diviser ses marchés en lots pour favoriser l'accès des PME, sauf si cela rend l'exécution du marché plus difficile ou plus coûteuse.
+
+CLAUSES SOCIALES : L'acheteur peut imposer des clauses d'insertion professionnelle (heures d'insertion réservées à des personnes éloignées de l'emploi).`
+      },
+      {
+        title:"Document 3 — Bilan EGAlim des cantines scolaires en France (2024)",
+        source:"Source : Rapport Observatoire National de la Restauration Collective — données illustratives",
+        content:`La loi EGAlim du 30 octobre 2018 impose depuis le 1er janvier 2022 dans toute restauration collective publique un approvisionnement composé d'au moins :
+- 50% de produits durables et de qualité (labels : AOP, AOC, IGP, HVE, commerce équitable, produits bio, circuit court avec label...)
+- dont minimum 20% de produits issus de l'agriculture biologique
+
+Résultats 2024 (enquête nationale) :
+- 34% des cantines scolaires respectent les deux obligations (50% durable + 20% bio)
+- 58% respectent partiellement l'une des deux obligations
+- 8% sont très en dessous des seuils
+
+Principaux freins identifiés :
+1. Surcoût estimé entre 8% et 15% par rapport à des approvisionnements conventionnels
+2. Difficultés d'approvisionnement en bio local hors saison
+3. Manque de compétences en rédaction des marchés pour intégrer ces critères
+
+Outils disponibles :
+- Programme National pour l'Alimentation (PNA) : subventions jusqu'à 50% des surcoûts pour les petites communes
+- Groupements de commandes : plusieurs communes mutualisent leurs achats
+- Plateforme nationale Agrilocal : mise en relation avec producteurs locaux`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez la situation de la commune au regard de ses obligations légales en matière de commande publique et d'alimentation durable. Quels sont les risques encours ? (6 points)", pts:"6 pts — 25 min conseillés"},
+      {num:2, text:"Définissez la procédure de passation du marché à mettre en œuvre, en justifiant chaque choix (seuil, allotissement, critères). (8 points)", pts:"8 pts — 40 min conseillés"},
+      {num:3, text:"Proposez une stratégie pour atteindre les obligations EGAlim dans le cadre de ce nouveau marché, en tenant compte des contraintes budgétaires. (6 points)", pts:"6 pts — 30 min conseillés"}
+    ],
+    correction:{
+      intro:`Ce cas pratique teste la connaissance du Code de la commande publique ET de la loi EGAlim. Deux domaines que le SA doit maîtriser ensemble. Il récompense la méthode, la rigueur et la capacité à proposer des solutions concrètes.`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse des obligations et risques",
+          bareme:"/ 6 points",
+          elements:[
+            "OBLIGATIONS COMMANDE PUBLIQUE (2 pts) :",
+            "• Budget : 200 000 € → au-dessus de 221 000 € ? Non : 200 000 € < 221 000 € → MAPA (procédure adaptée)",
+            "• Mais : obligation de publicité et mise en concurrence formalisée (>40 000 €)",
+            "• Obligation depuis 2021 : au moins un critère environnemental dans tout marché",
+            "• Critère prix seul interdit → pondération obligatoire",
+            "",
+            "OBLIGATIONS EGALIM (2 pts) :",
+            "• Obligation légale depuis 01/01/2022 : 50% durable + 20% bio minimum",
+            "• Situation actuelle : 28% durable, 6% bio → NON CONFORME sur les deux obligations",
+            "• La commune est en infraction légale depuis 2022",
+            "",
+            "RISQUES (2 pts) :",
+            "• Risque contentieux : un concurrent évincé ou une association peut attaquer le marché si critères EGAlim absents",
+            "• Risque financier : sanction possible si contrôle préfectoral",
+            "• Risque pénal (rare mais possible) : délit de favoritisme si procédure non respectée",
+            "• Risque réputationnel : médiatisation des manquements EGAlim en hausse"
+          ],
+          conseil:"Bien distinguer les deux types d'obligations : commande publique (CCP) et alimentation (EGAlim). Beaucoup de candidats n'évoquent pas le risque contentieux."
+        },
+        {
+          num:2,
+          titre:"Procédure de passation",
+          bareme:"/ 8 points",
+          elements:[
+            "SEUIL ET PROCÉDURE (2 pts) :",
+            "• 200 000 € HT < 221 000 € HT → MAPA (Marché à Procédure Adaptée)",
+            "• Publicité obligatoire : avis sur support habilité (BOAMP, profil acheteur)",
+            "• Délai de remise des offres : au moins 15 jours (MAPA), recommandé 3 semaines",
+            "",
+            "ALLOTISSEMENT (2 pts) :",
+            "• Obligation de principe d'allotir pour favoriser les PME et producteurs locaux",
+            "• Lots suggérés :",
+            "  - Lot 1 : produits laitiers et œufs",
+            "  - Lot 2 : viandes et poissons",
+            "  - Lot 3 : fruits et légumes (bio/local prioritaire)",
+            "  - Lot 4 : épicerie et produits secs",
+            "• L'allotissement facilite l'entrée des producteurs locaux (Agrilocal)",
+            "",
+            "CRITÈRES D'ATTRIBUTION (4 pts) :",
+            "• Critère 1 — Prix : 40% (réduit pour ne pas évincer le bio)",
+            "• Critère 2 — Qualité et durabilité : 35% (part bio, labels, circuit court)",
+            "• Critère 3 — Valeur nutritionnelle et qualité gustative : 15%",
+            "• Critère 4 — Performances en matière d'insertion : 10% (clauses sociales)",
+            "• Total : 100% — Prix ≠ critère unique → légal",
+            "• Sous-critères qualité à détailler dans le CCTP"
+          ],
+          conseil:"Les 4 critères avec pondération chiffrée totale à 100% = réponse attendue. La pondération doit être cohérente : donner trop de poids au prix reviendrait à ignorer EGAlim."
+        },
+        {
+          num:3,
+          titre:"Stratégie EGAlim",
+          bareme:"/ 6 points",
+          elements:[
+            "LEVIER 1 — RÉDACTION DU MARCHÉ (2 pts) :",
+            "• Intégrer dans le CCTP les exigences EGAlim comme conditions d'exécution obligatoires",
+            "• Exiger des candidats un plan d'approvisionnement détaillant la part bio/durable",
+            "• Prévoir des pénalités contractuelles en cas de non-respect des seuils",
+            "",
+            "LEVIER 2 — APPROVISIONNEMENT LOCAL (2 pts) :",
+            "• S'inscrire sur la plateforme Agrilocal pour les lots fruits/légumes et viandes",
+            "• Intégrer des clauses de proximité géographique pour réduire les coûts de transport",
+            "• Etudier un groupement de commandes avec communes voisines → économies d'échelle",
+            "",
+            "LEVIER 3 — FINANCEMENT DU SURCOÛT (2 pts) :",
+            "• Solliciter le PNA (Programme National pour l'Alimentation) : subvention jusqu'à 50% du surcoût",
+            "• Surcoût estimé : +8 à +15% sur 200 000 € = +16 000 à +30 000 €",
+            "• Avec PNA : surcoût net réduit à +8 000 à +15 000 € maximum",
+            "• Autres solutions : réduction du gaspillage alimentaire (gains possibles de 5-10%)",
+            "• Information aux parents : hausse tarifaire raisonnée de 5-10 centimes/repas"
+          ],
+          conseil:"La stratégie doit être réaliste financièrement. Les meilleures copies chiffrent le surcoût et identifient les aides disponibles (PNA notamment). Agrilocal est peu connu mais valorisé."
+        }
+      ],
+      jury_tips:[
+        "Le seuil MAPA 2024 est 221 000 € HT (et non 214 000 €) — vérifier ce seuil qui change régulièrement",
+        "Allotissement : obligation de principe, exception si justifiée — toujours mentionner les deux",
+        "EGAlim dans le marché = conditions d'exécution obligatoires dans le CCTP, pas seulement des critères d'attribution",
+        "Le Programme National pour l'Alimentation (PNA) est l'outil de financement méconnu mais très apprécié du jury",
+        "Ne jamais proposer 'le prix comme seul critère' — illégal depuis 2016"
+      ]
+    }
+  },
+  {
+    id:6,
+    title:"Réorganisation d'un service et gestion du changement",
+    tag:"RH / Management / Statut",
+    desc:"Le DGS souhaite fusionner deux services. Plusieurs agents s'y opposent et certains demandent des mutations. Vous devez piloter la transition.",
+    diff:"difficile",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Note de cadrage du DGS",
+        source:"Source : Note interne fictive",
+        content:`Dans le cadre du projet de modernisation de notre collectivité (5 200 habitants, 85 agents), il est envisagé de fusionner le service Urbanisme (4 agents : 1 rédacteur principal, 2 rédacteurs, 1 adjoint) et le service Foncier (3 agents : 1 rédacteur principal, 2 adjoints) pour créer un Service Aménagement du Territoire (SAT).
+
+Objectifs : mutualiser les compétences, améliorer le service aux usagers, réaliser des économies (1 poste de responsable au lieu de 2).
+
+Calendrier souhaité : mise en place au 1er septembre 2025.
+
+Réactions des agents (réunion d'information du 15 mars 2025) :
+- M. Lemaire (rédacteur principal urbanisme) : demande une mutation vers une autre collectivité. Ne souhaite pas être sous les ordres du rédacteur principal foncier.
+- Mme Dupuis (rédactrice urbanisme) : en CLM depuis 3 mois, n'a pas pu assister à la réunion.
+- M. Santos (adjoint foncier) : menace de déposer un préavis de grève.
+- Mme Renard (rédactrice urbanisme) : accepte la fusion, demande une formation en droit foncier.`
+      },
+      {
+        title:"Document 2 — Obligations de concertation et droits des agents",
+        source:"Source : CGFP — loi 2019-828 — données illustratives",
+        content:`CONSULTATION DU CST (art. L251-2 CGFP) : Le Comité Social Territorial est obligatoirement consulté sur les questions relatives à l'organisation et au fonctionnement des services, les évolutions technologiques et de méthodes de travail. L'avis du CST est requis avant toute décision de réorganisation.
+
+DROIT À LA MOBILITÉ (art. L512-1 CGFP) : Tout fonctionnaire peut demander une mutation. La collectivité n'est pas obligée d'y faire droit immédiatement mais doit examiner la demande. Le refus doit être motivé.
+
+PRINCIPE DE MAINTIEN DU GRADE (CGFP) : La réorganisation ne peut pas conduire à un déclassement de grade. Un rédacteur principal reste rédacteur principal dans le nouveau service.
+
+DROITS DES AGENTS EN CLM : L'agent en CLM conserve tous ses droits statutaires. Il est informé des évolutions du service le concernant. La réorganisation ne peut prendre effet le concernant qu'à son retour ou avec son accord écrit.
+
+DROIT DE GRÈVE (loi du 31 juillet 1963) : Le droit de grève dans la FPT est encadré. Préavis obligatoire de 5 jours francs déposé par un syndicat représentatif. Le service minimum peut être imposé. Un agent seul ne peut pas déclencher une grève sans organisation syndicale.`
+      },
+      {
+        title:"Document 3 — Guide de conduite du changement dans les collectivités",
+        source:"Source : CNFPT — Guide pratique management — données illustratives",
+        content:`La conduite du changement dans les organisations publiques repose sur 5 facteurs clés de succès :
+
+1. LÉGITIMITÉ DE LA DÉCISION : les agents acceptent mieux les changements quand les raisons sont clairement expliquées (économies, amélioration du service, contraintes légales).
+
+2. CONCERTATION PRÉALABLE : consulter les représentants du personnel avant de décider réduit les résistances de 40% selon les études. La consultation du CST est obligatoire, mais la consultation informelle des agents en amont est recommandée.
+
+3. ACCOMPAGNEMENT INDIVIDUEL : proposer un entretien individuel à chaque agent impacté. Identifier les besoins de formation, les résistances, les opportunités pour chacun.
+
+4. FORMATION : toute réorganisation impliquant de nouvelles compétences doit s'accompagner d'un plan de formation. Le CNFPT peut financer les formations nécessaires.
+
+5. SUIVI POST-RÉORGANISATION : point d'étape à 3 mois et 6 mois. Adapter si nécessaire. L'erreur la plus fréquente est de considérer que la réorganisation est finie le jour J.`
+      }
+    ],
+    questions:[
+      {num:1, text:"Identifiez les obligations procédurales que l'administration doit respecter avant de procéder à la fusion. Quels risques court-elle si elle ne les respecte pas ? (7 points)", pts:"7 pts — 30 min conseillés"},
+      {num:2, text:"Analysez la situation individuelle de chacun des 4 agents cités et proposez une réponse adaptée à chacun. (8 points)", pts:"8 pts — 40 min conseillés"},
+      {num:3, text:"Rédigez le plan de communication interne pour accompagner cette réorganisation. (5 points)", pts:"5 pts — 25 min conseillés"}
+    ],
+    correction:{
+      intro:`Ce cas teste la maîtrise des obligations procédurales de la réorganisation ET la gestion individuelle des situations. Il n'y a pas de solution unique — le jury récompense la nuance et la connaissance des droits de chaque agent.`,
+      questions:[
+        {
+          num:1,
+          titre:"Obligations procédurales",
+          bareme:"/ 7 points",
+          elements:[
+            "OBLIGATIONS OBLIGATOIRES AVANT DÉCISION (4 pts) :",
+            "",
+            "1. CONSULTATION DU CST (obligatoire, art. L251-2 CGFP)",
+            "   • La fusion de 2 services = modification de l'organisation des services",
+            "   • Avis requis avant toute décision → si délibération avant avis CST = illégalité",
+            "   • Le CST ne dispose que d'un avis consultatif → il ne peut pas bloquer la décision",
+            "   • Mais : ne pas le consulter = vice de procédure → annulation possible par le TA",
+            "",
+            "2. INFORMATION INDIVIDUELLE des agents impactés",
+            "   • Chaque agent a droit à un entretien individuel pour connaître ses nouvelles conditions",
+            "   • Mme Dupuis (CLM) : information écrite obligatoire à son domicile",
+            "",
+            "3. DÉLIBÉRATION DU CONSEIL MUNICIPAL (si création d'un nouveau service)",
+            "   • La création du SAT doit être actée par délibération",
+            "",
+            "RISQUES EN CAS DE NON-RESPECT (3 pts) :",
+            "• Vice de procédure → annulation de la décision par le TA sur REP d'un agent",
+            "• Délibération sans avis CST → illégalité caractérisée",
+            "• Préjudice moral et matériel pour les agents → condamnation indemnitaire",
+            "• Climat social dégradé → impact sur la performance du nouveau service"
+          ],
+          conseil:"L'avis du CST est obligatoire AVANT la décision — pas simultané, pas après. C'est l'erreur la plus fréquente des collectivités et un piège classique du jury."
+        },
+        {
+          num:2,
+          titre:"Situations individuelles des 4 agents",
+          bareme:"/ 8 points",
+          elements:[
+            "M. LEMAIRE — Demande de mutation (2 pts) :",
+            "• La collectivité n'est pas obligée d'accéder immédiatement à la demande",
+            "• Elle doit l'examiner sérieusement et motiver tout refus (art. L512-1 CGFP)",
+            "• La réorganisation ne peut pas le déclasser (principe maintien du grade)",
+            "• Action : entretien individuel, écoute des motivations, recherche de poste si mutation souhaitée",
+            "• Le refus de travailler sous tel supérieur n'est pas une raison juridique de mutation → expliquer",
+            "",
+            "MME DUPUIS — En CLM (2 pts) :",
+            "• Agent protégé : la réorganisation ne peut prendre effet la concernant sans son accord",
+            "• Droit à être informée par écrit à son domicile des évolutions la concernant",
+            "• Son poste doit être maintenu ou un poste équivalent doit lui être proposé à son retour",
+            "• Action : courrier d'information, invitation à un entretien à sa convenance (téléphone ou domicile)",
+            "",
+            "M. SANTOS — Menace de grève (2 pts) :",
+            "• Information importante : un agent SEUL ne peut pas déclencher une grève",
+            "• Préavis doit être déposé par un syndicat représentatif (loi du 31/07/1963)",
+            "• Sa menace individuelle n'a pas de valeur juridique",
+            "• Mais : signal d'un malaise à prendre au sérieux → entretien individuel, écoute",
+            "• Action : entretien bienveillant, expliquer la procédure, proposer un rôle dans la transition",
+            "",
+            "MME RENARD — Demande de formation (2 pts) :",
+            "• Demande légitime et positive → à accueillir favorablement",
+            "• Formation en droit foncier → finançable via le CNFPT",
+            "• Action : inscription en formation CNFPT, plan de montée en compétences sur 6 mois",
+            "• À valoriser dans son EPA : attitude positive face au changement"
+          ],
+          conseil:"Chaque agent est une situation distincte. Le jury pénalise une réponse uniforme. Montrer la nuance : droits, obligations, approche humaine pour chacun."
+        },
+        {
+          num:3,
+          titre:"Plan de communication interne",
+          bareme:"/ 5 points",
+          elements:[
+            "PLAN DE COMMUNICATION INTERNE — Fusion des services",
+            "",
+            "OBJECTIF : Accompagner les 7 agents dans la transition, réduire les résistances, maintenir la qualité de service.",
+            "",
+            "ÉTAPE 1 — AVANT LA DÉCISION (mars-avril 2025)",
+            "• Réunion d'information collective (déjà faite le 15/03)",
+            "• Entretiens individuels avec chacun des 7 agents",
+            "• Consultation du CST (obligatoire)",
+            "• Message de la direction : expliquer POURQUOI (motifs, bénéfices attendus)",
+            "",
+            "ÉTAPE 2 — DÉCISION ET DÉLIBÉRATION (mai 2025)",
+            "• Communication écrite à tous les agents : courrier officiel + note de service",
+            "• Affichage dans les locaux des deux services",
+            "• Réunion de présentation du nouvel organigramme",
+            "",
+            "ÉTAPE 3 — TRANSITION (juin-août 2025)",
+            "• Formation de Mme Renard (CNFPT)",
+            "• Définition des nouvelles fiches de poste",
+            "• Visite des futurs locaux communs si déménagement",
+            "",
+            "ÉTAPE 4 — LANCEMENT (septembre 2025)",
+            "• Réunion de lancement officielle avec le DGS",
+            "• Désignation du responsable du SAT annoncée clairement",
+            "",
+            "ÉTAPE 5 — SUIVI (décembre 2025 et mars 2026)",
+            "• Point d'étape 3 mois : réunion de service + entretiens individuels",
+            "• Bilan au CST à 6 mois"
+          ],
+          conseil:"Un plan de communication en 5 étapes chronologiques est la structure attendue. La phase 'AVANT' (concertation) est aussi importante que le lancement. Beaucoup de candidats oublient le suivi post-réorganisation."
+        }
+      ],
+      jury_tips:[
+        "L'avis du CST est consultatif — il ne bloque pas la décision mais est obligatoire sous peine d'illégalité",
+        "Agent en CLM = protection renforcée → réorganisation sans son accord = illégalité",
+        "Grève individuelle impossible dans la FP — préavis syndicat obligatoire : connaissance attendue",
+        "Maintien du grade : principe fondamental — une réorganisation ne peut déclasser un agent",
+        "Ne jamais traiter les 4 agents de la même façon — le jury valorise la gestion individualisée"
+      ]
+    }
+  },
+  {
+    id:7,
+    title:"Communication et relations avec les usagers",
+    tag:"Service public / Déontologie",
+    desc:"Plusieurs usagers se plaignent de l'accueil dans votre service. Un incident grave implique un agent. Vous devez gérer la situation et proposer des améliorations.",
+    diff:"facile",
+    duration:180,
+    dossier:[
+      {
+        title:"Document 1 — Courriers de plainte des usagers",
+        source:"Source : Courriers fictifs à titre pédagogique",
+        content:`PLAINTE 1 — M. Aziz Benali (12 mars 2025) :
+"J'ai attendu 1h45 au guichet sans être informé du délai. Lorsque j'ai demandé un renseignement, l'agent m'a répondu sur un ton agressif que 'ce n'était pas son travail'. Je suis venu pour une demande de logement social et je suis reparti sans aucune information."
+
+PLAINTE 2 — Mme Céline Moreau (18 mars 2025) :
+"J'ai envoyé un dossier de demande d'aide sociale le 20 janvier. Après 2 mois sans réponse, j'ai relancé le service par téléphone. On m'a dit de 'rappeler la semaine prochaine' à 4 reprises. Je n'ai toujours pas de réponse."
+
+PLAINTE 3 — Association 'Droit pour tous' (22 mars 2025) :
+"Nous avons constaté que les documents d'aide à la démarche administrative ne sont disponibles qu'en français, alors que la commune compte une population de 22% de résidents d'origine étrangère. Cette situation nous semble contraire au principe d'égalité d'accès au service public."
+
+RAPPORT INTERNE — Incident du 15 mars 2025 :
+Un agent, M. Cordier, a tenu des propos discriminatoires à l'encontre d'un usager d'origine étrangère selon le témoignage de deux collègues. L'usager n'a pas déposé de plainte formelle mais a quitté le service sans être traité.`
+      },
+      {
+        title:"Document 2 — Charte Marianne et obligations d'accueil",
+        source:"Source : Charte Marianne — DITP — données illustratives",
+        content:`La Charte Marianne (2005, révisée 2013) fixe 5 engagements des services publics envers les usagers :
+
+1. ACCUEIL : accueillir les usagers de manière attentive et courtoise, dans un délai de 5 minutes en présentiel, informer des délais d'attente.
+
+2. RÉPONSE AUX COURRIERS ET COURRIELS : répondre dans un délai de 5 jours ouvrés aux courriers, sauf si le traitement nécessite plus de temps (dans ce cas, accuser réception et indiquer le délai prévisionnel).
+
+3. ACCESSIBILITÉ : rendre les locaux et démarches accessibles (handicap, langue, numérique).
+
+4. ÉCOUTE : recueillir les suggestions et réclamations des usagers.
+
+5. TRANSPARENCE : informer les usagers des délais de traitement de leurs demandes.
+
+PRINCIPE D'ÉGALITÉ : Le service public doit être accessible à tous, sans discrimination. La barrière de la langue peut constituer un obstacle à l'égal accès au service public. L'administration peut proposer des traductions sans y être juridiquement obligée, mais la jurisprudence recommande de faciliter la compréhension.
+
+OBLIGATION DE RÉPONSE : Le silence de l'administration pendant 2 mois vaut accord sur les demandes (sauf exceptions). Pour les demandes d'aides sociales : la collectivité doit répondre explicitement.`
+      },
+      {
+        title:"Document 3 — Obligations déontologiques et disciplinaires",
+        source:"Source : CGFP art. L121-1 et s. — données illustratives",
+        content:`Art. L121-1 CGFP : Le fonctionnaire exerce ses fonctions avec dignité, impartialité, intégrité et probité. Il traite de façon égale toutes les personnes.
+
+Art. L121-2 CGFP : Le fonctionnaire doit respecter le principe de neutralité dans l'exercice de ses fonctions. Il est tenu à la même obligation quelle que soit l'origine, le sexe, les convictions de l'usager.
+
+LOI DU 27 MAI 2008 (discrimination) : Constitue une discrimination toute distinction opérée entre des personnes en raison de leur origine, leur sexe, leur religion, leur âge, leur handicap, leur orientation sexuelle...
+
+CONSÉQUENCES POUR L'AGENT AUTEUR D'UNE DISCRIMINATION :
+- Sanctions disciplinaires (jusqu'à la révocation selon la gravité)
+- Responsabilité civile de l'administration si préjudice à l'usager
+- Possibilité de transmission au procureur si les faits constituent une infraction pénale
+- Saisine possible du Défenseur des droits par l'usager
+
+PROTECTION FONCTIONNELLE : un agent qui dénonce des faits discriminatoires est protégé contre les représailles (CGFP art. L134-1).`
+      }
+    ],
+    questions:[
+      {num:1, text:"Analysez chacune des plaintes des usagers et l'incident impliquant M. Cordier au regard des obligations légales et déontologiques. (8 points)", pts:"8 pts — 35 min conseillés"},
+      {num:2, text:"Rédigez la réponse à envoyer à Mme Moreau concernant sa demande d'aide sociale sans réponse depuis 2 mois. (4 points)", pts:"4 pts — 20 min conseillés"},
+      {num:3, text:"Proposez un plan d'amélioration de l'accueil et de la qualité de service de votre administration. (8 points)", pts:"8 pts — 35 min conseillés"}
+    ],
+    correction:{
+      intro:`Ce cas teste la maîtrise de la déontologie, des droits des usagers et de la gestion de la qualité de service. Il est accessible mais demande une analyse fine de chaque situation.`,
+      questions:[
+        {
+          num:1,
+          titre:"Analyse des plaintes et de l'incident",
+          bareme:"/ 8 points",
+          elements:[
+            "PLAINTE 1 — M. Benali (2 pts) :",
+            "• Violation Charte Marianne : délai d'attente non communiqué (engagement 1)",
+            "• Comportement de l'agent contraire à l'obligation de dignité (art. L121-1 CGFP)",
+            "• Manquement au devoir d'accueil et d'orientation",
+            "• Action : réponse à M. Benali + rappel à l'agent de ses obligations + formation accueil",
+            "",
+            "PLAINTE 2 — Mme Moreau (2 pts) :",
+            "• Violation Charte Marianne : absence de réponse sous 5 jours (engagement 2)",
+            "• Règle CRPA : silence de 2 mois peut valoir accord selon la demande",
+            "• Obligation de réponse explicite pour les aides sociales",
+            "• Risque contentieux si Mme Moreau saisit le TA (préjudice du fait de l'absence de réponse)",
+            "• Action : réponse immédiate, traitement prioritaire du dossier",
+            "",
+            "PLAINTE 3 — Association (2 pts) :",
+            "• Principe d'égalité d'accès : le monolinguisme peut constituer un obstacle",
+            "• Pas d'obligation légale stricte de traduction mais recommandation jurisprudentielle",
+            "• Action envisageable : traductions des documents principaux, pictogrammes, interprètes",
+            "• Réponse à l'association : accusé réception + examen de la demande + délai de réponse",
+            "",
+            "INCIDENT M. CORDIER (2 pts) :",
+            "• Propos discriminatoires → violation art. L121-1 et L121-2 CGFP + loi 27/05/2008",
+            "• Engagement obligatoire d'une procédure disciplinaire (même sans plainte formelle de l'usager)",
+            "• Deux témoins = éléments suffisants pour ouvrir une enquête interne",
+            "• Possibilité de transmission au Défenseur des droits ou au procureur selon gravité",
+            "• Protection des témoins : garantie par la protection fonctionnelle (art. L134-1 CGFP)"
+          ],
+          conseil:"L'incident Cordier doit déclencher une procédure disciplinaire — ne pas initier = faute de l'administration. Beaucoup de candidats 'minimisent' l'incident : le jury pénalise cette approche."
+        },
+        {
+          num:2,
+          titre:"Réponse à Mme Moreau",
+          bareme:"/ 4 points",
+          elements:[
+            "Madame,",
+            "",
+            "Par courrier du 20 janvier 2025, vous avez déposé une demande d'aide sociale auprès de nos services.",
+            "",
+            "Je vous prie de bien vouloir accepter mes excuses pour le délai de traitement de votre dossier, qui n'est pas conforme à nos engagements de service public.",
+            "",
+            "Votre dossier a été pris en charge prioritairement. [Après instruction,] je vous informe que votre demande est en cours d'instruction et que vous recevrez une décision explicite dans un délai de [X jours].",
+            "",
+            "Dans l'attente de cette décision, je reste à votre disposition au [numéro de téléphone] ou à l'adresse [courriel], du lundi au vendredi de [horaires].",
+            "",
+            "Je vous prie d'agréer, Madame, l'expression de mes sincères salutations.",
+            "",
+            "[Signature]"
+          ],
+          conseil:"La réponse doit : reconnaître le dysfonctionnement (sans excès), indiquer le traitement en cours, donner un délai précis de réponse, et fournir un contact. Ne jamais mentir sur l'état du dossier."
+        },
+        {
+          num:3,
+          titre:"Plan d'amélioration de l'accueil",
+          bareme:"/ 8 points",
+          elements:[
+            "AXE 1 — ACCUEIL PHYSIQUE (3 pts)",
+            "• Affichage des délais d'attente estimés et des horaires d'ouverture",
+            "• Formation de TOUS les agents d'accueil : techniques d'accueil, gestion de l'agressivité, neutralité",
+            "  → Formation CNFPT : 'Accueil du public' (2 jours, gratuit pour les agents FPT)",
+            "• Création d'un système de prise de rendez-vous pour éviter les longues attentes",
+            "• Charte d'accueil affichée à l'entrée (engagements Marianne)",
+            "",
+            "AXE 2 — TRAITEMENT DES DOSSIERS (2 pts)",
+            "• Accusé réception systématique de tout courrier dans les 5 jours (Charte Marianne)",
+            "• Tableau de bord des dossiers en cours avec délai de traitement cible",
+            "• Alerte automatique si dossier non traité après 30 jours",
+            "",
+            "AXE 3 — ACCESSIBILITÉ (2 pts)",
+            "• Traduction des documents clés dans les 3 langues les plus représentées",
+            "• Pictogrammes pour les démarches principales",
+            "• Formation d'un agent 'référent accessibilité langue'",
+            "",
+            "AXE 4 — DISCIPLINE ET DÉONTOLOGIE (1 pt)",
+            "• Rappel des obligations déontologiques à tous les agents (réunion de service)",
+            "• Affichage du code de déontologie dans les locaux",
+            "• Procédure disciplinaire pour M. Cordier (signal clair sur le comportement attendu)"
+          ],
+          conseil:"Un plan en 4 axes avec des actions concrètes, des acteurs identifiés et des délais = excellente note. Le jury valorise les références précises (CNFPT, Charte Marianne, formation)."
+        }
+      ],
+      jury_tips:[
+        "Incident discriminatoire = procédure disciplinaire obligatoire même sans plainte de l'usager — ne pas la déclencher est une faute de l'encadrement",
+        "Charte Marianne : 5 engagements à connaître — délai 5 jours pour les courriers est systématiquement testé",
+        "La réponse à Mme Moreau doit reconnaître le dysfonctionnement sans pour autant admettre une faute dont les conséquences juridiques ne sont pas encore évaluées",
+        "Le principe d'égalité et la barrière linguistique : pas d'obligation stricte de traduction mais recommandation forte — nuancer",
+        "Protection des témoins de discrimination : souvent oublié par les candidats mais apprécié du jury"
+      ]
+    }
+  }
+];
+
+let currentCase = null;
+let timerSeconds = 0;
+let timerInterval = null;
+let isPaused = false;
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderMenu(){
+  const grid = document.getElementById('cases-list');
+  grid.innerHTML = CASES.map(c=>`
+    <div class="case-card" onclick="startCase(${c.id})">
+      <div class="c-tag">${c.tag}</div>
+      <div class="c-title">${c.title} <span class="tag-diff diff-${c.diff}">${c.diff}</span></div>
+      <div class="c-desc">${c.desc}</div>
+      <div class="c-meta">
+        <span class="c-badge">⏱ ${c.duration} min</span>
+        <span class="c-badge">📝 ${c.questions.length} questions</span>
+        <span class="c-badge">📄 ${c.dossier.length} documents</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function startCase(id){
+  currentCase = CASES.find(c=>c.id===id);
+  document.getElementById('redaction-zone').value='';
+  document.getElementById('word-count').textContent='0 mots';
+  
+  // Dossier
+  document.getElementById('dossier-content').innerHTML = currentCase.dossier.map(d=>`
+    <div class="doc-section">
+      <div class="doc-title">${d.title}</div>
+      <div>${d.content.replace(/\n/g,'<br>')}</div>
+      <div class="doc-source">${d.source}</div>
+    </div>
+  `).join('');
+  
+  // Questions
+  document.getElementById('questions-content').innerHTML = currentCase.questions.map(q=>`
+    <div class="question-item">
+      <div class="q-num">Question ${q.num}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-pts">⏱ ${q.pts}</div>
+    </div>
+  `).join('');
+  
+  // Timer
+  timerSeconds = currentCase.duration * 60;
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(tick, 1000);
+  updateTimerDisplay();
+  isPaused = false;
+  document.getElementById('btn-pause').textContent = '⏸ Pause';
+  
+  showScreen('exam');
+}
+
+function tick(){
+  if(isPaused) return;
+  if(timerSeconds <= 0){
+    clearInterval(timerInterval);
+    showCorrection();
+    return;
+  }
+  timerSeconds--;
+  updateTimerDisplay();
+  const bar = document.querySelector('.timer-display');
+  if(timerSeconds < 600) bar.style.color='#ef4444';
+  else if(timerSeconds < 1800) bar.style.color='#f59e0b';
+  else bar.style.color='var(--gold)';
+}
+
+function updateTimerDisplay(){
+  const h = Math.floor(timerSeconds/3600);
+  const m = Math.floor((timerSeconds%3600)/60);
+  const s = timerSeconds%60;
+  document.getElementById('timer-display').textContent =
+    `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function togglePause(){
+  isPaused = !isPaused;
+  document.getElementById('btn-pause').textContent = isPaused ? '▶ Reprendre' : '⏸ Pause';
+}
+
+function updateWordCount(){
+  const text = document.getElementById('redaction-zone').value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('word-count').textContent = words + ' mots';
+}
+
+function showCorrection(){
+  clearInterval(timerInterval);
+  const c = currentCase.correction;
+  
+  let html = `
+    <div class="corrected" style="margin-bottom:16px">
+      <div class="corrected-header">
+        <h3>📖 Corrigé indicatif — ${currentCase.title}</h3>
+      </div>
+      <div class="corrected-body">
+        <p><em>${c.intro}</em></p>
+  `;
+  
+  c.questions.forEach(q=>{
+    html += `
+      <h4>Question ${q.num} — ${q.titre} <span class="barème">${q.bareme}</span></h4>
+      ${q.elements.map(e=>e===''?'<br>':e.startsWith('•')||e.startsWith('-')?`<p style="padding-left:12px">${e}</p>`:`<p><strong>${e}</strong></p>`).join('')}
+      <p style="font-style:italic;color:#065f46;margin-top:8px">💡 Conseil jury : ${q.conseil}</p>
+      <hr style="margin:12px 0;border:none;border-top:1px solid #e2e8f0">
+    `;
+  });
+  
+  html += `
+      <div class="jury-tips">
+        <h4>⚠️ Pièges et points clés relevés par le jury</h4>
+        <ul>${c.jury_tips.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div></div>
+  `;
+  
+  // Copie du candidat
+  const userText = document.getElementById('redaction-zone').value;
+  const words = userText.trim() ? userText.trim().split(/\s+/).length : 0;
+  html += `
+    <div class="corrected" style="border-color:var(--gold)">
+      <div class="corrected-header" style="background:#fef3c7">
+        <h3 style="color:#b45309">📝 Votre réponse (${words} mots)</h3>
+      </div>
+      <div class="corrected-body" style="white-space:pre-wrap;font-family:monospace;font-size:.82em;line-height:1.7">${userText || '(aucune réponse rédigée)'}</div>
+    </div>
+  `;
+  
+  document.getElementById('correction-content').innerHTML = html;
+  showScreen('correction');
+}
+
+renderMenu();
+showScreen('menu');
+</script>
+</body>
+</html>
