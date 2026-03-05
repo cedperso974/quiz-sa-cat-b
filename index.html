@@ -32,7 +32,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mode-btn.active{border-color:var(--navy);background:var(--navy);color:white}
 .theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
 .theme-card{background:var(--card);border-radius:var(--radius);padding:14px;cursor:pointer;box-shadow:var(--shadow);border:2px solid transparent;transition:all .2s;position:relative}
-.theme-card:active,.theme-card.selected{border-color:var(--gold);background:#fffdf0}
+.theme-card:active,.theme-card.selected{border-color:var(--gold);background:#fffdf0;box-shadow:0 0 0 2px var(--gold)}
 .theme-card .t-icon{font-size:1.4em;margin-bottom:4px}
 .theme-card .t-name{font-weight:700;font-size:.9em;color:var(--navy)}
 .theme-card .t-count{font-size:.75em;color:var(--muted);margin-top:1px}
@@ -157,6 +157,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .nav-bar .btn{padding:8px 10px;font-size:.79em}
   .q-text{font-size:1em}
 }
+
+.fill-wrap{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.fill-input{flex:1;min-width:180px;padding:12px 16px;border:2px solid var(--border);border-radius:12px;font-size:1em;font-family:inherit;outline:none;transition:border-color .2s}
+.fill-input:focus{border-color:var(--gold)}
+.fill-input.fill-correct{border-color:var(--green)!important;background:#eafaf5!important;color:var(--green);font-weight:700}
+.fill-input.fill-wrong{border-color:#e74c3c!important;background:#fef5f5!important;color:#e74c3c}
+.fill-btn{padding:12px 20px;background:var(--navy);color:#fff;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
+.fill-btn:hover{background:var(--navy2)}
+.fill-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7em;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -173,7 +182,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <div id="screen-menu" class="screen active">
   <div class="menu-hero">
     <h2>Prépare ton concours 🎯</h2>
-    <p>296 questions · 11 thèmes · Avril 2026</p>
+    <p>407 questions · 14 thèmes · Avril 2026</p>
   </div>
   <div class="stats-row">
     <div class="stat-card"><div class="val" id="statTotal">0</div><div class="lbl">Questions vues</div></div>
@@ -204,7 +213,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="theme-card all-themes" onclick="selectTheme('all')">
       <div class="t-icon">🌐</div>
       <div class="t-name">Tous les thèmes</div>
-      <div class="t-count">251 questions</div>
+      <div class="t-count">407 questions</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Statut')">
       <div class="t-icon">📜</div><div class="t-name">Statut</div><div class="t-count">25 questions</div>
@@ -212,7 +221,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="t-pct" id="pct-Statut">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Discipline')">
-      <div class="t-icon">⚖️</div><div class="t-name">Discipline</div><div class="t-count">25 questions</div>
+      <div class="t-icon">⚖️</div><div class="t-name">Discipline</div><div class="t-count">27 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Discipline" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Discipline">0% maîtrisé</div>
     </div>
@@ -222,17 +231,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="t-pct" id="pct-Mobilité">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Dialogue social')">
-      <div class="t-icon">🤝</div><div class="t-name">Dialogue social</div><div class="t-count">25 questions</div>
+      <div class="t-icon">🤝</div><div class="t-name">Dialogue social</div><div class="t-count">26 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Dialogue social" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Dialogue social">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Temps de travail')">
-      <div class="t-icon">⏰</div><div class="t-name">Temps de travail</div><div class="t-count">25 questions</div>
+      <div class="t-icon">⏰</div><div class="t-name">Temps de travail</div><div class="t-count">27 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Temps de travail" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Temps de travail">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Contentieux')">
-      <div class="t-icon">🏛️</div><div class="t-name">Contentieux</div><div class="t-count">20 questions</div>
+      <div class="t-icon">🏛️</div><div class="t-name">Contentieux</div><div class="t-count">21 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Contentieux" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Contentieux">0% maîtrisé</div>
     </div>
@@ -242,12 +251,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="t-pct" id="pct-Instances">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Recrutement')">
-      <div class="t-icon">🎓</div><div class="t-name">Recrutement</div><div class="t-count">25 questions</div>
+      <div class="t-icon">🎓</div><div class="t-name">Recrutement</div><div class="t-count">26 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Recrutement" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Recrutement">0% maîtrisé</div>
     </div>
     <div class="theme-card" onclick="selectTheme('Acronymes')">
-      <div class="t-icon">🔤</div><div class="t-name">Acronymes</div><div class="t-count">56 questions</div>
+      <div class="t-icon">🔤</div><div class="t-name">Acronymes</div><div class="t-count">93 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Acronymes" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Acronymes">0% maîtrisé</div>
     </div>
@@ -256,13 +265,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="t-bar"><div class="t-fill" id="fill-Valeurs SP" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Valeurs SP">0% maîtrisé</div>
     </div>
+    <div class="theme-card" onclick="selectTheme('RH Approfondi')">
+      <div class="t-icon">👥</div>
+      <div class="t-name">RH Approfondi</div>
+      <div class="t-count" id="count-RH Approfondi">30 questions</div>
+      <div class="t-bar"><div class="t-fill" id="fill-RH Approfondi" style="width:0%"></div></div>
+      <div class="t-pct" id="pct-RH Approfondi">0% maîtrisé</div>
+    </div>
+    <div class="theme-card" onclick="selectTheme('FP État')">
+      <div class="t-icon">🏛</div>
+      <div class="t-name">FP d'État</div>
+      <div class="t-count" id="count-FP État">25 questions</div>
+      <div class="t-bar"><div class="t-fill" id="fill-FP État" style="width:0%"></div></div>
+      <div class="t-pct" id="pct-FP État">0% maîtrisé</div>
+    </div>
+    <div class="theme-card" onclick="selectTheme('Statut comparé FP')">
+      <div class="t-icon">⚖️</div>
+      <div class="t-name">Statut comparé FP</div>
+      <div class="t-count" id="count-Statut comparé FP">12 questions</div>
+      <div class="t-bar"><div class="t-fill" id="fill-Statut comparé FP" style="width:0%"></div></div>
+      <div class="t-pct" id="pct-Statut comparé FP">0% maîtrisé</div>
+    </div>
     <div class="theme-card" onclick="selectTheme('Politiques publiques')">
       <div class="t-icon">🏛️</div><div class="t-name">Politiques publiques</div><div class="t-count">20 questions</div>
       <div class="t-bar"><div class="t-fill" id="fill-Politiques publiques" style="width:0%"></div></div>
       <div class="t-pct" id="pct-Politiques publiques">0% maîtrisé</div>
     </div>
   </div>
-  <button class="btn-start" onclick="launchQuiz()">▶ Commencer</button>
+  <button class="btn-start" id="btnStart" onclick="launchQuiz()">▶ Commencer (407 questions)</button>
   <button class="fiche-btn" id="ficheBtn" onclick="openFiche()">📋 Fiche de révision du thème sélectionné</button>
   <button class="fiche-btn" onclick="showScreen('screen-liens')" style="margin-top:8px">🔗 Sources & références officielles</button>
 </div>
@@ -821,7 +851,123 @@ const Q = [
 {t:"Politiques publiques",m:false,q:"La politique de sobriété énergétique dans les bâtiments publics vise :",o:["Éteindre tous les services publics la nuit","Réduire la consommation d'énergie de 10% à court terme et rénover le parc immobilier","Privatiser le chauffage des bâtiments publics","Supprimer la climatisation dans les administrations"],c:[1],e:"Le plan de sobriété énergétique (2022) fixe -10% de consommation pour les services de l'État. Le décret tertiaire (2019) impose -40% de consommation énergétique des bâtiments tertiaires (dont publics) d'ici 2030, -50% en 2040, -60% en 2050. Source : décret BACS 2019.",s:"https://www.legifrance.gouv.fr",mn:"Sobriété énergétique bâtiments publics = décret tertiaire → -40% en 2030, -60% en 2050"},
 {t:"Politiques publiques",m:false,q:"La loi Égalim concerne :",o:["L'égalité salariale hommes-femmes dans la FP","La qualité de l'alimentation dans la restauration collective publique","L'égalité d'accès aux soins","L'égalité de traitement des usagers"],c:[1],e:"La loi EGAlim du 30 octobre 2018 impose dans la restauration collective publique (cantines scolaires, hôpitaux...) : 50% de produits durables et de qualité dont 20% bio minimum depuis janvier 2022. Source : loi n°2018-938 du 30 octobre 2018.",s:"https://www.legifrance.gouv.fr",mn:"EGAlim = 50% durable + 20% bio dans cantines publiques → depuis janvier 2022"},
 {t:"Politiques publiques",m:false,q:"Le plan France 2030 vise :",o:["Réduire la dette publique d'ici 2030","Investir 54 milliards dans l'innovation, l'industrie et la transition écologique","Supprimer 10% des fonctionnaires d'ici 2030","Créer 2 millions d'emplois publics"],c:[1],e:"France 2030 (lancé en octobre 2021) investit 54 milliards d'euros sur des secteurs stratégiques : hydrogène vert, nucléaire, santé, culture, numérique, agroalimentaire, aéronautique. Source : plan d'investissement France 2030.",s:"https://www.legifrance.gouv.fr",mn:"France 2030 = 54 milliards → innovation + industrie + transition écologique"},
-{t:"Politiques publiques",m:false,q:"La politique de prévention des risques naturels relève principalement :",o:["De l'État via les PPR (Plans de Prévention des Risques)","Des communes uniquement","Des assurances privées","Des régions exclusivement"],c:[0],e:"Les PPR (Plans de Prévention des Risques) sont élaborés par l'État (préfet) et approuvés par arrêté préfectoral. Ils s'imposent aux documents d'urbanisme (PLU). La loi du 22 juillet 1987 et la loi Barnier 1995 structurent ce dispositif. Source : Code de l'environnement.",s:"https://www.legifrance.gouv.fr",mn:"PPR = risques naturels → État (préfet) s'impose au PLU, loi Barnier 1995"}
+{t:"Politiques publiques",m:false,q:"La politique de prévention des risques naturels relève principalement :",o:["De l'État via les PPR (Plans de Prévention des Risques)","Des communes uniquement","Des assurances privées","Des régions exclusivement"],c:[0],e:"Les PPR (Plans de Prévention des Risques) sont élaborés par l'État (préfet) et approuvés par arrêté préfectoral. Ils s'imposent aux documents d'urbanisme (PLU). La loi du 22 juillet 1987 et la loi Barnier 1995 structurent ce dispositif. Source : Code de l'environnement.",s:"https://www.legifrance.gouv.fr",mn:"PPR = risques naturels → État (préfet) s'impose au PLU, loi Barnier 1995"},
+// ═══ THÈME 12 : RH APPROFONDI ═══
+{t:"RH Approfondi",m:false,q:"Quel est le composant principal de la rémunération d'un fonctionnaire ?",o:["L'indemnité de résidence","Le traitement indiciaire brut","La nouvelle bonification indiciaire (NBI)","Le supplément familial de traitement (SFT)"],c:[1],e:"Le traitement indiciaire brut constitue l'élément principal et obligatoire de la rémunération. Il est calculé sur la base de l'indice majoré (IM) multiplié par la valeur du point d'indice. Les primes et indemnités s'y ajoutent mais ne le remplacent pas. Source : CGFP art. L712-1.",s:"https://www.legifrance.gouv.fr",mn:"Rémunération FP = TRAITEMENT (IM × valeur point) + primes accessoires"},
+{t:"RH Approfondi",m:false,q:"Un agent perçoit une prime mensuelle de 800€. Son traitement brut est de 2100€. Son supérieur lui dit que sa rémunération principale est de 2900€. A-t-il raison ?",o:["Oui, la rémunération principale inclut toutes les sommes versées","Non, le traitement principal est 2100€ — les primes sont accessoires","Oui, mais uniquement si la prime est l'IFSE","Non, la prime n'est pas comptabilisée dans la rémunération"],c:[1],e:"La rémunération principale d'un fonctionnaire c'est le traitement indiciaire uniquement (ici 2100€). Les primes et indemnités (comme l'IFSE) sont des accessoires du traitement. Distinction fondamentale pour le calcul des droits à retraite et des cotisations. Source : CGFP art. L712-1.",s:"https://www.legifrance.gouv.fr",mn:"Traitement ≠ rémunération totale → les primes sont ACCESSOIRES, pas principal"},
+{t:"RH Approfondi",m:false,q:"Que signifie NBI dans la rémunération des fonctionnaires ?",o:["Nouvelle Bonification Indiciaire","Norme de Base Indiciaire","Niveau de Bonification Institutionnel","Nomenclature Budgétaire Indiciaire"],c:[0],e:"La Nouvelle Bonification Indiciaire (NBI) est attribuée aux agents exerçant des fonctions impliquant une responsabilité ou une technicité particulière. Elle est exprimée en points d'indice majoré et s'ajoute au traitement. Source : loi du 18 janvier 1991.",s:"https://www.legifrance.gouv.fr",mn:"NBI = Nouvelle Bonification Indiciaire → fonctions à responsabilité/technicité particulière"},
+{t:"RH Approfondi",m:false,q:"Le RIFSEEP est composé de :",o:["L'IFSE uniquement","L'IFSE et le CIA","La NBI et l'IFSE","L'indemnité de résidence et le SFT"],c:[1],e:"Le RIFSEEP (Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel) comporte deux parts : l'IFSE (Indemnité de Fonctions, Sujétions et Expertise) — part principale, et le CIA (Complément Indemnitaire Annuel) — part variable liée à l'engagement. Source : décret 2014-513.",s:"https://www.legifrance.gouv.fr",mn:"RIFSEEP = IFSE (fixe) + CIA (variable) → 2 parts distinctes"},
+{t:"RH Approfondi",m:false,q:"Un agent vous demande si son CIA peut être supprimé l'année suivante. Que lui répondez-vous ?",o:["Non, le CIA est garanti une fois attribué","Oui, le CIA est facultatif et son montant peut varier chaque année selon l'engagement professionnel","Non, le CIA ne peut que diminuer de 10% maximum","Oui, mais uniquement en cas de faute disciplinaire"],c:[1],e:"Le CIA (Complément Indemnitaire Annuel) est la part variable du RIFSEEP. Il est versé en une ou deux fractions et tient compte de l'engagement professionnel et de la manière de servir. Son montant peut varier d'une année à l'autre ou ne pas être versé. Source : décret 2014-513.",s:"https://www.legifrance.gouv.fr",mn:"CIA = variable → peut varier ou être nul selon l'évaluation annuelle"},
+{t:"RH Approfondi",m:false,q:"Combien de positions statutaires existent pour un fonctionnaire ?",o:["4","5","7","9"],c:[2],e:"Le CGFP prévoit 7 positions statutaires : 1) Activité, 2) Détachement, 3) Disponibilité, 4) Mise à disposition, 5) Congé parental, 6) Position hors cadre (FPE uniquement), 7) Accomplissement du service national. Source : CGFP art. L500-1 et suivants.",s:"https://www.legifrance.gouv.fr",mn:"7 positions = Activité + Détachement + Dispo + MAD + Cgt parental + Hors cadre + Service national"},
+{t:"RH Approfondi",m:false,q:"Un fonctionnaire en disponibilité pour convenances personnelles conserve-t-il ses droits à avancement ?",o:["Oui, la disponibilité n'interrompt pas la carrière","Non, la disponibilité pour convenances personnelles suspend les droits à avancement","Oui, mais uniquement pour l'avancement d'échelon","Non, sauf s'il travaille dans le privé"],c:[1],e:"En disponibilité pour convenances personnelles, l'agent perd ses droits à avancement d'échelon et de grade, ainsi que ses droits à la retraite. Il cesse de percevoir son traitement. À son retour, il est réintégré sur un poste correspondant à son grade. Source : CGFP art. L430-1.",s:"https://www.legifrance.gouv.fr",mn:"Dispo convenances perso = SUSPENSION droits carrière + traitement → ≠ détachement"},
+{t:"RH Approfondi",m:false,q:"Quelle est la durée maximale d'une disponibilité pour convenances personnelles ?",o:["3 ans non renouvelable","3 ans renouvelable dans la limite de 10 ans sur l'ensemble de la carrière","5 ans renouvelable une fois","10 ans d'un bloc"],c:[1],e:"La disponibilité pour convenances personnelles est accordée pour 3 ans, renouvelable, mais dans la limite de 10 ans au total sur l'ensemble de la carrière du fonctionnaire. Source : CGFP art. L430-1.",s:"https://www.legifrance.gouv.fr",mn:"Dispo CP = 3 ans × renouvellement → MAX 10 ans sur toute la carrière"},
+{t:"RH Approfondi",m:false,q:"Un agent est en disponibilité depuis 8 ans. Il souhaite encore 3 ans. L'administration peut-elle accorder ?",o:["Oui, 3 ans supplémentaires sont possibles","Non, il ne peut prendre qu'1 an supplémentaire car le plafond est 10 ans sur la carrière","Oui, sans limite si l'agent a un emploi privé","Non, le maximum absolu est 8 ans"],c:[1],e:"Le plafond légal est 10 ans sur l'ensemble de la carrière. Cet agent a déjà utilisé 8 ans. Il ne lui reste que 2 ans disponibles sur ce dispositif, pas 3. L'administration doit lui notifier ce plafond. Source : CGFP art. L430-1.",s:"https://www.legifrance.gouv.fr",mn:"8 ans utilisés + plafond 10 ans = seulement 2 ans encore possibles, pas 3"},
+{t:"RH Approfondi",m:false,q:"Qu'est-ce que la mise à disposition (MAD) ?",o:["L'agent quitte définitivement son corps","L'agent travaille pour un autre organisme tout en restant rémunéré par son administration d'origine","L'agent est détaché dans un autre corps","L'agent est suspendu de ses fonctions"],c:[1],e:"En mise à disposition, l'agent continue d'appartenir à son corps d'origine, est réputé y occuper son emploi, perçoit son traitement de son administration d'origine. Il peut être remboursé en tout ou partie par l'organisme d'accueil. Source : CGFP art. L513-1.",s:"https://www.legifrance.gouv.fr",mn:"MAD = reste dans corps + payé par l'origine + travaille ailleurs → ≠ détachement"},
+{t:"RH Approfondi",m:false,q:"Le droit individuel à la formation (DIF) dans la fonction publique a été remplacé par :",o:["Le plan de formation","Le CPF (Compte Personnel de Formation)","La VAE (Validation des Acquis de l'Expérience)","Le bilan de compétences"],c:[1],e:"Le DIF a été remplacé par le CPF (Compte Personnel de Formation) dans la fonction publique depuis la loi du 5 mars 2014. Les heures DIF ont été converties en euros sur le CPF. Le CPF est alimenté à raison de 24h/an jusqu'à 120h puis 12h/an jusqu'à 150h. Source : loi 2014-288.",s:"https://www.legifrance.gouv.fr",mn:"DIF → remplacé par CPF depuis 2014 → 24h/an jusqu'à 120h puis 12h/an jusqu'à 150h"},
+{t:"RH Approfondi",m:false,q:"Votre collègue affirme : 'Je peux utiliser mon CPF pour n'importe quelle formation qui me plaît.' Est-ce exact dans la FP ?",o:["Oui, le CPF est totalement libre d'utilisation","Non, dans la FP, le CPF doit être utilisé pour des formations en lien avec le projet professionnel de l'agent ou l'acquisition de qualifications","Oui mais avec accord du supérieur uniquement","Non, le CPF est réservé aux agents de catégorie C"],c:[1],e:"Dans la FP, le CPF peut être mobilisé pour des actions de formation qualifiantes ou certifiantes en lien avec le projet d'évolution professionnelle de l'agent. Il ne finance pas toute formation à la demande. L'accord de l'employeur est requis si la formation a lieu pendant le temps de service. Source : CGFP art. L422-1.",s:"https://www.legifrance.gouv.fr",mn:"CPF FP = formations qualifiantes/certifiantes + projet professionnel → pas toute formation"},
+{t:"RH Approfondi",m:false,q:"Qu'est-ce que la VAE dans la FP ?",o:["Validation des Acquis de l'Expérience — permet d'obtenir une certification sans formation classique","Vote d'Approbation Électronique","Valorisation des Agents Expérimentés — prime pour ancienneté","Visa d'Accès à l'Emploi"],c:[0],e:"La Validation des Acquis de l'Expérience (VAE) permet à un agent d'obtenir tout ou partie d'une certification (diplôme, titre, CQP) en faisant reconnaître son expérience professionnelle. Elle est ouverte aux fonctionnaires justifiant d'au moins 1 an d'expérience. Source : CGFP art. L422-3.",s:"https://www.legifrance.gouv.fr",mn:"VAE = expérience professionnelle → certification sans formation → minimum 1 an d'expérience"},
+{t:"RH Approfondi",m:false,q:"Un agent subit un accident sur son lieu de travail. La première démarche de l'administration est :",o:["Engager une procédure disciplinaire","Établir un rapport d'accident et saisir le conseil médical","Demander à l'agent de reprendre immédiatement","Consulter le syndicat"],c:[1],e:"En cas d'accident de service, l'administration doit établir un rapport circonstancié dans les 48h et le transmettre au conseil médical (ex-comité médical). L'agent bénéficie du maintien intégral de son traitement pendant son arrêt. La reconnaissance en accident de service ouvre droit à une prise en charge à 100% des frais médicaux. Source : CGFP art. L822-20.",s:"https://www.legifrance.gouv.fr",mn:"Accident de service → rapport 48h + conseil médical + maintien 100% traitement"},
+{t:"RH Approfondi",m:false,q:"Quelle est la différence entre un accident de service et une maladie professionnelle dans la FP ?",o:["Il n'y a aucune différence, les deux ouvrent exactement les mêmes droits","L'accident est un fait soudain sur le lieu de travail ; la maladie professionnelle est contractée progressivement du fait du travail","La maladie professionnelle est mieux indemnisée que l'accident de service","L'accident de service ne concerne que les agents de catégorie A"],c:[1],e:"L'accident de service est un fait précis et soudain survenu dans l'exercice des fonctions. La maladie professionnelle est contractée progressivement par l'exposition à des risques professionnels (listes réglementaires). Les deux ouvrent droit au maintien du traitement et à la prise en charge à 100% des frais médicaux. Source : CGFP art. L822-20.",s:"https://www.legifrance.gouv.fr",mn:"Accident = soudain sur lieu travail / Maladie pro = progressive liée au travail → mêmes droits"},
+{t:"RH Approfondi",m:false,q:"Le GPEEC signifie :",o:["Gestion Prévisionnelle des Emplois, des Effectifs et des Compétences","Groupement Paritaire pour l'Emploi et l'Évolution des Carrières","Gestion Publique des Équipes et des Effectifs Civils","Guide Pratique pour l'Emploi et les Effectifs Civils"],c:[0],e:"La Gestion Prévisionnelle des Emplois, des Effectifs et des Compétences (GPEEC) est obligatoire pour les collectivités de plus de 150 agents (loi FPTLV 2007). Elle consiste à anticiper les besoins en emplois et compétences à 3-5 ans pour adapter la politique RH. Source : loi n°2007-209 du 19 février 2007.",s:"https://www.legifrance.gouv.fr",mn:"GPEEC = anticiper les besoins RH → obligatoire >150 agents → loi FPTLV 2007"},
+{t:"RH Approfondi",m:false,q:"Que sont les LDG ?",o:["Les Livres De Gestion interne","Les Lignes Directrices de Gestion — orientations pluriannuelles RH","Les Listes De Grade pour les concours","Les Lois De Gestion des effectifs publics"],c:[1],e:"Les Lignes Directrices de Gestion (LDG) ont été créées par la loi de transformation de la FP du 6 août 2019. Elles remplacent l'avis des CAP pour les mutations et promotions. Elles définissent les orientations pluriannuelles en matière de mutation, mobilité, promotion et valorisation des parcours. Source : CGFP art. L413-1.",s:"https://www.legifrance.gouv.fr",mn:"LDG = Lignes Directrices de Gestion → remplacent CAP pour mutations/promotions → loi 2019"},
+{t:"RH Approfondi",m:false,q:"Depuis la loi 2019, la CAP est-elle encore consultée pour les mutations ?",o:["Oui, la CAP reste compétente pour toutes les mutations","Non, les LDG ont remplacé la CAP pour les mutations et promotions","Oui mais uniquement pour les mutations interdépartementales","Non, c'est désormais le CST qui décide"],c:[1],e:"La loi du 6 août 2019 a supprimé la compétence des CAP pour les mutations et promotions. Ces décisions sont désormais encadrées par les LDG (Lignes Directrices de Gestion). La CAP reste compétente pour les décisions défavorables individuelles : refus de titularisation, licenciement, sanction disciplinaire. Source : CGFP art. L231-1.",s:"https://www.legifrance.gouv.fr",mn:"CAP après 2019 = uniquement décisions défavorables → mutations/promotions = LDG"},
+{t:"RH Approfondi",m:false,q:"Le taux d'emploi obligatoire de travailleurs handicapés (OETH) dans la FP est de :",o:["3%","4%","6%","10%"],c:[2],e:"La loi du 11 février 2005 impose un taux d'emploi de 6% de travailleurs en situation de handicap dans tout organisme public ou privé de 20 agents et plus. Le non-respect entraîne une contribution au FIPHFP calculée selon le nombre d'unités bénéficiaires manquantes. Source : loi 2005-102.",s:"https://www.legifrance.gouv.fr",mn:"OETH = 6% des effectifs → dès 20 agents → contribution FIPHFP si insuffisant"},
+{t:"RH Approfondi",m:false,q:"Une collectivité de 80 agents emploie 3 agents RQTH. Son DRH affirme être en conformité avec l'OETH. A-t-il raison ?",o:["Oui, 3 agents RQTH suffisent","Non, 6% de 80 agents = 4,8 unités bénéficiaires → il manque environ 2 agents RQTH","Oui car le seuil ne s'applique qu'aux collectivités de plus de 100 agents","Non, il en faudrait 8"],c:[1],e:"6% × 80 agents = 4,8 unités bénéficiaires obligatoires. Avec seulement 3 agents RQTH (3 unités), il manque 1,8 unité bénéficiaire. La collectivité n'est pas en conformité et doit verser une contribution au FIPHFP pour les unités manquantes. Source : loi 2005-102.",s:"https://www.legifrance.gouv.fr",mn:"6% × effectifs = UB obligatoires → 6% × 80 = 4,8 UB → 3 UB insuffisant"},
+{t:"RH Approfondi",m:false,q:"Que signifie FIPHFP ?",o:["Fonds d'Intégration des Personnes Handicapées dans la Fonction Publique","Fonds Interministériel pour l'Handicap dans la Fonction Publique","Fonds pour l'Insertion des Personnes Handicapées dans la Fonction Publique","Formation Intégrée des Personnes Handicapées en Fonction Publique"],c:[2],e:"Le FIPHFP (Fonds pour l'Insertion des Personnes Handicapées dans la Fonction Publique) collecte les contributions des employeurs publics n'atteignant pas le taux de 6% et finance les actions en faveur de l'insertion professionnelle des travailleurs handicapés dans les 3 versants de la FP. Source : loi 2005-102.",s:"https://www.legifrance.gouv.fr",mn:"FIPHFP = collecte contributions OETH insuffisant → finance insertion handicap dans les 3 FP"},
+{t:"RH Approfondi",m:false,q:"Quelle est la durée maximale d'un CLM (Congé Longue Maladie) ?",o:["1 an","2 ans","3 ans","5 ans"],c:[2],e:"Le Congé Longue Maladie (CLM) est accordé pour les affections graves (liste réglementaire). Sa durée maximale est de 3 ans : 1 an à plein traitement + 2 ans à demi-traitement. Il est accordé sur avis du conseil médical. Source : CGFP art. L822-1.",s:"https://www.legifrance.gouv.fr",mn:"CLM = 3 ans max → 1 an plein traitement + 2 ans demi-traitement"},
+{t:"RH Approfondi",m:false,q:"Un agent est en arrêt maladie depuis 18 mois avec CLM. Son chef de service affirme qu'il ne lui reste plus aucun droit au traitement. Est-ce exact ?",o:["Oui, après 12 mois de CLM il n'y a plus de traitement","Non, après 12 mois de plein traitement il passe à demi-traitement pour encore 24 mois","Oui, le CLM dure 12 mois maximum","Non, il conserve le plein traitement pendant 36 mois"],c:[1],e:"Le CLM dure 3 ans : 12 premiers mois à plein traitement + 24 mois suivants à demi-traitement. À 18 mois de CLM, l'agent est donc en demi-traitement depuis 6 mois. Il lui reste encore 18 mois de demi-traitement. Le chef de service a tort. Source : CGFP art. L822-1.",s:"https://www.legifrance.gouv.fr",mn:"CLM 18 mois = 12 mois plein + 6 mois demi → il reste encore 18 mois de demi-traitement"},
+{t:"RH Approfondi",m:false,q:"Quelle est la différence entre CLM et CLD ?",o:["Il n'y a aucune différence, les deux durent 3 ans","Le CLM est pour toute maladie grave reconnue, le CLD est réservé à des affections spécifiques (tuberculose, cancer, troubles mentaux, poliomyélite, déficit immunitaire)","Le CLD dure 3 ans, le CLM dure 5 ans","Le CLM s'applique à la FPT uniquement, le CLD à la FPE"],c:[1],e:"CLM : pour les affections graves rendant nécessaire un traitement prolongé — liste large. CLD : réservé à des affections précises et limitativement énumérées (tuberculose, cancer, maladie mentale grave, poliomyélite, déficit immunitaire grave). CLD = 5 ans max (3 ans plein + 2 ans demi). Source : CGFP art. L822-1 et L823-1.",s:"https://www.legifrance.gouv.fr",mn:"CLM = maladie grave liste large / CLD = tuberculose+cancer+troubles mentaux+polio+déficit immun"},
+{t:"RH Approfondi",m:false,q:"Le SFT (Supplément Familial de Traitement) est versé :",o:["À tous les fonctionnaires automatiquement","Aux fonctionnaires ayant au moins un enfant à charge","Aux agents de catégorie A uniquement","Aux agents ayant plus de 10 ans d'ancienneté"],c:[1],e:"Le Supplément Familial de Traitement (SFT) est versé aux fonctionnaires ayant au moins un enfant à charge au sens des prestations familiales. Son montant varie selon le nombre d'enfants. Il ne peut être versé qu'à un seul parent fonctionnaire si les deux sont agents publics. Source : décret n°99-491 du 10 juin 1999.",s:"https://www.legifrance.gouv.fr",mn:"SFT = au moins 1 enfant à charge → 1 seul parent FP le perçoit si les 2 sont fonctionnaires"},
+// ═══ THÈME 13 : FONCTION PUBLIQUE D'ÉTAT ═══
+{t:"FP État",m:false,q:"Quelle loi régit spécifiquement le statut de la Fonction Publique d'État ?",o:["La loi du 26 janvier 1984","La loi du 9 janvier 1986","La loi du 11 janvier 1984","La loi du 13 juillet 1983 uniquement"],c:[2],e:"La loi n°84-16 du 11 janvier 1984 portant dispositions statutaires relatives à la FPE est le texte fondateur de la FPE. Elle est aujourd'hui intégrée dans le CGFP. La loi du 26 janvier 1984 concerne la FPT, et celle du 9 janvier 1986 concerne la FPH. Source : loi 84-16 / CGFP.",s:"https://www.legifrance.gouv.fr",mn:"11 janvier 1984 = FPE / 26 janvier 1984 = FPT / 9 janvier 1986 = FPH → mémo : E-T-H ordre chronologique"},
+{t:"FP État",m:false,q:"Un candidat vous dit que la FPE est régie par la loi du 26 janvier 1984. Que lui répondez-vous ?",o:["C'est exact, c'est bien cette loi","Non, la loi du 26 janvier 1984 concerne la FPT — la FPE est régie par la loi du 11 janvier 1984","Non, la FPE est régie par le Code du travail","Non, c'est la loi du 9 janvier 1986 qui régit la FPE"],c:[1],e:"Confusion classique : la loi du 26 janvier 1984 concerne la Fonction Publique Territoriale (FPT), pas la FPE. La FPE est régie par la loi du 11 janvier 1984. La FPH par la loi du 9 janvier 1986. Toutes trois sont aujourd'hui codifiées dans le CGFP. Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"26 janvier 1984 = FPT → piège classique ! FPE = 11 janvier 1984"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'un IRA dans la FPE ?",o:["Institut de Révision Administrative","Institut Régional d'Administration — forme les attachés d'administration de l'État","Indice de Rémunération Administrative","Instance Représentative des Agents"],c:[1],e:"Les Instituts Régionaux d'Administration (IRA) sont au nombre de 5 en France (Nantes, Lyon, Metz, Bastia, Lille). Ils forment les attachés d'administration de l'État (catégorie A) recrutés par concours. Leur formation dure environ 12 mois. Source : décret n°84-346 du 10 mai 1984.",s:"https://www.legifrance.gouv.fr",mn:"IRA = 5 instituts → forment les attachés cat A FPE → 12 mois de formation"},
+{t:"FP État",m:false,q:"L'ENA a été supprimée en 2022. Par quelle institution a-t-elle été remplacée ?",o:["L'INAP (Institut National d'Administration Publique)","L'INSP (Institut National du Service Public)","L'ENP (École Nationale Publique)","L'IFAP (Institut de Formation des Agents Publics)"],c:[1],e:"L'École Nationale d'Administration (ENA) a été supprimée par décret du 16 avril 2021, effective au 1er janvier 2022. Elle a été remplacée par l'INSP (Institut National du Service Public), qui a élargi sa mission à la formation continue des cadres supérieurs et à la recherche en administration. Source : décret 2021-1216.",s:"https://www.legifrance.gouv.fr",mn:"ENA supprimée 1er janvier 2022 → remplacée par INSP (Institut National du Service Public)"},
+{t:"FP État",m:false,q:"Votre chef affirme que l'ENA forme toujours les hauts fonctionnaires en 2024. Que répondez-vous ?",o:["C'est exact, l'ENA existe toujours","Non, l'ENA a été remplacée par l'INSP depuis le 1er janvier 2022","Non, l'ENA a fusionné avec Sciences Po en 2020","Non, l'ENA a été remplacée par les IRA depuis 2019"],c:[1],e:"L'ENA a cessé d'exister le 1er janvier 2022 et a été remplacée par l'INSP (Institut National du Service Public). Les promotions ENA en cours ont été clôturées et la nouvelle institution a ouvert ses portes avec une mission élargie incluant formation initiale ET continue des cadres supérieurs. Source : décret 2021-1216.",s:"https://www.legifrance.gouv.fr",mn:"Piège ! ENA = morte au 1er janvier 2022 → INSP depuis cette date"},
+{t:"FP État",m:false,q:"Qu'est-ce que le CSA dans la FPE ?",o:["Comité Social Administratif — instance de dialogue social dans la FPE, remplaçant CT et CHSCT","Conseil Supérieur Administratif","Commission de Suivi des Agents","Comité de Sécurité Administrative"],c:[0],e:"Le Comité Social d'Administration (CSA) dans la FPE est l'équivalent du CST dans la FPT. Créé par la loi du 6 août 2019, il fusionne le comité technique ministériel (CTM) et le CHSCT, opérationnel depuis janvier 2023. Il est consulté sur l'organisation des services et les conditions de travail. Source : CGFP art. L251-1.",s:"https://www.legifrance.gouv.fr",mn:"CSA (FPE) = CTM + CHSCT fusionnés → équivalent du CST dans la FPT → depuis 2023"},
+{t:"FP État",m:false,q:"Quelle est la différence entre le CSA (FPE) et le CST (FPT) ?",o:["Ce sont exactement la même instance, les noms changent selon le versant","Le CSA est consultatif, le CST est décisionnaire","Le CST délibère sur le budget, pas le CSA","Le CSA est réservé aux agents de catégorie A"],c:[0],e:"CSA (Comité Social d'Administration) dans la FPE et CST (Comité Social Territorial) dans la FPT ont exactement les mêmes missions et ont été créés par la même loi de transformation de la FP du 6 août 2019. Seul le nom diffère selon le versant. La FPH a quant à elle le CSE (Comité Social d'Établissement). Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"CSA (FPE) = CST (FPT) = CSE (FPH) → même rôle, noms différents selon versant"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'un PFRH dans la FPE ?",o:["Plan de Formation des Ressources Humaines","Plateforme Régionale d'Appui interministériel à la Gestion des Ressources Humaines","Protocole de Financement des Ressources Humaines","Portail de Formation des Ressources Humaines"],c:[1],e:"Les PFRH (Plateformes Régionales d'Appui interministériel à la Gestion des Ressources Humaines) sont des structures placées auprès des SGAR (Secrétaires Généraux pour les Affaires Régionales). Elles accompagnent les services déconcentrés de l'État dans leur gestion RH et la mobilité interministérielle. Source : circulaire DGAFP.",s:"https://www.legifrance.gouv.fr",mn:"PFRH = appui RH interministériel en région → placées auprès des SGAR"},
+{t:"FP État",m:false,q:"Qu'est-ce que le RIFSEEP et à quelle FP s'applique-t-il prioritairement ?",o:["Régime de retraite complémentaire — FPT uniquement","Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel — FPE en premier, puis étendu FPT","Régime d'Indemnisation des Fonctionnaires — toutes FP","Régime Interne de Formation et de Soutien des Équipes — FPE uniquement"],c:[1],e:"Le RIFSEEP (décret 2014-513) a été créé pour la FPE et constitue le cadre indemnitaire de référence. Il a ensuite été étendu à la FPT et FPH. Composé de l'IFSE (part principale) et du CIA (part variable), il remplace de nombreuses primes antérieures. Source : décret n°2014-513 du 20 mai 2014.",s:"https://www.legifrance.gouv.fr",mn:"RIFSEEP = IFSE + CIA → créé pour FPE (2014) → étendu FPT et FPH ensuite"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'une AAI ?",o:["Administration Autonome et Indépendante","Autorité Administrative Indépendante — organisme public sans tutelle gouvernementale","Agence Administrative Interministérielle","Administration d'Appui Institutionnel"],c:[1],e:"Les Autorités Administratives Indépendantes (AAI) sont des organismes publics qui exercent une mission de régulation ou de protection sans être soumis à l'autorité hiérarchique gouvernementale. Exemples : CNIL (données personnelles), CADA (accès aux documents), CSA (audiovisuel), Défenseur des droits. Source : loi du 20 janvier 2017.",s:"https://www.legifrance.gouv.fr",mn:"AAI = indépendantes du gouvernement → CNIL, CADA, Défenseur des droits, HATVP"},
+{t:"FP État",m:false,q:"Quelle est la différence entre EPA et EPIC dans la FPE ?",o:["Il n'y a aucune différence","EPA = mission de service public sans activité commerciale / EPIC = mission industrielle et commerciale","EPA est privé, EPIC est public","EPIC est plus grand qu'un EPA"],c:[1],e:"Les EPA (Établissements Publics Administratifs) exercent des missions de service public sans activité commerciale principale (CNFPT, universités, hôpitaux). Les EPIC (Établissements Publics Industriels et Commerciaux) ont une activité commerciale (SNCF, La Poste). Les agents des EPA sont souvent fonctionnaires, ceux des EPIC souvent contractuels de droit privé. Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"EPA = service public sans commerce → agents FP / EPIC = activité commerciale → agents droit privé"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'une DREETS ?",o:["Direction Régionale de l'Environnement, de l'Énergie et des Transports","Direction Régionale de l'Économie, de l'Emploi, du Travail et des Solidarités","Direction Régionale des Échanges Économiques et du Travail Social","Direction des Ressources, de l'Emploi et de l'Énergie Territoriale et Sociale"],c:[1],e:"Les DREETS (Directions Régionales de l'Économie, de l'Emploi, du Travail et des Solidarités) ont été créées en 2021 par fusion des DIRECCTE et des services régionaux de la cohésion sociale. Elles constituent la principale administration déconcentrée de l'État en matière d'emploi, travail et solidarités. Source : décret n°2020-1545.",s:"https://www.legifrance.gouv.fr",mn:"DREETS = DIRECCTE + services sociaux fusionnés en 2021 → emploi, travail, solidarités en région"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'un SGAR ?",o:["Secrétariat Général pour les Affaires Régionales — placé auprès du préfet de région","Service de Gestion Administrative Régionale","Syndicat des Gestionnaires Administratifs Régionaux","Secrétariat Général de l'Administration Régionale"],c:[0],e:"Le SGAR (Secrétariat Général pour les Affaires Régionales) est placé auprès du préfet de région. Il coordonne l'action interministérielle des services déconcentrés de l'État en région et pilote la stratégie RH interministérielle via les PFRH. Source : décret n°2004-374.",s:"https://www.legifrance.gouv.fr",mn:"SGAR = bras droit du préfet de région pour coordination interministérielle → pilote PFRH"},
+{t:"FP État",m:false,q:"Qu'est-ce qu'une DDI ?",o:["Direction Départementale Interministérielle — services déconcentrés de l'État au niveau départemental","Direction des Données et de l'Information","Département de Déploiement Institutionnel","Direction du Développement et de l'Innovation"],c:[0],e:"Les DDI (Directions Départementales Interministérielles) sont des services déconcentrés de l'État au niveau départemental regroupant plusieurs ministères. Exemples : DDETS (emploi, travail, solidarités), DDPP (protection des populations), DDT (territoires). Créées en 2010, elles répondent à l'objectif de simplification de l'organisation déconcentrée. Source : décret n°2009-1484.",s:"https://www.legifrance.gouv.fr",mn:"DDI = services déconcentrés État niveau département → interministériels → créés 2010"},
+{t:"FP État",m:false,q:"Qu'est-ce que la CCFP ?",o:["Commission Consultative de la Fonction Publique","Conseil Commun de la Fonction Publique — instance de dialogue social commune aux 3 versants","Comité Central de la Fonction Publique","Commission de Coordination des Fonctionnaires Publics"],c:[1],e:"Le Conseil Commun de la Fonction Publique (CCFP) est l'instance de dialogue social compétente pour les questions communes aux trois versants de la FP (FPE, FPT, FPH). Il est présidé par le ministre chargé de la FP et se réunit sur les projets de loi ou décrets transversaux. Source : loi n°2010-751 du 5 juillet 2010.",s:"https://www.legifrance.gouv.fr",mn:"CCFP = Conseil Commun FP → dialogue social pour les 3 versants ensemble"},
+{t:"FP État",m:false,q:"Quelle est la priorité légale de mutation numéro 1 dans la FPE depuis la loi 2019 ?",o:["Les agents dont le conjoint est muté","Les agents en situation de handicap","Les agents proches aidants","Les agents ayant le plus d'ancienneté"],c:[0],e:"Depuis la loi du 6 août 2019, les priorités de mutation légales dans la FPE sont : 1) les agents dont le conjoint ou partenaire de PACS est astreint à résider professionnellement dans une autre commune, 2) les agents en situation de handicap, 3) les agents exerçant des fonctions difficiles. Source : CGFP art. L512-19.",s:"https://www.legifrance.gouv.fr",mn:"Priorité mutation FPE n°1 = conjoint muté → puis handicap → puis fonctions difficiles"},
+{t:"FP État",m:false,q:"Qu'est-ce que la 'place de l'emploi public' ?",o:["Un concours national unique","La bourse nationale des offres d'emploi public — accessible à tous les agents et candidats extérieurs","Une indemnité de mutation","Le classement des corps de la FPE"],c:[1],e:"La Place de l'Emploi Public (PEP) est le portail national centralisant les offres d'emploi de la FPE, FPT et FPH. Accessible sur place-emploi-public.fr, elle recense les postes vacants et permet aux agents de postuler directement. Source : décret n°2018-1351.",s:"https://www.legifrance.gouv.fr",mn:"Place Emploi Public = bourse nationale emploi public → FPE+FPT+FPH sur place-emploi-public.fr"},
+{t:"FP État",m:false,q:"Qu'est-ce que la HATVP ?",o:["Haute Autorité pour la Transparence de la Vie Publique — contrôle les déclarations de patrimoine et les pantouflages","Haute Administration des Traitements et Versements Publics","Haute Autorité du Travail des Versants Publics","Haute Administration de la Transparence et des Valeurs Publiques"],c:[0],e:"La HATVP (Haute Autorité pour la Transparence de la Vie Publique) a été créée par la loi du 11 octobre 2013. Elle contrôle les déclarations de situation patrimoniale et d'intérêts des responsables publics, et gère le contrôle du 'pantouflage' (départ vers le secteur privé des hauts fonctionnaires). Source : loi n°2013-907.",s:"https://www.legifrance.gouv.fr",mn:"HATVP = transparence patrimoine + pantouflage → créée 2013 → remplace commission déontologie 2020"},
+{t:"FP État",m:false,q:"Le pantouflage dans la FPE désigne :",o:["Le cumul de deux emplois publics","Le départ d'un haut fonctionnaire vers le secteur privé pouvant créer un conflit d'intérêts","La corruption passive d'un agent","Le refus d'un agent d'exercer ses fonctions"],c:[1],e:"Le pantouflage désigne le passage d'un haut fonctionnaire vers le secteur privé dans un domaine qu'il contrôlait ou régulait dans ses fonctions publiques. La HATVP vérifie l'absence de conflit d'intérêts. Un délai de carence de 3 ans s'applique. Source : CGFP art. L124-1 et suivants.",s:"https://www.legifrance.gouv.fr",mn:"Pantouflage = haut fonctionnaire → privé → risque conflit d'intérêts → contrôle HATVP 3 ans"},
+{t:"FP État",m:false,q:"Qu'est-ce que le corps des attachés d'administration de l'État ?",o:["Un corps de catégorie C recruté sans concours","Un corps de catégorie A de la FPE recruté principalement via les IRA","Un corps de catégorie B recruté par les IRA","Un corps de la FPT"],c:[1],e:"Le corps des attachés d'administration de l'État est un corps interministériel de catégorie A de la FPE. Les attachés sont recrutés principalement par concours externe (bac+3 minimum) et sont formés dans les 5 IRA. Ils constituent l'encadrement intermédiaire des ministères. Source : décret n°2011-1317.",s:"https://www.legifrance.gouv.fr",mn:"Attachés d'administration État = cat A FPE → concours bac+3 + formation IRA → interministériel"},
+{t:"FP État",m:false,q:"La catégorie B dans la FPE correspond à quel niveau de recrutement ?",o:["Bac+5","Bac+3","Baccalauréat","Aucun diplôme requis"],c:[2],e:"La catégorie B (ex. : secrétaire administratif de l'État) est recrutée au niveau baccalauréat pour le concours externe. Les concours interne et 3ème concours ont des conditions différentes (ancienneté ou expérience). La catégorie A nécessite un bac+3 minimum, la catégorie C n'a pas de diplôme requis. Source : statuts particuliers des corps cat B.",s:"https://www.legifrance.gouv.fr",mn:"Cat C = sans diplôme / Cat B = Bac / Cat A = Bac+3 → règle des 3 niveaux"},
+{t:"FP État",m:false,q:"Qu'est-ce que le concours interne dans la FPE ?",o:["Un concours réservé aux agents internes de l'administration (fonctionnaires et agents publics avec ancienneté requise)","Un concours sans épreuve ouverte à tous les agents","Un concours réservé aux directeurs de service","Un concours sans condition de diplôme ni d'ancienneté"],c:[0],e:"Le concours interne est réservé aux fonctionnaires et agents publics (contractuels) justifiant d'une certaine durée de services publics (en général 4 ans pour les SA de cat B). Il n'y a pas de condition de diplôme pour l'interne. Il est distinct du concours externe (ouvert à tous, avec conditions de diplôme). Source : CGFP art. L325-1.",s:"https://www.legifrance.gouv.fr",mn:"Interne = fonctionnaires/agents avec ancienneté (4 ans SA cat B) → sans condition diplôme"},
+{t:"FP État",m:false,q:"Qu'est-ce que le 3ème concours dans la FPE ?",o:["Un 3ème passage possible après 2 échecs","Un concours ouvert aux personnes justifiant d'au moins 4 ans d'expérience professionnelle dans le privé, mandat électif ou associatif","Un concours spécial pour les agents en reconversion","Un concours uniquement pour les militaires"],c:[1],e:"Le 3ème concours est ouvert aux personnes justifiant d'au moins 4 ans d'expérience professionnelle (secteur privé, mandat électif, activité associative). Il n'y a pas de condition de diplôme. Les épreuves valorisent l'expérience acquise. Il représente généralement 10 à 15% des postes offerts. Source : CGFP art. L325-1.",s:"https://www.legifrance.gouv.fr",mn:"3ème concours = 4 ans expérience privé/élu/asso → sans diplôme → 10-15% des postes"},
+// ═══ THÈME 14 : STATUT COMPARÉ FPE/FPT/FPH ═══
+{t:"Statut comparé FP",m:false,q:"Quel organisme assure la formation des agents de la FPT (équivalent des IRA pour la FPE) ?",o:["L'ANFH","L'INSP","Le CNFPT","Les DREETS"],c:[2],e:"Le CNFPT (Centre National de la Fonction Publique Territoriale) est l'organisme chargé de la formation et des concours de catégorie A+ pour la FPT (administrateurs, ingénieurs en chef...). L'ANFH (Association Nationale pour la Formation du personnel Hospitalier) remplit ce rôle pour la FPH. Les IRA forment les attachés de la FPE. Source : loi 84-53.",s:"https://www.legifrance.gouv.fr",mn:"CNFPT = formation FPT / ANFH = formation FPH / IRA+INSP = formation FPE"},
+{t:"Statut comparé FP",m:false,q:"Un agent de la FPH affirme que son organisme de formation est le CNFPT. Est-ce exact ?",o:["Oui, le CNFPT forme les agents des 3 versants","Non, la FPH est formée par l'ANFH — le CNFPT est réservé à la FPT","Oui mais uniquement pour les agents de catégorie A","Non, la FPH est formée directement par les établissements de santé sans organisme dédié"],c:[1],e:"Le CNFPT est l'organisme de formation exclusif de la FPT (Territoriale). La FPH dispose de l'ANFH (Association Nationale pour la Formation du personnel Hospitalier). La FPE passe par les IRA et l'INSP pour la formation initiale, et par des organismes ministériels pour la formation continue. Source : loi 84-53 et loi 86-33.",s:"https://www.legifrance.gouv.fr",mn:"CNFPT ≠ ANFH → FPT / FPH → confusion = piège classique du jury"},
+{t:"Statut comparé FP",m:false,q:"Les CDG (Centres de Gestion) existent dans :",o:["Les 3 versants de la FP","La FPT uniquement","La FPE et la FPT","La FPH uniquement"],c:[1],e:"Les Centres de Gestion (CDG) existent uniquement dans la FPT. Ils assurent des missions de gestion RH pour les collectivités territoriales affiliées (obligatoirement celles de moins de 350 agents). Il n'existe pas d'équivalent dans la FPE (gestion ministérielle) ni dans la FPH (gestion par établissement). Source : loi 84-53 art. 14.",s:"https://www.legifrance.gouv.fr",mn:"CDG = FPT UNIQUEMENT → pas de CDG en FPE ni en FPH → piège classique"},
+{t:"Statut comparé FP",m:false,q:"Un candidat dit que les CDG gèrent aussi les agents hospitaliers. Que lui répondez-vous ?",o:["Oui, les CDG ont une compétence sur les 3 versants","Non, les CDG ne concernent que la FPT — la FPH est gérée par les établissements eux-mêmes","Oui pour les petits hôpitaux de moins de 350 agents","Non, c'est l'ANFH qui joue ce rôle"],c:[1],e:"Les CDG (Centres de Gestion) sont propres à la FPT. Ils n'ont aucune compétence sur les agents de la FPH. Les hôpitaux et établissements médico-sociaux gèrent leurs ressources humaines directement ou via les ARS (Agences Régionales de Santé). L'ANFH s'occupe uniquement de la formation FPH. Source : loi 84-53.",s:"https://www.legifrance.gouv.fr",mn:"CDG = FPT uniquement → FPH gérée par les établissements + ARS → CDG n'a aucune compétence FPH"},
+{t:"Statut comparé FP",m:false,q:"Quelle instance de dialogue social est propre à la FPH ?",o:["Le CST","Le CSA","Le CSE (Comité Social d'Établissement)","La CAP centrale"],c:[2],e:"Le CSE (Comité Social d'Établissement) est l'instance de dialogue social de la FPH, créée par la loi du 6 août 2019 en remplacement du CTE (Comité Technique d'Établissement) et du CHSCT. Opérationnel depuis 2023, il est l'équivalent du CSA (FPE) et du CST (FPT). Source : loi 2019-828.",s:"https://www.legifrance.gouv.fr",mn:"CST (FPT) = CSA (FPE) = CSE (FPH) → même rôle, 3 noms différents selon le versant"},
+{t:"Statut comparé FP",m:false,q:"Quelle est la principale différence de recrutement entre FPE et FPT ?",o:["La FPT recrute par nomination, la FPE par concours","La FPE recrute sur liste d'aptitude nationale, la FPT recrute après inscription sur liste d'aptitude puis recrutement par une collectivité","Il n'y a aucune différence","La FPT ne recrute pas par concours"],c:[1],e:"Différence fondamentale : dans la FPE, réussir le concours conduit (sous conditions) à une nomination dans un corps. Dans la FPT, réussir le concours inscrit sur une liste d'aptitude (valable 3 ans), mais c'est ensuite la collectivité qui recrute l'agent. L'inscription sur liste n'est pas une garantie d'emploi. Source : loi 84-53.",s:"https://www.legifrance.gouv.fr",mn:"FPE = concours → nomination / FPT = concours → liste aptitude 3 ans → recrutement par collectivité"},
+{t:"Statut comparé FP",m:false,q:"La notion de 'corps' dans la FPE correspond à quelle notion dans la FPT ?",o:["Au grade","Au service","Au cadre d'emplois","À la catégorie"],c:[2],e:"Dans la FPE, les fonctionnaires appartiennent à des corps (ex : corps des attachés d'administration). Dans la FPT, l'équivalent est le cadre d'emplois (ex : cadre d'emplois des rédacteurs). Dans la FPH, on parle de corps également. Cette distinction est importante pour les questions sur la mobilité inter-versants. Source : CGFP art. L411-1.",s:"https://www.legifrance.gouv.fr",mn:"Corps (FPE) = Cadre d'emplois (FPT) → même concept, noms différents selon versant"},
+{t:"Statut comparé FP",m:false,q:"Le RAFP est :",o:["La Retraite Additionnelle de la Fonction Publique — régime par points alimenté par les primes","Le Registre des Agents de la Fonction Publique","La Rémunération Annuelle des Fonctionnaires Publics","Le Régime des Allocations et des Fonctionnaires Publics"],c:[0],e:"Le RAFP (Retraite Additionnelle de la Fonction Publique) est un régime de retraite par points obligatoire pour tous les fonctionnaires des 3 versants. Il est alimenté par les primes et indemnités (jusqu'à 20% du traitement brut annuel). Il complète la retraite de base de la CNRACL (FPT/FPH) ou du SRE (FPE). Source : loi du 21 août 2003.",s:"https://www.legifrance.gouv.fr",mn:"RAFP = retraite additionnelle → alimenté par les PRIMES → obligatoire 3 versants"},
+{t:"Statut comparé FP",m:false,q:"La CNRACL concerne :",o:["Les fonctionnaires de la FPE uniquement","Les fonctionnaires de la FPT et de la FPH","Les fonctionnaires des 3 versants","Les contractuels de la FP"],c:[1],e:"La CNRACL (Caisse Nationale de Retraites des Agents des Collectivités Locales) gère la retraite des fonctionnaires titulaires de la FPT et de la FPH. Les fonctionnaires de la FPE relèvent du SRE (Service des Retraites de l'État). Source : décret n°2007-173.",s:"https://www.legifrance.gouv.fr",mn:"CNRACL = retraite FPT + FPH / SRE = retraite FPE → 2 régimes distincts"},
+{t:"Statut comparé FP",m:false,q:"Votre collègue agent FPT affirme relever de la même caisse de retraite que les agents de la FPE. Est-il correct ?",o:["Oui, tous les fonctionnaires ont la même caisse de retraite","Non, la FPT relève de la CNRACL et la FPE du SRE","Oui, depuis la réforme des retraites 2023","Non, la FPT relève du régime général de la sécurité sociale"],c:[1],e:"Les fonctionnaires de la FPT et FPH relèvent de la CNRACL (Caisse Nationale de Retraites des Agents des Collectivités Locales). Les fonctionnaires de la FPE relèvent du SRE (Service des Retraites de l'État, géré par la DGFiP). Ce sont deux régimes distincts, même si la réforme 2023 les a harmonisés sur l'âge et la durée. Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"FPT+FPH → CNRACL / FPE → SRE → deux régimes distincts même après réforme 2023"},
+{t:"Statut comparé FP",m:false,q:"Qu'est-ce que l'ANFH ?",o:["Agence Nationale de la Formation Hospitalière","Association Nationale pour la Formation du personnel Hospitalier — organisme de formation de la FPH","Administration Nationale des Fonctionnaires Hospitaliers","Agence Nationale pour le Financement Hospitalier"],c:[1],e:"L'ANFH (Association Nationale pour la Formation du personnel Hospitalier) est l'organisme paritaire collecteur agréé (OPCA) de la FPH. Elle collecte les fonds de formation des établissements hospitaliers (2,1% de la masse salariale) et finance les plans de formation. Elle est l'équivalent du CNFPT pour la FPH. Source : décret n°2008-824.",s:"https://www.legifrance.gouv.fr",mn:"ANFH = CNFPT de la FPH → formation hospitalière → collecte 2,1% masse salariale"},
+// ═══ NOUVEAUX ACRONYMES ═══
+{t:"Acronymes",m:false,q:"Que signifie RIFSEEP ?",o:["Régime Indemnitaire des Fonctionnaires du Service de l'État et des Établissements Publics","Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel","Régime Individuel de Formation et de Soutien des Établissements et Équipes Publics","Réforme Indemnitaire des Fonctionnaires du Secteur de l'Emploi et de l'Enseignement Public"],c:[1],e:"Le RIFSEEP (Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel) est le cadre indemnitaire principal de la FPE, étendu à la FPT. Il comporte l'IFSE (part principale) et le CIA (part variable annuelle). Source : décret n°2014-513.",s:"https://www.legifrance.gouv.fr",mn:"RIFSEEP = Fonctions + Sujétions + Expertise + Engagement Professionnel → IFSE + CIA"},
+{t:"Acronymes",m:false,q:"Que signifie IFSE ?",o:["Indemnité de Fonctions, Sujétions et Expertise","Institution de Formation et de Soutien à l'Emploi","Indemnité Forfaitaire de Service et d'Établissement","Instance de Formation et de Suivi des Établissements"],c:[0],e:"L'IFSE (Indemnité de Fonctions, Sujétions et Expertise) est la part principale et fixe du RIFSEEP. Son montant est lié au groupe de fonctions (poste occupé) et peut être révisé en cas de changement de poste ou de fonctions. Source : décret n°2014-513.",s:"https://www.legifrance.gouv.fr",mn:"IFSE = Indemnité Fonctions Sujétions Expertise → part FIXE du RIFSEEP"},
+{t:"Acronymes",m:false,q:"Que signifie CIA dans le cadre de la rémunération FP ?",o:["Comité d'Investigation Administrative","Complément Indemnitaire Annuel — part variable du RIFSEEP liée à l'engagement professionnel","Commission Interministérielle Administrative","Conseil d'Information Administrative"],c:[1],e:"Le CIA (Complément Indemnitaire Annuel) est la part variable du RIFSEEP. Il est versé en une ou deux fractions annuelles et tient compte de l'engagement professionnel de l'agent et de sa manière de servir, évalués lors de l'entretien professionnel. Son montant peut varier ou être nul. Source : décret n°2014-513.",s:"https://www.legifrance.gouv.fr",mn:"CIA = Complément Indemnitaire Annuel → part VARIABLE du RIFSEEP → selon engagement"},
+{t:"Acronymes",m:false,q:"Que signifie INSP ?",o:["Institut National des Sciences Politiques","Institut National du Service Public — remplaçant de l'ENA depuis janvier 2022","Institut National de la Statistique Publique","Instance Nationale de Sélection Publique"],c:[1],e:"L'INSP (Institut National du Service Public) a remplacé l'ENA (École Nationale d'Administration) au 1er janvier 2022 (décret du 16 avril 2021). Il a une mission élargie incluant la formation initiale des hauts fonctionnaires, la formation continue des cadres supérieurs et la recherche. Source : décret n°2021-1216.",s:"https://www.legifrance.gouv.fr",mn:"INSP = ENA depuis janvier 2022 → Institut National du Service Public"},
+{t:"Acronymes",m:false,q:"Que signifie PFRH dans la FPE ?",o:["Plan de Formation des Ressources Humaines","Plateforme Régionale d'Appui interministériel à la Gestion des Ressources Humaines","Protocole de Financement des Ressources Humaines","Portail de Formation des Ressources Humaines"],c:[1],e:"Les PFRH (Plateformes Régionales d'Appui interministériel à la Gestion des Ressources Humaines) sont placées auprès des SGAR (Secrétaires Généraux pour les Affaires Régionales). Elles accompagnent les services déconcentrés dans leur gestion RH et facilitent la mobilité interministérielle. Source : circulaire DGAFP 2010.",s:"https://www.legifrance.gouv.fr",mn:"PFRH = Plateforme RH interministérielle en région → placée auprès du SGAR"},
+{t:"Acronymes",m:false,q:"Que signifie SGAR ?",o:["Service de Gestion Administrative Régionale","Secrétariat Général pour les Affaires Régionales — placé auprès du préfet de région","Syndicat des Gestionnaires Administratifs Régionaux","Secrétariat Général de l'Administration Régionale"],c:[1],e:"Le SGAR (Secrétariat Général pour les Affaires Régionales) est placé auprès du préfet de région. Il coordonne l'action interministérielle des services déconcentrés et pilote la RH interministérielle en région via les PFRH. Source : décret n°2004-374 du 29 avril 2004.",s:"https://www.legifrance.gouv.fr",mn:"SGAR = Secrétariat Général Affaires Régionales → sous le préfet de région → pilote PFRH"},
+{t:"Acronymes",m:false,q:"Que signifie DREETS ?",o:["Direction Régionale de l'Environnement, de l'Énergie et des Transports et des Solidarités","Direction Régionale de l'Économie, de l'Emploi, du Travail et des Solidarités","Direction des Ressources pour l'Emploi, l'Entreprise et le Travail Social","Direction Régionale de l'Éducation, de l'Emploi, du Travail et des Services"],c:[1],e:"Les DREETS (Directions Régionales de l'Économie, de l'Emploi, du Travail et des Solidarités) ont été créées en 2021 par fusion des DIRECCTE et des services de cohésion sociale. Elles sont les principales administrations déconcentrées de l'État pour le travail et les solidarités. Source : décret n°2020-1545.",s:"https://www.legifrance.gouv.fr",mn:"DREETS = Économie + Emploi + Travail + Solidarités → fusion DIRECCTE + social en 2021"},
+{t:"Acronymes",m:false,q:"Que signifie DDI ?",o:["Direction des Données et de l'Information","Direction Départementale Interministérielle — services déconcentrés multi-ministères au niveau départemental","Département de Déploiement Institutionnel","Direction du Développement et de l'Innovation"],c:[1],e:"Les DDI (Directions Départementales Interministérielles) sont des services déconcentrés de l'État au niveau départemental regroupant plusieurs ministères (ex : DDETS pour emploi-travail-solidarités, DDPP pour protection des populations, DDT pour territoires). Créées en 2010. Source : décret n°2009-1484.",s:"https://www.legifrance.gouv.fr",mn:"DDI = Direction Départementale Interministérielle → multi-ministères → niveau département → depuis 2010"},
+{t:"Acronymes",m:false,q:"Que signifie CCFP ?",o:["Commission Consultative de la Fonction Publique","Conseil Commun de la Fonction Publique — instance de dialogue social commune aux 3 versants","Comité Central de la Fonction Publique","Centre de Coordination de la Formation Publique"],c:[1],e:"Le CCFP (Conseil Commun de la Fonction Publique) est l'instance nationale de dialogue social compétente sur les sujets communs aux 3 versants (FPE, FPT, FPH). Présidé par le ministre chargé de la FP. Source : loi n°2010-751 du 5 juillet 2010.",s:"https://www.legifrance.gouv.fr",mn:"CCFP = Conseil COMMUN FP → dialogue social pour les 3 versants ensemble"},
+{t:"Acronymes",m:false,q:"Que signifie NBI ?",o:["Norme de Base Indiciaire","Nouvelle Bonification Indiciaire — points d'indice supplémentaires pour fonctions à responsabilité","Niveau de Bonification Institutionnel","Nomenclature Budgétaire Indiciaire"],c:[1],e:"La NBI (Nouvelle Bonification Indiciaire) est attribuée aux agents exerçant des fonctions impliquant une responsabilité ou une technicité particulière (ex : accueil du public, encadrement). Elle est exprimée en points d'indice majoré ajoutés au traitement. Source : loi n°91-73 du 18 janvier 1991.",s:"https://www.legifrance.gouv.fr",mn:"NBI = Nouvelle Bonification Indiciaire → points supplémentaires pour responsabilité/technicité"},
+{t:"Acronymes",m:false,q:"Que signifie SFT ?",o:["Salaire Fixe de Traitement","Supplément Familial de Traitement — complément de rémunération pour agent avec enfant(s) à charge","Seuil Financier de Traitement","Service de Formation Territoriale"],c:[1],e:"Le SFT (Supplément Familial de Traitement) est versé aux fonctionnaires ayant au moins un enfant à charge. Son montant varie selon le nombre d'enfants. Si les deux parents sont fonctionnaires, un seul peut en bénéficier. Source : décret n°99-491 du 10 juin 1999.",s:"https://www.legifrance.gouv.fr",mn:"SFT = Supplément Familial de Traitement → enfants à charge → 1 seul parent si les 2 sont FP"},
+{t:"Acronymes",m:false,q:"Que signifie VAE ?",o:["Vote d'Approbation Électorale","Validation des Acquis de l'Expérience — obtenir une certification grâce à son expérience professionnelle","Valorisation des Agents Expérimentés","Visa d'Accès à l'Emploi"],c:[1],e:"La VAE (Validation des Acquis de l'Expérience) permet d'obtenir tout ou partie d'une certification (diplôme, titre, CQP) en faisant valoir son expérience professionnelle, sans suivre une formation classique. Minimum 1 an d'expérience requis. Source : CGFP art. L422-3.",s:"https://www.legifrance.gouv.fr",mn:"VAE = Validation Acquis Expérience → certification sans formation → 1 an mini d'expérience"},
+{t:"Acronymes",m:false,q:"Que signifie GPEEC ?",o:["Groupement Paritaire pour l'Emploi et l'Évolution des Carrières","Gestion Prévisionnelle des Emplois, des Effectifs et des Compétences","Guide Pratique pour l'Emploi et les Effectifs Civils","Gestion Publique des Équipes et des Effectifs Civils"],c:[1],e:"La GPEEC (Gestion Prévisionnelle des Emplois, des Effectifs et des Compétences) est obligatoire pour les collectivités de plus de 150 agents (loi FPTLV 2007). Elle consiste à anticiper les besoins en emplois et compétences à 3-5 ans. Source : loi n°2007-209.",s:"https://www.legifrance.gouv.fr",mn:"GPEEC = anticiper Emplois + Effectifs + Compétences → obligatoire >150 agents FPT"},
+{t:"Acronymes",m:false,q:"Que signifie LDG dans la FP ?",o:["Liste Des Grades accessibles par promotion","Lignes Directrices de Gestion — orientations pluriannuelles pour mutations et promotions","Livre De Gestion des agents publics","Loi De Gestion des effectifs publics"],c:[1],e:"Les LDG (Lignes Directrices de Gestion) ont été créées par la loi du 6 août 2019 de transformation de la FP. Elles remplacent les avis des CAP pour les mutations et promotions. Définies par l'autorité territoriale (FPT) ou le ministre (FPE), elles fixent les orientations pluriannuelles RH. Source : CGFP art. L413-1.",s:"https://www.legifrance.gouv.fr",mn:"LDG = Lignes Directrices de Gestion → remplacent CAP pour mutations/promotions → loi 2019"},
+{t:"Acronymes",m:false,q:"Que signifie RAFP ?",o:["Régime des Allocations des Fonctionnaires Publics","Retraite Additionnelle de la Fonction Publique — régime par points alimenté par les primes","Registre des Agents de la Fonction Publique","Régime d'Assurance Formation Publique"],c:[1],e:"Le RAFP (Retraite Additionnelle de la Fonction Publique) est un régime de retraite par points obligatoire pour tous les fonctionnaires des 3 versants. Il est alimenté par les primes et indemnités (plafonné à 20% du traitement brut annuel). Il s'ajoute à la retraite de base. Source : loi du 21 août 2003.",s:"https://www.legifrance.gouv.fr",mn:"RAFP = Retraite Additionnelle FP → par points → alimenté par PRIMES → obligatoire 3 versants"},
+{t:"Acronymes",m:false,q:"Que signifie CNRACL ?",o:["Conseil National de Révision Administrative des Collectivités Locales","Caisse Nationale de Retraites des Agents des Collectivités Locales — régime de retraite FPT et FPH","Centre National de Recrutement et d'Accès aux Carrières Locales","Commission Nationale de Régulation des Agents des Collectivités Locales"],c:[1],e:"La CNRACL (Caisse Nationale de Retraites des Agents des Collectivités Locales) gère la retraite de base des fonctionnaires titulaires de la FPT et de la FPH. Les fonctionnaires de la FPE relèvent du SRE (Service des Retraites de l'État). Source : décret n°2007-173.",s:"https://www.legifrance.gouv.fr",mn:"CNRACL = retraite FPT + FPH (pas FPE) → FPE = SRE → 2 régimes distincts"},
+{t:"Acronymes",m:false,q:"Que signifie ANFH ?",o:["Agence Nationale de la Formation Hospitalière","Association Nationale pour la Formation du personnel Hospitalier — organisme de formation FPH","Administration Nationale des Fonctionnaires Hospitaliers","Agence Nationale pour le Financement Hospitalier"],c:[1],e:"L'ANFH (Association Nationale pour la Formation du personnel Hospitalier) est l'organisme collecteur de la FPH. Elle collecte 2,1% de la masse salariale des établissements hospitaliers et finance les plans de formation. Elle est l'équivalent du CNFPT pour la FPH. Source : décret n°2008-824.",s:"https://www.legifrance.gouv.fr",mn:"ANFH = CNFPT de la FPH → formation hospitalière → collecte 2,1% masse salariale"},
+{t:"Acronymes",m:false,q:"Que signifie HATVP ?",o:["Haute Administration des Traitements et Versements Publics","Haute Autorité pour la Transparence de la Vie Publique — contrôle patrimoine et pantouflage","Haute Autorité du Travail des Versants Publics","Haute Administration de la Transparence et des Valeurs Publiques"],c:[1],e:"La HATVP (Haute Autorité pour la Transparence de la Vie Publique) contrôle les déclarations de situation patrimoniale et d'intérêts des responsables publics, et gère le contrôle du pantouflage. Créée par la loi du 11 octobre 2013, elle a repris les missions de l'ancienne commission de déontologie en 2020. Source : loi n°2013-907.",s:"https://www.legifrance.gouv.fr",mn:"HATVP = Haute Autorité Transparence Vie Publique → patrimoine + pantouflage → depuis 2013"},
+{t:"Acronymes",m:false,q:"Que signifie CSA dans la FPE ?",o:["Conseil Supérieur Administratif","Comité Social d'Administration — instance de dialogue social FPE remplaçant CTM et CHSCT depuis 2023","Commission de Sécurité Administrative","Centre de Soutien Administratif"],c:[1],e:"Le CSA (Comité Social d'Administration) est l'instance de dialogue social de la FPE. Créé par la loi du 6 août 2019, opérationnel depuis janvier 2023, il fusionne le CTM (Comité Technique Ministériel) et le CHSCT. Il est l'équivalent du CST dans la FPT et du CSE dans la FPH. Source : CGFP art. L251-1.",s:"https://www.legifrance.gouv.fr",mn:"CSA = CTM + CHSCT fusionnés → dialogue social FPE → équivalent CST (FPT) et CSE (FPH)"},
+{t:"Acronymes",m:false,q:"Que signifie IRA ?",o:["Institut de Révision Administrative","Institut Régional d'Administration — forme les attachés d'administration de l'État cat A","Indice de Rémunération Administrative","Instance Représentative des Agents"],c:[1],e:"Les IRA (Instituts Régionaux d'Administration) sont au nombre de 5 en France (Nantes, Lyon, Metz, Bastia, Lille). Ils forment les attachés d'administration de l'État (catégorie A) recrutés par concours externe ou interne. Formation de 12 mois environ. Source : décret n°84-346.",s:"https://www.legifrance.gouv.fr",mn:"IRA = Institut Régional Administration → 5 instituts → forment attachés cat A FPE"},
+{t:"Acronymes",m:false,q:"Que signifie AAI ?",o:["Administration Autonome et Indépendante","Autorité Administrative Indépendante — organisme public sans tutelle gouvernementale directe","Agence Administrative Interministérielle","Administration d'Appui Institutionnel"],c:[1],e:"Les AAI (Autorités Administratives Indépendantes) exercent des missions de régulation ou de protection sans être soumises à l'autorité hiérarchique du gouvernement. Exemples : CNIL, CADA, Défenseur des droits, HATVP, Autorité de la concurrence. Encadrées par la loi du 20 janvier 2017. Source : loi n°2017-55.",s:"https://www.legifrance.gouv.fr",mn:"AAI = Autorité Administrative Indépendante → sans tutelle gouv → CNIL, CADA, HATVP..."},
+{t:"Acronymes",m:false,q:"Que signifie EPA ?",o:["Établissement Public Administratif — organisme public à mission de service public non commercial","Emploi Public Administratif","Évaluation du Personnel Administratif","Établissement Professionnel Administratif"],c:[0],e:"Les EPA (Établissements Publics Administratifs) exercent des missions de service public sans activité commerciale principale. Leurs agents sont généralement des fonctionnaires. Exemples : CNFPT, universités, hôpitaux (EPS), établissements scolaires. À distinguer des EPIC dont l'activité est industrielle ou commerciale. Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"EPA = Établissement Public Administratif → mission SP non commerciale → agents fonctionnaires"},
+{t:"Acronymes",m:false,q:"Que signifie EPIC ?",o:["Établissement Public Interministériel et Commercial","Établissement Public Industriel et Commercial — activité commerciale, agents droit privé majoritairement","Entité Publique d'Intérêt Commercial","Établissement Public d'Intérêt Collectif"],c:[1],e:"Les EPIC (Établissements Publics Industriels et Commerciaux) ont une activité industrielle ou commerciale. Leurs agents relèvent généralement du droit privé (contrats de travail) sauf les directeurs et agents comptables. Exemples : SNCF Réseau, La Poste (avant privatisation), ONF, certains ports. Source : CGFP.",s:"https://www.legifrance.gouv.fr",mn:"EPIC = Établissement Public Industriel et Commercial → activité commerciale → agents droit privé"},
+// ═══ QUESTIONS À COMPLÉTER (fill) ═══
+{t:"Acronymes",fill:true,q:"RIFSEEP = Régime Indemnitaire tenant compte des Fonctions, _____, Expertise et Engagement Professionnel",a:["sujétions","sujetions"],e:"RIFSEEP = Fonctions + Sujétions + Expertise + Engagement Professionnel. Composé de l'IFSE (fixe) et du CIA (variable).",mn:"R-I-F-S-E-E-P → Fonctions / Sujétions / Expertise / Engagement Pro"},
+{t:"Acronymes",fill:true,q:"GPEEC = Gestion Prévisionnelle des _____, des Effectifs et des Compétences",a:["emplois","emploi"],e:"GPEEC = Gestion Prévisionnelle des Emplois, Effectifs et Compétences. Obligatoire pour les collectivités >150 agents (loi FPTLV 2007).",mn:"G-P-E-E-C → Emplois / Effectifs / Compétences"},
+{t:"Acronymes",fill:true,q:"HATVP = Haute Autorité pour la Transparence de la Vie _____",a:["publique"],e:"La HATVP contrôle les déclarations de patrimoine et le pantouflage des responsables publics. Créée en 2013.",mn:"HATVP → Transparence Vie Publique → pantouflage + patrimoine"},
+{t:"Acronymes",fill:true,q:"ANFH = Association Nationale pour la Formation du personnel _____",a:["hospitalier","hospitalière"],e:"L'ANFH est l'organisme de formation de la FPH, équivalent du CNFPT pour la FPT. Elle collecte 2,1% de la masse salariale.",mn:"ANFH = CNFPT de la FPH → Hospitalier"},
+{t:"Acronymes",fill:true,q:"DDI = Direction Départementale _____",a:["interministérielle","interministerielle"],e:"Les DDI regroupent plusieurs ministères au niveau départemental (DDETS, DDPP, DDT...). Créées en 2010.",mn:"DDI = Interministérielle → plusieurs ministères en 1 seul service"},
+{t:"Acronymes",fill:true,q:"DREETS = Direction Régionale de l'Économie, de l'Emploi, du Travail et des _____",a:["solidarités","solidarites"],e:"Les DREETS ont été créées en 2021 par fusion des DIRECCTE et des services de cohésion sociale.",mn:"DREETS → Solidarités → fusion DIRECCTE+social 2021"},
+{t:"Acronymes",fill:true,q:"PFRH = Plateforme Régionale d'Appui interministériel à la Gestion des Ressources _____",a:["humaines","humaine"],e:"Les PFRH sont placées auprès des SGAR. Elles accompagnent les services déconcentrés dans leur GRH.",mn:"PFRH = RH interministérielle en région → sous le SGAR"},
+{t:"Acronymes",fill:true,q:"CCFP = Conseil _____ de la Fonction Publique",a:["commun"],e:"Le CCFP est l'instance de dialogue social commune aux 3 versants (FPE, FPT, FPH), présidée par le ministre chargé de la FP.",mn:"CCFP = COMMUN aux 3 versants"},
+{t:"Acronymes",fill:true,q:"CNRACL = Caisse Nationale de Retraites des Agents des Collectivités _____",a:["locales","locale"],e:"La CNRACL gère la retraite des fonctionnaires FPT et FPH. Les agents FPE relèvent du SRE.",mn:"CNRACL → Collectivités Locales → FPT+FPH (pas FPE)"},
+{t:"Acronymes",fill:true,q:"RAFP = Retraite _____ de la Fonction Publique",a:["additionnelle"],e:"Le RAFP est un régime de retraite par points, alimenté par les primes (jusqu'à 20% du traitement). Obligatoire pour les 3 versants.",mn:"RAFP = ADDITIONNELLE → en plus de la retraite de base → alimenté par les primes"},
+{t:"Acronymes",fill:true,q:"NBI = Nouvelle _____ Indiciaire",a:["bonification"],e:"La NBI accorde des points d'indice supplémentaires aux agents exerçant des fonctions à responsabilité ou technicité particulière.",mn:"NBI = Nouvelle BONIFICATION Indiciaire → récompense les postes à responsabilité"},
+{t:"Acronymes",fill:true,q:"SFT = Supplément _____ de Traitement",a:["familial"],e:"Le SFT est versé aux fonctionnaires ayant au moins 1 enfant à charge. Un seul parent FP peut le percevoir.",mn:"SFT = Supplément FAMILIAL → enfants à charge"},
+{t:"Acronymes",fill:true,q:"INSP = Institut National du _____ Public",a:["service"],e:"L'INSP a remplacé l'ENA au 1er janvier 2022. Il forme les hauts fonctionnaires et assure la formation continue des cadres supérieurs.",mn:"INSP = Institut National Service Public → ex-ENA depuis 2022"},
+{t:"Acronymes",fill:true,q:"IRA = Institut _____ d'Administration",a:["régional"],e:"Les 5 IRA (Nantes, Lyon, Metz, Bastia, Lille) forment les attachés d'administration de l'État (catégorie A) en 12 mois.",mn:"IRA = Institut RÉGIONAL Administration → 5 instituts → attachés cat A FPE"},
+{t:"RH Approfondi",fill:true,q:"La durée maximale d'une disponibilité pour convenances personnelles est de _____ ans sur l'ensemble de la carrière",a:["10","dix"],e:"La disponibilité pour CP est accordée par période de 3 ans renouvelable, dans la limite de 10 ans sur l'ensemble de la carrière. Source : CGFP art. L430-1.",mn:"Dispo CP = 3 ans × renouvellement → PLAFOND 10 ANS sur carrière"},
+{t:"RH Approfondi",fill:true,q:"Le CLM (Congé Longue Maladie) dure au maximum _____ ans",a:["3","trois"],e:"CLM = 3 ans max : 12 mois à plein traitement + 24 mois à demi-traitement. Source : CGFP art. L822-1.",mn:"CLM = 3 ans → 1 plein + 2 demi → comme 1+2=3"},
+{t:"RH Approfondi",fill:true,q:"Le CLD (Congé Longue Durée) dure au maximum _____ ans",a:["5","cinq"],e:"CLD = 5 ans max : 3 ans à plein traitement + 2 ans à demi-traitement. Réservé aux affections spécifiques (tuberculose, cancer, maladies mentales...). Source : CGFP art. L823-1.",mn:"CLD = 5 ans → 3 plein + 2 demi → plus long que le CLM"},
+{t:"RH Approfondi",fill:true,q:"Le taux OETH (obligation d'emploi travailleurs handicapés) est de _____% de l'effectif",a:["6"],e:"6% de l'effectif pour tout organisme de 20 agents et plus. Le non-respect entraîne une contribution au FIPHFP. Source : loi 2005-102.",mn:"OETH = 6% → dès 20 agents → contribution FIPHFP si insuffisant"},
+{t:"RH Approfondi",fill:true,q:"Le CPF est alimenté à raison de _____ heures par an jusqu'à 120h",a:["24"],e:"Le CPF est crédité de 24h/an jusqu'à 120h, puis 12h/an jusqu'au plafond de 150h. Source : CGFP art. L422-1.",mn:"CPF = 24h/an → 120h puis 12h/an → max 150h"},
+{t:"Temps de travail",fill:true,q:"Le temps de travail annuel obligatoire dans la fonction publique est de _____ heures",a:["1607","1 607"],e:"1607h = 1600h effectives + 7h de journée de solidarité. C'est le seuil légal depuis la réforme du temps de travail.",mn:"1607 = 1600 + 7 (solidarité) → obligatoire depuis la réforme"},
+{t:"Temps de travail",fill:true,q:"Le nombre de jours de congés annuels d'un fonctionnaire est de _____ jours ouvrés",a:["25"],e:"25 jours ouvrés = 5 semaines de congés annuels. C'est le droit commun pour tous les agents publics.",mn:"25 jours ouvrés = 5 semaines → comme le secteur privé"},
+{t:"Discipline",fill:true,q:"Le délai de prescription disciplinaire dans la FP est de _____ ans à compter de la connaissance des faits",a:["3","trois"],e:"La prescription disciplinaire est de 3 ans à compter du jour où l'administration a eu connaissance des faits. Source : CGFP art. L532-6.",mn:"Prescription disciplinaire = 3 ANS → à partir de la CONNAISSANCE des faits"},
+{t:"Discipline",fill:true,q:"L'avertissement et le blâme sont effacés du dossier après _____ ans sans nouvelle sanction",a:["3","trois"],e:"L'avertissement et le blâme (sanctions du 1er groupe) sont automatiquement effacés après 3 ans sans nouvelle sanction disciplinaire. Source : CGFP art. L533-7.",mn:"Blâme + Avertissement effacés après 3 ANS → même durée que la prescription"},
+{t:"Recrutement",fill:true,q:"La liste d'aptitude après réussite au concours de la FPT est valable _____ ans",a:["3","trois"],e:"La liste d'aptitude est valable 3 ans. L'inscription ne garantit pas le recrutement — c'est la collectivité qui recrute. Source : loi 84-53.",mn:"Liste aptitude FPT = 3 ANS → après concours → collectivité recrute"},
+{t:"Statut comparé FP",fill:true,q:"La loi régissant la FPT est du _____ janvier 1984",a:["26"],e:"La loi 84-53 du 26 janvier 1984 régit la FPT. La FPE = 11 janvier 1984, la FPH = 9 janvier 1986.",mn:"26/01/1984 = FPT → 11/01 = FPE → 9/01/1986 = FPH → ordre ETH chronologique"},
+{t:"FP État",fill:true,q:"L'ENA a été remplacée par l'INSP au _____ janvier 2022",a:["1","1er","premier"],e:"L'ENA a été supprimée par décret du 16 avril 2021 et remplacée par l'INSP (Institut National du Service Public) au 1er janvier 2022.",mn:"ENA → INSP → 1er JANVIER 2022 → date à retenir"},
+{t:"FP État",fill:true,q:"Il existe _____ IRA (Instituts Régionaux d'Administration) en France",a:["5","cinq"],e:"Les 5 IRA sont situés à Nantes, Lyon, Metz, Bastia et Lille. Ils forment les attachés d'administration de l'État (catégorie A).",mn:"5 IRA → Nantes, Lyon, Metz, Bastia, Lille → retenir le chiffre 5"},
+{t:"Dialogue social",fill:true,q:"Le préavis de grève dans la fonction publique doit être déposé _____ jours ouvrables à l'avance",a:["5","cinq"],e:"Le préavis doit être déposé 5 jours ouvrables avant le début de la grève par un syndicat représentatif. Source : CGFP art. L114-3.",mn:"Préavis grève = 5 JOURS ouvrables → par syndicat représentatif"},
+{t:"Contentieux",fill:true,q:"Le délai de droit commun pour former un recours contentieux devant le tribunal administratif est de _____ mois",a:["2","deux"],e:"Le délai de recours contentieux de droit commun est de 2 mois à compter de la notification ou publication de la décision. Source : Code de justice administrative.",mn:"Recours contentieux = 2 MOIS → délai de droit commun"}
 ];
 const FICHES={
 "Statut":{title:"📜 Statut du fonctionnaire",key:"CGFP=ordonnance 24/11/2021 · 3 versants ETH · Corps→Grade→Échelon · Stage 1an cat.B · Suspension max 4 mois · Principes SP: Égalité+Continuité+Adaptabilité",sections:[{title:"Textes",items:[{k:"CGFP",v:"Ordonnance n°2021-1574 du 24/11/2021, en vigueur 1er mars 2022"},{k:"Art.6 DDHC",v:"Égal accès aux emplois selon vertus et talents"},{k:"Loi 1983",v:"Droits et obligations des fonctionnaires"}]},{title:"Positions statutaires",items:[{k:"Activité",v:"Poste de son grade dans sa collectivité"},{k:"Détachement",v:"Hors corps, droits conservés, peut→intégration"},{k:"Disponibilité",v:"Hors adm, sans traitement, 3ans max, 10ans total"},{k:"Mise à dispo",v:"Auprès autre organisme, rémunéré par l'origine"}]},{title:"Chiffres",items:[{k:"Stage cat.B",v:"1 an (prolongeable 1 fois)"},{k:"Suspension",v:"Max 4 mois (renouvelable si poursuites pénales)"},{k:"CPF",v:"Jusqu'à 150h"}]}]},
@@ -834,8 +980,11 @@ const FICHES={
 "Recrutement":{title:"🎓 Recrutement et carrière",key:"3 concours: externe(bac)/interne(ancienneté)/3e(4ans expé) · Liste aptitude=3ans · Sans concours=cat.C · CDIsation=6ans CDD · OETH=6% dès 20 agents · Entretien pro remplace notation(2019)",sections:[{title:"Concours",items:[{k:"Externe",v:"Ouvert à tous – niveau bac pour SA cat.B"},{k:"Interne",v:"Fonctionnaires et agents avec ancienneté"},{k:"3e concours",v:"4 ans d'expérience privée / mandat / associatif"},{k:"Liste aptitude",v:"Valable 3 ans – ne garantit pas le recrutement"}]},{title:"Carrière et contractuels",items:[{k:"CDIsation",v:"Après 6 ans de CDD successifs sur même emploi"},{k:"OETH",v:"6% de l'effectif pour collectivités ≥20 agents"},{k:"Entretien pro",v:"Remplace notation chiffrée depuis loi 2019"},{k:"Examen pro",v:"Pas de numerus clausus – tous les reçus passent"}]}]}
 };
 
+FICHES["RH Approfondi"]={title:"👥 RH Approfondi",key:"RIFSEEP=IFSE+CIA · NBI=responsabilité · CPF=24h/an→120h · VAE=1an expé · CLM=3ans · CLD=5ans · GPEEC>150 · LDG=mutations · OETH=6% · FIPHFP",sections:[{title:"Rémunération",items:[{k:"Traitement",v:"IM × valeur point — élément principal obligatoire"},{k:"RIFSEEP",v:"IFSE (fixe) + CIA (variable annuel)"},{k:"NBI",v:"Points supplémentaires pour responsabilité/technicité"},{k:"SFT",v:"Supplément Familial — 1 enfant+ à charge"}]},{title:"Positions et congés",items:[{k:"7 positions",v:"Activité, Détachement, Dispo, MAD, Cgt parental, Hors cadre, Service national"},{k:"Dispo CP",v:"3 ans renouvelable — MAX 10 ans sur carrière"},{k:"CLM",v:"3 ans max : 1 an plein + 2 ans demi-traitement"},{k:"CLD",v:"5 ans max : 3 ans plein + 2 ans demi — affections spécifiques"}]},{title:"Formation",items:[{k:"CPF",v:"24h/an → 120h puis 12h/an → max 150h"},{k:"VAE",v:"Certification par expérience — minimum 1 an"},{k:"GPEEC",v:"Obligatoire >150 agents FPT"},{k:"LDG",v:"Remplacent CAP pour mutations/promotions — loi 2019"}]}]};
+FICHES["FP État"]={title:"🏛 Fonction Publique d'État",key:"Loi 11/01/1984 · IRA=5 instituts · INSP=ex-ENA 2022 · CSA=CTM+CHSCT · RIFSEEP · PFRH/SGAR · HATVP · AAI=CNIL,CADA",sections:[{title:"Textes fondateurs",items:[{k:"FPE",v:"Loi 84-16 du 11 janvier 1984"},{k:"FPT",v:"Loi 84-53 du 26 janvier 1984"},{k:"FPH",v:"Loi 86-33 du 9 janvier 1986"}]},{title:"Organismes FPE",items:[{k:"IRA",v:"5 instituts — forment attachés cat A — 12 mois"},{k:"INSP",v:"Ex-ENA depuis 1er janvier 2022"},{k:"CSA",v:"CTM+CHSCT fusionnés — depuis 2023"},{k:"PFRH",v:"Appui RH interministériel — auprès SGAR"}]},{title:"Contrôle",items:[{k:"HATVP",v:"Pantouflage + patrimoine — depuis 2013"},{k:"AAI",v:"CNIL, CADA, Défenseur des droits"},{k:"CCFP",v:"Conseil Commun FP — 3 versants"}]}]};
+FICHES["Statut comparé FP"]={title:"⚖️ Statut comparé FPE/FPT/FPH",key:"Corps(FPE)=Cadre emplois(FPT) · IRA/INSP(FPE) · CNFPT(FPT) · ANFH(FPH) · CDG=FPT seul · CSA=CST=CSE · CNRACL=FPT+FPH/SRE=FPE · RAFP=3 versants",sections:[{title:"Formation",items:[{k:"FPE",v:"IRA + INSP"},{k:"FPT",v:"CNFPT"},{k:"FPH",v:"ANFH (2,1% masse salariale)"}]},{title:"Instances RH",items:[{k:"CDG",v:"FPT UNIQUEMENT — <350 agents"},{k:"CSA/CST/CSE",v:"Même rôle — FPE/FPT/FPH"},{k:"CNRACL",v:"Retraite FPT+FPH → FPE=SRE"},{k:"RAFP",v:"Retraite additionnelle — 3 versants"}]},{title:"Recrutement",items:[{k:"FPE",v:"Concours → nomination directe"},{k:"FPT",v:"Concours → liste aptitude 3 ans → collectivité recrute"},{k:"Corps/Cadre emplois",v:"Même concept — nom différent FPE/FPT"}]}]};
 // ─── ÉTAT GLOBAL ───
-let currentTheme='all', currentMode='entrainement';
+let selectedThemes=new Set(['all']), currentMode='entrainement';
 let questions=[], current=0, userAnswers=[], timerInterval=null, timeLeft=7200;
 let chronoInterval=null, chronoLeft=90;
 let fcQuestions=[], fcCurrent=0, fcFlipped=false;
@@ -935,7 +1084,7 @@ function refreshMenu(){
   document.getElementById('statGlobal').textContent=tot?Math.round(ok/tot*100)+'%':'—';
 
   // Barres thèmes
-  const THEMES=['Statut','Discipline','Mobilité','Dialogue social','Temps de travail','Contentieux','Instances','Recrutement'];
+  const THEMES=['Statut','Discipline','Mobilité','Dialogue social','Temps de travail','Contentieux','Instances','Recrutement','Valeurs SP','Politiques publiques','Acronymes','RH Approfondi',"FP État",'Statut comparé FP'];
   THEMES.forEach(t=>{
     const s=themeStats[t]||{correct:0,total:0};
     const pct=s.total?Math.round(s.correct/s.total*100):0;
@@ -957,9 +1106,44 @@ function selectMode(m){
 }
 
 function selectTheme(t){
-  currentTheme=t;
-  document.querySelectorAll('.theme-card').forEach(c=>c.classList.remove('selected'));
-  event&&event.currentTarget&&event.currentTarget.classList.add('selected');
+  if(t==='all'){
+    // Tout déselectionner → sélectionner ALL
+    selectedThemes=new Set(['all']);
+    document.querySelectorAll('.theme-card').forEach(c=>c.classList.remove('selected'));
+    document.querySelector('.theme-card.all-themes').classList.add('selected');
+  } else {
+    // Retirer 'all' si présent
+    selectedThemes.delete('all');
+    document.querySelector('.theme-card.all-themes').classList.remove('selected');
+    // Toggle le thème cliqué
+    const card=event&&event.currentTarget;
+    if(selectedThemes.has(t)){
+      selectedThemes.delete(t);
+      card&&card.classList.remove('selected');
+    } else {
+      selectedThemes.add(t);
+      card&&card.classList.add('selected');
+    }
+    // Si plus rien de sélectionné → revenir à 'all'
+    if(selectedThemes.size===0){
+      selectedThemes.add('all');
+      document.querySelector('.theme-card.all-themes').classList.add('selected');
+    }
+  }
+  updateStartBtn();
+}
+
+function updateStartBtn(){
+  const pool=getFilteredQ();
+  const btn=document.getElementById('btnStart');
+  if(!btn) return;
+  if(selectedThemes.has('all')){
+    btn.textContent='▶ Commencer ('+pool.length+' questions)';
+  } else {
+    const names=Array.from(selectedThemes);
+    const label=names.length===1?names[0]:names.length+' thèmes';
+    btn.textContent='▶ Commencer — '+label+' ('+pool.length+' questions)';
+  }
 }
 
 function launchQuiz(){
@@ -970,7 +1154,7 @@ function launchQuiz(){
 
 // ─── FICHES ───
 function openFiche(){
-  const t=currentTheme==='all'?'Statut':currentTheme;
+  const t=selectedThemes.has('all')||selectedThemes.size!==1?'Statut':Array.from(selectedThemes)[0];
   const f=FICHES[t];
   if(!f){showToast('Sélectionne un thème spécifique');return;}
   let html=`<h3>${f.title}</h3>`;
@@ -989,8 +1173,8 @@ function openFiche(){
 
 // ─── QUIZ ───
 function getFilteredQ(){
-  if(currentTheme==='all') return [...Q];
-  return Q.filter(q=>norm(q.t)===norm(currentTheme));
+  if(selectedThemes.has('all')) return [...Q];
+  return Q.filter(q=>selectedThemes.has(q.t));
 }
 
 function weightedShuffle(qs){
@@ -1011,11 +1195,12 @@ function startQuiz(){
   current=0;
   userAnswers=Array(questions.length).fill(null);
   showScreen('screen-quiz');
-  document.getElementById('btnVoirCorrection').style.display=currentMode==='examen'?'none':'inline-flex';
+  document.getElementById('btnVoirCorrection').style.display=(currentMode==='examen'||questions[current].fill)?'none':'inline-flex';
   document.getElementById('btnResults').style.display='none';
   document.getElementById('btnFinish').style.display='inline-flex';
   document.getElementById('timerPill').style.display=currentMode==='examen'?'inline-flex':'none';
-  document.getElementById('qThemePill').textContent=currentTheme==='all'?'Tous les thèmes':currentTheme;
+  const _names=Array.from(selectedThemes);
+  document.getElementById('qThemePill').textContent=selectedThemes.has('all')?'Tous les thèmes':_names.length===1?_names[0]:_names.length+' thèmes';
   if(currentMode==='examen'){
     timeLeft=7200;
     timerInterval=setInterval(tickTimer,1000);
@@ -1039,7 +1224,8 @@ function showQuestion(){
   const pct=Math.round((current+1)/questions.length*100);
   document.getElementById('progressLabel').textContent=pct+'%';
   document.getElementById('progressFg').style.width=pct+'%';
-  document.getElementById('qConsigne').textContent=q.m?'✔ Plusieurs réponses possibles':'○ Une seule bonne réponse';
+  document.getElementById('qConsigne').textContent=q.fill?'✏️ Complétez la phrase':q.m?'✔ Plusieurs réponses possibles':'○ Une seule bonne réponse';
+  document.getElementById('btnVoirCorrection').style.display=(currentMode==='examen'||q.fill)?'none':'inline-flex';
   document.getElementById('qText').textContent=q.q;
   document.getElementById('correctionBox').classList.remove('show');
 
@@ -1068,18 +1254,30 @@ function showQuestion(){
   }
 
   const saved=userAnswers[current]||[];
-  const type=q.m?'checkbox':'radio';
   const container=document.getElementById('optionsList');
   container.innerHTML='';
-  q.o.forEach((opt,i)=>{
-    const label=document.createElement('label');
-    label.className='option'+(saved.includes(i)?' selected':'');
-    label.innerHTML=`<input type="${type}" name="opt" value="${i}" ${saved.includes(i)?'checked':''}> <span class="option-label">${opt}</span>`;
-    label.addEventListener('change',()=>{
-      label.classList.toggle('selected',label.querySelector('input').checked);
+  if(q.fill){
+    const wrap=document.createElement('div');
+    wrap.className='fill-wrap';
+    const savedVal=saved[0]||'';
+    wrap.innerHTML='<input type="text" id="fillInput" class="fill-input" placeholder="Tapez votre réponse..." autocomplete="off" autocorrect="off" spellcheck="false" value="'+savedVal+'"><button class="fill-btn" onclick="showAnswer()">&#10003; Valider</button>';
+    container.appendChild(wrap);
+    setTimeout(function(){
+      var inp=document.getElementById('fillInput');
+      if(inp){inp.focus();inp.addEventListener('keydown',function(e){if(e.key==='Enter')showAnswer();});}
+    },100);
+  } else {
+    const type=q.m?'checkbox':'radio';
+    q.o.forEach((opt,i)=>{
+      const label=document.createElement('label');
+      label.className='option'+(saved.includes(i)?' selected':'');
+      label.innerHTML='<input type="'+type+'" name="opt" value="'+i+'" '+(saved.includes(i)?'checked':'')+'>  <span class="option-label">'+opt+'</span>';
+      label.addEventListener('change',()=>{
+        label.classList.toggle('selected',label.querySelector('input').checked);
+      });
+      container.appendChild(label);
     });
-    container.appendChild(label);
-  });
+  }
 
   // Afficher résultats si c'est la dernière question
   if(current===questions.length-1){
@@ -1092,8 +1290,14 @@ function showQuestion(){
 }
 
 function saveAnswer(){
-  const inputs=document.querySelectorAll('#optionsList input');
-  userAnswers[current]=Array.from(inputs).filter(i=>i.checked).map(i=>parseInt(i.value));
+  const q=questions[current];
+  if(q&&q.fill){
+    var inp=document.getElementById('fillInput');
+    userAnswers[current]=inp?[inp.value.trim()]:[''];
+  } else {
+    const inputs=document.querySelectorAll('#optionsList input');
+    userAnswers[current]=Array.from(inputs).filter(i=>i.checked).map(i=>parseInt(i.value));
+  }
 }
 
 function prevQ(){saveAnswer();if(current>0){current--;showQuestion();}}
@@ -1110,23 +1314,32 @@ function showAnswer(){
   saveAnswer();
   const q=questions[current];
   const user=userAnswers[current]||[];
-  const isOk=arrEq([...user].sort(),[...q.c].sort());
+  function normalize(s){return s.trim().toLowerCase().replace(/[\u00e9\u00e8\u00ea\u00eb]/g,'e').replace(/[\u00e0\u00e2]/g,'a').replace(/[\u00f9\u00fb]/g,'u').replace(/[\u00ee\u00ef]/g,'i').replace(/[\u00f4]/g,'o').replace(/[\u00e7]/g,'c');}
+  const isOk=q.fill
+    ?(function(){var typed=normalize(user[0]||''); return q.a.some(function(a){return normalize(a)===typed;});})()
+    :arrEq([...user].sort(),[...q.c].sort());
   const globalIdx=Q.indexOf(q);
 
-  // Colorier les options
-  document.querySelectorAll('#optionsList .option').forEach((el,i)=>{
-    const inp=el.querySelector('input'); inp.disabled=true;
-    if(q.c.includes(i)){el.classList.add('correct');el.classList.remove('selected','wrong');}
-    else if(user.includes(i)){el.classList.add('wrong');el.classList.remove('selected');}
-  });
+  // Colorier les options (QCM) ou feedback fill
+  if(q.fill){
+    var finp=document.getElementById('fillInput');
+    if(finp){finp.disabled=true; finp.classList.add(isOk?'fill-correct':'fill-wrong');}
+  } else {
+    document.querySelectorAll('#optionsList .option').forEach((el,i)=>{
+      const inp=el.querySelector('input'); inp.disabled=true;
+      if(!q.fill&&q.c&&q.c.includes(i)){el.classList.add('correct');el.classList.remove('selected','wrong');}
+      else if(user.includes(i)){el.classList.add('wrong');el.classList.remove('selected');}
+    });
+  }
 
   // XP
   const bonus=chronoLeft>60?10:chronoLeft>30?5:0;
   if(isOk) addXP(10+bonus);
 
+  var bonneRep=q.fill?q.a[0].toUpperCase():q.c.map(i=>q.o[i]).join(' / ');
   document.getElementById('corrMsg').innerHTML=isOk
     ?'<div class="correct-msg">✅ La bonne réponse !</div>'
-    :'<div class="wrong-msg">❌ Bonne réponse : '+q.c.map(i=>q.o[i]).join(' / ')+'</div>';
+    :'<div class="wrong-msg">❌ Bonne réponse : '+bonneRep+'</div>';
   document.getElementById('corrAnswer').textContent='';
   document.getElementById('corrExpl').textContent=q.e;
 
@@ -1183,7 +1396,7 @@ function finishQuiz(){
 
   questions.forEach((q,i)=>{
     const user=userAnswers[i]||[];
-    const ok=arrEq([...user].sort(),[...q.c].sort());
+    const ok=q.fill?(function(){function norm(s){return(s||'').trim().toLowerCase();}return q.a.some(function(a){return norm(a)===norm(user[0]||'');});})():arrEq([...user].sort(),[...q.c].sort());
     if(ok) score++;
     if(!byTheme[q.t]) byTheme[q.t]={ok:0,tot:0};
     byTheme[q.t].tot++;
@@ -1198,7 +1411,7 @@ function finishQuiz(){
         </div>
         <div class="error-body">
           <div class="err-user">❌ Ta réponse : ${userTxt}</div>
-          <div class="err-correct">✅ Bonne réponse : ${q.c.map(j=>q.o[j]).join(', ')}</div>
+          <div class="err-correct">✅ Bonne réponse : ${q.fill?q.a[0].toUpperCase():q.c.map(j=>q.o[j]).join(', ')}</div>
           <div class="err-expl">${q.e}</div>
           ${q.mn?`<div class="err-mnemo">💡 <strong>Mnémo :</strong> ${q.mn}</div>`:''}
           <div style="margin-top:6px;font-size:.76em"><a href="${q.s}" target="_blank" style="color:var(--blue)">${q.s}</a></div>
@@ -1257,7 +1470,7 @@ function startFlashcard(){
   if(!pool.length){showToast('Aucune question pour ce thème');return;}
   fcQuestions=weightedShuffle(pool);
   fcCurrent=0; fcFlipped=false;
-  document.getElementById('fcThemePill').textContent=currentTheme==='all'?'Tous les thèmes':currentTheme;
+  const _fn=Array.from(selectedThemes); document.getElementById('fcThemePill').textContent=selectedThemes.has('all')?'Tous les thèmes':_fn.length===1?_fn[0]:_fn.length+' thèmes';
   showScreen('screen-flashcard');
   showFlashcard();
 }
@@ -1268,7 +1481,7 @@ function showFlashcard(){
   const card=document.getElementById('flashcard');
   card.classList.remove('flipped');
   document.getElementById('fcQuestion').textContent=q.q;
-  document.getElementById('fcAnswer').textContent=q.c.map(i=>q.o[i]).join('\n')+(q.mn?'\n\n💡 '+q.mn:'');
+  document.getElementById('fcAnswer').textContent=(q.fill?q.a[0].toUpperCase():q.c.map(i=>q.o[i]).join('\n'))+(q.mn?'\n\n💡 '+q.mn:'');
   document.getElementById('fcCounter').textContent=(fcCurrent+1)+'/'+fcQuestions.length;
   document.getElementById('fcProgressFg').style.width=Math.round((fcCurrent+1)/fcQuestions.length*100)+'%';
 }
@@ -1328,11 +1541,11 @@ function bossAnswer(){
   const inputs=document.querySelectorAll('#bossOptions input');
   const user=Array.from(inputs).filter(i=>i.checked).map(i=>parseInt(i.value));
   const q=bossQuestions[bossCurrent];
-  const ok=arrEq([...user].sort(),[...q.c].sort());
+  const ok=q.fill?(function(){function norm(s){return(s||'').trim().toLowerCase();}return q.a.some(function(a){return norm(a)===norm(user[0]||'');});})():arrEq([...user].sort(),[...q.c].sort());
 
   document.querySelectorAll('#bossOptions .option').forEach((el,i)=>{
     const inp=el.querySelector('input'); inp.disabled=true;
-    if(q.c.includes(i)) el.classList.add('correct');
+    if(!q.fill&&q.c.includes(i)) el.classList.add('correct');
     else if(user.includes(i)) el.classList.add('wrong');
   });
 
