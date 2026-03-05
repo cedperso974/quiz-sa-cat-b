@@ -170,6 +170,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fill-btn{padding:12px 20px;background:var(--navy);color:#fff;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
 .fill-btn:hover{background:var(--navy2)}
 .fill-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7em;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
+
+/* ── Swipe hint ── */
+.swipe-hint{text-align:center;font-size:.7em;color:#b0b8cc;padding:4px 0 2px;letter-spacing:.5px;transition:opacity .3s;opacity:.6}
+.swipe-hint.swipe-active{opacity:1;color:var(--gold)}
+
+/* ── Barre progression thème ── */
+.theme-progress-band{display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#f5f7ff;border-radius:10px;margin-bottom:8px}
+.tpb-item{display:flex;align-items:center;gap:5px;font-size:.75em}
+.tpb-name{color:var(--navy);font-weight:600;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tpb-score{font-weight:700;font-size:.95em}
+
+/* ── Résumé session ── */
+.summary-header{font-family:'Playfair Display',serif;font-size:1.1em;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.summary-tip{font-size:.75em;color:var(--muted);text-align:center;margin-top:8px;font-style:italic}
+.summary-card{background:linear-gradient(135deg,#1a237e,#283593);color:white;border-radius:14px;padding:16px;margin-bottom:10px;position:relative}
+.summary-num{position:absolute;top:12px;right:14px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:700}
+.summary-q{font-size:.85em;opacity:.85;margin-bottom:8px;line-height:1.4}
+.summary-rep{font-size:.95em;font-weight:700;margin-bottom:6px;color:#ffd700}
+.summary-mnemo{font-size:.78em;background:rgba(255,255,255,.12);border-radius:8px;padding:6px 10px;line-height:1.4;font-style:italic}
 </style>
 </head>
 <body>
@@ -312,12 +331,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="progress-info"><span id="progressLabel">0%</span><span id="qDone">0/0</span></div>
     <div class="progress-bar-bg"><div class="progress-bar-fg" id="progressFg" style="width:0%"></div></div>
   </div>
+  <div id="themeProgressBand" class="theme-progress-band" style="display:none"></div>
   <div class="q-card">
     <div class="q-consigne" id="qConsigne"></div>
     <div class="q-text" id="qText"></div>
     <div class="chrono-bar" id="chronoBar" style="display:none"><div class="chrono-fill" id="chronoFill" style="width:100%"></div></div>
     <div id="optionsList"></div>
   </div>
+  <div id="swipeHint" class="swipe-hint">← glisser pour naviguer →</div>
   <div class="nav-bar">
     <button class="btn btn-ghost" onclick="goMenu()">🏠</button>
     <button class="btn btn-ghost" onclick="prevQ()">Précédent</button>
@@ -413,6 +434,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
     <button class="btn btn-navy" style="flex:1;padding:12px" onclick="goMenu()">🏠 Menu</button>
     <button class="btn btn-gold" style="flex:1;padding:12px" onclick="replayErrors()">🔄 Refaire mes erreurs</button>
+  </div>
+  <!-- RÉSUMÉ SESSION -->
+  <div id="sessionSummary" style="display:none;margin-bottom:20px">
+    <div class="summary-header">📸 3 points clés à retenir</div>
+    <div id="summaryCards"></div>
+    <div class="summary-tip">💡 Fais une capture d'écran pour réviser plus tard</div>
   </div>
   <h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:12px;font-size:1.1em" id="errorsTitle"></h3>
   <div id="errorsList"></div>
@@ -984,6 +1011,8 @@ let bossQuestions=[], bossCurrent=0, bossLives=3, bossScore=0;
 
 // Répétition espacée : poids par question (défaut=1, difficile=3, facile=0.3)
 let qWeights={};
+// Leitner : file de réinjection {qIdx, delay} 
+let leitnerQueue=[];
 // Stats de maîtrise par thème : {thème: {correct:0, total:0}}
 let themeStats={};
 // Historique erreurs (indices Q globaux)
@@ -1186,6 +1215,7 @@ function startQuiz(){
   questions=weightedShuffle(pool);
   current=0;
   userAnswers=Array(questions.length).fill(null);
+  leitnerQueue=[];
   showScreen('screen-quiz');
   document.getElementById('btnVoirCorrection').style.display=(currentMode==='examen'||questions[current].fill)?'none':'inline-flex';
   document.getElementById('btnResults').style.display='none';
@@ -1311,6 +1341,7 @@ function showAnswer(){
     ?(function(){var typed=normalize(user[0]||''); return q.a.some(function(a){return normalize(a)===typed;});})()
     :arrEq([...user].sort(),[...q.c].sort());
   const globalIdx=Q.indexOf(q);
+  leitnerInject(isOk);
 
   // Colorier les options (QCM) ou feedback fill
   if(q.fill){
@@ -1357,6 +1388,7 @@ function showAnswer(){
     if(!errorHistory.includes(globalIdx)) errorHistory.push(globalIdx);
   }
   saveState();
+  updateThemeProgressBand();
 }
 
 function rateDiff(d){
@@ -1436,6 +1468,7 @@ function finishQuiz(){
   document.getElementById('themeStats').innerHTML=tsHtml;
   document.getElementById('errorsTitle').textContent=score===questions.length?'':'Erreurs à retravailler ('+(questions.length-score)+')';
   document.getElementById('errorsList').innerHTML=errHtml||'<div style="text-align:center;color:var(--green);padding:20px;font-size:1.1em">🏆 Score parfait !</div>';
+  buildSessionSummary();
   showScreen('screen-results');
   refreshMenu();
 }
@@ -1718,6 +1751,118 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(e.target===this) this.classList.remove('open');
   });
 });
+
+
+
+
+
+// ─── RÉSUMÉ FIN DE SESSION ───
+function buildSessionSummary(){
+  var box=document.getElementById('sessionSummary');
+  var cardsEl=document.getElementById('summaryCards');
+  if(!box||!cardsEl) return;
+  // Récupérer les questions ratées avec un mnémo
+  var errors=[];
+  questions.forEach(function(q,i){
+    var user=userAnswers[i]||[];
+    var ok=q.fill
+      ?(function(){var n=function(s){return(s||'').trim().toLowerCase();};return q.a.some(function(a){return n(a)===n(user[0]||'');});})()
+      :(user.length&&JSON.stringify([...user].sort())===JSON.stringify([...(q.c||[])].sort()));
+    if(!ok&&q.mn) errors.push(q);
+  });
+  // Prendre les 3 premières avec mnémo, ou les 3 premières si pas de mnémo
+  if(!errors.length){
+    questions.forEach(function(q,i){
+      var user=userAnswers[i]||[];
+      var ok=q.fill
+        ?(function(){var n=function(s){return(s||'').trim().toLowerCase();};return q.a.some(function(a){return n(a)===n(user[0]||'');});})()
+        :(user.length&&JSON.stringify([...user].sort())===JSON.stringify([...(q.c||[])].sort()));
+      if(!ok) errors.push(q);
+    });
+  }
+  var picks=errors.slice(0,3);
+  if(!picks.length){box.style.display='none';return;}
+  box.style.display='block';
+  cardsEl.innerHTML=picks.map(function(q,i){
+    var rep=q.fill?q.a[0].toUpperCase():(q.c||[]).map(function(j){return q.o[j];}).join(' / ');
+    var mnemo=q.mn||'';
+    return '<div class="summary-card">'
+      +'<div class="summary-num">'+(i+1)+'</div>'
+      +'<div class="summary-q">'+q.q.substring(0,90)+(q.q.length>90?'…':'')+'</div>'
+      +'<div class="summary-rep">✅ '+rep+'</div>'
+      +(mnemo?'<div class="summary-mnemo">💡 '+mnemo+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+// ─── RÉPÉTITION ESPACÉE LEITNER ───
+function leitnerInject(isCorrect){
+  if(currentMode!=='entrainement') return; // seulement en entraînement
+  var q=questions[current];
+  if(!isCorrect){
+    // Raté → réinjecter à current+2 (proche), puis si raté encore +4, +8
+    var delay=2;
+    // Compter combien de fois cette question a été ratée
+    var qId=JSON.stringify(q.q.substring(0,30));
+    var failCount=(leitnerQueue.filter(function(x){return x.id===qId;})).length;
+    delay=failCount===0?2:failCount===1?4:8;
+    var insertAt=Math.min(current+delay, questions.length);
+    questions.splice(insertAt,0,q);
+    userAnswers.splice(insertAt,0,null);
+    leitnerQueue.push({id:qId,pos:insertAt});
+    // Indicateur visuel
+    showToast('📌 Question réinjectée dans '+delay+' questions');
+  }
+}
+
+// ─── BARRE PROGRESSION PAR THÈME EN TEMPS RÉEL ───
+function updateThemeProgressBand(){
+  var band=document.getElementById('themeProgressBand');
+  if(!band) return;
+  // Ne montrer que si multi-thème OU toujours en mode entraînement
+  var answered=userAnswers.slice(0,current+1).filter(function(a){return a&&a.length;});
+  if(questions.length===0){band.style.display='none';return;}
+  // Calculer par thème parmi les questions déjà répondues
+  var stats={};
+  questions.forEach(function(q,i){
+    if(!userAnswers[i]||!userAnswers[i].length) return;
+    if(!stats[q.t]) stats[q.t]={ok:0,tot:0};
+    stats[q.t].tot++;
+    var user=userAnswers[i]||[];
+    var ok=q.fill
+      ?(function(){var n=function(s){return(s||'').trim().toLowerCase();};return q.a.some(function(a){return n(a)===n(user[0]||'');});})()
+      :(JSON.stringify([...user].sort())===JSON.stringify([...q.c].sort()));
+    if(ok) stats[q.t].ok++;
+  });
+  var keys=Object.keys(stats);
+  if(!keys.length){band.style.display='none';return;}
+  band.style.display='flex';
+  band.innerHTML=keys.map(function(t){
+    var s=stats[t];
+    var pct=Math.round(s.ok/s.tot*100);
+    var col=pct>=70?'#06d6a0':pct>=50?'#f0b429':'#ef476f';
+    return '<div class="tpb-item"><span class="tpb-name">'+t+'</span>'
+      +'<span class="tpb-score" style="color:'+col+'">'+s.ok+'/'+s.tot+'</span></div>';
+  }).join('');
+}
+
+// ─── SWIPE MOBILE ───
+(function(){
+  var el=document.getElementById('screen-quiz');
+  var sx=0, sy=0;
+  el.addEventListener('touchstart',function(e){
+    sx=e.touches[0].clientX; sy=e.touches[0].clientY;
+  },{passive:true});
+  el.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    var dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<Math.abs(dy)*1.5||Math.abs(dx)<40) return; // trop vertical ou trop court
+    if(dx<0) nextQ(); else prevQ();
+    // Feedback visuel bref
+    var hint=document.getElementById('swipeHint');
+    if(hint){hint.classList.add('swipe-active');setTimeout(function(){hint.classList.remove('swipe-active');},400);}
+  },{passive:true});
+})();
 
 </script>
 </body>
