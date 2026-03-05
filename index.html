@@ -243,6 +243,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .oral-eval-bad{background:#ffeaea;color:#c0392b;border-color:#f5c6cb}
 .oral-eval-ok{background:#fff3cd;color:#856404;border-color:#ffeaa7}
 .oral-eval-good{background:#eafaf5;color:#06a07a;border-color:#a8e6cf}
+
+/* ── Oral comparatif ── */
+.oral-compare{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.oral-compare-header{display:flex;gap:8px;padding:0 0 4px;border-bottom:2px solid #e8edf5}
+.oral-col-label{flex:1;font-weight:700;font-size:.78em;text-transform:uppercase;letter-spacing:.5px}
+.oral-col-label.oral-col-user{color:var(--muted)}
+.oral-col-label.oral-col-expected{color:var(--green)}
+.oral-compare-row{display:flex;gap:8px;align-items:flex-start;background:var(--card);border-radius:12px;padding:11px 12px;box-shadow:var(--shadow)}
+.oral-num-badge{min-width:22px;height:22px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:700;flex-shrink:0;margin-top:2px}
+.oral-col-user-val{flex:1;font-size:.82em;color:var(--text);line-height:1.4;border-right:1px solid #e8edf5;padding-right:10px}
+.oral-col-user-val.oral-empty{color:#bbb;font-style:italic}
+.oral-col-expected-val{flex:1;font-size:.82em;color:#1a7a5e;font-weight:600;line-height:1.4;padding-left:2px}
 </style>
 </head>
 <body>
@@ -2181,10 +2193,24 @@ function showOralCorrection(){
   document.getElementById('oralSession').style.display='none';
   document.getElementById('oralCorrection').style.display='block';
   var q=ORAL_Q[oralCurrent];
+  // Récupérer ce que l'utilisateur a écrit
+  var userPts=[
+    (document.getElementById('oralP1').value||'').trim(),
+    (document.getElementById('oralP2').value||'').trim(),
+    (document.getElementById('oralP3').value||'').trim()
+  ];
   var html='<div class="oral-corr-q">'+q.q+'</div>';
-  html+='<div class="oral-corr-pts">';
+  // Tableau comparatif : ta réponse vs bonne réponse
+  html+='<div class="oral-compare">';
+  html+='<div class="oral-compare-header"><span class="oral-col-label oral-col-user">✏️ Ta réponse</span><span class="oral-col-label oral-col-expected">✅ Attendu</span></div>';
   q.pts.forEach(function(p,i){
-    html+='<div class="oral-corr-pt"><span class="oral-pt-num">'+(i+1)+'</span>'+p+'</div>';
+    var userVal=userPts[i];
+    var empty=!userVal;
+    html+='<div class="oral-compare-row">';
+    html+='<div class="oral-num-badge">'+(i+1)+'</div>';
+    html+='<div class="oral-col-user-val'+(empty?' oral-empty':'')+'">'+(empty?'<em>Non renseigné</em>':userVal)+'</div>';
+    html+='<div class="oral-col-expected-val">'+p+'</div>';
+    html+='</div>';
   });
   html+='</div>';
   html+='<div class="oral-corr-conseil">💡 Conseil jury : '+q.conseil+'</div>';
