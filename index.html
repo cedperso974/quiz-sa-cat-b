@@ -189,6 +189,60 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .summary-q{font-size:.85em;opacity:.85;margin-bottom:8px;line-height:1.4}
 .summary-rep{font-size:.95em;font-weight:700;margin-bottom:6px;color:#ffd700}
 .summary-mnemo{font-size:.78em;background:rgba(255,255,255,.12);border-radius:8px;padding:6px 10px;line-height:1.4;font-style:italic}
+
+/* ── Dictionnaire ── */
+.dico-search{width:100%;padding:12px 16px;border:2px solid var(--border,#e0e5ef);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95em;margin-bottom:14px;outline:none;transition:border-color .2s}
+.dico-search:focus{border-color:var(--gold)}
+.dico-list{display:flex;flex-direction:column;gap:10px}
+.dico-card{background:var(--card);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.dico-key{font-weight:700;color:var(--navy);font-size:.95em;margin-bottom:4px}
+.dico-def{color:var(--text);font-size:.85em;line-height:1.5;margin-bottom:4px}
+.dico-ex{color:var(--muted);font-size:.78em;font-style:italic}
+.dico-empty{text-align:center;color:var(--muted);padding:40px;font-size:.9em}
+
+/* ── Calendrier ── */
+.cal-label{font-weight:600;color:var(--navy);font-size:.9em;margin-bottom:6px}
+.cal-input{width:100%;padding:11px 14px;border:2px solid var(--border,#e0e5ef);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95em;outline:none;transition:border-color .2s}
+.cal-input:focus{border-color:var(--gold)}
+.cal-days-row{display:flex;gap:6px;flex-wrap:wrap}
+.cal-day-btn{width:40px;height:40px;border-radius:50%;border:2px solid #e0e5ef;background:var(--card);font-family:'DM Sans',sans-serif;font-size:.85em;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+.cal-day-btn.active{background:var(--navy);color:white;border-color:var(--navy)}
+.cal-header{font-family:'Playfair Display',serif;font-size:1em;font-weight:700;color:var(--navy);margin-bottom:10px}
+.cal-alert{background:#fff3cd;border-radius:10px;padding:10px 14px;color:#856404;font-size:.85em;margin-bottom:10px}
+.cal-alert-warn{background:#ffeaea;border-radius:10px;padding:10px 14px;color:#a94442;font-size:.82em;margin-bottom:12px}
+.cal-sessions{display:flex;flex-direction:column;gap:8px}
+.cal-session{background:var(--card);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);border-left:4px solid var(--blue)}
+.cal-session.cal-jm1{border-left-color:var(--gold);background:#fffdf0}
+.cal-session-date{font-weight:700;color:var(--navy);font-size:.88em;margin-bottom:4px}
+.cal-session-themes{color:var(--muted);font-size:.8em;line-height:1.6}
+.cal-pct{font-weight:700;font-size:.85em;margin-left:2px}
+.cal-new{color:var(--blue)!important;font-weight:600}
+
+/* ── Simulateur oral ── */
+.oral-intro{text-align:center;padding:20px 0}
+.oral-tip{background:#f0f4ff;border-radius:12px;padding:14px 16px;color:var(--navy);font-size:.88em;line-height:1.6;margin-bottom:16px;text-align:left}
+.oral-chrono-wrap{text-align:center;margin-bottom:16px}
+.oral-chrono{font-family:'Playfair Display',serif;font-size:2.8em;font-weight:700;color:var(--navy);line-height:1}
+.oral-chrono-bar{height:6px;background:#e8edf5;border-radius:3px;margin:8px 0 16px;overflow:hidden}
+.oral-chrono-fill{height:100%;background:var(--green);border-radius:3px;transition:width 1s linear,background .5s}
+.oral-question{font-family:'Playfair Display',serif;font-size:1.05em;color:var(--navy);line-height:1.5;background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:16px;border-left:4px solid var(--gold)}
+.oral-structure{display:flex;flex-direction:column;gap:10px}
+.oral-struct-label{font-weight:600;color:var(--navy);font-size:.85em;margin-bottom:2px}
+.oral-point{width:100%;padding:11px 14px;border:2px solid #e0e5ef;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.88em;outline:none;transition:border-color .2s}
+.oral-point:focus{border-color:var(--gold)}
+.oral-corr-title{font-family:'Playfair Display',serif;font-size:1.05em;color:var(--green);font-weight:700;margin-bottom:12px}
+.oral-corr-q{font-style:italic;color:var(--muted);font-size:.85em;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #e8edf5}
+.oral-corr-pts{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.oral-corr-pt{display:flex;gap:10px;align-items:flex-start;background:var(--card);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);font-size:.85em;line-height:1.5}
+.oral-pt-num{min-width:24px;height:24px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8em;flex-shrink:0;margin-top:1px}
+.oral-corr-conseil{background:#fffdf0;border-radius:12px;padding:12px 14px;font-size:.82em;color:#7a6200;border-left:3px solid var(--gold);margin-bottom:16px;line-height:1.5}
+.oral-eval{margin-top:6px}
+.oral-eval-label{font-weight:600;color:var(--navy);font-size:.85em;margin-bottom:8px}
+.oral-eval-btns{display:flex;gap:8px}
+.oral-eval-btn{flex:1;padding:11px 6px;font-size:.82em;border-radius:12px;cursor:pointer;font-weight:600;border:2px solid transparent;transition:all .15s}
+.oral-eval-bad{background:#ffeaea;color:#c0392b;border-color:#f5c6cb}
+.oral-eval-ok{background:#fff3cd;color:#856404;border-color:#ffeaa7}
+.oral-eval-good{background:#eafaf5;color:#06a07a;border-color:#a8e6cf}
 </style>
 </head>
 <body>
@@ -317,7 +371,85 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <button class="btn-start" id="btnStart" onclick="launchQuiz()">▶ Commencer (407 questions)</button>
   <button class="fiche-btn" id="ficheBtn" onclick="openFiche()">📋 Fiche de révision du thème sélectionné</button>
+  <button class="fiche-btn" onclick="showScreen('screen-dico')" style="margin-top:8px">📖 Dictionnaire des termes clés</button>
+  <button class="fiche-btn" onclick="showScreen('screen-calendrier')" style="margin-top:8px">📅 Mon planning de révision</button>
+  <button class="fiche-btn" onclick="showScreen('screen-oral')" style="margin-top:8px">🎤 Simulateur oral</button>
   <button class="fiche-btn" onclick="showScreen('screen-liens')" style="margin-top:8px">🔗 Sources & références officielles</button>
+</div>
+
+
+<!-- DICTIONNAIRE -->
+<div id="screen-dico" class="screen">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Menu</button>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.2em">📖 Dictionnaire</h2>
+  </div>
+  <input type="text" id="dicoSearch" class="dico-search" placeholder="Rechercher un terme..." oninput="filterDico()" autocomplete="off">
+  <div id="dicoList" class="dico-list"></div>
+</div>
+
+
+<!-- CALENDRIER -->
+<div id="screen-calendrier" class="screen">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Menu</button>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.2em">📅 Mon planning</h2>
+  </div>
+  <div class="cal-setup" id="calSetup">
+    <div class="cal-label">Date de ton concours :</div>
+    <input type="date" id="calDate" class="cal-input" oninput="buildCalendrier()">
+    <div class="cal-label" style="margin-top:12px">Jours disponibles par semaine :</div>
+    <div class="cal-days-row" id="calDaysRow">
+      <button class="cal-day-btn active" data-d="1">L</button>
+      <button class="cal-day-btn active" data-d="2">M</button>
+      <button class="cal-day-btn active" data-d="3">Me</button>
+      <button class="cal-day-btn active" data-d="4">J</button>
+      <button class="cal-day-btn active" data-d="5">V</button>
+      <button class="cal-day-btn" data-d="6">S</button>
+      <button class="cal-day-btn" data-d="0">D</button>
+    </div>
+  </div>
+  <div id="calResult" style="margin-top:16px"></div>
+</div>
+
+
+<!-- SIMULATEUR ORAL -->
+<div id="screen-oral" class="screen">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Menu</button>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.2em">🎤 Simulateur oral</h2>
+  </div>
+  <div id="oralIntro" class="oral-intro">
+    <div class="oral-tip">Le jury pose une question ouverte. Tu as <strong>2 minutes</strong> pour structurer ta réponse en 3 points avant de répondre à voix haute.</div>
+    <button class="btn-start" onclick="startOral()" style="margin-top:16px">🎤 Commencer une question</button>
+  </div>
+  <div id="oralSession" style="display:none">
+    <div class="oral-chrono-wrap">
+      <div class="oral-chrono" id="oralChrono">2:00</div>
+      <div class="oral-chrono-bar"><div class="oral-chrono-fill" id="oralChronoFill" style="width:100%"></div></div>
+    </div>
+    <div class="oral-question" id="oralQuestion"></div>
+    <div class="oral-structure">
+      <div class="oral-struct-label">📝 Structure ta réponse en 3 points :</div>
+      <input type="text" class="oral-point" id="oralP1" placeholder="Point 1 — Définition / contexte">
+      <input type="text" class="oral-point" id="oralP2" placeholder="Point 2 — Développement / exemple">
+      <input type="text" class="oral-point" id="oralP3" placeholder="Point 3 — Nuance / cas particulier">
+    </div>
+    <button class="btn btn-navy" style="width:100%;padding:12px;margin-top:12px" onclick="showOralCorrection()">Voir la correction</button>
+  </div>
+  <div id="oralCorrection" style="display:none">
+    <div class="oral-corr-title">✅ Éléments de réponse attendus</div>
+    <div id="oralCorrContent"></div>
+    <div class="oral-eval">
+      <div class="oral-eval-label">Auto-évaluation :</div>
+      <div class="oral-eval-btns">
+        <button class="btn oral-eval-btn oral-eval-bad" onclick="nextOral('bad')">😓 À retravailler</button>
+        <button class="btn oral-eval-btn oral-eval-ok" onclick="nextOral('ok')">👍 Correct</button>
+        <button class="btn oral-eval-btn oral-eval-good" onclick="nextOral('good')">🏆 Maîtrisé</button>
+      </div>
+    </div>
+    <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="showScreen('screen-menu')">← Menu</button>
+  </div>
 </div>
 
 <!-- QUIZ -->
@@ -1795,6 +1927,116 @@ function buildSessionSummary(){
   }).join('');
 }
 
+
+const DICO = [
+{k:"Acte administratif",d:"Décision unilatérale prise par une autorité administrative produisant des effets juridiques.",ex:"Un arrêté de nomination est un acte administratif."},
+{k:"Adjoint administratif",d:"Agent de catégorie C de la fonction publique, premier grade d'accès sans condition de diplôme.",ex:"Recruté par concours externe sans diplôme requis."},
+{k:"Affectation",d:"Désignation du poste de travail d'un fonctionnaire au sein d'un service.",ex:"Un agent peut être affecté à un autre bureau sans changer de grade."},
+{k:"Agent contractuel",d:"Agent public recruté par contrat, non titulaire, relevant du droit public.",ex:"CDD de 3 ans renouvelable une fois avant CDI."},
+{k:"Astreinte",d:"Période pendant laquelle l'agent, sans être à disposition permanente, doit être joignable pour intervenir.",ex:"L'astreinte de nuit est compensée par des jours de repos ou indemnités."},
+{k:"Attaché territorial",d:"Fonctionnaire de catégorie A de la FPT, recruté via concours bac+3 ou IRA.",ex:"Rédige des actes administratifs et encadre des équipes."},
+{k:"Avancement d'échelon",d:"Progression automatique dans un grade selon l'ancienneté et la manière de servir.",ex:"Cadence unique depuis la loi 2019 : plus de cadence normale/rapide."},
+{k:"Avancement de grade",d:"Promotion au grade supérieur par examen professionnel ou au choix.",ex:"Nécessite d'être inscrit au tableau d'avancement par la CAP."},
+{k:"BIEP",d:"Bourse Interministérielle de l'Emploi Public, remplacée par Place Emploi Public en 2019.",ex:"Les offres d'emploi de la FPE y étaient publiées."},
+{k:"Cadre d'emplois",d:"Ensemble de fonctionnaires territoriaux soumis au même statut particulier (équivalent du corps en FPE).",ex:"Le cadre d'emplois des rédacteurs territoriaux (cat B)."},
+{k:"CAP",d:"Commission Administrative Paritaire : instance composée à parité d'élus et d'administration, consultée sur les décisions individuelles.",ex:"Depuis la loi 2019, n'est plus consultée pour les mutations et promotions (remplacée par LDG)."},
+{k:"Catégorie A",d:"Fonctionnaires de conception et direction, bac+3 minimum requis pour le concours externe.",ex:"Attachés, ingénieurs, administrateurs."},
+{k:"Catégorie B",d:"Fonctionnaires d'application et de rédaction, baccalauréat requis pour le concours externe.",ex:"Rédacteurs, secrétaires administratifs, techniciens."},
+{k:"Catégorie C",d:"Fonctionnaires d'exécution, sans condition de diplôme pour le concours externe.",ex:"Adjoints administratifs, agents techniques."},
+{k:"CCFP",d:"Conseil Commun de la Fonction Publique : instance de dialogue social commune aux 3 versants.",ex:"Présidé par le ministre chargé de la fonction publique."},
+{k:"CDG",d:"Centre de Gestion : organisme gérant les carrières des fonctionnaires territoriaux des collectivités de moins de 350 agents.",ex:"Organise les concours et gère les listes d'aptitude en FPT."},
+{k:"CGFP",d:"Code Général de la Fonction Publique : codification des statuts FP depuis le 1er mars 2022.",ex:"Remplace les lois de 1983, 1984, 1986 sans en modifier le fond."},
+{k:"CIA",d:"Complément Indemnitaire Annuel : part variable du RIFSEEP liée à l'engagement professionnel.",ex:"Peut varier d'une année à l'autre, voire être nul."},
+{k:"CLD",d:"Congé Longue Durée : jusqu'à 5 ans (3 plein + 2 demi) pour affections spécifiques (tuberculose, cancer...).",ex:"Plus long que le CLM, réservé aux maladies listées par décret."},
+{k:"CLM",d:"Congé Longue Maladie : jusqu'à 3 ans (1 plein + 2 demi) pour maladie grave nécessitant traitement prolongé.",ex:"Accordé après avis du conseil médical."},
+{k:"CNFPT",d:"Centre National de la Fonction Publique Territoriale : organisme de formation et de concours A+ pour la FPT.",ex:"Organise le concours d'administrateur territorial."},
+{k:"CNRACL",d:"Caisse Nationale de Retraites des Agents des Collectivités Locales : régime de retraite FPT et FPH.",ex:"Les agents FPE relèvent du SRE (Service des Retraites de l'État)."},
+{k:"Concours externe",d:"Concours ouvert aux candidats justifiant d'un diplôme (bac+3 pour cat A, bac pour cat B).",ex:"Principal mode d'accès à la FP pour les non-fonctionnaires."},
+{k:"Concours interne",d:"Concours réservé aux fonctionnaires justifiant d'une ancienneté (4 ans pour SA cat B).",ex:"Sans condition de diplôme, valorise l'expérience professionnelle."},
+{k:"Conseil médical",d:"Instance médicale remplaçant le comité médical et la commission de réforme depuis 2022.",ex:"Consulté pour CLM, CLD, disponibilité pour maladie."},
+{k:"Corps",d:"Ensemble de fonctionnaires de l'État soumis au même statut particulier (équivalent du cadre d'emplois en FPT).",ex:"Corps des secrétaires administratifs de l'État."},
+{k:"CPF",d:"Compte Personnel de Formation : 24h/an jusqu'à 120h, puis 12h/an jusqu'à 150h.",ex:"Remplace le DIF depuis la loi FPTLV 2007 en FP."},
+{k:"CSA",d:"Comité Social d'Administration (FPE) : fusion du CTM et du CHSCT depuis janvier 2023.",ex:"Équivalents : CST (FPT) et CSE (FPH)."},
+{k:"DDI",d:"Direction Départementale Interministérielle : regroupe plusieurs ministères au niveau départemental.",ex:"DDETS (emploi-travail), DDT (territoires), DDPP (protection des populations)."},
+{k:"Détachement",d:"Position d'un fonctionnaire servant dans un autre corps/cadre tout en restant dans son corps d'origine.",ex:"Peut aboutir à une intégration définitive dans le corps d'accueil."},
+{k:"DIF",d:"Droit Individuel à la Formation : 20h/an, plafonné à 120h. Remplacé par le CPF.",ex:"Plus utilisé en FP depuis la loi de 2007 (FPTLV)."},
+{k:"Disponibilité",d:"Position hors administration, sans traitement, suspendant droits à avancement et retraite.",ex:"Pour convenances personnelles : 3 ans renouvelable, max 10 ans/carrière."},
+{k:"DREETS",d:"Direction Régionale de l'Économie, de l'Emploi, du Travail et des Solidarités : fusion DIRECCTE + services sociaux en 2021.",ex:"Créées par décret du 30 décembre 2020."},
+{k:"Échelon",d:"Division d'un grade correspondant à un indice de rémunération et une ancienneté.",ex:"L'avancement d'échelon est automatique selon la durée passée dans chaque échelon."},
+{k:"EPA",d:"Établissement Public Administratif : personne morale de droit public à mission non commerciale.",ex:"CNFPT, universités, hôpitaux publics — agents fonctionnaires."},
+{k:"EPIC",d:"Établissement Public Industriel et Commercial : à activité commerciale, agents de droit privé.",ex:"SNCF Réseau, La Poste, ONF — régis par le droit du travail."},
+{k:"Faute de service",d:"Faute commise dans l'exercice des fonctions, engageant la responsabilité de l'administration.",ex:"L'administration peut se retourner contre l'agent en cas de faute personnelle détachable."},
+{k:"FIPHFP",d:"Fonds pour l'Insertion des Personnes Handicapées dans la Fonction Publique : collecte les contributions OETH.",ex:"Finance des aides à l'accessibilité et à l'emploi des agents handicapés."},
+{k:"FPE",d:"Fonction Publique d'État : régie par la loi 84-16 du 11 janvier 1984.",ex:"Ministères, services déconcentrés, établissements publics nationaux."},
+{k:"FPH",d:"Fonction Publique Hospitalière : régie par la loi 86-33 du 9 janvier 1986.",ex:"Hôpitaux, EHPAD, centres médico-sociaux publics."},
+{k:"FPT",d:"Fonction Publique Territoriale : régie par la loi 84-53 du 26 janvier 1984.",ex:"Communes, départements, régions, intercommunalités."},
+{k:"Gestion prévisionnelle",d:"GPEEC : anticipation des besoins en emplois, effectifs et compétences à moyen terme.",ex:"Obligatoire pour les collectivités de plus de 150 agents (loi FPTLV 2007)."},
+{k:"Grade",d:"Titre conférant à son titulaire le droit d'être nommé à certains emplois.",ex:"Le grade est distinct de l'emploi : on est titulaire de son grade, pas de son poste."},
+{k:"HATVP",d:"Haute Autorité pour la Transparence de la Vie Publique : contrôle les déclarations de patrimoine et le pantouflage.",ex:"Créée en 2013, remplace la commission de déontologie depuis 2020."},
+{k:"IFSE",d:"Indemnité de Fonctions, Sujétions et Expertise : part fixe du RIFSEEP, liée au poste occupé.",ex:"Versée mensuellement, révisable en cas de changement de fonctions."},
+{k:"Indice brut (IB)",d:"Indice administratif servant de référence pour situer un échelon dans la grille statutaire.",ex:"L'IB 100 correspond à l'indice minimum de la FP."},
+{k:"Indice majoré (IM)",d:"Indice servant de base au calcul du traitement (IM × valeur du point d'indice).",ex:"L'IM est toujours inférieur ou égal à l'IB."},
+{k:"INSP",d:"Institut National du Service Public : remplace l'ENA depuis le 1er janvier 2022.",ex:"Décret du 16 avril 2021. Formation des hauts fonctionnaires de l'État."},
+{k:"IRA",d:"Institut Régional d'Administration : 5 instituts formant les attachés cat A de l'État (12 mois).",ex:"Nantes, Lyon, Metz, Bastia, Lille."},
+{k:"LDG",d:"Lignes Directrices de Gestion : remplacent la CAP pour les décisions de mutation et promotion depuis loi 2019.",ex:"Établies par l'autorité territoriale pour la FPT."},
+{k:"Liste d'aptitude",d:"En FPT, liste des lauréats d'un concours valable 3 ans, qui doivent être recrutés par une collectivité.",ex:"Réussir le concours ne garantit pas l'emploi en FPT."},
+{k:"Mise à disposition",d:"Position d'un fonctionnaire travaillant auprès d'un autre organisme tout en restant dans son corps d'origine et rémunéré par lui.",ex:"L'organisme d'accueil rembourse la rémunération à l'administration d'origine."},
+{k:"Mutation",d:"Changement d'affectation d'un fonctionnaire dans le même corps/grade.",ex:"Depuis 2019, gérée par les LDG et non plus par la CAP."},
+{k:"NBI",d:"Nouvelle Bonification Indiciaire : points d'indice supplémentaires pour fonctions à responsabilité ou technicité.",ex:"Créée par la loi du 18 janvier 1991, exprimée en points d'IM."},
+{k:"OETH",d:"Obligation d'Emploi des Travailleurs Handicapés : 6% de l'effectif pour tout organisme de 20 agents et plus.",ex:"Loi du 11 février 2005 sur l'égalité des droits des personnes handicapées."},
+{k:"Pantouflage",d:"Passage d'un haut fonctionnaire vers le secteur privé, contrôlé par la HATVP pendant 3 ans.",ex:"Risque de conflit d'intérêts avec les fonctions publiques antérieures."},
+{k:"PFRH",d:"Plateforme Régionale d'Appui interministériel à la GRH : conseille les services déconcentrés en matière RH.",ex:"Placée auprès du SGAR dans chaque région."},
+{k:"Place Emploi Public",d:"Bourse nationale de l'emploi public (FPE, FPT, FPH) accessible sur place-emploi-public.fr.",ex:"Remplace la BIEP depuis 2019."},
+{k:"Pouvoir hiérarchique",d:"Pouvoir d'un supérieur de donner des instructions, d'annuler ou réformer les actes de ses subordonnés.",ex:"Distinct du pouvoir disciplinaire."},
+{k:"Préavis de grève",d:"Délai obligatoire de 5 jours ouvrables avant tout mouvement de grève dans la FP.",ex:"Déposé par un syndicat représentatif auprès de l'autorité hiérarchique."},
+{k:"Prescription disciplinaire",d:"Délai de 3 ans au-delà duquel aucune sanction ne peut être prononcée pour des faits connus.",ex:"Depuis la loi du 6 août 2019."},
+{k:"RAFP",d:"Retraite Additionnelle de la Fonction Publique : régime par points alimenté par les primes (max 20% du traitement).",ex:"Obligatoire pour les 3 versants depuis la loi du 21 août 2003."},
+{k:"Recours gracieux",d:"Recours adressé à l'auteur de la décision contestée avant tout recours contentieux.",ex:"Interrompt le délai de recours contentieux de 2 mois."},
+{k:"Recours hiérarchique",d:"Recours adressé au supérieur hiérarchique de l'auteur de la décision.",ex:"Également suspensif du délai de recours contentieux."},
+{k:"Rédacteur territorial",d:"Fonctionnaire de catégorie B de la FPT, recruté par concours bac.",ex:"Gère les dossiers administratifs, assiste les cadres A."},
+{k:"RIFSEEP",d:"Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel.",ex:"Composé de l'IFSE (fixe) et du CIA (variable). Créé par décret 2014-513."},
+{k:"Sanction disciplinaire",d:"Punition prononcée par l'autorité hiérarchique suite à une faute professionnelle.",ex:"4 groupes : avertissement/blâme / réduction d'échelon / rétrogradation / révocation."},
+{k:"Secrétaire administratif",d:"Fonctionnaire de catégorie B, concours bac, chargé de rédaction et gestion administrative.",ex:"Concours interne : 4 ans d'ancienneté requis."},
+{k:"SFT",d:"Supplément Familial de Traitement : complément versé aux fonctionnaires ayant au moins 1 enfant à charge.",ex:"Un seul parent peut le percevoir si les deux sont fonctionnaires."},
+{k:"SGAR",d:"Secrétariat Général pour les Affaires Régionales : coordination interministérielle auprès du préfet de région.",ex:"Pilote les PFRH et coordonne l'action de l'État en région."},
+{k:"Statut général",d:"Ensemble de règles communes aux 3 versants de la FP (loi du 13 juillet 1983, codifiée dans le CGFP).",ex:"Définit droits et obligations de tous les fonctionnaires."},
+{k:"Tableau d'avancement",d:"Liste établie par l'administration des agents promouvables au grade supérieur.",ex:"Dressé annuellement, tient compte de la valeur professionnelle et de l'ancienneté."},
+{k:"Titularisation",d:"Acte mettant fin au stage et intégrant définitivement l'agent dans la fonction publique.",ex:"Après 1 an de stage en général, peut être prolongé ou aboutir au licenciement."},
+{k:"Traitement indiciaire",d:"Élément principal et obligatoire de la rémunération = IM × valeur du point d'indice.",ex:"La valeur du point d'indice est fixée par décret. Ne pas confondre avec la rémunération totale."},
+{k:"Tribune syndicale",d:"Espace réservé aux organisations syndicales dans les publications internes de l'administration.",ex:"Droit garanti par le statut général de la FP."},
+{k:"VAE",d:"Validation des Acquis de l'Expérience : obtenir une certification sans formation via l'expérience professionnelle.",ex:"Minimum 1 an d'expérience requise. Accessible aux fonctionnaires comme aux privés."},
+{k:"Versant",d:"L'un des 3 sous-ensembles de la fonction publique : État (FPE), Territorial (FPT), Hospitalier (FPH).",ex:"Chaque versant a ses propres instances, organismes de formation et régime de retraite."},
+{k:"Vote à bulletins secrets",d:"Mode de scrutin obligatoire pour les élections professionnelles dans la FP.",ex:"Garantit la liberté de vote des agents."}
+];
+
+function renderDico(list){
+  var el=document.getElementById('dicoList');
+  if(!el) return;
+  if(!list.length){el.innerHTML='<div class="dico-empty">Aucun terme trouvé</div>';return;}
+  el.innerHTML=list.map(function(t){
+    return '<div class="dico-card">'
+      +'<div class="dico-key">'+t.k+'</div>'
+      +'<div class="dico-def">'+t.d+'</div>'
+      +(t.ex?'<div class="dico-ex">Ex. : '+t.ex+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+function filterDico(){
+  var q=(document.getElementById('dicoSearch').value||'').toLowerCase();
+  if(!q){renderDico(DICO);return;}
+  renderDico(DICO.filter(function(t){
+    return t.k.toLowerCase().includes(q)||t.d.toLowerCase().includes(q);
+  }));
+}
+
+// Initialiser quand on arrive sur le screen dico
+var _origShowScreen=showScreen;
+showScreen=function(id){
+  _origShowScreen(id);
+  if(id==='screen-dico') renderDico(DICO);
+};
+
 // ─── RÉPÉTITION ESPACÉE LEITNER ───
 function leitnerInject(isCorrect){
   if(currentMode!=='entrainement') return; // seulement en entraînement
@@ -1844,6 +2086,230 @@ function updateThemeProgressBand(){
     return '<div class="tpb-item"><span class="tpb-name">'+t+'</span>'
       +'<span class="tpb-score" style="color:'+col+'">'+s.ok+'/'+s.tot+'</span></div>';
   }).join('');
+}
+
+
+
+// ─── SIMULATEUR ORAL ───
+const ORAL_Q = [
+  {q:"Qu'est-ce que le principe de continuité du service public et quelles en sont les conséquences pratiques ?",
+   pts:["Définition : l'un des 3 grands principes du SP (Rolland) — le service public ne peut être interrompu",
+        "Conséquences : droit de grève encadré (préavis 5j, service minimum), astreintes, continuité de l'action administrative",
+        "Nuance : principe constitutionnel mais pas absolu — droit de grève aussi garanti par la Constitution"],
+   conseil:"Citez les 3 lois de Rolland (continuité, égalité, mutabilité). Le jury apprécie la structuration."},
+  {q:"Expliquez la différence entre le corps et le grade dans la fonction publique d'État.",
+   pts:["Corps : ensemble de fonctionnaires soumis au même statut particulier (ex: corps des SA de l'État)",
+        "Grade : titre conférant le droit d'être nommé à certains emplois — on est titulaire du grade, pas du poste",
+        "Conséquence : on peut changer de poste (affectation) mais conserver son grade — séparation grade/emploi"],
+   conseil:"Insistez sur le principe de séparation du grade et de l'emploi, fondamental en droit de la FP."},
+  {q:"Quelles sont les obligations déontologiques d'un fonctionnaire ?",
+   pts:["Obligations d'ordre professionnel : obéissance hiérarchique (sauf ordre manifestement illégal), secret professionnel, discrétion",
+        "Obligations liées à l'exercice des fonctions : neutralité, laïcité, probité, prévention des conflits d'intérêts",
+        "Obligations post-emploi : déclaration patrimoine (HATVP), contrôle pantouflage 3 ans"],
+   conseil:"Le CGFP art. L121-1 à L135-4 codifie ces obligations. Citez la loi déontologie du 20 avril 2016."},
+  {q:"Qu'est-ce que le RIFSEEP et en quoi a-t-il modifié la rémunération des fonctionnaires ?",
+   pts:["Définition : Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel",
+        "Composition : IFSE (part fixe liée au poste) + CIA (part variable annuelle liée à l'engagement)",
+        "Impact : simplifie le maquis indemnitaire, mais le CIA peut être nul — crée de l'incertitude sur la rémunération"],
+   conseil:"Décret 2014-513. Mentionnez que l'IFSE est révisable en cas de changement de poste."},
+  {q:"Comment fonctionne la procédure disciplinaire dans la fonction publique ?",
+   pts:["Déclenchement : faute commise par l'agent, rapport hiérarchique, enquête administrative",
+        "Procédure : communication du dossier à l'agent (droit de la défense), consultation du conseil de discipline pour sanctions des groupes 2-3-4",
+        "Sanctions (4 groupes) : G1 avertissement/blâme, G2 exclusion temporaire, G3 rétrogradation, G4 révocation — prescription 3 ans"],
+   conseil:"Insistez sur les droits de la défense (art. 6 CEDH). Le jury peut poser des cas pratiques."},
+  {q:"Quelle est la différence entre la mise à disposition et le détachement ?",
+   pts:["MAD : l'agent travaille ailleurs mais reste dans son corps d'origine ET est rémunéré par son administration d'origine (qui se fait rembourser)",
+        "Détachement : l'agent sert dans un autre corps/emploi, rémunéré par l'organisme d'accueil, mais conserve ses droits dans son corps d'origine",
+        "Différence clé : MAD = temporaire, pas de changement de rémunération directe / Détachement = peut conduire à l'intégration"],
+   conseil:"La MAD est souvent utilisée auprès d'associations ou d'organismes publics partenaires."},
+  {q:"Expliquez le droit de grève dans la fonction publique.",
+   pts:["Principe constitutionnel : droit garanti par le Préambule de 1946, mais encadré dans la FP",
+        "Conditions : préavis 5 jours ouvrables par syndicat représentatif, pas de grève surprise, pas de grève tournante dans certains services",
+        "Limites : service minimum dans certains secteurs (transport, éducation), réquisition possible, retenue 1/30e par jour"],
+   conseil:"Distinguez grève licite et illicite (abandon de poste). Citez CGFP art. L114-1 et suivants."},
+  {q:"Qu'est-ce que la laïcité dans le service public et quelles sont ses implications pour les agents ?",
+   pts:["Principe constitutionnel (art. 1 Constitution 1958) : neutralité religieuse de l'État et de ses agents",
+        "Pour les agents : interdiction de toute manifestation d'appartenance religieuse dans l'exercice des fonctions (port de signes, prosélytisme)",
+        "Pour les usagers : principe différent — l'usager peut exprimer ses convictions mais l'agent ne doit pas en tenir compte pour le service rendu"],
+   conseil:"La loi du 24 août 2021 a renforcé les obligations. Distinguez bien agents et usagers du SP."},
+  {q:"Comment la fonction publique s'adapte-t-elle aux enjeux du numérique ?",
+   pts:["Modernisation des services : dématérialisation des démarches (programme 100% dématérialisé), développement des téléservices",
+        "Organisation interne : télétravail généralisé post-Covid (jusqu'à 3j/semaine), nouveaux outils collaboratifs, cybersécurité",
+        "Défis : fracture numérique des usagers, formation des agents, protection des données (RGPD, CNIL)"],
+   conseil:"Mentionnez la DINUM (Direction Interministérielle du Numérique) et le programme France Services."},
+  {q:"Quelle est la place du principe d'égalité dans la fonction publique ?",
+   pts:["Égalité d'accès : concours ouvert à tous les citoyens sans discrimination (art. 6 DDHC 1789)",
+        "Égalité de traitement des agents : même règles statutaires, mêmes droits, non-discrimination",
+        "Égalité de traitement des usagers : même service rendu à tous, adaptation aux besoins (accessibilité PMR, langue...)"],
+   conseil:"Distinguez égalité formelle et égalité réelle. Mentionnez le principe de non-discrimination (loi 2008)."}
+];
+
+var oralCurrent=0, oralInterval=null, oralTimeLeft=120;
+
+function startOral(){
+  document.getElementById('oralIntro').style.display='none';
+  document.getElementById('oralSession').style.display='block';
+  document.getElementById('oralCorrection').style.display='none';
+  oralCurrent=Math.floor(Math.random()*ORAL_Q.length);
+  document.getElementById('oralQuestion').textContent=ORAL_Q[oralCurrent].q;
+  document.getElementById('oralP1').value='';
+  document.getElementById('oralP2').value='';
+  document.getElementById('oralP3').value='';
+  // Chrono
+  oralTimeLeft=120;
+  clearInterval(oralInterval);
+  updateOralChrono();
+  oralInterval=setInterval(function(){
+    oralTimeLeft--;
+    updateOralChrono();
+    if(oralTimeLeft<=0){clearInterval(oralInterval);showOralCorrection();}
+  },1000);
+}
+
+function updateOralChrono(){
+  var m=Math.floor(oralTimeLeft/60), s=oralTimeLeft%60;
+  document.getElementById('oralChrono').textContent=m+':'+(s<10?'0':'')+s;
+  document.getElementById('oralChronoFill').style.width=Math.round(oralTimeLeft/120*100)+'%';
+  var fill=document.getElementById('oralChronoFill');
+  if(oralTimeLeft<=30) fill.style.background='#ef476f';
+  else if(oralTimeLeft<=60) fill.style.background='#f0b429';
+  else fill.style.background='var(--green)';
+}
+
+function showOralCorrection(){
+  clearInterval(oralInterval);
+  document.getElementById('oralSession').style.display='none';
+  document.getElementById('oralCorrection').style.display='block';
+  var q=ORAL_Q[oralCurrent];
+  var html='<div class="oral-corr-q">'+q.q+'</div>';
+  html+='<div class="oral-corr-pts">';
+  q.pts.forEach(function(p,i){
+    html+='<div class="oral-corr-pt"><span class="oral-pt-num">'+(i+1)+'</span>'+p+'</div>';
+  });
+  html+='</div>';
+  html+='<div class="oral-corr-conseil">💡 Conseil jury : '+q.conseil+'</div>';
+  document.getElementById('oralCorrContent').innerHTML=html;
+}
+
+function nextOral(eval){
+  document.getElementById('oralIntro').style.display='block';
+  document.getElementById('oralSession').style.display='none';
+  document.getElementById('oralCorrection').style.display='none';
+}
+
+// ─── CALENDRIER DE RÉVISION ───
+var calSelectedDays=new Set([1,2,3,4,5]);
+
+// Toggle jours
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('cal-day-btn')){
+    var d=parseInt(e.target.getAttribute('data-d'));
+    if(calSelectedDays.has(d)){
+      if(calSelectedDays.size>1){calSelectedDays.delete(d);e.target.classList.remove('active');}
+    } else {
+      calSelectedDays.add(d);e.target.classList.add('active');
+    }
+    buildCalendrier();
+  }
+});
+
+function buildCalendrier(){
+  var dateInput=document.getElementById('calDate');
+  var result=document.getElementById('calResult');
+  if(!dateInput||!result) return;
+  var val=dateInput.value;
+  if(!val){result.innerHTML='';return;}
+  
+  var concours=new Date(val);
+  var today=new Date(); today.setHours(0,0,0,0);
+  var diff=Math.ceil((concours-today)/(1000*60*60*24));
+  
+  if(diff<=0){
+    result.innerHTML='<div class="cal-alert">📅 Cette date est déjà passée.</div>';
+    return;
+  }
+  
+  // Compter les jours disponibles jusqu'au concours
+  var joursDispos=[];
+  var d=new Date(today);
+  d.setDate(d.getDate()+1);
+  while(d<concours){
+    if(calSelectedDays.has(d.getDay())) joursDispos.push(new Date(d));
+    d.setDate(d.getDate()+1);
+  }
+  
+  var nbJours=joursDispos.length;
+  
+  // Thèmes à réviser — triés par score (les moins bons en premier)
+  var themes=[
+    {n:'Statut',q:25},{n:'Discipline',q:27},{n:'Mobilité',q:25},
+    {n:'Dialogue social',q:26},{n:'Temps de travail',q:27},{n:'Contentieux',q:21},
+    {n:'Instances',q:25},{n:'Recrutement',q:26},{n:'Acronymes',q:88},
+    {n:'Valeurs SP',q:25},{n:'Politiques publiques',q:20},
+    {n:'RH Approfondi',q:29},{n:'FP État',q:25},{n:'Statut comparé FP',q:12}
+  ];
+  
+  // Trier par score le plus faible (depuis themeStats)
+  themes.sort(function(a,b){
+    var sa=themeStats[a.n]?Math.round(themeStats[a.n].correct/themeStats[a.n].total*100):0;
+    var sb=themeStats[b.n]?Math.round(themeStats[b.n].correct/themeStats[b.n].total*100):0;
+    return sa-sb;
+  });
+  
+  if(nbJours===0){
+    result.innerHTML='<div class="cal-alert">⚠️ Aucun jour disponible avant le concours avec ce planning.</div>';
+    return;
+  }
+  
+  // Répartir : 1 thème = 1 session minimum
+  var sessions=[];
+  var themesParJour=Math.max(1,Math.ceil(themes.length/nbJours));
+  var idx=0;
+  joursDispos.forEach(function(jour,i){
+    var batch=themes.slice(idx,idx+themesParJour);
+    if(batch.length) sessions.push({jour:jour,themes:batch});
+    idx+=themesParJour;
+  });
+  
+  // J-1 spécial
+  var jMoins1=new Date(concours); jMoins1.setDate(jMoins1.getDate()-1);
+  
+  var mois=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+  var jours=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  
+  var html='<div class="cal-header">J'+diff+' avant ton concours — '+nbJours+' sessions de révision</div>';
+  
+  // Alertes thèmes fragiles
+  var fragiles=themes.filter(function(t){
+    var s=themeStats[t.n];
+    return s&&Math.round(s.correct/s.total*100)<50;
+  });
+  if(fragiles.length){
+    html+='<div class="cal-alert-warn">⚠️ Thèmes fragiles à prioriser : '+fragiles.map(function(t){return t.n;}).join(', ')+'</div>';
+  }
+  
+  html+='<div class="cal-sessions">';
+  sessions.slice(0,20).forEach(function(s,i){
+    var isJm1=s.jour.toDateString()===jMoins1.toDateString();
+    var label=jours[s.jour.getDay()]+' '+s.jour.getDate()+' '+mois[s.jour.getMonth()];
+    html+='<div class="cal-session'+( isJm1?' cal-jm1':'')+'">';
+    html+='<div class="cal-session-date">'+label+(isJm1?' 🔥 J-1':'')+'</div>';
+    if(isJm1){
+      html+='<div class="cal-session-themes">Révision express — 20 questions sur tes erreurs + acronymes</div>';
+    } else {
+      html+='<div class="cal-session-themes">'+s.themes.map(function(t){
+        var sc=themeStats[t.n];
+        var pct=sc?Math.round(sc.correct/sc.total*100):-1;
+        var badge=pct>=0?'<span class="cal-pct" style="color:'+( pct>=70?'#06d6a0':pct>=50?'#f0b429':'#ef476f')+'">'+pct+'%</span>':'<span class="cal-pct cal-new">nouveau</span>';
+        return t.n+' '+badge;
+      }).join(' · ')+'</div>';
+    }
+    html+='</div>';
+  });
+  if(sessions.length>20) html+='<div style="text-align:center;color:var(--muted);font-size:.8em;padding:10px">... et '+( sessions.length-20)+' autres sessions</div>';
+  html+='</div>';
+  
+  result.innerHTML=html;
 }
 
 // ─── SWIPE MOBILE ───
