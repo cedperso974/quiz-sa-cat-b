@@ -82,6 +82,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .btn:active{transform:scale(.96)}
 .btn-ghost{background:#e8edf5;color:var(--navy)}
 .btn-navy{background:var(--navy);color:white}
+.btn-primary-next{background:var(--navy);color:white;font-size:1em;padding:12px 22px;font-weight:700;box-shadow:0 3px 10px rgba(26,35,126,.25)}
+.btn-primary-next:hover{background:var(--navy2);transform:translateY(-1px)}
+.btn-correction{background:#f0f2f8;color:#7a829e;font-size:.78em;padding:8px 12px;font-weight:500;border:1px solid #dde2ef}
+.btn-correction:hover{background:#e4e8f4;color:var(--navy)}
 .btn-gold{background:var(--gold);color:var(--navy)}
 .btn-green{background:var(--green);color:var(--navy)}
 .btn-red{background:var(--red);color:white}
@@ -317,8 +321,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="nav-bar">
     <button class="btn btn-ghost" onclick="goMenu()">🏠</button>
     <button class="btn btn-ghost" onclick="prevQ()">Précédent</button>
-    <button class="btn btn-ghost" onclick="nextQ()">Suivant</button>
-    <button class="btn btn-navy" onclick="showAnswer()" id="btnVoirCorrection">Correction</button>
+    <button class="btn btn-primary-next" onclick="nextQ()">Suivant →</button>
+    <button class="btn btn-correction" onclick="showAnswer()" id="btnVoirCorrection">Correction</button>
     <button class="btn btn-green ml-auto" onclick="finishQuiz()" id="btnResults" style="display:none">🏁 Résultats</button>
     <button class="btn btn-red ml-auto" onclick="askFinish()" id="btnFinish">Terminer</button>
   </div>
