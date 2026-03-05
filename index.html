@@ -243,6 +243,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .oral-eval-bad{background:#ffeaea;color:#c0392b;border-color:#f5c6cb}
 .oral-eval-ok{background:#fff3cd;color:#856404;border-color:#ffeaa7}
 .oral-eval-good{background:#eafaf5;color:#06a07a;border-color:#a8e6cf}
+.oral-btn-sub{font-size:.72em;font-weight:400;opacity:.75;margin-top:2px}
+.oral-eval-btn{flex:1;padding:10px 6px;font-size:.82em;border-radius:12px;cursor:pointer;font-weight:600;border:2px solid transparent;transition:all .15s;line-height:1.2}
+.oral-skip-btn{background:#f0f2f8;color:var(--muted);padding:10px 14px;font-size:.82em;border-radius:12px;border:1px solid #dde2ef;cursor:pointer;font-weight:600;line-height:1.2}
 
 /* ── Oral comparatif ── */
 .oral-compare{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
@@ -255,6 +258,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .oral-col-user-val{flex:1;font-size:.82em;color:var(--text);line-height:1.4;border-right:1px solid #e8edf5;padding-right:10px}
 .oral-col-user-val.oral-empty{color:#bbb;font-style:italic}
 .oral-col-expected-val{flex:1;font-size:.82em;color:#1a7a5e;font-weight:600;line-height:1.4;padding-left:2px}
+
+/* ── Oral progress bar ── */
+.oral-progress-bar-wrap{height:4px;background:#e8edf5;border-radius:2px;margin-top:12px;overflow:hidden}
+.oral-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+.oral-progress-label{font-size:.72em;color:var(--muted);text-align:center;margin-top:5px}
+/* ── Oral skip btn ── */
+.oral-skip-btn{background:#f0f2f8;color:var(--muted);padding:12px 14px;font-size:.82em;border-radius:12px;border:1px solid #dde2ef;cursor:pointer;font-weight:600;white-space:nowrap}
+.oral-skip-btn:hover{background:#e4e8f4;color:var(--navy)}
 </style>
 </head>
 <body>
@@ -447,7 +458,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <input type="text" class="oral-point" id="oralP2" placeholder="Point 2 — Développement / exemple">
       <input type="text" class="oral-point" id="oralP3" placeholder="Point 3 — Nuance / cas particulier">
     </div>
-    <button class="btn btn-navy" style="width:100%;padding:12px;margin-top:12px" onclick="showOralCorrection()">Voir la correction</button>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn oral-skip-btn" onclick="skipOral()">
+  <div>⏭ Je passe</div>
+  <div class="oral-btn-sub">revient plus tard</div>
+</button>
+      <button class="btn btn-navy" style="flex:1;padding:12px" onclick="showOralCorrection()">Voir la correction</button>
+    </div>
+    <div id="oralProgress" class="oral-progress-bar-wrap"><div id="oralProgressFill" class="oral-progress-fill"></div></div>
+    <div id="oralProgressLabel" class="oral-progress-label"></div>
   </div>
   <div id="oralCorrection" style="display:none">
     <div class="oral-corr-title">✅ Éléments de réponse attendus</div>
@@ -455,10 +474,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="oral-eval">
       <div class="oral-eval-label">Auto-évaluation :</div>
       <div class="oral-eval-btns">
-        <button class="btn oral-eval-btn oral-eval-bad" onclick="nextOral('bad')">😓 À retravailler</button>
-        <button class="btn oral-eval-btn oral-eval-ok" onclick="nextOral('ok')">👍 Correct</button>
-        <button class="btn oral-eval-btn oral-eval-good" onclick="nextOral('good')">🏆 Maîtrisé</button>
+        <button class="btn oral-eval-btn oral-eval-bad" onclick="nextOral('bad')">
+          <div>🔄 À retravailler</div>
+          <div class="oral-btn-sub">réinjecté dans 3q</div>
+        </button>
+        <button class="btn oral-eval-btn oral-eval-ok" onclick="nextOral('ok')">
+          <div>👍 Correct</div>
+          <div class="oral-btn-sub">question suivante</div>
+        </button>
+        <button class="btn oral-eval-btn oral-eval-good" onclick="nextOral('good')">
+          <div>🏆 Maîtrisé</div>
+          <div class="oral-btn-sub">retirée de la file</div>
+        </button>
       </div>
+
     </div>
     <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="showScreen('screen-menu')">← Menu</button>
   </div>
@@ -2019,6 +2048,213 @@ const DICO = [
 {k:"VAE",d:"Validation des Acquis de l'Expérience : obtenir une certification sans formation via l'expérience professionnelle.",ex:"Minimum 1 an d'expérience requise. Accessible aux fonctionnaires comme aux privés."},
 {k:"Versant",d:"L'un des 3 sous-ensembles de la fonction publique : État (FPE), Territorial (FPT), Hospitalier (FPH).",ex:"Chaque versant a ses propres instances, organismes de formation et régime de retraite."},
 {k:"Vote à bulletins secrets",d:"Mode de scrutin obligatoire pour les élections professionnelles dans la FP.",ex:"Garantit la liberté de vote des agents."}
+
+,{q:"Qu'est-ce que la mutabilité du service public et quelles en sont les conséquences pour les agents ?",
+  pts:["Définition : 3ème loi de Rolland — le SP doit s'adapter aux besoins de la société (évolution des missions, des modes d'organisation)",
+       "Conséquences pour les agents : pas de droit acquis au maintien des conditions d'emploi — l'administration peut modifier l'organisation du service",
+       "Limites : la mutabilité ne permet pas de porter atteinte aux droits statutaires des agents (grade, rémunération)"],
+  conseil:"Liez mutabilité et réforme de l'État. Exemples : dématérialisation, fusion de services, réorganisation territoriale."},
+{q:"Expliquez le principe de séparation du grade et de l'emploi dans la fonction publique.",
+  pts:["Principe fondamental : le fonctionnaire est titulaire de son grade, pas de son emploi — il peut être affecté sur différents postes",
+       "Conséquence pratique : l'administration peut supprimer un poste sans remettre en cause le statut de l'agent — il est alors pris en charge",
+       "Protection : le fonctionnaire ne peut pas être licencié pour suppression de poste — garantie de l'emploi liée au grade"],
+  conseil:"Distinguez bien emploi (poste) et grade (titre). C'est une question classique du jury SA catégorie B."},
+{q:"Qu'est-ce que le principe de légalité et comment s'applique-t-il à l'action administrative ?",
+  pts:["Définition : l'administration est soumise au droit — tout acte administratif doit avoir une base légale (loi, règlement, Constitution)",
+       "Hiérarchie des normes : Constitution > traités > lois > règlements > actes individuels — chaque norme doit respecter celle du dessus",
+       "Contrôle : le juge administratif (TA, CAA, Conseil d'État) peut annuler tout acte illégal sur recours dans un délai de 2 mois"],
+  conseil:"Citez le recours pour excès de pouvoir (REP) comme outil de contrôle de la légalité."},
+{q:"Qu'est-ce que la responsabilité de l'administration et dans quels cas peut-elle être engagée ?",
+  pts:["Principe : l'État peut être tenu responsable des dommages causés à des tiers dans le cadre du service public",
+       "Faute de service vs faute personnelle : faute de service → responsabilité de l'administration / faute personnelle détachable → responsabilité de l'agent",
+       "Régimes spéciaux : responsabilité sans faute possible (risque, rupture d'égalité) — ex : dommages causés par des attroupements"],
+  conseil:"L'arrêt Blanco (TC 1873) est fondateur. Distinguez bien faute de service et faute personnelle."},
+{q:"Comment fonctionne le recours hiérarchique dans la fonction publique ?",
+  pts:["Définition : recours adressé au supérieur hiérarchique de l'auteur d'une décision contestée — voie non contentieuse",
+       "Effets : suspend le délai de recours contentieux de 2 mois — le supérieur peut annuler, réformer ou confirmer la décision",
+       "Articulation : recours gracieux (même auteur) + recours hiérarchique peuvent être combinés avant le recours contentieux"],
+  conseil:"Insistez sur l'intérêt du recours préalable : gratuit, rapide, évite le contentieux. Délai de réponse : 2 mois (silence = rejet implicite)."},
+{q:"Qu'est-ce que le droit d'alerte éthique et comment s'exerce-t-il dans la FP ?",
+  pts:["Définition : droit pour tout agent de signaler des faits constitutifs d'un crime, délit, violation grave de la loi ou d'une menace grave pour l'intérêt général",
+       "Procédure : signalement d'abord en interne (supérieur hiérarchique), puis autorité administrative ou judiciaire, puis public en dernier recours",
+       "Protection : l'agent lanceur d'alerte est protégé contre toute mesure discriminatoire — loi Sapin 2 (2016) et loi du 21 mars 2022"],
+  conseil:"Distinguez lanceur d'alerte et dénonciation calomnieuse. La protection est conditionnée à la bonne foi de l'agent."},
+{q:"Qu'est-ce que le droit syndical dans la fonction publique et quelles sont ses limites ?",
+  pts:["Droit constitutionnel : liberté syndicale garantie par le Préambule de 1946 — tout agent peut adhérer à un syndicat de son choix",
+       "Droits syndicaux : autorisations d'absence pour réunions, décharge d'activité de service (heures syndicales), local syndical, accès aux agents",
+       "Limites : obligation de neutralité dans l'exercice des fonctions, pas de prosélytisme pendant le service, syndicats représentatifs pour négocier"],
+  conseil:"Citez la représentativité syndicale (élections professionnelles) comme condition pour siéger en CSA."},
+{q:"Comment s'organise le dialogue social dans la fonction publique depuis la loi de 2019 ?",
+  pts:["Réforme 2019 : fusion CTM + CHSCT → CSA (Comité Social d'Administration/Territorial/d'Établissement) depuis janvier 2023",
+       "Attributions du CSA : organisation du travail, conditions de travail, politique de formation, égalité professionnelle, lignes directrices de gestion",
+       "Changements majeurs : CAP n'est plus consultée pour mutations et promotions (remplacées par LDG) — simplification du dialogue social"],
+  conseil:"La loi du 6 août 2019 est fondamentale. Mémorisez CSA = CST (FPT) = CSE (FPH) — même rôle, noms différents."},
+{q:"Qu'est-ce que le télétravail dans la fonction publique et quel est son cadre juridique ?",
+  pts:["Définition : travail effectué hors des locaux de l'employeur public, en utilisant les technologies de l'information",
+       "Cadre légal : ordonnance du 19 janvier 2017, étendu par décret 2020-524 post-Covid — jusqu'à 3 jours/semaine autorisés",
+       "Droits et obligations : l'agent en télétravail a les mêmes droits que les autres — prise en charge partielle des frais, droit à la déconnexion"],
+  conseil:"Mentionnez le Plan de Reprise d'Activité (PRA) et l'impact de la crise Covid sur la généralisation du télétravail."},
+{q:"Qu'est-ce que la protection fonctionnelle et dans quels cas s'applique-t-elle ?",
+  pts:["Définition : obligation pour l'administration de protéger ses agents contre les attaques dont ils font l'objet dans l'exercice de leurs fonctions",
+       "Cas d'application : menaces, violences, voies de fait, injures, diffamations ou outrages en raison des fonctions — aussi pour les poursuites judiciaires injustifiées",
+       "Conséquences pratiques : prise en charge des frais de justice, assistance juridique, réparation du préjudice — droit reconnu par CGFP art. L134-1"],
+  conseil:"La protection fonctionnelle est un droit — l'agent doit en faire la demande. Elle peut être refusée en cas de faute personnelle détachable."},
+{q:"Comment est organisée la formation professionnelle dans la fonction publique territoriale ?",
+  pts:["Organisme principal : le CNFPT — établissement public national, finance par cotisation obligatoire de 0,9% de la masse salariale des collectivités",
+       "Types de formations : formation initiale d'application (FIA), formation de professionnalisation, formation de perfectionnement, préparation aux concours",
+       "Droits individuels : CPF (24h/an → 120h), VAE, bilan de compétences — agent acteur de son parcours de formation"],
+  conseil:"Distinguez CNFPT (FPT) et ANFH (FPH). Pour la FPE : formation assurée par les ministères et les IRA."},
+{q:"Qu'est-ce que la mobilité dans la fonction publique et comment a-t-elle été facilitée ?",
+  pts:["Définition : possibilité pour un fonctionnaire de changer de poste, de service, de collectivité ou de versant",
+       "Outils : détachement, mise à disposition, mutation, disponibilité, intégration directe — Place Emploi Public (bourse nationale depuis 2019)",
+       "Réforme 2019 : suppression des demandes d'accord préalable pour mobilité inter-versants — droit à la mobilité renforcé par la loi de transformation de la FP"],
+  conseil:"Insistez sur les priorités de mutation : conjoint muté, handicap, fonctions difficiles — dans cet ordre."},
+{q:"Qu'est-ce que l'égalité professionnelle femmes-hommes dans la fonction publique ?",
+  pts:["Cadre légal : loi Sauvadet 2012 + loi Copé-Zimmermann — nominations équilibrées dans les emplois d'encadrement supérieur (40% minimum)",
+       "Obligation de reporting : rapport annuel sur l'égalité professionnelle, plan d'action obligatoire pour collectivités de plus de 20 000 habitants",
+       "Index égalité professionnelle : depuis 2023, obligation de publier un index mesurant les écarts de rémunération et les actions correctrices"],
+  conseil:"Mentionnez le protocole Égalité professionnelle de 2013 et les objectifs de féminisation des jurys de concours (50% minimum)."},
+{q:"Comment fonctionne le stage dans la fonction publique et quelles en sont les conséquences ?",
+  pts:["Définition : période probatoire d'un an (en général) avant la titularisation — l'agent est stagiaire, pas encore fonctionnaire titulaire",
+       "Droits du stagiaire : droits similaires au titulaire (congés maladie, formation) mais pas de droit syndical complet — peut être licencié plus facilement",
+       "Issue du stage : titularisation (normal), prolongation (insuffisance professionnelle), licenciement (faute grave ou inaptitude) — décision motivée"],
+  conseil:"Le licenciement d'un stagiaire est plus simple que celui d'un titulaire — c'est l'objet du stage."},
+{q:"Qu'est-ce que la notation et l'évaluation professionnelle dans la FP ?",
+  pts:["Évolution : notation chiffrée supprimée — remplacée par l'entretien professionnel annuel depuis 2012 pour la FPT et FPE",
+       "Entretien professionnel : évalue les résultats, les compétences, les perspectives d'évolution — conduit par le supérieur hiérarchique direct",
+       "Enjeux : alimente l'avancement d'échelon (cadence unique depuis 2019), la promotion, et le CIA (part variable du RIFSEEP)"],
+  conseil:"L'agent peut contester son compte-rendu d'entretien professionnel devant la CAP (encore compétente pour ça)."},
+{q:"Qu'est-ce que le droit à la formation professionnelle tout au long de la vie dans la FP ?",
+  pts:["Principe : tout fonctionnaire a droit à une formation professionnelle tout au long de sa carrière — loi FPTLV du 19 février 2007",
+       "Dispositifs : CPF (24h/an), congé de formation professionnelle (1 an max), bilan de compétences, VAE, préparation aux concours",
+       "Obligation employeur : élaborer un plan de formation annuel ou pluriannuel — GPEEC obligatoire pour collectivités >150 agents"],
+  conseil:"La loi FPTLV 2007 est fondamentale. Elle a créé le DIF (devenu CPF) et les entretiens de carrière."},
+{q:"Quelles sont les différentes formes de discrimination interdites dans la FP et comment les prévenir ?",
+  pts:["Cadre légal : loi du 27 mai 2008 — 25 critères de discrimination interdits (origine, sexe, âge, handicap, opinions, religion...)",
+       "Obligations des employeurs publics : prévention des discriminations à l'embauche, dans la carrière, la formation — rapport annuel égalité",
+       "Recours : CNIL pour données personnelles, Défenseur des droits pour discriminations, conseil de discipline pour sanctions des auteurs"],
+  conseil:"Le Défenseur des droits (AAI) est compétent pour toutes les discriminations dans la FP. Citez aussi le référent discrimination."},
+{q:"Comment s'articule le pouvoir réglementaire dans la fonction publique territoriale ?",
+  pts:["Pouvoir réglementaire du Président de la République et du Premier ministre : fixent le statut général et les statuts particuliers par décret",
+       "Pouvoir réglementaire local : le maire et le président du conseil départemental/régional ont un pouvoir d'organisation du service dans les limites fixées par la loi",
+       "Exemple concret : le règlement intérieur, l'organigramme, les délégations de signature — actes unilatéraux de l'exécutif local"],
+  conseil:"L'autorité territoriale ne peut pas déroger aux statuts nationaux — elle ne fait qu'organiser le service."},
+{q:"Qu'est-ce que la déontologie du fonctionnaire et en quoi diffère-t-elle de l'éthique ?",
+  pts:["Déontologie : ensemble de règles professionnelles obligatoires codifiées — obéissance, secret, neutralité, probité (CGFP art. L121-1 et suivants)",
+       "Éthique : dimension plus large — valeurs morales personnelles qui guident le comportement au-delà des règles écrites",
+       "Évolutions récentes : loi déontologie 2016, création du référent déontologue dans chaque administration, déclaration d'intérêts"],
+  conseil:"Référent déontologue : obligatoire depuis 2017, toute administration doit en disposer — agent ou collège d'agents auquel tout fonctionnaire peut s'adresser."},
+{q:"Quelles sont les règles applicables au cumul d'activités dans la fonction publique ?",
+  pts:["Principe : le fonctionnaire consacre l'intégralité de son activité à ses fonctions — interdiction de principe du cumul d'emplois publics",
+       "Exceptions autorisées : activités accessoires sur autorisation (enseignement, expertise, auto-entrepreneur plafonné), production d'œuvres littéraires/artistiques",
+       "Contrôle : déclaration obligatoire à l'autorité hiérarchique — HATVP contrôle le pantouflage pour les agents soumis à l'obligation déclarative"],
+  conseil:"Le décret 2020-69 a assoupli les règles de cumul pour certaines activités accessoires — mentionnez la micro-entreprise plafonnée."},
+{q:"Comment fonctionne la mise en disponibilité et quels en sont les effets sur la carrière ?",
+  pts:["Définition : position hors administration, sans traitement, sur demande de l'agent ou d'office",
+       "Types : convenances personnelles (3 ans, max 10 ans/carrière), élever un enfant (jusqu'à 8 ans), créer entreprise (2 ans), accompagner conjoint muté",
+       "Effets sur la carrière : suspension des droits à avancement et retraite — à la réintégration, l'agent retrouve un poste de son grade mais pas forcément le même poste"],
+  conseil:"La disponibilité pour convenances personnelles ne donne droit à aucune indemnité — contrairement au chômage dans le privé."},
+{q:"Qu'est-ce que le principe d'adaptabilité des services publics aux nouvelles technologies ?",
+  pts:["Fondement : déclinaison du principe de mutabilité — les SP doivent s'adapter aux évolutions technologiques pour mieux servir les usagers",
+       "Applications concrètes : dématérialisation des procédures (100% dématérialisé d'ici 2022), open data, intelligence artificielle dans les services",
+       "Défis : fracture numérique (20% de la population éloignée du numérique), cybersécurité, RGPD, formation des agents"],
+  conseil:"Mentionnez France Connect (identité numérique), le programme France Services et la DINUM. La loi ESSOC de 2018 consacre le droit à l'erreur."},
+{q:"Comment les agents publics sont-ils protégés en matière de santé et de sécurité au travail ?",
+  pts:["Cadre légal : décret 82-453 du 28 mai 1982 adapte le Code du travail à la FP — mêmes principes généraux de prévention",
+       "Acteurs : ACFI (agent chargé de la fonction d'inspection), médecin du travail (médecin de prévention), représentants du personnel en CSA (ex-CHSCT)",
+       "Droits des agents : droit de retrait en cas de danger grave et imminent, document unique d'évaluation des risques (DUER) obligatoire"],
+  conseil:"Le DUER doit être mis à jour chaque année et lors de toute modification du travail. Sa consultation est un droit pour les agents."},
+{q:"Qu'est-ce que le droit à la communication du dossier administratif ?",
+  pts:["Principe : tout fonctionnaire a le droit de consulter son dossier individuel avant toute décision défavorable le concernant",
+       "Contenu du dossier : pièces relatives à la carrière, notations, sanctions — les pièces doivent être numérotées et non fragmentées",
+       "Procédure disciplinaire : la communication du dossier est obligatoire avant toute sanction du 2ème groupe ou plus — droit de la défense fondamental"],
+  conseil:"Le dossier administratif ne peut contenir aucune mention d'opinion politique, syndicale, philosophique ou religieuse (CGFP art. L131-1)."},
+{q:"Qu'est-ce que l'abandon de poste et quelles en sont les conséquences ?",
+  pts:["Définition : absence injustifiée de l'agent malgré mise en demeure — fait de quitter son poste ou de cesser le travail sans autorisation",
+       "Procédure : mise en demeure de rejoindre le poste sous délai (généralement 48h à 8j) — si non-respect → radiation des cadres pour abandon de poste",
+       "Conséquences : radiation des cadres (pas une sanction disciplinaire) — perte des droits à pension, pas d'indemnité chômage"],
+  conseil:"L'abandon de poste est une procédure distincte de la procédure disciplinaire — elle constate une rupture du lien avec le service."},
+{q:"Comment s'articulent les droits et obligations du fonctionnaire en matière d'expression publique ?",
+  pts:["Liberté d'expression : le fonctionnaire citoyen a la liberté d'opinion — mais encadrée par l'obligation de réserve dans l'exercice des fonctions",
+       "Obligation de réserve : s'abstenir d'expressions publiques pouvant compromettre le crédit ou l'indépendance de l'administration — modulée selon le grade",
+       "Distinctions : secret professionnel (absolu), discrétion professionnelle (relatif aux informations de service), devoir de réserve (expression personnelle)"],
+  conseil:"L'obligation de réserve est plus stricte pour les hauts fonctionnaires et les agents en contact avec le public. Pas de texte — c'est une construction jurisprudentielle."},
+{q:"Qu'est-ce que le service public de l'emploi et quel est le rôle de France Travail ?",
+  pts:["Définition : ensemble des services concourant à l'emploi — placement, indemnisation, formation, accompagnement des demandeurs d'emploi",
+       "France Travail (ex-Pôle Emploi depuis 2024) : opérateur principal — inscrit les demandeurs, verse les allocations, accompagne vers l'emploi",
+       "Articulation avec la FP : les agents publics involontairement privés d'emploi sont indemnisés par leur ancien employeur, pas par France Travail"],
+  conseil:"La loi du 18 décembre 2023 crée France Travail et élargit le réseau des acteurs de l'insertion (CCAS, missions locales...)."},
+{q:"Quelles sont les grandes étapes de la décentralisation en France ?",
+  pts:["1ère vague (1982-1983) : lois Defferre — transfert de compétences aux collectivités, suppression de la tutelle préfectorale a priori, création des régions",
+       "2ème vague (2003-2004) : révision constitutionnelle — principe de subsidiarité, expérimentation, transferts de personnels TOS vers les collectivités",
+       "3ème vague (2010-2015) : loi NOTRe — suppression de la clause de compétence générale pour régions et départements, clarification des compétences"],
+  conseil:"La loi NOTRe (2015) est très attendue au concours. Régions = développement économique / Départements = solidarités / Communes = proximité."},
+{q:"Qu'est-ce que le contrôle de légalité exercé par le préfet sur les actes des collectivités ?",
+  pts:["Principe : depuis 1982, le préfet ne contrôle plus a priori — les actes des collectivités sont exécutoires de plein droit dès transmission en préfecture",
+       "Contrôle a posteriori : le préfet peut déférer au tribunal administratif tout acte qu'il estime illégal — dans un délai de 2 mois",
+       "Actes soumis à transmission obligatoire : délibérations du conseil (budget, urbanisme, marchés), arrêtés, contrats > seuils — les autres sont librement exécutoires"],
+  conseil:"Distinguez contrôle de légalité (préfet) et contrôle budgétaire (CRC). Le préfet ne peut pas annuler lui-même — il saisit le juge."},
+{q:"Comment fonctionne le droit à l'information des usagers du service public ?",
+  pts:["Fondement : loi CADA du 17 juillet 1978 — tout usager a le droit d'accéder aux documents administratifs le concernant",
+       "CADA : Commission d'Accès aux Documents Administratifs — AAI qui émet des avis sur les refus d'accès, préalable obligatoire au recours contentieux",
+       "Limites : documents classifiés, délibérations du gouvernement, atteinte à la vie privée, secret médical — refus possible et motivé"],
+  conseil:"Depuis la loi Lemaire 2016, l'open data est le principe : les données publiques doivent être accessibles en ligne par défaut."},
+{q:"Qu'est-ce que la commande publique et quels sont ses grands principes ?",
+  pts:["Définition : ensemble des contrats conclus par les acheteurs publics pour satisfaire leurs besoins (marchés publics, concessions)",
+       "3 principes fondamentaux du code de la commande publique (2019) : liberté d'accès, égalité de traitement des candidats, transparence des procédures",
+       "Seuils : marché de gré à gré < 40 000€ HT / procédure adaptée jusqu'à 215 000€ / appel d'offres au-delà — respect sous peine de nullité"],
+  conseil:"Le code de la commande publique date du 1er avril 2019. Mentionnez le DUME (document unique de marché européen) pour les candidats."},
+{q:"Comment est organisée la protection des données personnelles dans la FP ?",
+  pts:["Cadre légal : RGPD (25 mai 2018) + loi informatique et libertés — s'applique pleinement aux administrations publiques",
+       "Obligations : désigner un DPO (délégué à la protection des données), tenir un registre des traitements, notifier les violations de données à la CNIL sous 72h",
+       "Droits des agents et usagers : droit d'accès, de rectification, d'effacement, de limitation, à la portabilité — exercés auprès du DPO"],
+  conseil:"La CNIL est une AAI. En cas de manquement, elle peut sanctionner les organismes publics (avertissement, mise en demeure, sanction)."},
+{q:"Qu'est-ce que le budget des collectivités territoriales et quels en sont les grands principes ?",
+  pts:["Définition : acte juridique prévoyant et autorisant les recettes et dépenses de la collectivité pour l'année civile à venir",
+       "6 principes budgétaires : annualité, unité, universalité, spécialité, équilibre réel, sincérité — codifiés dans le CGCT",
+       "Procédure : débat d'orientation budgétaire (>10 000 hab), vote avant le 15 avril (ou 30 avril la 1ère année du mandat), contrôle de la CRC"],
+  conseil:"L'équilibre est réel (pas comptable) : il interdit le recours à l'emprunt pour financer le fonctionnement. La CRC contrôle la chambre régionale des comptes."},
+{q:"Qu'est-ce que l'intercommunalité et quels en sont les principaux outils ?",
+  pts:["Définition : regroupement de communes pour exercer en commun des compétences transférées — obligatoire depuis la loi NOTRe 2015",
+       "Formes : CC (communauté de communes, zones rurales), CA (d'agglomération, >15 000 hab), CU (urbaine, >250 000 hab), métropole (>400 000 hab)",
+       "Compétences obligatoires : développement économique, aménagement de l'espace, PLUI (Plan Local d'Urbanisme Intercommunal), collecte des déchets"],
+  conseil:"Depuis la loi NOTRe, toute commune doit appartenir à un EPCI à fiscalité propre. Les syndicats intercommunaux (SIVU, SIVOM) restent possibles."},
+{q:"Comment fonctionne le contrôle de gestion dans les administrations publiques ?",
+  pts:["Définition : démarche permettant de s'assurer que les ressources sont utilisées avec efficacité et efficience pour atteindre les objectifs fixés",
+       "Outils : tableaux de bord, indicateurs de performance, rapports d'activité, audits internes — LOLF pour l'État (programmes, objectifs, indicateurs)",
+       "Acteurs : contrôleur de gestion, direction financière, Cour des comptes (contrôle a posteriori), CRC pour les collectivités"],
+  conseil:"La LOLF (loi organique relative aux lois de finances) du 1er août 2001 est fondamentale — elle a introduit la culture du résultat dans l'État."},
+{q:"Qu'est-ce que l'accueil des usagers et quelles sont les obligations des administrations ?",
+  pts:["Droit à l'accueil : tout usager a droit à un accueil de qualité — charte Marianne (engagement de service depuis 2005) fixe les standards",
+       "Obligations : répondre sous 30 jours aux courriers, accusé de réception sous 10 jours, informer des voies de recours, signaler l'agent compétent",
+       "Évolutions : maisons France Services (1 300 en 2023), accueil numérique, droit à l'erreur (loi ESSOC 2018) — usager de bonne foi non sanctionné"],
+  conseil:"La loi ESSOC (État au Service d'une Société de Confiance) 2018 est très importante pour le concours SA."},
+{q:"Quelles sont les règles applicables aux conflits d'intérêts dans la fonction publique ?",
+  pts:["Définition : situation où les intérêts privés d'un agent sont de nature à influencer ou paraître influencer l'exercice de ses missions",
+       "Obligations : déclaration d'intérêts pour les emplois supérieurs et sensibles, déport (se récuser) en cas de conflit, obligation de signalement",
+       "Contrôle : référent déontologue (conseil préventif), HATVP (déclarations patrimoine et intérêts), commission de déontologie (mobilité privé-public)"],
+  conseil:"Loi du 11 octobre 2013 sur la transparence de la vie publique est fondatrice. Le conflit d'intérêts n'est pas une faute en soi — c'est l'absence de déport qui l'est."},
+{q:"Comment les personnes handicapées sont-elles intégrées dans la fonction publique ?",
+  pts:["Obligation légale : 6% de l'effectif (loi 2005), contribution FIPHFP si insuffisant — pour tout organisme de 20 agents et plus",
+       "Voies d'accès spécifiques : recrutement par contrat (RQTH) avec titularisation possible, aménagements de concours, maintien dans l'emploi",
+       "FIPHFP : finance les aménagements de poste, le matériel adapté, la formation des référents handicap — chaque administration doit avoir un référent"],
+  conseil:"Le taux d'emploi réel dans la FP est d'environ 5,5% — en dessous de l'objectif des 6%. Le sujet est sensible et récurrent au concours."},
+{q:"Qu'est-ce que l'administration électronique et quels sont ses enjeux pour les agents ?",
+  pts:["Définition : utilisation des TIC pour améliorer les services publics et les relations avec les usagers — transformation numérique de l'État",
+       "Pour les agents : évolution des métiers (dématérialisation des tâches répétitives), nouvelles compétences numériques requises, télétravail facilité",
+       "Enjeux : inclusion numérique (aidants numériques, France Services), cybersécurité (ANSSI), souveraineté numérique (cloud souverain)"],
+  conseil:"France Connect est le pilier de l'identité numérique. Mentionnez FranceNum, l'ANSSI (Agence nationale de la sécurité des systèmes d'information)."},
+{q:"Comment s'articulent les valeurs du service public avec les exigences de la modernisation de l'État ?",
+  pts:["Valeurs fondamentales : égalité, continuité, adaptabilité — auxquelles s'ajoutent neutralité, laïcité, probité",
+       "Modernisation : recherche d'efficience (faire plus avec moins), orientation usager, dématérialisation, partenariats public-privé",
+       "Tension créatrice : la modernisation doit respecter les valeurs du SP — l'efficacité ne justifie pas les inégalités de traitement ni les atteintes à la neutralité"],
+  conseil:"Question de synthèse très fréquente au jury. Structurez : valeurs permanentes / exigences nouvelles / comment les concilier."},
+{q:"Qu'est-ce que le principe de proportionnalité dans l'action administrative ?",
+  pts:["Définition : les moyens utilisés par l'administration doivent être proportionnés aux objectifs poursuivis — principe d'origine européenne intégré au droit français",
+       "Applications : en matière de police administrative (mesure la moins attentatoire à la liberté), en matière disciplinaire (sanction proportionnée à la faute)",
+       "Contrôle du juge : le juge administratif vérifie la proportionnalité des mesures — sanction manifestement disproportionnée = illégale"],
+  conseil:"Le principe de proportionnalité s'applique aussi aux sanctions disciplinaires — le juge contrôle l'adéquation entre la gravité de la faute et la sanction."}
+
 ];
 
 function renderDico(list){
@@ -2157,16 +2393,36 @@ const ORAL_Q = [
 ];
 
 var oralCurrent=0, oralInterval=null, oralTimeLeft=120;
+var oralQueue=[], oralDone=[], oralRetry=[];
 
 function startOral(){
+  // Construire la file : toutes les questions mélangées
+  oralQueue=ORAL_Q.map(function(_,i){return i;});
+  // Mélanger
+  for(var i=oralQueue.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=oralQueue[i];oralQueue[i]=oralQueue[j];oralQueue[j]=t;}
+  oralDone=[];oralRetry=[];
+  document.getElementById('oralIntro').style.display='none';
+  loadNextOralQ();
+}
+
+function loadNextOralQ(){
+  // Priorité aux "à retravailler" si la file principale est vide
+  if(oralQueue.length===0 && oralRetry.length===0){
+    showOralEnd(); return;
+  }
+  // Prendre depuis la file principale, ou depuis retry si vide
+  var idx;
+  if(oralQueue.length>0) idx=oralQueue.shift();
+  else idx=oralRetry.shift();
+  oralCurrent=idx;
   document.getElementById('oralIntro').style.display='none';
   document.getElementById('oralSession').style.display='block';
   document.getElementById('oralCorrection').style.display='none';
-  oralCurrent=Math.floor(Math.random()*ORAL_Q.length);
   document.getElementById('oralQuestion').textContent=ORAL_Q[oralCurrent].q;
   document.getElementById('oralP1').value='';
   document.getElementById('oralP2').value='';
   document.getElementById('oralP3').value='';
+  updateOralProgressBar();
   // Chrono
   oralTimeLeft=120;
   clearInterval(oralInterval);
@@ -2176,6 +2432,32 @@ function startOral(){
     updateOralChrono();
     if(oralTimeLeft<=0){clearInterval(oralInterval);showOralCorrection();}
   },1000);
+}
+
+function updateOralProgressBar(){
+  var total=ORAL_Q.length;
+  var done=oralDone.length;
+  var pct=Math.round(done/total*100);
+  var fill=document.getElementById('oralProgressFill');
+  var lbl=document.getElementById('oralProgressLabel');
+  if(fill) fill.style.width=pct+'%';
+  if(lbl) lbl.textContent=done+'/'+total+' questions · '+oralQueue.length+' restantes'+(oralRetry.length?' · 🔄 '+oralRetry.length+' à retravailler':'');
+}
+
+function skipOral(){
+  // Pas vu la correction → remettre en fin de file
+  clearInterval(oralInterval);
+  oralQueue.push(oralCurrent);
+  loadNextOralQ();
+}
+
+function showOralEnd(){
+  document.getElementById('oralSession').style.display='none';
+  document.getElementById('oralCorrection').style.display='none';
+  document.getElementById('oralIntro').style.display='block';
+  document.getElementById('oralIntro').innerHTML='<div class="oral-tip" style="text-align:center">'
+    +'🏆 Session terminée !<br><strong>'+oralDone.length+' questions vues</strong>'
+    +'</div><button class="btn-start" onclick="startOral()" style="margin-top:16px">🔄 Recommencer</button>';
 }
 
 function updateOralChrono(){
@@ -2217,10 +2499,15 @@ function showOralCorrection(){
   document.getElementById('oralCorrContent').innerHTML=html;
 }
 
-function nextOral(eval){
-  document.getElementById('oralIntro').style.display='block';
-  document.getElementById('oralSession').style.display='none';
-  document.getElementById('oralCorrection').style.display='none';
+function nextOral(ev){
+  if(ev==='bad'){
+    // Réinjecter dans 3 questions
+    oralRetry.splice(Math.min(2,oralRetry.length),0,oralCurrent);
+  } else {
+    // Correct ou Maîtrisé → marqué comme fait
+    oralDone.push(oralCurrent);
+  }
+  loadNextOralQ();
 }
 
 // ─── CALENDRIER DE RÉVISION ───
