@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fill-input:focus{border-color:var(--gold)}
 .fill-input.fill-correct{border-color:var(--green)!important;background:#eafaf5!important;color:var(--green);font-weight:700}
 .fill-input.fill-wrong{border-color:#e74c3c!important;background:#fef5f5!important;color:#e74c3c}
-.fill-btn{padding:12px 20px;background:var(--navy);color:#fff;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
+.fill-btn{padding:12px 20px;background:var(--navy);color:#1a2240;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
 .fill-btn:hover{background:var(--navy2)}
 .fill-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7em;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
 
@@ -279,6 +279,170 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .resume-body{font-size:.83em;color:var(--text);line-height:1.8}
 .resume-source{font-size:.72em;color:var(--muted);margin-top:10px;font-style:italic;border-top:1px solid #f0f2f8;padding-top:6px}
 .resume2025-btn{background:linear-gradient(135deg,#1a237e,#c0392b)!important;color:white!important;font-weight:700!important}
+
+/* ══════════════════════════════════
+   SALLE DES JEUX — CSS GLOBAL
+══════════════════════════════════ */
+.jeux-btn { background: linear-gradient(135deg,#1a1a2e,#16213e); color:#e0c97f !important; border: 2px solid #e0c97f !important; font-weight:800; letter-spacing:.5px; }
+.jeux-btn:hover { background: #e0c97f; color:#1a1a2e !important; }
+
+/* Hub sélection jeux */
+.jeux-hub { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px; }
+.jeu-card {
+  background:#f0f2f8; border-radius:18px; padding:16px 12px; text-align:center;
+  cursor:pointer; border:2px solid transparent; transition:all .2s;
+  position:relative; overflow:hidden;
+}
+.jeu-card::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; }
+.jeu-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.3); }
+.jeu-card .jeu-icon { font-size:2em; margin-bottom:6px; display:block; }
+.jeu-card .jeu-name { font-weight:800; font-size:.88em; color:#1a2240; margin-bottom:3px; }
+.jeu-card .jeu-desc { font-size:.7em; color:#445566; line-height:1.4; }
+.jeu-card.j1::before { background:#ff6b6b; } .jeu-card.j1:hover { border-color:#ff6b6b; }
+.jeu-card.j2::before { background:#ffd93d; } .jeu-card.j2:hover { border-color:#ffd93d; }
+.jeu-card.j3::before { background:#6bcb77; } .jeu-card.j3:hover { border-color:#6bcb77; }
+.jeu-card.j4::before { background:#4d96ff; } .jeu-card.j4:hover { border-color:#1a5abb; }
+.jeu-card.j5::before { background:#ff922b; } .jeu-card.j5:hover { border-color:#ff922b; }
+.jeu-card.j6::before { background:#cc5de8; } .jeu-card.j6:hover { border-color:#cc5de8; }
+
+/* Fenêtre jeu générique */
+.jeu-window {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:#f8f9fc; overflow-y:auto; padding:16px;
+  font-family:'DM Sans',sans-serif;
+}
+.jeu-window.active { display:block; animation:slideUp .3s ease; }
+@keyframes slideUp { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
+.jeu-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.jeu-back { background:rgba(0,0,50,.08); border:none; color:#1a2240; padding:8px 14px; border-radius:10px; cursor:pointer; font-size:.85em; }
+.jeu-title { font-size:1.1em; font-weight:800; color:#1a2240; }
+.jeu-score-badge { margin-left:auto; background:rgba(0,0,50,.08); padding:6px 12px; border-radius:20px; color:#8a6a00; font-weight:700; font-size:.85em; }
+
+/* ══ JEU 1 — LE PROCÈS ══ */
+.proces-scene { background:linear-gradient(180deg,#fff5f0,#ffeee5); border-radius:16px; padding:20px; margin-bottom:14px; border:1px solid #f0c8a8; }
+.proces-role { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.proces-avatar { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5em; }
+.proces-speech { background:rgba(0,0,0,.04); border-radius:14px; padding:14px; font-size:.88em; color:#3a2010; line-height:1.6; border-left:3px solid #cc2a2a; }
+.proces-choices { display:flex; flex-direction:column; gap:8px; }
+.proces-choice { background:rgba(255,107,107,.1); border:1px solid rgba(255,107,107,.3); color:#1a2240; padding:12px 14px; border-radius:12px; cursor:pointer; font-size:.85em; text-align:left; transition:all .15s; }
+.proces-choice:hover { background:rgba(255,107,107,.25); border-color:#ff6b6b; }
+.proces-choice.correct { background:#e8f9ec; border-color:#2a8a40; color:#0d3a15; font-weight:700; }
+.proces-choice.wrong { background:#fdeaea; border-color:#cc2a2a; color:#5a0a0a; opacity:.8; }
+.proces-verdict { background:#e8f9ec; border-radius:14px; padding:16px; border:2px solid #6bcb77; margin-top:12px; color:#0d3a15; font-size:.88em; line-height:1.6; }
+.proces-verdict.coupable { background:#fdeaea; border-color:#ff6b6b; color:#5a0a0a; }
+.proces-life { display:flex; gap:4px; margin-top:4px; }
+.proces-heart { font-size:1.2em; transition:all .3s; }
+
+/* ══ JEU 2 — LOI OU INTOX ══ */
+.intox-card {
+  background:linear-gradient(135deg,#f0f4ff,#e8f0ff); border-radius:20px; padding:24px 20px;
+  text-align:center; border:2px solid #c8d8f0; margin-bottom:16px;
+  min-height:140px; display:flex; flex-direction:column; justify-content:center;
+}
+.intox-statement { font-size:1.05em; font-weight:600; color:#0a1628; line-height:1.5; margin-bottom:8px; }
+.intox-source { font-size:.72em; color:#1a4a80; margin-bottom:16px; }
+.intox-chrono-wrap { display:flex; justify-content:center; margin-bottom:16px; }
+.intox-chrono { width:60px; height:60px; border-radius:50%; background:conic-gradient(#4d96ff var(--pct,100%), #c8d8f0 0); display:flex; align-items:center; justify-content:center; position:relative; }
+.intox-chrono::before { content:''; position:absolute; inset:6px; border-radius:50%; background:#fff; }
+.intox-chrono-num { position:relative; z-index:1; font-size:1.2em; font-weight:800; color:#1a5abb; }
+.intox-btns { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.intox-btn { padding:16px; border-radius:14px; border:none; font-size:1em; font-weight:800; cursor:pointer; transition:all .15s; }
+.intox-vrai { background:#6bcb77; color:#0d2b10; }
+.intox-faux { background:#ff6b6b; color:#2b0d0d; }
+.intox-btn:hover { transform:scale(1.04); }
+.intox-feedback { border-radius:14px; padding:14px 16px; font-size:.88em; line-height:1.6; margin-top:8px; }
+.intox-feedback.ok { background:#e8f9ec; border:1px solid #6bcb77; color:#0d3a15; font-weight:600; }
+.intox-feedback.ko { background:#fdeaea; border:1px solid #ff6b6b; color:#5a0a0a; font-weight:600; }
+.intox-streak { font-size:.85em; color:#b87a00; font-weight:700; text-align:center; margin-bottom:8px; }
+
+/* ══ JEU 3 — QUI SUIS-JE ══ */
+.quisuisje-card { background:linear-gradient(135deg,#f0fff5,#e5ffed); border-radius:18px; padding:20px; border:1px solid #a0d8b0; margin-bottom:14px; }
+.quisuisje-indices { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+.quisuisje-indice { 
+  background:#e8f9ec; border-radius:12px; padding:12px 14px; 
+  font-size:.88em; color:#0d3a15; border-left:3px solid #2ecc71;
+  animation: fadeInDown .4s ease;
+}
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+.quisuisje-hidden { background:rgba(255,255,255,.03); border-radius:12px; padding:12px 14px; font-size:.88em; color:#2a4a35; border-left:3px solid #1a4a25; filter:blur(3px); }
+.quisuisje-pts { text-align:center; font-size:2em; font-weight:900; color:#1a8a40; margin-bottom:4px; }
+.quisuisje-pts-label { text-align:center; font-size:.75em; color:#1a5a35; margin-bottom:14px; }
+.quisuisje-input { width:100%; padding:14px 16px; background:#fff; border:2px solid #a0d8b0; border-radius:12px; color:#1a2240; font-size:.95em; outline:none; box-sizing:border-box; }
+.quisuisje-input:focus { border-color:#6bcb77; }
+.quisuisje-reveal-btn { width:100%; padding:12px; background:rgba(107,203,119,.15); border:1px solid #6bcb77; color:#6bcb77; border-radius:12px; cursor:pointer; font-size:.85em; margin-top:8px; }
+.quisuisje-answer-reveal { background:#e6f7ea; border-radius:12px; padding:14px; border:2px solid #2a8a40; margin-top:10px; text-align:center; }
+.quisuisje-answer-reveal .ans-main { font-size:1.4em; font-weight:900; color:#0a5a20; }
+.quisuisje-answer-reveal .ans-sub { font-size:.8em; color:#1a4a30; margin-top:4px; }
+
+/* ══ JEU 4 — DOSSIER CHAUD ══ */
+.dossier-article { background:linear-gradient(135deg,#fffaf0,#fff5e0); border-radius:16px; padding:18px; border:1px solid #e0c898; margin-bottom:14px; }
+.dossier-tag { display:inline-block; background:#ff922b; color:#1a2240; font-size:.68em; font-weight:800; padding:3px 10px; border-radius:20px; margin-bottom:8px; letter-spacing:.5px; }
+.dossier-headline { font-size:1.05em; font-weight:800; color:#2a1a00; line-height:1.4; margin-bottom:8px; }
+.dossier-body { font-size:.82em; color:#5a3a10; line-height:1.7; border-top:1px solid rgba(255,200,100,.15); padding-top:10px; }
+.dossier-timer-bar { height:4px; background:#2d1a00; border-radius:2px; margin-bottom:14px; overflow:hidden; }
+.dossier-timer-fill { height:100%; background:linear-gradient(90deg,#6bcb77,#ffd93d,#ff6b6b); border-radius:2px; transition:width 1s linear; }
+.dossier-q { background:rgba(255,146,43,.06); border:1px solid rgba(255,146,43,.3); border-radius:12px; padding:14px; margin-bottom:10px; }
+.dossier-q-text { font-size:.88em; color:#2a1400; font-weight:600; margin-bottom:10px; }
+.dossier-q-choices { display:flex; flex-direction:column; gap:6px; }
+.dossier-q-choice { background:#f8f9fc; border:1px solid #c8d0e8; color:#1a1a40; padding:10px 12px; border-radius:10px; cursor:pointer; font-size:.82em; text-align:left; }
+.dossier-q-choice:hover { background:rgba(255,146,43,.15); border-color:#ff922b; }
+.dossier-q-choice.correct { background:#e8f9ec; border-color:#2a8a40; color:#0d3a15; font-weight:700; }
+.dossier-q-choice.wrong { background:#fdeaea; border-color:#cc2a2a; color:#5a0a0a; opacity:.9; }
+
+/* ══ JEU 5 — BOSS DE FIN ══ */
+.boss-arena { background:radial-gradient(ellipse at 50% 0%, rgba(204,93,232,.1) 0%, #fdf0ff 60%); border-radius:18px; padding:20px; border:1px solid #d8a8f0; margin-bottom:14px; position:relative; overflow:hidden; }
+.boss-sprite { text-align:center; font-size:3.5em; margin-bottom:8px; animation:bossBob 2s ease-in-out infinite; }
+@keyframes bossBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.boss-name { text-align:center; font-size:1em; font-weight:900; color:#8b00cc; margin-bottom:4px; letter-spacing:1px; }
+.boss-hp-wrap { background:rgba(0,0,0,.1); border-radius:6px; height:12px; margin-bottom:14px; overflow:hidden; border:1px solid rgba(204,93,232,.3); }
+.boss-hp-fill { height:100%; background:linear-gradient(90deg,#cc5de8,#e03af0); border-radius:6px; transition:width .5s; }
+.boss-hp-label { text-align:center; font-size:.72em; color:#cc5de8; margin-bottom:14px; }
+.boss-question { background:rgba(204,93,232,.05); border:1px solid rgba(204,93,232,.25); border-radius:14px; padding:16px; margin-bottom:12px; }
+.boss-q-text { font-size:.9em; color:#1a0a30; font-weight:600; line-height:1.5; margin-bottom:12px; }
+.boss-choices { display:flex; flex-direction:column; gap:7px; }
+.boss-choice { background:#fff; border:1px solid #c8b0e0; color:#1a0a30; padding:11px 13px; border-radius:11px; cursor:pointer; font-size:.84em; text-align:left; transition:all .15s; }
+.boss-choice:hover { background:rgba(204,93,232,.15); border-color:#cc5de8; }
+.boss-choice.correct { background:#e6f7ea; border-color:#2a8a40; color:#0d3a15; font-weight:700; }
+.boss-choice.wrong { background:#fdeaea; border-color:#cc2a2a; color:#3a0000; font-weight:600; }
+.boss-lives { display:flex; gap:6px; justify-content:center; margin-bottom:12px; }
+.boss-life { font-size:1.4em; transition:all .3s; }
+.boss-life.lost { filter:grayscale(1); opacity:.3; transform:scale(.8); }
+.boss-hit { animation:bossHit .4s; }
+@keyframes bossHit { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.boss-dead { animation:bossDead .8s forwards; }
+@keyframes bossDead { to{transform:scale(0) rotate(180deg);opacity:0} }
+.boss-combo { position:absolute; top:10px; right:14px; font-size:.8em; font-weight:800; color:#ffd93d; }
+
+/* ══ JEU 6 — CARTE MENTALE ══ */
+.carte-arena { background:linear-gradient(135deg,#f0f6ff,#e5f0ff); border-radius:16px; padding:16px; border:1px solid #b0ccf0; margin-bottom:14px; }
+.carte-theme-label { text-align:center; font-size:.82em; color:#1a5abb; font-weight:700; margin-bottom:12px; letter-spacing:.5px; }
+.carte-center { text-align:center; background:linear-gradient(135deg,#1a3a6e,#0d2244); border-radius:50%; width:90px; height:90px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border:3px solid #4d96ff; font-size:.8em; font-weight:800; color:#0a1f50; padding:8px; line-height:1.3; }
+.carte-drop-zones { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.carte-zone {
+  background:rgba(77,150,255,.04); border:2px dashed rgba(77,150,255,.4);
+  border-radius:14px; padding:10px 8px; min-height:56px; text-align:center;
+  transition:all .2s; position:relative;
+}
+.carte-zone.highlight { border-color:#1a5abb; background:rgba(77,150,255,.12); }
+.carte-zone.filled { border-style:solid; border-color:#2a8a40; background:#e8f9ec; }
+.carte-zone.wrong-zone { border-color:#ff6b6b; background:rgba(255,107,107,.1); animation:shake .3s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+.carte-zone-label { font-size:.68em; color:#1a5abb; font-weight:700; margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
+.carte-zone-content { font-size:.8em; color:#0d5a20; font-weight:700; }
+.carte-pieces { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; }
+.carte-piece {
+  background:#e8f0ff; border:1px solid #6090d0;
+  color:#0a1f50; padding:9px 12px; border-radius:12px; cursor:pointer;
+  font-size:.78em; font-weight:600; transition:all .15s; user-select:none;
+}
+.carte-piece:hover { background:#dce8ff; border-color:#3060b0; transform:scale(1.05); }
+.carte-piece.selected { background:linear-gradient(135deg,#4d96ff,#2a6ed4); color:#1a2240; border-color:#6aadff; }
+.carte-piece.used { opacity:0; pointer-events:none; }
+.carte-score-ring { display:flex; flex-direction:column; align-items:center; margin-bottom:14px; }
+.carte-progress-text { font-size:.75em; color:#1a5abb; margin-top:4px; }
+
+.carte-zone-hint { font-size:.67em; color:#6a88bb; font-style:italic; margin-bottom:3px; }
+.carte-zone.filled .carte-zone-hint { display:none; }
 </style>
 </head>
 <body>
@@ -419,9 +583,289 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <button class="fiche-btn" onclick="showScreen('screen-oral')" style="margin-top:8px">🎤 Simulateur oral</button>
   <button class="fiche-btn resume2025-btn" onclick="showScreen('screen-resume2025')" style="margin-top:8px">🗞️ Actualité FP 2025 — résumé concours</button>
   <button class="fiche-btn" onclick="showScreen('screen-liens')" style="margin-top:8px">🔗 Sources & références officielles</button>
+  <button class="fiche-btn jeux-btn" onclick="showScreen('screen-jeux')" style="margin-top:8px">🕹️ Salle des Jeux — 6 mini-jeux</button>
 </div>
 
 
+
+<!-- ════════════════════════════════════════
+     SALLE DES JEUX
+════════════════════════════════════════ -->
+<div id="screen-jeux" class="screen">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Menu</button>
+    <h2 style="font-family:'Playfair Display',serif;color:#1a2240;font-size:1.15em;background:#f0f2f8;padding:6px 14px;border-radius:10px;">🕹️ Salle des Jeux</h2>
+  </div>
+  <div style="font-size:.8em;color:#445566;margin-bottom:14px;text-align:center">6 mini-jeux pour réviser autrement — fun &amp; pédagogique</div>
+  <div class="jeux-hub">
+    <div class="jeu-card j1" onclick="lancerJeu('proces')">
+      <span class="jeu-icon">⚖️</span>
+      <div class="jeu-name">Le Procès</div>
+      <div class="jeu-desc">Tu es l'avocat. Défends ton client face au jury.</div>
+    </div>
+    <div class="jeu-card j2" onclick="lancerJeu('intox')">
+      <span class="jeu-icon">🧩</span>
+      <div class="jeu-name">Loi ou Intox ?</div>
+      <div class="jeu-desc">Vrai ou faux en 10s. Les pièges sont subtils.</div>
+    </div>
+    <div class="jeu-card j3" onclick="lancerJeu('quisuisje')">
+      <span class="jeu-icon">⚡</span>
+      <div class="jeu-name">Qui suis-je ?</div>
+      <div class="jeu-desc">Indices progressifs. Trouve vite = plus de points.</div>
+    </div>
+    <div class="jeu-card j4" onclick="lancerJeu('dossier')">
+      <span class="jeu-icon">📰</span>
+      <div class="jeu-name">Dossier Chaud</div>
+      <div class="jeu-desc">Article fictif + 5 questions. Simule le concours.</div>
+    </div>
+    <div class="jeu-card j5" onclick="lancerJeu('carte')">
+      <span class="jeu-icon">🗺️</span>
+      <div class="jeu-name">Carte Mentale</div>
+      <div class="jeu-desc">Place les bonnes pièces sur le schéma.</div>
+    </div>
+    <div class="jeu-card j6" onclick="lancerJeu('boss')">
+      <span class="jeu-icon">👹</span>
+      <div class="jeu-name">Boss de Fin</div>
+      <div class="jeu-desc">10 questions difficiles. 3 vies. Tue le boss.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ JEU 1 : LE PROCÈS ════════ -->
+<div id="jeu-proces" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('proces')">← Quitter</button>
+    <span class="jeu-title">⚖️ Le Procès</span>
+    <span class="jeu-score-badge" id="proces-score">0 pts</span>
+  </div>
+  <div id="proces-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3em;margin-bottom:12px">⚖️</div>
+    <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">Tu es l'avocat de la défense</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:20px">Un agent est accusé. Le jury te pose des questions.<br>Cite les bons textes, défends bien — ou ton client est condamné !</div>
+    <div id="proces-vies" class="proces-life" style="justify-content:center;margin-bottom:16px"></div>
+    <button class="btn-start" onclick="startProces()" style="background:linear-gradient(135deg,#cc0000,#ee2222);color:#fff;font-weight:800">⚖️ Commencer le procès</button>
+  </div>
+  <div id="proces-game" style="display:none">
+    <div class="proces-scene">
+      <div class="proces-role">
+        <div class="proces-avatar" id="proces-speaker-avatar">👨‍⚖️</div>
+        <div style="flex:1">
+          <div style="font-size:.72em;color:#ff9999;font-weight:700;margin-bottom:4px" id="proces-speaker-name">LE JUGE</div>
+          <div class="proces-speech" id="proces-speech"></div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:.8em;color:#ff9999;font-weight:700;margin-bottom:8px">Votre réponse, Maître :</div>
+    <div class="proces-choices" id="proces-choices"></div>
+    <div id="proces-verdict" style="display:none" class="proces-verdict"></div>
+    <div id="proces-vies-game" class="proces-life" style="margin-top:12px;justify-content:center"></div>
+  </div>
+  <div id="proces-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:3em;margin-bottom:12px" id="proces-fin-icon">🏆</div>
+    <div style="color:#1a2240;font-size:1.1em;font-weight:800;margin-bottom:6px" id="proces-fin-titre"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:20px" id="proces-fin-detail"></div>
+    <button class="btn-start" onclick="startProces()" style="background:linear-gradient(135deg,#cc0000,#ee2222);color:#fff;font-weight:800;margin-bottom:10px">🔄 Nouveau procès</button><br>
+    <button class="jeu-back" onclick="fermerJeu('proces')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
+
+<!-- ════════ JEU 2 : LOI OU INTOX ════════ -->
+<div id="jeu-intox" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('intox')">← Quitter</button>
+    <span class="jeu-title">🧩 Loi ou Intox ?</span>
+    <span class="jeu-score-badge" id="intox-score">0 pts</span>
+  </div>
+  <div id="intox-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3em;margin-bottom:12px">🧩</div>
+    <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">10 secondes par affirmation</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:20px">Vrai ou Faux ? Les intox sont <em>presque vraies</em>...<br>Enchaîne les bonnes réponses pour multiplier ton score !</div>
+    <button class="btn-start" onclick="startIntox()" style="background:linear-gradient(135deg,#0055cc,#2277ee);color:#fff;font-weight:800">🧩 Jouer</button>
+  </div>
+  <div id="intox-game" style="display:none">
+    <div class="intox-streak" id="intox-streak"></div>
+    <div class="intox-card">
+      <div class="intox-statement" id="intox-statement"></div>
+      <div class="intox-source" id="intox-src"></div>
+      <div class="intox-chrono-wrap">
+        <div class="intox-chrono" id="intox-chrono-ring" style="--pct:100%">
+          <span class="intox-chrono-num" id="intox-chrono-num">10</span>
+        </div>
+      </div>
+    </div>
+    <div class="intox-btns">
+      <button class="intox-btn intox-vrai" onclick="repondreIntox(true)">✅ VRAI</button>
+      <button class="intox-btn intox-faux" onclick="repondreIntox(false)">❌ FAUX</button>
+    </div>
+    <div id="intox-feedback" style="display:none" class="intox-feedback"></div>
+    <div id="intox-next-wrap" style="display:none;text-align:center;margin-top:12px">
+      <button class="btn-start" onclick="nextIntox()" style="font-size:.9em;padding:12px 24px">Question suivante →</button>
+    </div>
+  </div>
+  <div id="intox-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:2.5em;margin-bottom:10px">🧩</div>
+    <div style="color:#ffd93d;font-size:1.5em;font-weight:900;margin-bottom:4px" id="intox-fin-score"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:6px" id="intox-fin-detail"></div>
+    <div style="color:#1a5abb;font-size:.8em;margin-bottom:20px" id="intox-fin-combo"></div>
+    <button class="btn-start" onclick="startIntox()" style="background:linear-gradient(135deg,#0055cc,#2277ee);color:#fff;font-weight:800;margin-bottom:10px">🔄 Rejouer</button><br>
+    <button class="jeu-back" onclick="fermerJeu('intox')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
+
+<!-- ════════ JEU 3 : QUI SUIS-JE ════════ -->
+<div id="jeu-quisuisje" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('quisuisje')">← Quitter</button>
+    <span class="jeu-title">⚡ Qui suis-je ?</span>
+    <span class="jeu-score-badge" id="quisuisje-score">0 pts</span>
+  </div>
+  <div id="quisuisje-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3em;margin-bottom:12px">⚡</div>
+    <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">Devine avec le moins d'indices possible</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:12px">3 indices s'affichent progressivement.<br>Indice 1 = 300 pts · Indice 2 = 200 pts · Indice 3 = 100 pts</div>
+    <div style="background:#fff8e1;border:2px solid #f0c040;border-radius:14px;padding:14px 16px;margin-bottom:16px;text-align:left">
+      <div style="font-size:.82em;font-weight:800;color:#7a5000;margin-bottom:8px">✏️ COMMENT RÉPONDRE ?</div>
+      <div style="font-size:.8em;color:#5a3a00;line-height:1.7">
+        Tape <strong>un mot-clé</strong> de la réponse — pas besoin de la phrase complète.<br>
+        <span style="color:#2a6a40">✅ Bonne réponse attendue : <em>"La protection fonctionnelle"</em><br>
+        → Tu peux taper : <strong>protection</strong> ou <strong>fonctionnelle</strong></span><br>
+        <span style="color:#2a6a40">✅ Réponse attendue : <em>"La CNIL"</em> → tape : <strong>cnil</strong></span><br>
+        <span style="color:#aa3300">⚠️ Évite les mots courts (&lt; 4 lettres) : pour <em>"Les LDG"</em><br>
+        → tape <strong>lignes</strong> ou <strong>directrices</strong>, pas <em>ldg</em></span>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startQuiSuisJe()" style="background:linear-gradient(135deg,#1a8a35,#28b050);color:#fff;font-weight:800">⚡ Commencer</button>
+  </div>
+  <div id="quisuisje-game" style="display:none">
+    <div class="quisuisje-card">
+      <div class="quisuisje-pts" id="qsj-pts-dispo">300</div>
+      <div class="quisuisje-pts-label" id="qsj-pts-label">pts si tu réponds maintenant</div>
+      <div class="quisuisje-indices" id="qsj-indices"></div>
+      <div id="qsj-more-btn-wrap" style="text-align:center;margin-bottom:12px">
+        <button class="quisuisje-reveal-btn" id="qsj-more-btn" onclick="nextIndice()">👁 Voir l'indice suivant (-100 pts)</button>
+      </div>
+      <input class="quisuisje-input" id="qsj-input" placeholder="Tape ta réponse..." onkeydown="if(event.key==='Enter')validerQSJ()">
+      <button class="btn-start" onclick="validerQSJ()" style="width:100%;margin-top:10px;font-size:.9em;padding:12px">✓ Valider</button>
+      <div id="qsj-result" style="display:none" class="quisuisje-answer-reveal"></div>
+    </div>
+    <div id="qsj-next-wrap" style="display:none;text-align:center;margin-top:8px">
+      <button class="btn-start" onclick="nextQSJ()" style="font-size:.9em">Question suivante →</button>
+    </div>
+  </div>
+  <div id="quisuisje-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:2.5em;margin-bottom:10px">⚡</div>
+    <div style="color:#6bcb77;font-size:1.5em;font-weight:900;margin-bottom:4px" id="qsj-fin-score"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:20px" id="qsj-fin-detail"></div>
+    <button class="btn-start" onclick="startQuiSuisJe()" style="background:linear-gradient(135deg,#1a8a35,#28b050);color:#fff;font-weight:800;margin-bottom:10px">🔄 Rejouer</button><br>
+    <button class="jeu-back" onclick="fermerJeu('quisuisje')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
+
+<!-- ════════ JEU 4 : DOSSIER CHAUD ════════ -->
+<div id="jeu-dossier" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('dossier')">← Quitter</button>
+    <span class="jeu-title">📰 Dossier Chaud</span>
+    <span class="jeu-score-badge" id="dossier-score">0 pts</span>
+  </div>
+  <div id="dossier-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3em;margin-bottom:12px">📰</div>
+    <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">Lis l'article · Réponds aux questions</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:20px">Un article fictif sur une réforme réelle.<br>3 minutes pour lire et répondre aux 4 questions.<br>Entraîne-toi à la note de synthèse du concours SA.</div>
+    <button class="btn-start" onclick="startDossier()" style="background:linear-gradient(135deg,#c04a00,#e06000);color:#fff;font-weight:800">📰 Lire le dossier</button>
+  </div>
+  <div id="dossier-game" style="display:none">
+    <div class="dossier-timer-bar"><div class="dossier-timer-fill" id="dossier-timer-fill" style="width:100%"></div></div>
+    <div id="dossier-time-label" style="text-align:right;font-size:.72em;color:#ff922b;margin-bottom:8px"></div>
+    <div class="dossier-article" id="dossier-article"></div>
+    <div id="dossier-questions"></div>
+    <div id="dossier-result" style="display:none;background:rgba(255,146,43,.1);border:1px solid #ff922b;border-radius:14px;padding:16px;margin-top:12px;color:#2a1400;font-size:.88em;line-height:1.7"></div>
+    <div id="dossier-next-wrap" style="display:none;text-align:center;margin-top:12px">
+      <button class="btn-start" onclick="nextDossier()" style="font-size:.9em">Dossier suivant →</button>
+    </div>
+  </div>
+  <div id="dossier-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:2.5em;margin-bottom:10px">📰</div>
+    <div style="color:#ff922b;font-size:1.5em;font-weight:900;margin-bottom:4px" id="dossier-fin-score"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:20px" id="dossier-fin-detail"></div>
+    <button class="btn-start" onclick="startDossier()" style="background:linear-gradient(135deg,#c04a00,#e06000);color:#fff;font-weight:800;margin-bottom:10px">🔄 Nouveau dossier</button><br>
+    <button class="jeu-back" onclick="fermerJeu('dossier')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
+
+<!-- ════════ JEU 5 : CARTE MENTALE ════════ -->
+<div id="jeu-carte" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('carte')">← Quitter</button>
+    <span class="jeu-title">🗺️ Carte Mentale</span>
+    <span class="jeu-score-badge" id="carte-score">0 pts</span>
+  </div>
+  <div id="carte-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3em;margin-bottom:12px">🗺️</div>
+    <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">Place les bonnes pièces</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:12px">Un concept central s'affiche.<br>Clique une pièce puis la zone où elle doit aller.<br>Bonne association = points !</div>
+    <div style="background:#f0f6ff;border:2px solid #90b8f0;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.78em;color:#1a3a6e;text-align:left"><strong>🖱️ Mode d'emploi :</strong> 1) Clique une pièce (elle devient bleue) · 2) Clique la zone cible · ✅ Vert = correct · ❌ Secousse = mauvaise zone, réessaie !</div>
+    <button class="btn-start" onclick="startCarte()" style="background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800">🗺️ Commencer</button>
+  </div>
+  <div id="carte-game" style="display:none">
+    <div class="carte-arena">
+      <div class="carte-theme-label" id="carte-theme-label">THÈME</div>
+      <div class="carte-center" id="carte-center"></div>
+      <div class="carte-score-ring">
+        <div style="font-size:.75em;color:#1a5abb" id="carte-progress"></div>
+      </div>
+      <div class="carte-drop-zones" id="carte-zones"></div>
+    </div>
+    <div style="font-size:.75em;color:#1a5abb;font-weight:700;margin-bottom:8px;text-align:center">Sélectionne une pièce ↓ puis clique la bonne zone ↑</div>
+    <div class="carte-pieces" id="carte-pieces"></div>
+  </div>
+  <div id="carte-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:2.5em;margin-bottom:10px">🗺️</div>
+    <div style="color:#1a5abb;font-size:1.5em;font-weight:900;margin-bottom:4px" id="carte-fin-score"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:20px" id="carte-fin-detail"></div>
+    <button class="btn-start" onclick="startCarte()" style="background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800;margin-bottom:10px">🔄 Nouveau schéma</button><br>
+    <button class="jeu-back" onclick="fermerJeu('carte')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
+
+<!-- ════════ JEU 6 : BOSS DE FIN ════════ -->
+<div id="jeu-boss" class="jeu-window">
+  <div class="jeu-header">
+    <button class="jeu-back" onclick="fermerJeu('boss')">← Quitter</button>
+    <span class="jeu-title">👹 Boss de Fin</span>
+    <span class="jeu-score-badge" id="boss-score-badge">❤️❤️❤️</span>
+  </div>
+  <div id="boss-intro" style="text-align:center;padding:20px 0">
+    <div style="font-size:3.5em;margin-bottom:8px;animation:bossBob 2s ease-in-out infinite;display:block">👹</div>
+    <div style="color:#8b00cc;font-size:1.1em;font-weight:900;margin-bottom:6px;letter-spacing:1px">LE JURY INFERNAL</div>
+    <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:20px">10 questions piégées. 3 vies.<br>Bonne réponse = 1 dégât au boss.<br>Mauvaise réponse = 1 vie perdue.<br>Tue le boss avant d'être éliminé !</div>
+    <button class="btn-start" onclick="startBoss()" style="background:linear-gradient(135deg,#8800cc,#aa00ee);color:#fff;font-weight:800">👹 Affronter le boss</button>
+  </div>
+  <div id="boss-game" style="display:none">
+    <div class="boss-arena">
+      <div class="boss-combo" id="boss-combo"></div>
+      <div class="boss-sprite" id="boss-sprite">👹</div>
+      <div class="boss-name">LE JURY INFERNAL</div>
+      <div class="boss-hp-wrap"><div class="boss-hp-fill" id="boss-hp-fill" style="width:100%"></div></div>
+      <div class="boss-hp-label" id="boss-hp-label">10 / 10 PV</div>
+      <div class="boss-lives" id="boss-lives"></div>
+    </div>
+    <div class="boss-question">
+      <div style="font-size:.7em;color:#cc5de8;font-weight:700;margin-bottom:8px" id="boss-q-num">Question 1 / 10</div>
+      <div class="boss-q-text" id="boss-q-text"></div>
+      <div class="boss-choices" id="boss-choices"></div>
+    </div>
+    <div id="boss-feedback" style="display:none;background:rgba(204,93,232,.1);border:1px solid #cc5de8;border-radius:12px;padding:12px;margin-top:10px;font-size:.84em;color:#2a0040;line-height:1.5"></div>
+  </div>
+  <div id="boss-fin" style="display:none;text-align:center;padding:30px 0">
+    <div style="font-size:3em;margin-bottom:10px" id="boss-fin-icon">🏆</div>
+    <div style="font-size:1.2em;font-weight:900;margin-bottom:6px" id="boss-fin-titre"></div>
+    <div style="color:#556070;font-size:.85em;margin-bottom:6px" id="boss-fin-detail"></div>
+    <div style="color:#cc5de8;font-size:.8em;margin-bottom:20px" id="boss-fin-score-txt"></div>
+    <button class="btn-start" onclick="startBoss()" style="background:linear-gradient(135deg,#8800cc,#aa00ee);color:#fff;font-weight:800;margin-bottom:10px">🔄 Revanche !</button><br>
+    <button class="jeu-back" onclick="fermerJeu('boss')" style="margin-top:8px">← Salle des jeux</button>
+  </div>
+</div>
 
 <!-- RÉSUMÉ ACTUALITÉ FP 2025 -->
 <div id="screen-resume2025" class="screen">
@@ -1839,7 +2283,7 @@ function startBoss(){
   if(!errors.length){showToast('Fais d\'abord quelques quiz pour alimenter l\'épreuve finale !');return;}
   const pool=[...errors]; shuffle(pool);
   bossQuestions=pool.slice(0,Math.min(10,pool.length));
-  bossCurrent=0; bossLives=3; bossScore=0;
+  bossCurrent=0; bossLives=3; bossJeuScore=0;
   document.getElementById('bossIntro').style.display='none';
   document.getElementById('bossGame').style.display='block';
   showBossQuestion();
@@ -1881,7 +2325,7 @@ function bossAnswer(){
   });
 
   if(ok){
-    bossScore++;
+    bossJeuScore++;
     showToast('✅ +1');
     const gi=Q.indexOf(q);
     const idx=errorHistory.indexOf(gi);
@@ -1908,11 +2352,11 @@ function bossAnswer(){
 function endBoss(){
   document.getElementById('bossGame').style.display='none';
   document.getElementById('bossResult').style.display='block';
-  const pct=Math.round(bossScore/bossQuestions.length*100);
+  const pct=Math.round(bossJeuScore/bossQuestions.length*100);
   const win=bossLives>0&&pct>=80;
   document.getElementById('bossResultIcon').textContent=win?'🏆':'💀';
   document.getElementById('bossResultTitle').textContent=win?'Boss vaincu !':'Tu as été éliminé…';
-  document.getElementById('bossResultMsg').textContent=bossScore+'/'+bossQuestions.length+(win?' — Reviens pour le prochain niveau !':' — Recommence pour t\'améliorer.');
+  document.getElementById('bossResultMsg').textContent=bossJeuScore+'/'+bossQuestions.length+(win?' — Reviens pour le prochain niveau !':' — Recommence pour t\'améliorer.');
   if(win) addXP(50);
 }
 
@@ -2790,6 +3234,882 @@ function buildCalendrier(){
     if(hint){hint.classList.add('swipe-active');setTimeout(function(){hint.classList.remove('swipe-active');},400);}
   },{passive:true});
 })();
+
+
+// ════════════════════════════════════════════════════════
+// SALLE DES JEUX — JS COMPLET
+// ════════════════════════════════════════════════════════
+
+function lancerJeu(id) {
+  document.getElementById('jeu-'+id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function fermerJeu(id) {
+  document.getElementById('jeu-'+id).classList.remove('active');
+  document.body.style.overflow = '';
+  showScreen('screen-jeux');
+}
+
+// ──────────────────────────────────────
+// JEU 1 — LE PROCÈS
+// ──────────────────────────────────────
+var PROCES_DATA = [
+  {accusation:"M. Dubois, agent territorial, a cumulé une activité de consultant privé sans déclaration préalable à sa hiérarchie.",
+   juge:"Maître, en quoi l'article invoqué protège-t-il votre client ?",
+   choices:[
+     {txt:"Le décret 2020-69 autorise les activités accessoires sans aucune formalité.",ok:false,explication:"Faux — le décret 2020-69 assouplit les règles mais la déclaration reste obligatoire (CGFP art. L123-1)."},
+     {txt:"Mon client a omis la déclaration par méconnaissance, non par intention frauduleuse. Le décret 2020-69 autorise les activités accessoires sous réserve de déclaration, ce qui rend la faute atténuée.",ok:true,explication:"✅ Exact ! L'absence d'intention frauduleuse est un élément atténuant. La faute existe mais peut mériter une sanction minimale."},
+     {txt:"Aucune règle n'interdit le cumul d'activités dans la FP.",ok:false,explication:"Faux — l'interdiction de principe du cumul est posée par le CGFP. Les exceptions sont strictement encadrées."},
+   ]},
+  {accusation:"Mme Martin, secrétaire administrative, a refusé d'exécuter un ordre de falsification de date dans un dossier.",
+   juge:"Votre cliente avait-elle le droit de refuser cet ordre ?",
+   choices:[
+     {txt:"Non, l'obligation d'obéissance hiérarchique est absolue dans la FP.",ok:false,explication:"Faux — l'obéissance n'est pas absolue. L'agent peut et doit refuser un ordre manifestement illégal (CGFP art. L121-10)."},
+     {txt:"Oui, tout ordre verbal doit être confirmé par écrit pour être valable.",ok:false,explication:"Partiellement vrai mais ce n'est pas le fondement ici. La vraie protection est le droit de refus d'ordre illégal."},
+     {txt:"Oui — modifier rétroactivement un acte administratif est manifestement illégal. CGFP art. L121-10 autorise le refus d'un tel ordre.",ok:true,explication:"✅ Parfait ! L'agent n'est pas responsable de l'exécution d'un ordre manifestement illégal compromettant gravement un intérêt public."},
+   ]},
+  {accusation:"M. Leclerc a publié sur les réseaux sociaux un message critiquant vivement la politique de son département.",
+   juge:"Votre client n'a-t-il pas violé son devoir de réserve ?",
+   choices:[
+     {txt:"Mon client n'a aucune obligation de réserve, la liberté d'expression est constitutionnelle.",ok:false,explication:"Faux — la liberté d'expression est garantie mais le fonctionnaire est soumis à l'obligation de réserve, notamment en public."},
+     {txt:"L'obligation de réserve ne s'applique qu'aux propos tenus dans l'exercice des fonctions.",ok:false,explication:"Faux — l'obligation de réserve s'applique aussi en dehors du service, surtout pour les grades élevés."},
+     {txt:"Mon client est agent d'exécution — l'obligation de réserve est proportionnelle au grade. Il a exprimé une opinion sur une politique sans citer son service ni nuire à son crédit.",ok:true,explication:"✅ Exact ! La jurisprudence administrative est constante : l'obligation de réserve est graduée selon le grade et les fonctions."},
+   ]},
+  {accusation:"Mme Petit, stagiaire, a été licenciée pour insuffisance professionnelle sans accès à son dossier.",
+   juge:"La procédure suivie est-elle régulière ?",
+   choices:[
+     {txt:"Oui, le licenciement d'un stagiaire est libre et sans formalité.",ok:false,explication:"Faux — même pour un stagiaire, le droit de la défense doit être respecté, notamment l'accès au dossier."},
+     {txt:"Non — l'absence de communication du dossier individuel entache la procédure d'illégalité, même pour un stagiaire (CGFP art. L131-2).",ok:true,explication:"✅ Parfait ! L'accès au dossier avant toute décision défavorable est un principe fondamental applicable aux stagiaires."},
+     {txt:"La procédure est régulière car le stage est une période d'essai sans garanties.",ok:false,explication:"Faux — le stagiaire bénéficie de protections procédurales minimales, dont la communication du dossier."},
+   ]},
+  {accusation:"M. Bernard s'est absenté 3 jours sans autorisation. Son administration veut le radier pour abandon de poste.",
+   juge:"Votre client peut-il éviter la radiation ?",
+   choices:[
+     {txt:"Non, 3 jours d'absence non justifiée constituent automatiquement un abandon de poste.",ok:false,explication:"Faux — l'abandon de poste nécessite une mise en demeure préalable avec délai de réponse raisonnable."},
+     {txt:"Oui — sans mise en demeure préalable d'avoir à rejoindre son poste, la radiation serait irrégulière.",ok:true,explication:"✅ Exact ! La jurisprudence du CE est constante : pas de mise en demeure = radiation illégale."},
+     {txt:"L'abandon de poste est une sanction disciplinaire soumise au conseil de discipline.",ok:false,explication:"Faux — l'abandon de poste n'est PAS une sanction disciplinaire. C'est une constatation de rupture du lien avec le service."},
+   ]},
+  {accusation:"Mme Dupont, fonctionnaire, a été victime d'insultes répétées d'un élu dans l'exercice de ses fonctions.",
+   juge:"Maître, votre cliente peut-elle obtenir la protection de son administration ?",
+   choices:[
+     {txt:"Non, la protection fonctionnelle ne couvre que les attaques de tiers extérieurs.",ok:false,explication:"Faux — la protection fonctionnelle couvre toute attaque liée aux fonctions, y compris de la part d'élus."},
+     {txt:"Oui — CGFP art. L134-1 oblige l'administration à protéger ses agents contre les insultes, violences et menaces subies à raison de leurs fonctions.",ok:true,explication:"✅ Exact ! L'administration doit protéger et indemniser. Le refus de protection est une faute de l'administration."},
+     {txt:"Ma cliente doit d'abord saisir le tribunal pénal avant de demander la protection.",ok:false,explication:"Faux — la protection fonctionnelle peut être demandée indépendamment de toute action pénale."},
+   ]},
+  {accusation:"M. Renard, chef de service, a accordé un contrat public à une entreprise dont son épouse est actionnaire.",
+   juge:"Y a-t-il manquement aux obligations déontologiques ?",
+   choices:[
+     {txt:"Non, les marchés publics sont attribués selon des critères objectifs, les liens familiaux n'ont pas d'importance.",ok:false,explication:"Faux — la situation crée un conflit d'intérêts manifeste, interdit par la loi Sapin II et le CGFP."},
+     {txt:"Oui — CGFP art. L121-3 interdit à tout fonctionnaire de prendre une décision dans laquelle il a un intérêt personnel. Un déport (délégation à un tiers) était obligatoire.",ok:true,explication:"✅ Exact ! L'obligation de déport est la procédure attendue. Le manquement peut entraîner des sanctions disciplinaires et pénales."},
+     {txt:"Cela dépend du montant du marché — sous 40 000€, aucune formalité n'est requise.",ok:false,explication:"Faux — le seuil de procédure de marché ne supprime pas l'obligation déontologique de prévention des conflits d'intérêts."},
+   ]},
+  {accusation:"Mme Blanc a divulgué à la presse des informations confidentielles sur un projet de restructuration de sa collectivité.",
+   juge:"Cette divulgation peut-elle être justifiée ?",
+   choices:[
+     {txt:"Oui, la liberté de la presse prime toujours sur le secret professionnel.",ok:false,explication:"Faux — le secret professionnel s'impose aux fonctionnaires (CGFP art. L121-6). Sa violation constitue une infraction pénale."},
+     {txt:"Oui, si l'agent a signalé des faits via la procédure d'alerte éthique (loi Sapin II), il bénéficie d'une protection.",ok:true,explication:"✅ Nuancé ! Un lanceur d'alerte qui signale des faits illégaux via la procédure légale (référent déontologue, Défenseur des droits) est protégé. Hors cette procédure, la divulgation est fautive."},
+     {txt:"Non, le secret professionnel est absolu et aucune divulgation n'est jamais justifiée.",ok:false,explication:"Faux — la loi Sapin II (2016) protège les lanceurs d'alerte qui signalent des faits illégaux selon la procédure légale."},
+   ]},
+  {accusation:"M. Santos a été placé en disponibilité d'office après épuisement de ses droits à congé maladie.",
+   juge:"Maître, quels sont les droits de votre client pendant cette période ?",
+   choices:[
+     {txt:"Mon client conserve son traitement et continue d'accumuler des droits à avancement.",ok:false,explication:"Faux — en disponibilité, aucun traitement, aucun droit à avancement, aucune cotisation retraite."},
+     {txt:"Mon client n'a aucun droit — la disponibilité d'office met fin à tous ses droits statutaires.",ok:false,explication:"Incomplet — l'agent conserve son grade et son droit à réintégration à l'issue. La disponibilité n'est pas une fin de carrière."},
+     {txt:"Mon client conserve son grade et son droit à réintégration prioritaire à la fin de la disponibilité. Il peut cotiser volontairement pour la retraite.",ok:true,explication:"✅ Exact ! La disponibilité suspend le traitement et l'avancement, mais le lien avec la FP subsiste. Le droit à réintégration est garanti."},
+   ]},
+  {accusation:"Mme Garcia a été sanctionnée d'une exclusion temporaire de 15 jours sans passage en conseil de discipline.",
+   juge:"La procédure est-elle régulière ?",
+   choices:[
+     {txt:"Oui — l'administration peut sanctionner librement sans conseil de discipline.",ok:false,explication:"Faux — seules les sanctions du 1er groupe (avertissement, blâme) n'exigent pas le conseil de discipline."},
+     {txt:"Non — une exclusion temporaire de 15 jours est une sanction du 2ème groupe qui exige obligatoirement le passage devant le conseil de discipline.",ok:true,explication:"✅ Exact ! Les sanctions du 2ème groupe (exclusion 1-10j) et 3ème groupe (exclusion 11j-2ans) nécessitent le conseil de discipline."},
+     {txt:"Cela dépend du grade de l'agent.",ok:false,explication:"Faux — la procédure disciplinaire est identique quel que soit le grade pour les sanctions à partir du 2ème groupe."},
+   ]},
+];
+
+var procesIdx=0, procesVies=3, procesScore=0, procesTotal=0, procesData=[];
+
+function startProces(){
+  procesVies=3; procesScore=0; procesIdx=0;
+  procesData = PROCES_DATA.slice().sort(()=>Math.random()-.5);
+  document.getElementById('proces-intro').style.display='none';
+  document.getElementById('proces-fin').style.display='none';
+  document.getElementById('proces-game').style.display='block';
+  majViesProces();
+  afficherProces();
+}
+
+function majViesProces(){
+  var h=''; for(var i=0;i<3;i++) h+='<span class="proces-heart">'+(i<procesVies?'❤️':'🖤')+'</span>';
+  document.getElementById('proces-vies-game').innerHTML=h;
+}
+
+function afficherProces(){
+  if(procesIdx>=procesData.length){ finProces(); return; }
+  var d=procesData[procesIdx];
+  document.getElementById('proces-speaker-avatar').textContent='👨‍⚖️';
+  document.getElementById('proces-speaker-name').textContent='LE JUGE';
+  document.getElementById('proces-speech').textContent='Accusation : "'+d.accusation+'" — '+d.juge;
+  document.getElementById('proces-verdict').style.display='none';
+  var ch=document.getElementById('proces-choices');
+  ch.innerHTML='';
+  var shuffled=d.choices.slice().sort(()=>Math.random()-.5);
+  shuffled.forEach(function(c2){
+    var btn=document.createElement('button');
+    btn.className='proces-choice';
+    btn.textContent=c2.txt;
+    btn.onclick=function(){ repondreProces(c2,btn,shuffled.map(function(x){return x;})); };
+    ch.appendChild(btn);
+  });
+}
+
+function repondreProces(choix, btn, all){
+  document.querySelectorAll('.proces-choice').forEach(function(b){b.onclick=null;b.style.opacity='.6';});
+  var verd=document.getElementById('proces-verdict');
+  if(choix.ok){
+    btn.classList.add('correct'); btn.style.opacity='1';
+    procesScore+=200;
+    verd.className='proces-verdict';
+    verd.innerHTML='<strong>✅ Argument retenu !</strong><br>'+choix.explication+'<br><br><button class="btn-start" onclick="nextProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px">Suite →</button>';
+  } else {
+    btn.classList.add('wrong'); btn.style.opacity='1';
+    procesVies--;
+    majViesProces();
+    verd.className='proces-verdict coupable';
+    verd.innerHTML='<strong>❌ Argument rejeté !</strong><br>'+choix.explication+'<br><br>'+
+      (procesVies>0?'<button class="btn-start" onclick="nextProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px;background:linear-gradient(135deg,#8b0000,#cc0000)">Continuer →</button>':'<button class="btn-start" onclick="finProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px;background:linear-gradient(135deg,#8b0000,#cc0000)">Voir le verdict</button>');
+  }
+  verd.style.display='block';
+  document.getElementById('proces-score').textContent=procesScore+' pts';
+}
+
+function nextProces(){
+  procesIdx++;
+  if(procesVies<=0 || procesIdx>=procesData.length){ finProces(); return; }
+  document.getElementById('proces-verdict').style.display='none';
+  document.querySelectorAll('.proces-choice').forEach(function(b){b.style.opacity='1';});
+  afficherProces();
+}
+
+function finProces(){
+  document.getElementById('proces-game').style.display='none';
+  document.getElementById('proces-fin').style.display='block';
+  var gagne=procesVies>0;
+  document.getElementById('proces-fin-icon').textContent=gagne?'🏆':'💔';
+  document.getElementById('proces-fin-titre').style.color=gagne?'#6bcb77':'#ff6b6b';
+  document.getElementById('proces-fin-titre').textContent=gagne?'Acquitté ! Brillante plaidoirie !':'Condamné... Le jury n\'a pas été convaincu.';
+  document.getElementById('proces-fin-detail').textContent=procesScore+' points — '+procesIdx+'/'+procesData.length+' affaires traitées';
+}
+
+// ──────────────────────────────────────
+// JEU 2 — LOI OU INTOX
+// ──────────────────────────────────────
+var INTOX_DATA = [
+  // ── BLOC 1 : CMO / Arrêts maladie ──
+  {s:"Depuis le 1er mars 2025, le fonctionnaire en CMO perçoit 90% de son traitement pendant les 3 premiers mois.",vrai:true,src:"Art. 189 loi n°2025-127",expl:"✅ Exact. La réforme CMO 2025 : 90% les 3 premiers mois, puis 50% les 9 mois suivants."},
+  {s:"Le CLM (congé longue maladie) est aussi concerné par la réforme 2025 et passe à 90%.",vrai:false,src:"Décret 2025-197",expl:"❌ Intox. Seul le CMO est touché. CLM et CLD restent à 100% puis 50% selon les règles classiques."},
+  {s:"La réforme CMO 2025 s'applique aussi aux policiers municipaux.",vrai:false,src:"Note DGCL 25 juin 2025",expl:"❌ Intox. Les policiers municipaux, gardes champêtres et sapeurs-pompiers sont explicitement exclus de la réforme."},
+  {s:"L'absentéisme dans la FP était de 14,5 jours en 2022, contre 11,7 jours dans le privé.",vrai:true,src:"Rapport annuel FP 2025",expl:"✅ Exact. Cet écart est précisément l'un des arguments avancés par le gouvernement pour justifier la réforme CMO."},
+  // ── BLOC 2 : Rémunération / Point d'indice ──
+  {s:"La GIPA (Garantie Individuelle du Pouvoir d'Achat) a été supprimée définitivement en 2025.",vrai:true,src:"PLF 2025 — loi du 14 fév. 2025",expl:"✅ Exact. La GIPA, créée en 2008 pour compenser l'inflation, n'a pas été reconduite. Économie : ~3 Mds€."},
+  {s:"Le point d'indice a été gelé deux années consécutives : 2024 et 2025.",vrai:true,src:"Loi de finances 2024 et 2025",expl:"✅ Exact. Après +3,5% en 2022 et +1,5% en 2023, le gel a été reconduit en 2024 puis 2025."},
+  {s:"Le RIFSEEP remplace l'ancien régime indemnitaire depuis 2014.",vrai:true,src:"Décret n°2014-513",expl:"✅ Exact. Le RIFSEEP (fonctions + engagement professionnel) est le régime indemnitaire de référence depuis 2014."},
+  {s:"La part variable du RIFSEEP est obligatoirement versée à tous les agents.",vrai:false,src:"Décret n°2014-513",expl:"❌ Intox. La part variable (CIA — complément indemnitaire annuel) peut être nulle. Seule la part fixe (IFSE) est garantie."},
+  {s:"Le salaire net moyen d'un fonctionnaire FP est supérieur à celui du secteur privé.",vrai:false,src:"Rapport annuel état de la FP 2025",expl:"❌ Intox. Le salaire net moyen FP est de 2 652€ contre 2 735€ dans le privé, soit -83€."},
+  // ── BLOC 3 : Protection sociale ──
+  {s:"Depuis janvier 2025, les collectivités versent obligatoirement 7€/mois minimum pour la prévoyance.",vrai:true,src:"Ordonnance 2021 — Accord collectif 2023",expl:"✅ Exact. 7€/mois = 20% d'un panier de référence de 35€. Obligation depuis le 1er janv. 2025."},
+  {s:"La complémentaire santé obligatoire pour les collectivités débute en janvier 2025.",vrai:false,src:"Accord collectif FPT 2023",expl:"❌ Intox. La complémentaire santé est obligatoire à partir du 1er janvier 2026 (15€/mois min), pas 2025."},
+  {s:"Les cotisations CNRACL passent à 34,65% en 2025.",vrai:true,src:"Décret n°2025-86 du 30 janv. 2025",expl:"✅ Exact. +4 pts en 2025 (de 30,65% à 34,65%), puis +3 pts/an jusqu'en 2028 (43,65%)."},
+  {s:"En 2028, le taux CNRACL atteindra 46%.",vrai:false,src:"Décret n°2025-86",expl:"❌ Intox. L'objectif 2028 est 43,65%, pas 46%. Trajectoire : 34,65% (2025) → 37,65% → 40,65% → 43,65%."},
+  {s:"Les contractuels de la FPT cotisent à la CNRACL comme les titulaires.",vrai:false,src:"Code de la sécurité sociale",expl:"❌ Intox. Les contractuels cotisent au régime général et à l'IRCANTEC, pas à la CNRACL. C'est l'une des causes du déficit CNRACL."},
+  // ── BLOC 4 : Carrière & mobilité ──
+  {s:"La rupture conventionnelle dans la FP a été pérennisée par une loi de 2026.",vrai:true,src:"Loi n°2026-103 du 19 fév. 2026",expl:"✅ Exact. Inscrite au CGFP art. L552-1 à L552-5. L'agent reçoit une ISRC et peut percevoir l'allocation chômage."},
+  {s:"Un fonctionnaire en rupture conventionnelle peut immédiatement revenir dans la FP sans remboursement.",vrai:false,src:"CGFP art. L552-4",expl:"❌ Intox. Si l'agent réintègre la FP dans les 6 ans, il doit rembourser l'ISRC (indemnité de rupture)."},
+  {s:"Le temps partiel est accessible dès 6 mois d'ancienneté depuis décembre 2024.",vrai:true,src:"Décret n°2024-1263 du 30 déc. 2024",expl:"✅ Exact. La condition d'ancienneté a été réduite à 6 mois. Avant ce décret, elle était plus longue."},
+  {s:"Le fonctionnaire titulaire de son grade peut être licencié si son poste est supprimé.",vrai:false,src:"CGFP — principe séparation grade/emploi",expl:"❌ Intox. Principe fondamental : le fonctionnaire est titulaire du GRADE, pas du poste. Il est pris en charge, jamais licencié."},
+  {s:"La disponibilité suspend les droits à avancement et à retraite.",vrai:true,src:"CGFP art. L514-1",expl:"✅ Exact. En disponibilité, l'agent n'est plus rémunéré, ni avancement, ni droits à retraite. Il peut néanmoins cotiser volontairement."},
+  // ── BLOC 5 : Dialogue social ──
+  {s:"Les CAP ne sont plus consultées pour les mutations et promotions depuis 2020.",vrai:true,src:"Loi n°2019-828 du 6 août 2019",expl:"✅ Exact. Ce rôle est désormais assuré par les Lignes Directrices de Gestion (LDG) depuis janvier 2020."},
+  {s:"Le CST (Comité Social Territorial) a remplacé le CTM et le CHSCT depuis janvier 2023.",vrai:true,src:"Loi de transformation FP 2019",expl:"✅ Exact. Le CST fusionne les deux anciennes instances. Il traite conditions de travail, formation et égalité professionnelle."},
+  {s:"Les délégués syndicaux dans la FP ont les mêmes droits que dans le privé.",vrai:false,src:"CGFP Titre VI",expl:"❌ Intox. La FP connaît les organisations syndicales et les droits syndicaux, mais le régime est différent (pas de représentants élus au sens du Code du travail)."},
+  {s:"Le droit de grève dans la FP est soumis à un préavis de 5 jours francs.",vrai:true,src:"Loi n°63-777 du 31 juillet 1963",expl:"✅ Exact. Le préavis de 5 jours francs est obligatoire dans la FP. La grève tournante et la grève surprise sont interdites."},
+  // ── BLOC 6 : Déontologie & obligations ──
+  {s:"L'obligation de réserve s'applique uniquement pendant les heures de service.",vrai:false,src:"Jurisprudence CE",expl:"❌ Intox. L'obligation de réserve s'applique aussi en dehors du service, surtout pour les hauts fonctionnaires. Elle est proportionnelle au grade."},
+  {s:"Le secret professionnel ne s'applique pas aux agents territoriaux.",vrai:false,src:"CGFP art. L121-6",expl:"❌ Intox. Tous les fonctionnaires sont tenus au secret professionnel (CGFP art. L121-6). Violation = sanction pénale."},
+  {s:"La protection fonctionnelle couvre les fonctionnaires attaqués à raison de leurs fonctions.",vrai:true,src:"CGFP art. L134-1",expl:"✅ Exact. L'administration doit protéger (et indemniser) tout agent victime d'attaques (menaces, violences, poursuites injustifiées) liées à ses fonctions."},
+  {s:"Un fonctionnaire peut refuser d'exécuter un ordre manifestement illégal.",vrai:true,src:"CGFP art. L121-10",expl:"✅ Exact. L'agent n'est pas responsable de l'exécution d'un ordre manifestement illégal et de nature à compromettre gravement un intérêt public."},
+  {s:"La laïcité interdit aux agents publics de manifester leurs convictions religieuses dans l'exercice de leurs fonctions.",vrai:true,src:"Loi du 9 décembre 1905 + CGFP",expl:"✅ Exact. L'obligation de neutralité interdit tout signe religieux ostensible dans l'exercice des fonctions, quel que soit le poste."},
+  // ── BLOC 7 : Décentralisation & institutions ──
+  {s:"La loi NOTRe de 2015 a supprimé la clause de compétence générale des régions et des départements.",vrai:true,src:"Loi NOTRe du 7 août 2015",expl:"✅ Exact. Régions = développement économique / Départements = solidarités. Seules les communes conservent la clause générale."},
+  {s:"Le préfet dispose de 3 mois pour déférer un acte illégal au tribunal administratif.",vrai:false,src:"CGCT art. L2131-6",expl:"❌ Intox. Le préfet dispose de 2 mois à compter de la réception de l'acte pour le déférer au TA. Passé ce délai, il ne peut plus agir."},
+  {s:"Le contrôle de légalité du préfet est un contrôle a priori.",vrai:false,src:"CGCT — déféré préfectoral",expl:"❌ Intox. Le contrôle de légalité est a posteriori (après la transmission de l'acte). L'acte est exécutoire dès sa publication, avant tout contrôle."},
+  // ── BLOC 8 : Télétravail & numérique ──
+  {s:"Le forfait télétravail est de 2,88€ par jour, plafonné à 253,44€ par an.",vrai:true,src:"Décret 2020-524",expl:"✅ Exact. 2,88€/jour × 88 jours max = 253,44€/an."},
+  {s:"Un fonctionnaire peut télétravailler jusqu'à 4 jours par semaine.",vrai:false,src:"Décret 2016-151 modifié",expl:"❌ Intox. Maximum 3 jours par semaine, avec présence minimale de 2 jours sur site obligatoire."},
+  {s:"Le RGPD s'applique aux organismes publics comme aux entreprises privées.",vrai:true,src:"RGPD — Règlement UE 2016/679",expl:"✅ Exact. Le RGPD s'impose à tout organisme traitant des données personnelles, public ou privé. La CNIL peut sanctionner les administrations."},
+  // ── BLOC 9 : Chiffres clés ──
+  {s:"Il y a environ 5,7 millions d'agents dans la fonction publique française.",vrai:true,src:"Rapport annuel FP 2025",expl:"✅ Exact. FPE : ~2,5M / FPH : ~1,2M / FPT : ~1,9M, soit ~5,7 millions au total."},
+  {s:"23% des agents sont contractuels, soit environ 1 agent sur 4.",vrai:true,src:"Rapport annuel état de la FP 2025",expl:"✅ Exact. 23% = 1 sur 4. La contractualisation a progressé de +1 point par rapport à l'année précédente."},
+  {s:"La FPT représente le versant le plus important de la fonction publique en nombre d'agents.",vrai:false,src:"Rapport annuel FP 2025",expl:"❌ Intox. C'est la FPE (État) qui est la plus nombreuse avec ~2,5 millions d'agents. La FPT compte ~1,9 millions."},
+  {s:"D'ici 10 ans, 2 millions de recrutements seront nécessaires dans la FP.",vrai:true,src:"Rapport annuel état de la FP 2025",expl:"✅ Exact. Combinaison de départs en retraite et de besoins nouveaux. L'attractivité de la FP est un enjeu majeur."},
+  // ── BLOC 10 : Formation & CPF ──
+  {s:"Le CPF (Compte Personnel de Formation) existe dans la fonction publique depuis 2017.",vrai:true,src:"Ordonnance n°2017-53 du 19 janv. 2017",expl:"✅ Exact. Le CPF a remplacé le DIF (Droit Individuel à la Formation) dans la FP en 2017. Il capitalise 24h/an, plafond 120h."},
+  {s:"Le CNFPT finance ses formations grâce à une cotisation de 1,2% de la masse salariale.",vrai:false,src:"CGFP — statut CNFPT",expl:"❌ Intox. Le CNFPT est financé par une cotisation de 0,9% de la masse salariale, pas 1,2%."},
+];
+
+var intoxIdx=0, intoxScore=0, intoxStreak=0, intoxMaxStreak=0, intoxInterval=null, intoxTimeLeft=10, intoxData=[], intoxBonnes=0;
+
+function startIntox(){
+  intoxScore=0; intoxStreak=0; intoxMaxStreak=0; intoxIdx=0; intoxBonnes=0;
+  intoxData=INTOX_DATA.slice().sort(()=>Math.random()-.5);
+  document.getElementById('intox-intro').style.display='none';
+  document.getElementById('intox-fin').style.display='none';
+  document.getElementById('intox-game').style.display='block';
+  afficherIntox();
+}
+
+function afficherIntox(){
+  if(intoxIdx>=intoxData.length){ finIntox(); return; }
+  var d=intoxData[intoxIdx];
+  document.getElementById('intox-statement').textContent=d.s;
+  document.getElementById('intox-src').textContent='📎 Source : '+d.src;
+  document.getElementById('intox-feedback').style.display='none';
+  document.getElementById('intox-next-wrap').style.display='none';
+  document.querySelectorAll('.intox-btn').forEach(function(b){b.disabled=false;b.style.opacity='1';});
+  majStreakIntox();
+  // Chrono
+  intoxTimeLeft=10;
+  clearInterval(intoxInterval);
+  majChronoIntox();
+  intoxInterval=setInterval(function(){
+    intoxTimeLeft--;
+    majChronoIntox();
+    if(intoxTimeLeft<=0){ clearInterval(intoxInterval); repondreIntox(null); }
+  },1000);
+}
+
+function majChronoIntox(){
+  document.getElementById('intox-chrono-num').textContent=intoxTimeLeft;
+  document.getElementById('intox-chrono-ring').style.setProperty('--pct', (intoxTimeLeft/10*100)+'%');
+}
+
+function majStreakIntox(){
+  var s=document.getElementById('intox-streak');
+  s.textContent = intoxStreak>=3 ? '🔥 Combo x'+intoxStreak+' !' : intoxStreak>=2 ? '⚡ Série de '+intoxStreak : '';
+}
+
+function repondreIntox(rep){
+  clearInterval(intoxInterval);
+  document.querySelectorAll('.intox-btn').forEach(function(b){b.disabled=true;b.style.opacity='.6';});
+  var d=intoxData[intoxIdx];
+  var fb=document.getElementById('intox-feedback');
+  if(rep===null){
+    intoxStreak=0;
+    fb.className='intox-feedback ko';
+    fb.innerHTML='⏱ Temps écoulé ! '+d.expl;
+  } else if(rep===d.vrai){
+    intoxBonnes++;
+    var mult=Math.max(1,intoxStreak+1);
+    var pts=100*mult;
+    intoxScore+=pts;
+    intoxStreak++;
+    if(intoxStreak>intoxMaxStreak) intoxMaxStreak=intoxStreak;
+    fb.className='intox-feedback ok';
+    fb.innerHTML=(intoxStreak>1?'🔥 Combo x'+intoxStreak+' ! +'+pts+' pts<br>':'✅ +'+pts+' pts<br>')+d.expl;
+  } else {
+    intoxStreak=0;
+    fb.className='intox-feedback ko';
+    fb.innerHTML='❌ '+d.expl;
+  }
+  fb.style.display='block';
+  document.getElementById('intox-score').textContent=intoxScore+' pts';
+  majStreakIntox();
+  document.getElementById('intox-next-wrap').style.display='block';
+}
+
+function nextIntox(){
+  intoxIdx++;
+  if(intoxIdx>=intoxData.length) finIntox();
+  else afficherIntox();
+}
+
+function finIntox(){
+  document.getElementById('intox-game').style.display='none';
+  document.getElementById('intox-fin').style.display='block';
+  document.getElementById('intox-fin-score').textContent=intoxScore+' points';
+  document.getElementById('intox-fin-detail').textContent=intoxBonnes+'/'+intoxData.length+' bonnes réponses';
+  document.getElementById('intox-fin-combo').textContent=intoxMaxStreak>2?'🔥 Meilleur combo : x'+intoxMaxStreak:'';
+}
+
+// ──────────────────────────────────────
+// JEU 3 — QUI SUIS-JE
+// ──────────────────────────────────────
+var QSJ_DATA = [
+  {indices:["Je suis une autorité administrative indépendante.","Je contrôle le respect des données personnelles en France.","Je peux sanctionner toute administration ou entreprise en cas de manquement au RGPD."],reponse:"La CNIL",detail:"Commission Nationale de l'Informatique et des Libertés — créée en 1978, je veille à la protection des données personnelles."},
+  {indices:["Je suis un établissement public national de la FPT.","Je forme les agents territoriaux tout au long de leur carrière.","Je suis financé par 0,9% de la masse salariale des collectivités."],reponse:"Le CNFPT",detail:"Centre National de la Fonction Publique Territoriale — je dispense la formation initiale et continue des agents territoriaux."},
+  {indices:["Je fixe les orientations en matière de mobilité et de promotion depuis 2020.","J'ai remplacé plusieurs consultations obligatoires des CAP.","La loi de transformation FP du 6 août 2019 a redéfini mon rôle."],reponse:"Les LDG",detail:"Lignes Directrices de Gestion — je fixe les orientations pluriannuelles en matière de mobilité, promotion et valorisation des parcours."},
+  {indices:["Je suis le régime de retraite des fonctionnaires territoriaux et hospitaliers.","Mon déficit structurel oblige à augmenter les cotisations de +3 pts/an jusqu'en 2028.","Les contractuels cotisent au régime général, pas chez moi."],reponse:"La CNRACL",detail:"Caisse Nationale de Retraites des Agents des Collectivités Locales — en crise financière depuis 2025 avec une hausse programmée des cotisations."},
+  {indices:["Je suis l'instance de dialogue social créée en 2023 dans la FPT.","J'ai fusionné deux instances : l'une technique, l'autre dédiée à l'hygiène et la sécurité.","Je traite des conditions de travail, de la formation et de l'égalité professionnelle."],reponse:"Le CST",detail:"Comité Social Territorial — fusion du CTM et du CHSCT, installé en janvier 2023 dans chaque collectivité."},
+  {indices:["Je suis le régime indemnitaire de référence depuis 2014 dans la FP.","Je comporte deux composantes : une part fixe et une part variable annuelle.","Ma part variable peut être nulle — ce qui est source d'incertitude pour les agents."],reponse:"Le RIFSEEP",detail:"Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel (décret 2014-513)."},
+  {indices:["Je suis une procédure qui constate une rupture du lien avec le service.","Je nécessite une mise en demeure préalable de l'agent avec délai raisonnable.","Je conduis à la radiation des cadres — sans être une sanction disciplinaire."],reponse:"L'abandon de poste",detail:"Procédure administrative distincte de la discipline — le juge administratif exige une mise en demeure avant radiation."},
+  {indices:["Je suis un droit individuel à la formation dans la FP.","Je capitalise 24 heures par an dans la limite de 120 heures.","J'ai remplacé le DIF en 2017."],reponse:"Le CPF",detail:"Compte Personnel de Formation — les agents peuvent l'utiliser pour toute formation, y compris de reconversion professionnelle."},
+  {indices:["Je suis le principe constitutionnel qui oblige les SP à fonctionner sans interruption.","Je justifie l'encadrement du droit de grève et le service minimum.","Avec l'égalité et la mutabilité, je forme les 3 lois de Rolland."],reponse:"La continuité du service public",detail:"1ère loi de Rolland — fondement du service minimum, des astreintes et de l'interdiction de grève tournante."},
+  {indices:["Je suis l'obligation de l'administration de protéger ses agents contre les attaques subies dans leurs fonctions.","Je couvre menaces, violences, injures et poursuites judiciaires injustifiées.","Je suis codifié à l'article L134-1 du CGFP."],reponse:"La protection fonctionnelle",detail:"Droit de tout fonctionnaire à être défendu et indemnisé par son employeur public en cas d'attaque liée à ses fonctions."},
+  {indices:["Je suis une position statutaire hors administration.","Dans ma position, l'agent n'est plus rémunéré par son administration d'origine.","Je peux être demandée pour convenance personnelle, élever un enfant, ou créer une entreprise."],reponse:"La disponibilité",detail:"Position hors administration — ni traitement, ni avancement, ni droits à retraite. L'agent conserve son grade et son droit à réintégration."},
+  {indices:["Je suis la procédure par laquelle un fonctionnaire quitte volontairement la FP avec indemnisation.","Je bénéficie d'une indemnité spécifique (ISRC) et de l'allocation chômage.","Je suis pérennisée dans le CGFP par une loi de 2026."],reponse:"La rupture conventionnelle",detail:"Inscrite au CGFP art. L552-1 à L552-5 par la loi n°2026-103 — l'agent reçoit une ISRC et peut percevoir l'allocation chômage."},
+  {indices:["Je suis l'organe consultatif des fonctionnaires pour les décisions individuelles les concernant.","Depuis 2020, mon rôle a été réduit : je ne suis plus consultée pour les mutations et promotions.","Je reste compétente pour les sanctions disciplinaires et certains refus de temps partiel."],reponse:"La CAP",detail:"Commission Administrative Paritaire — sa compétence a été réduite par la loi de transformation FP 2019 au profit des LDG."},
+  {indices:["Je suis la loi qui a profondément réformé la FP en 2019.","J'ai créé les LDG, le CST, renforcé la mobilité et ouvert la rupture conventionnelle.","Mon article 1er pose que la FP doit être 'au service de la Nation'."],reponse:"La loi de transformation de la FP",detail:"Loi n°2019-828 du 6 août 2019 — réforme majeure touchant mobilité, dialogue social, déontologie et recrutement."},
+  {indices:["Je suis l'obligation pour le fonctionnaire de ne pas prendre de décision dans laquelle il a un intérêt personnel.","Je suis prévenu par le mécanisme de déport (délégation à un tiers).","La loi Sapin II m'a considérablement renforcé en 2016."],reponse:"Le conflit d'intérêts",detail:"CGFP art. L121-3 — tout fonctionnaire doit se déporter (déléguer) s'il a un intérêt personnel dans une décision à prendre."},
+  {indices:["Je suis le principe selon lequel un fonctionnaire ne peut pas être licencié si son poste est supprimé.","Je distingue deux notions : l'une attachée à la personne, l'autre au poste de travail.","Je suis l'un des fondements du statut général des fonctionnaires."],reponse:"La séparation grade/emploi",detail:"Principe fondamental : le fonctionnaire est titulaire du GRADE (inamovible), pas du poste. La suppression du poste entraîne une prise en charge."},
+  {indices:["Je suis l'indemnité versée lors d'une rupture conventionnelle dans la FP.","Mon montant est calculé selon l'ancienneté.","Si l'agent revient dans la FP dans les 6 ans, il doit me rembourser."],reponse:"L'ISRC",detail:"Indemnité Spécifique de Rupture Conventionnelle — versée à l'agent qui quitte volontairement la FP. Remboursable si retour dans les 6 ans."},
+  {indices:["Je suis le juge de l'administration française.","Je tranche les litiges entre les citoyens et l'administration.","Mon niveau supérieur est le Conseil d'État."],reponse:"Le tribunal administratif",detail:"Le TA est le juge de 1ère instance en contentieux administratif. La CAA est en appel, le CE en cassation."},
+  {indices:["Je suis le principe du service public qui oblige l'administration à s'adapter aux besoins des usagers.","Je justifie les réformes successives de l'organisation administrative.","Je suis aussi appelé 'adaptabilité'."],reponse:"La mutabilité",detail:"2ème loi de Rolland (ou adaptabilité) — le service public doit s'adapter à l'évolution des besoins de la société et des techniques."},
+  {indices:["Je suis le référentiel commun de classification des emplois publics.","J'organise les corps et grades en 3 grandes catégories selon le niveau d'études requis.","La catégorie A requiert un niveau licence, la B un niveau bac, la C un niveau inférieur."],reponse:"La catégorie hiérarchique",detail:"La FP est organisée en catégories A (cadres), B (intermédiaires), C (exécution). Le concours de Secrétaire Administratif est de catégorie B."},
+  {indices:["Je suis le registre dans lequel toutes les pièces concernant la carrière d'un fonctionnaire sont conservées.","L'agent a le droit de le consulter avant toute décision défavorable.","Aucune mention de condamnation pénale ne peut y figurer."],reponse:"Le dossier administratif individuel",detail:"CGFP art. L131-2 — le fonctionnaire doit pouvoir consulter son dossier avant toute décision défavorable. Son contenu est strictement encadré."},
+];
+
+var qsjIdx=0, qsjScore=0, qsjData=[], qsjIndiceVisible=0, qsjPtsDispo=300, qsjAnswered=false;
+
+function startQuiSuisJe(){
+  qsjScore=0; qsjIdx=0;
+  qsjData=QSJ_DATA.slice().sort(()=>Math.random()-.5);
+  document.getElementById('quisuisje-intro').style.display='none';
+  document.getElementById('quisuisje-fin').style.display='none';
+  document.getElementById('quisuisje-game').style.display='block';
+  loadQSJ();
+}
+
+function loadQSJ(){
+  if(qsjIdx>=qsjData.length){ finQSJ(); return; }
+  qsjIndiceVisible=0; qsjPtsDispo=300; qsjAnswered=false;
+  document.getElementById('qsj-input').value='';
+  document.getElementById('qsj-result').style.display='none';
+  document.getElementById('qsj-next-wrap').style.display='none';
+  document.getElementById('qsj-more-btn').disabled=false;
+  document.getElementById('qsj-more-btn-wrap').style.display='block';
+  majQSJIndices();
+  majQSJPts();
+}
+
+function majQSJIndices(){
+  var d=qsjData[qsjIdx];
+  var html='';
+  for(var i=0;i<d.indices.length;i++){
+    if(i<=qsjIndiceVisible) html+='<div class="quisuisje-indice">💡 Indice '+(i+1)+' : '+d.indices[i]+'</div>';
+    else html+='<div class="quisuisje-hidden">💡 Indice '+(i+1)+' : ???</div>';
+  }
+  document.getElementById('qsj-indices').innerHTML=html;
+}
+
+function majQSJPts(){
+  document.getElementById('qsj-pts-dispo').textContent=qsjPtsDispo;
+  document.getElementById('qsj-pts-label').textContent='pts si tu réponds maintenant';
+}
+
+function nextIndice(){
+  if(qsjIndiceVisible>=qsjData[qsjIdx].indices.length-1){
+    document.getElementById('qsj-more-btn-wrap').style.display='none'; return;
+  }
+  qsjIndiceVisible++;
+  qsjPtsDispo=Math.max(100,qsjPtsDispo-100);
+  if(qsjIndiceVisible>=qsjData[qsjIdx].indices.length-1) document.getElementById('qsj-more-btn').disabled=true;
+  majQSJIndices();
+  majQSJPts();
+}
+
+function validerQSJ(){
+  if(qsjAnswered) return;
+  var rep=document.getElementById('qsj-input').value.trim().toLowerCase();
+  var d=qsjData[qsjIdx];
+  var attendu=d.reponse.toLowerCase();
+  var mots=attendu.replace(/[^a-zàéèêëîïôùûüç ]/g,'').split(' ').filter(function(m){return m.length>3;});
+  var ok=mots.some(function(m){return rep.indexOf(m)!==-1;}) || rep.length>3&&attendu.indexOf(rep)!==-1;
+  qsjAnswered=true;
+  var res=document.getElementById('qsj-result');
+  if(ok){
+    qsjScore+=qsjPtsDispo;
+    res.innerHTML='<div class="ans-main">✅ '+d.reponse+'</div><div class="ans-sub">+'+qsjPtsDispo+' points<br>'+d.detail+'</div>';
+  } else {
+    res.innerHTML='<div class="ans-main" style="color:#ff6b6b">❌ C\'était : '+d.reponse+'</div><div class="ans-sub">'+d.detail+'</div>';
+  }
+  res.style.display='block';
+  document.getElementById('quisuisje-score').textContent=qsjScore+' pts';
+  document.getElementById('qsj-next-wrap').style.display='block';
+  document.getElementById('qsj-more-btn-wrap').style.display='none';
+}
+
+function nextQSJ(){
+  qsjIdx++;
+  if(qsjIdx>=qsjData.length) finQSJ();
+  else loadQSJ();
+}
+
+function finQSJ(){
+  document.getElementById('quisuisje-game').style.display='none';
+  document.getElementById('quisuisje-fin').style.display='block';
+  document.getElementById('qsj-fin-score').textContent=qsjScore+' points';
+  document.getElementById('qsj-fin-detail').textContent=qsjIdx+'/'+qsjData.length+' questions';
+}
+
+// ──────────────────────────────────────
+// JEU 4 — DOSSIER CHAUD
+// ──────────────────────────────────────
+var DOSSIER_DATA = [
+  {tag:"RÉFORME SOCIALE · FÉV. 2025",titre:"Congé maladie : les fonctionnaires subissent une coupe, les syndicats montent au créneau",
+   corps:"Le gouvernement a introduit une mesure contestée dans la loi de finances 2025 : le traitement des fonctionnaires en congé maladie ordinaire (CMO) est désormais réduit à 90% pendant les trois premiers mois, contre 100% auparavant. Cette disposition, portée par l'article 189 de la loi n°2025-127 du 14 février 2025, est entrée en vigueur le 1er mars. Les syndicats dénoncent une atteinte au pouvoir d'achat des agents, déjà fragilisé par deux années consécutives de gel du point d'indice. Le gouvernement avance que l'absentéisme dans la FP (14,5 jours en 2022) reste supérieur au privé (11,7 jours).",
+   questions:[
+     {q:"Quelle est la base légale de la réforme du CMO ?",choices:["Décret n°2025-86","Art. 189 loi n°2025-127 du 14 fév. 2025","Circulaire DGAFP 2024","Ordonnance 2021"],ok:1,expl:"L'art. 189 de la loi n°2025-127 du 14 fév. 2025 est la base légale directe."},
+     {q:"Quels congés ne sont PAS concernés par la réduction à 90% ?",choices:["CMO et CLM","CLM et CLD uniquement","Tous les congés maladie","Congés annuels"],ok:1,expl:"Seul le CMO passe à 90%. CLM et CLD restent à 100% puis 50% selon les règles classiques."},
+     {q:"Quel argument justifie la réforme selon le gouvernement ?",choices:["Réduire la dette de 50%","L'absentéisme FP (14,5j) est supérieur au privé (11,7j)","Aligner sur la norme européenne","Financer la CNRACL"],ok:1,expl:"L'écart d'absentéisme entre FP (14,5j) et privé (11,7j) est l'argument central du gouvernement."},
+     {q:"Combien d'années de gel du point d'indice avant 2025 ?",choices:["1 an","2 ans","3 ans","Pas de gel"],ok:1,expl:"2024 puis 2025 = 2 années consécutives. Dernière revalorisation : 2023 (+1,5%)."},
+   ]},
+  {tag:"DIALOGUE SOCIAL · JANV. 2025",titre:"Protection sociale complémentaire : les collectivités dans une nouvelle ère",
+   corps:"À compter du 1er janvier 2025, les employeurs territoriaux sont tenus de participer à la couverture prévoyance de leurs agents : au minimum 7 euros par mois (20% d'un panier de 35€). Cette obligation issue de l'ordonnance de 2021 et de l'accord collectif de juillet 2023 marque une première étape. Dès janvier 2026, la participation à la complémentaire santé deviendra également obligatoire : 15 euros mensuels minimum (50% de 30€). Pour beaucoup de petites communes, l'impact budgétaire sera significatif.",
+   questions:[
+     {q:"Depuis quand la participation prévoyance est-elle obligatoire ?",choices:["Janvier 2023","Juillet 2023","Janvier 2025","Janvier 2026"],ok:2,expl:"Depuis le 1er janvier 2025 — 7€/mois minimum pour la prévoyance."},
+     {q:"Quel est le minimum de participation santé en 2026 ?",choices:["7€/mois","10€/mois","15€/mois","30€/mois"],ok:2,expl:"15€/mois minimum à partir du 1er janvier 2026 (50% de 30€)."},
+     {q:"Quelle est la base juridique principale de la PSC dans la FPT ?",choices:["Loi NOTRe 2015","Ordonnance 2021 + accord collectif juillet 2023","Loi de transformation FP 2019 seule","Décret 2024-1263"],ok:1,expl:"Loi 2019 (principe) + ordonnance 2021 (mécanisme) + accord collectif 2023 (modalités FPT)."},
+     {q:"Pour la prévoyance 2025, quel % du panier de référence l'employeur couvre-t-il ?",choices:["10%","20%","50%","100%"],ok:1,expl:"7€ = 20% d'un panier de référence de 35€."},
+   ]},
+  {tag:"CARRIÈRE · DÉC. 2024",titre:"Retraite, mobilité, temps partiel : les nouvelles règles des fonctionnaires",
+   corps:"Le décret n°2024-1263 du 30 décembre 2024 réduit à six mois l'ancienneté requise pour accéder au temps partiel. Par ailleurs, la réforme des retraites de 2023 continue de faire sentir ses effets : les départs ont diminué de 13,3% en 2024, avec un décalage moyen de +3 mois. La rupture conventionnelle, expérimentée depuis 2020, a été pérennisée en 2026 dans le CGFP.",
+   questions:[
+     {q:"Quelle ancienneté est requise pour le temps partiel après le décret de déc. 2024 ?",choices:["3 mois","6 mois","1 an","2 ans"],ok:1,expl:"Le décret du 30 décembre 2024 réduit la condition à 6 mois d'ancienneté."},
+     {q:"Quel est l'impact chiffré de la réforme des retraites 2023 sur les départs ?",choices:["-5%","-13,3% de départs, +3 mois de décalage","+13,3%","Aucun impact"],ok:1,expl:"-13,3% de départs en 2024 avec +3 mois de décalage moyen — conséquence du recul à 64 ans."},
+     {q:"Dans quel versant la rupture conventionnelle a-t-elle été la plus utilisée ?",choices:["FPT (1 489)","FPH","FPE (8 783)","Égalité dans les 3 versants"],ok:2,expl:"La FPE concentre l'essentiel : 8 783 ruptures en 2021 contre 1 489 dans la FPT."},
+     {q:"Où est codifiée la rupture conventionnelle après sa pérennisation ?",choices:["Code du travail art. L1237-19","CGFP art. L552-1 à L552-5","Loi n°2026-103 art. 1","Décret 2020-1557"],ok:1,expl:"Inscrite aux articles L552-1 à L552-5 du CGFP par la loi n°2026-103 du 19 fév. 2026."},
+   ]},
+  {tag:"DÉONTOLOGIE · 2025",titre:"Conflits d'intérêts dans les collectivités : le référent déontologue en première ligne",
+   corps:"Depuis la loi de transformation de la FP de 2019, chaque collectivité de plus de 50 agents doit disposer d'un référent déontologue. Ce conseiller, souvent un agent expérimenté ou un magistrat honoraire, reçoit les questions des agents sur leurs obligations professionnelles : conflits d'intérêts, cumul d'activités, secret professionnel. En 2025, la HATVP (Haute Autorité pour la Transparence de la Vie Publique) a renforcé son rôle de contrôle sur les déclarations d'intérêts des fonctionnaires de haut rang. Les sanctions en cas de manquement peuvent être disciplinaires et pénales.",
+   questions:[
+     {q:"À partir de quel seuil une collectivité doit-elle avoir un référent déontologue ?",choices:["10 agents","20 agents","50 agents","100 agents"],ok:2,expl:"Depuis la loi de transformation FP 2019, le référent déontologue est obligatoire à partir de 50 agents."},
+     {q:"Quelle autorité contrôle les déclarations d'intérêts des hauts fonctionnaires ?",choices:["La CNIL","La CADA","La HATVP","Le Conseil d'État"],ok:2,expl:"La HATVP (Haute Autorité pour la Transparence de la Vie Publique) contrôle les déclarations d'intérêts et de patrimoine."},
+     {q:"Qu'est-ce que le 'déport' en droit de la FP ?",choices:["Une sanction disciplinaire","Le fait de se récuser d'une décision où on a un intérêt personnel","Une mise en disponibilité forcée","Un transfert d'emploi"],ok:1,expl:"Le déport = déléguer la décision à un tiers quand on a un conflit d'intérêts. Obligation prévue au CGFP art. L121-3."},
+     {q:"La violation du secret professionnel par un fonctionnaire est-elle une infraction pénale ?",choices:["Non, c'est seulement une faute disciplinaire","Oui, réprimée par le Code pénal","Non, seul le Code de la FP s'applique","Oui, mais uniquement pour la FPE"],ok:1,expl:"Oui — la violation du secret professionnel est punie pénalement (art. 226-13 du Code pénal), en plus de la sanction disciplinaire."},
+   ]},
+  {tag:"DÉCENTRALISATION · 2025",titre:"Intercommunalité et contrôle de légalité : les défis des collectivités locales",
+   corps:"Depuis les lois de décentralisation (1982, 2003, 2015), les collectivités exercent des compétences propres sous le contrôle a posteriori du préfet. La loi NOTRe de 2015 a clarifié les blocs de compétences : les régions pilotent le développement économique, les départements les solidarités, les communes et EPCI gèrent les services de proximité. Le préfet dispose de 2 mois pour déférer un acte illégal au tribunal administratif. En 2025, le nombre d'EPCI à fiscalité propre en France métropolitaine s'élève à environ 1 260.",
+   questions:[
+     {q:"Quel est le délai pour que le préfet défère un acte illégal au TA ?",choices:["1 mois","2 mois","3 mois","6 mois"],ok:1,expl:"Le préfet dispose de 2 mois à compter de la réception de l'acte pour le déférer au tribunal administratif."},
+     {q:"La loi NOTRe de 2015 supprime la clause de compétence générale pour quelles collectivités ?",choices:["Les communes","Les régions et les départements","Toutes les collectivités","Les EPCI uniquement"],ok:1,expl:"La clause générale subsiste pour les communes. Elle est supprimée pour les régions (économie) et les départements (solidarités)."},
+     {q:"Le contrôle de légalité du préfet est-il a priori ou a posteriori ?",choices:["A priori — avant l'entrée en vigueur","A posteriori — après la transmission","Les deux selon l'acte","Ni l'un ni l'autre"],ok:1,expl:"A posteriori — l'acte est exécutoire dès sa publication et sa transmission au préfet. Le contrôle intervient après."},
+     {q:"Combien d'EPCI à fiscalité propre compte la France métropolitaine en 2025 ?",choices:["Environ 500","Environ 1 260","Environ 2 000","Environ 35 000"],ok:1,expl:"Environ 1 260 EPCI à fiscalité propre en 2025, regroupant l'ensemble des communes françaises."},
+   ]},
+  {tag:"ÉGALITÉ · 2025",titre:"Index égalité professionnelle dans la FPT : bilan et perspectives",
+   corps:"La loi du 6 août 2019 a instauré l'obligation de publier un index d'égalité professionnelle femmes-hommes pour les collectivités de plus de 40 000 habitants. En 2025, l'écart de salaire net moyen entre les femmes et les hommes dans la FPT reste de l'ordre de -410 euros par mois, notamment lié à la surreprésentation des femmes dans les catégories C. La loi Sauvadet de 2012 impose un quota de 50% de primo-nominations de chaque sexe aux emplois supérieurs. Les collectivités qui ne respectent pas ces obligations s'exposent à des sanctions financières.",
+   questions:[
+     {q:"À partir de quel seuil les collectivités doivent-elles publier un index d'égalité F/H ?",choices:["10 000 habitants","20 000 habitants","40 000 habitants","100 000 habitants"],ok:2,expl:"Index égalité obligatoire pour les collectivités de plus de 40 000 habitants (loi du 6 août 2019)."},
+     {q:"Quel est l'écart de salaire net moyen F/H dans la FPT en 2025 ?",choices:["-83€/mois","-200€/mois","-410€/mois","-600€/mois"],ok:2,expl:"L'écart est d'environ -410€/mois dans la FPT, lié à la surreprésentation des femmes en catégorie C."},
+     {q:"Que prévoit la loi Sauvadet (2012) sur les nominations aux emplois supérieurs ?",choices:["20% de femmes","Parité stricte 50/50 à chaque nomination","50% de primo-nominations de chaque sexe","Aucune obligation chiffrée"],ok:2,expl:"La loi Sauvadet impose 50% de primo-nominations de chaque sexe aux emplois supérieurs et de direction."},
+     {q:"Quelle sanction s'applique aux collectivités ne respectant pas l'obligation de publication de l'index ?",choices:["Dissolution du conseil municipal","Sanctions financières","Mise sous tutelle du préfet","Aucune sanction prévue"],ok:1,expl:"Des sanctions financières sont prévues pour les collectivités qui ne publient pas ou ne respectent pas les obligations de l'index."},
+   ]},
+];
+
+var dossierIdx=0, dossierScore=0, dossierData=[], dossierTimer=null, dossierTimeLeft=180, dossierQAnswered=0;
+
+function startDossier(){
+  dossierScore=0; dossierIdx=0;
+  dossierData=DOSSIER_DATA.slice().sort(()=>Math.random()-.5);
+  document.getElementById('dossier-intro').style.display='none';
+  document.getElementById('dossier-fin').style.display='none';
+  document.getElementById('dossier-game').style.display='block';
+  loadDossier();
+}
+
+function loadDossier(){
+  if(dossierIdx>=dossierData.length){ finDossier(); return; }
+  clearInterval(dossierTimer);
+  dossierTimeLeft=180; dossierQAnswered=0;
+  var d=dossierData[dossierIdx];
+  document.getElementById('dossier-article').innerHTML='<span class="dossier-tag">'+d.tag+'</span><div class="dossier-headline">'+d.titre+'</div><div class="dossier-body">'+d.corps+'</div>';
+  var qhtml='';
+  d.questions.forEach(function(q,qi){
+    qhtml+='<div class="dossier-q" id="dossier-q'+qi+'"><div class="dossier-q-text">'+(qi+1)+'. '+q.q+'</div><div class="dossier-q-choices">';
+    q.choices.forEach(function(ch,ci){
+      qhtml+='<button class="dossier-q-choice" onclick="repondreDossier('+qi+','+ci+',this)">'+ch+'</button>';
+    });
+    qhtml+='</div></div>';
+  });
+  document.getElementById('dossier-questions').innerHTML=qhtml;
+  document.getElementById('dossier-result').style.display='none';
+  document.getElementById('dossier-next-wrap').style.display='none';
+  majDossierTimer();
+  dossierTimer=setInterval(function(){
+    dossierTimeLeft--;
+    majDossierTimer();
+    if(dossierTimeLeft<=0){ clearInterval(dossierTimer); finirDossierTimer(); }
+  },1000);
+}
+
+function majDossierTimer(){
+  var p=Math.round(dossierTimeLeft/180*100);
+  document.getElementById('dossier-timer-fill').style.width=p+'%';
+  var m=Math.floor(dossierTimeLeft/60), s=dossierTimeLeft%60;
+  document.getElementById('dossier-time-label').textContent='⏱ '+m+':'+(s<10?'0':'')+s+' restantes';
+}
+
+function repondreDossier(qi,ci,btn){
+  var d=dossierData[dossierIdx];
+  var q=d.questions[qi];
+  var zone=document.getElementById('dossier-q'+qi);
+  zone.querySelectorAll('.dossier-q-choice').forEach(function(b){b.onclick=null;b.style.opacity='.5';});
+  if(ci===q.ok){
+    btn.classList.add('correct'); btn.style.opacity='1';
+    dossierScore+=100;
+  } else {
+    btn.classList.add('wrong'); btn.style.opacity='1';
+    zone.querySelectorAll('.dossier-q-choice')[q.ok].classList.add('correct');
+    zone.querySelectorAll('.dossier-q-choice')[q.ok].style.opacity='1';
+  }
+  // Afficher explication sous la question
+  var expl=document.createElement('div');
+  expl.style.cssText='font-size:.75em;color:#ddd;margin-top:6px;padding:6px 8px;background:rgba(255,255,255,.05);border-radius:8px;line-height:1.5';
+  expl.textContent='💡 '+q.expl;
+  zone.appendChild(expl);
+  document.getElementById('dossier-score').textContent=dossierScore+' pts';
+  dossierQAnswered++;
+  if(dossierQAnswered>=d.questions.length) terminerDossier();
+}
+
+function finirDossierTimer(){
+  document.getElementById('dossier-questions').querySelectorAll('.dossier-q-choice').forEach(function(b){b.onclick=null;b.style.opacity='.4';});
+  terminerDossier();
+}
+
+function terminerDossier(){
+  clearInterval(dossierTimer);
+  document.getElementById('dossier-result').innerHTML='📊 Score ce dossier : <strong>'+dossierScore+'</strong> pts — <strong>'+dossierQAnswered+'/'+dossierData[dossierIdx].questions.length+'</strong> bonnes réponses';
+  document.getElementById('dossier-result').style.display='block';
+  document.getElementById('dossier-next-wrap').style.display='block';
+}
+
+function nextDossier(){
+  dossierIdx++;
+  if(dossierIdx>=dossierData.length) finDossier();
+  else loadDossier();
+}
+
+function finDossier(){
+  document.getElementById('dossier-game').style.display='none';
+  document.getElementById('dossier-fin').style.display='block';
+  document.getElementById('dossier-fin-score').textContent=dossierScore+' points';
+  document.getElementById('dossier-fin-detail').textContent=dossierIdx+'/'+dossierData.length+' dossiers traités';
+}
+
+// ──────────────────────────────────────
+// JEU 5 — CARTE MENTALE
+// ──────────────────────────────────────
+var CARTE_DATA = [
+  {centre:"PROCÉDURE\nDISCIPLINAIRE",theme:"Sanctions & groupes",
+   zones:["Groupe 1","Groupe 2","Groupe 3","Groupe 4"],
+   hints:["Quelle sanction ?","Quelle sanction ?","Quelle sanction ?","Quelle sanction ?"],
+   pieces:["Avertissement / Blâme","Exclusion 1 à 10 jours","Rétrogradation / Exclusion 11j-2ans","Révocation / Retraite d'office"],
+   solution:[0,1,2,3],
+   explications:["G1 : avertissement, blâme — pas de conseil de discipline requis","G2 : exclusion temporaire de 1 à 10 jours — conseil de discipline obligatoire","G3 : rétrogradation ou exclusion de 11 jours à 2 ans — conseil de discipline obligatoire","G4 : mise à la retraite d'office ou révocation — sanction la plus grave"]},
+
+  {centre:"LOIS DE\nROLLAND",theme:"Principes du Service Public",
+   zones:["Continuité","Égalité","Mutabilité","Neutralité"],
+   hints:["Définition du principe","Définition du principe","Définition du principe","Définition du principe"],
+   pieces:["Pas d'interruption du SP","Même service pour tous","Adaptation aux besoins","Pas d'opinion dans les fonctions"],
+   solution:[0,1,2,3],
+   explications:["Continuité : fondement du service minimum et de l'encadrement du droit de grève (préavis 5j)","Égalité : même accès et même traitement pour tous les usagers, sans discrimination","Mutabilité (adaptabilité) : le SP doit évoluer avec les besoins de la société et les techniques","Neutralité : l'agent ne manifeste aucune opinion politique ou religieuse dans l'exercice de ses fonctions"]},
+
+  {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Positions statutaires",
+   zones:["Position normale","Hors corps / organisme accueil","Sans traitement","Droits suspendus"],
+   hints:["Nom de la position","Nom de la position","Nom de la position","Nom de la position"],
+   pieces:["Activité (poste habituel)","Détachement","Disponibilité","Congé parental"],
+   solution:[0,1,2,3],
+   explications:["Activité : position normale — agent présent sur son poste, rémunéré, droits pleins","Détachement : agent placé hors de son corps, rémunéré par l'organisme d'accueil","Disponibilité : hors administration — ni traitement, ni avancement, ni droits à retraite","Congé parental : droits à avancement et retraite suspendus — position reconnue jusqu'aux 3 ans de l'enfant"]},
+
+  {centre:"CNRACL\nRÉFORME 2025",theme:"Trajectoire des cotisations",
+   zones:["Taux 2025","Taux 2026","Taux 2027","Taux 2028"],
+   hints:["Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?"],
+   pieces:["34,65%","37,65%","40,65%","43,65%"],
+   solution:[0,1,2,3],
+   explications:["2025 : 34,65% — hausse de +4pts par rapport à 30,65% (décret n°2025-86)","2026 : 37,65% — +3pts supplémentaires selon la trajectoire programmée","2027 : 40,65% — la hausse continue pour combler le déficit structurel","2028 : 43,65% — objectif final de la trajectoire de redressement CNRACL"]},
+
+  {centre:"DIALOGUE\nSOCIAL FPT",theme:"Le Comité Social Territorial",
+   zones:["Fusion de quoi ?","Nom de l'instance","Compétence principale","Date de création"],
+   hints:["Quelles anciennes instances ?","Quel est le nom actuel ?","Que traite-t-il ?","Depuis quand ?"],
+   pieces:["CTM + CHSCT","CST","Conditions de travail & formation","Janvier 2023"],
+   solution:[0,1,2,3],
+   explications:["Fusion du Comité Technique Municipal (CTM) + CHSCT (hygiène & sécurité)","Le Comité Social Territorial (CST) — une instance unique par collectivité","Traite : conditions de travail, organisation des services, formation, égalité professionnelle","Installé en janvier 2023 — issu de la loi de transformation FP du 6 août 2019"]},
+
+  {centre:"PROTECTION\nSOCIALE PSC",theme:"Participation employeur territorial",
+   zones:["Prévoyance — depuis","Prévoyance — montant","Santé — depuis","Santé — montant"],
+   hints:["Quelle date ?","Quel minimum ?","Quelle date ?","Quel minimum ?"],
+   pieces:["Janvier 2025","7€/mois min (20% de 35€)","Janvier 2026","15€/mois min (50% de 30€)"],
+   solution:[0,1,2,3],
+   explications:["Prévoyance obligatoire depuis le 1er janvier 2025 — accord collectif FPT 2023","7€/mois minimum = 20% d'un panier de référence de 35€ (prévoyance)","Complémentaire santé obligatoire à partir du 1er janvier 2026","15€/mois minimum = 50% d'un panier de 30€ (santé) — loi de transformation FP 2019"]},
+
+  {centre:"RUPTURE\nCONVENTIONNELLE",theme:"Dispositif pérennisé 2026",
+   zones:["Fondement légal","Indemnité versée","Droit chômage ?","Remboursement si..."],
+   hints:["Où est-ce codifié ?","Quel nom ?","Oui ou non ?","Quelle condition ?"],
+   pieces:["CGFP art. L552-1 à L552-5","ISRC","Oui — allocation chômage","Retour FP dans les 6 ans"],
+   solution:[0,1,2,3],
+   explications:["Codifiée au CGFP par la loi n°2026-103 du 19 fév. 2026 — art. L552-1 à L552-5","ISRC = Indemnité Spécifique de Rupture Conventionnelle — calculée selon l'ancienneté","Oui — l'agent peut percevoir l'allocation chômage (ARE) après la rupture","Si retour dans la FP dans les 6 ans → remboursement intégral de l'ISRC"]},
+
+  {centre:"CATÉGORIES\nHIÉRARCHIQUES",theme:"Organisation de la FP",
+   zones:["Catégorie A","Catégorie B","Catégorie C","Exemple concours B"],
+   hints:["Quel niveau d'études ?","Quel niveau d'études ?","Quel niveau d'études ?","Quel poste ?"],
+   pieces:["Cadres (niveau licence)","Intermédiaires (niveau bac)","Exécution (niveau < bac)","Secrétaire Administratif"],
+   solution:[0,1,2,3],
+   explications:["Catégorie A : emplois de conception, d'encadrement supérieur — niveau licence minimum","Catégorie B : emplois d'application et d'encadrement intermédiaire — niveau bac","Catégorie C : emplois d'exécution — niveau inférieur au bac (le plus nombreux en FPT)","Le concours de Secrétaire Administratif est l'emblème de la catégorie B — externe, interne, 3ème voie"]},
+
+  {centre:"RÉFORME CMO\n2025",theme:"Congé maladie ordinaire",
+   zones:["Durée période 1 (CMO)","Taux période 1","Durée période 2 + taux","Congés NON concernés"],
+   hints:["Combien de mois ?","Quel % du traitement ?","Mois suivants → quel taux ?","Quels congés exclus ?"],
+   pieces:["3 premiers mois du CMO","90% du traitement brut","Mois 4 à 12 → maintenu à 50%","CLM et CLD inchangés"],
+   solution:[0,1,2,3],
+   explications:["Les 3 PREMIERS mois du CMO passent de 100% à 90% — en vigueur depuis le 1er mars 2025 (art. 189 loi n°2025-127)","90% du traitement brut — contre 100% auparavant. Perte ~265€/mois pour un agent à 2 652€ net","Les mois 4 à 12 du CMO restent à 50% — INCHANGÉS par la réforme. Au-delà → CLM ou CLD","CLM (congé longue maladie, 3 ans) et CLD (congé longue durée, 5 ans) ne sont PAS concernés"]},
+
+  {centre:"DOSSIER\nADMINISTRATIF",theme:"Droits de l'agent",
+   zones:["Droit principal","Quand s'exerce-t-il ?","Ce qui est interdit","Base légale"],
+   hints:["Quel droit ?","À quel moment ?","Quels contenus ?","Quel article ?"],
+   pieces:["Consulter son dossier complet","Avant toute décision défavorable","Mentions de condamnations pénales","CGFP art. L131-2"],
+   solution:[0,1,2,3],
+   explications:["L'agent a le droit de consulter son dossier individuel complet avant toute décision le concernant","Ce droit s'exerce AVANT toute décision défavorable : sanction, non-titularisation, mutation forcée...","Le dossier ne peut pas contenir de mentions de condamnations pénales ni d'opinions politiques/religieuses","CGFP art. L131-2 — droit fondamental de la défense, applicable à tous les agents y compris stagiaires"]},
+];
+
+var carteIdx=0, carteScore=0, carteData=[], carteSelected=null, carteProgress=0, carteTotal=0, cartePlaced=[];
+
+function startCarte(){
+  carteScore=0; carteIdx=0;
+  carteData=CARTE_DATA.slice().sort(()=>Math.random()-.5);
+  document.getElementById('carte-intro').style.display='none';
+  document.getElementById('carte-fin').style.display='none';
+  document.getElementById('carte-game').style.display='block';
+  loadCarte();
+}
+
+function loadCarte(){
+  if(carteIdx>=carteData.length){ finCarte(); return; }
+  var d=carteData[carteIdx];
+  carteSelected=null; cartePlaced=new Array(d.zones.length).fill(null);
+  carteTotal=d.zones.length; carteProgress=0;
+  document.getElementById('carte-theme-label').textContent=d.theme.toUpperCase();
+  document.getElementById('carte-center').textContent=d.centre;
+  // Zones
+  var zh='';
+  d.zones.forEach(function(z,i){
+    var hint=d.hints?d.hints[i]:'';
+    zh+='<div class="carte-zone" id="carte-zone-'+i+'" onclick="placerPiece('+i+')">';
+    zh+='<div class="carte-zone-label">'+z+'</div>';
+    if(hint) zh+='<div class="carte-zone-hint">'+hint+'</div>';
+    zh+='<div class="carte-zone-content" id="carte-zone-content-'+i+'"></div>';
+    zh+='</div>';
+  });
+  document.getElementById('carte-zones').innerHTML=zh;
+  // Pièces mélangées
+  var order=d.pieces.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+  var ph='';
+  order.forEach(function(pi){
+    ph+='<div class="carte-piece" id="carte-piece-'+pi+'" onclick="selectionnerPiece('+pi+')">'+d.pieces[pi]+'</div>';
+  });
+  document.getElementById('carte-pieces').innerHTML=ph;
+  majCarteProgress();
+}
+
+function selectionnerPiece(pi){
+  if(document.getElementById('carte-piece-'+pi).classList.contains('used')) return;
+  document.querySelectorAll('.carte-piece').forEach(function(p){p.classList.remove('selected');});
+  carteSelected=pi;
+  document.getElementById('carte-piece-'+pi).classList.add('selected');
+}
+
+function placerPiece(zi){
+  if(carteSelected===null) return;
+  if(cartePlaced[zi]!==null) return; // zone déjà remplie
+  var d=carteData[carteIdx];
+  var ok=(d.solution[zi]===carteSelected);
+  var zone=document.getElementById('carte-zone-'+zi);
+  var piece=document.getElementById('carte-piece-'+carteSelected);
+  if(ok){
+    zone.classList.add('filled');
+    document.getElementById('carte-zone-content-'+zi).textContent=d.pieces[carteSelected];
+    piece.classList.add('used');
+    piece.classList.remove('selected');
+    cartePlaced[zi]=carteSelected;
+    carteScore+=150;
+    carteProgress++;
+    document.getElementById('carte-score').textContent=carteScore+' pts';
+    carteSelected=null;
+    majCarteProgress();
+    if(carteProgress>=carteTotal){
+      setTimeout(function(){
+        var res='<div style="background:#fff;border:2px solid #2a8a40;border-radius:14px;padding:14px;margin-top:12px;font-size:.82em;color:#0d3a15;line-height:1.9">';
+        d.explications.forEach(function(e,i){ res+='<strong>'+d.zones[i]+' :</strong> '+e+'<br>'; });
+        res+='</div><div style="text-align:center;margin-top:12px"><button class="btn-start" onclick="nextCarte()" style="font-size:.9em">Schéma suivant →</button></div>';
+        document.getElementById('carte-game').insertAdjacentHTML('beforeend', res);
+      }, 300);
+    }
+  } else {
+    zone.classList.add('wrong-zone');
+    setTimeout(function(){ zone.classList.remove('wrong-zone'); }, 400);
+    document.querySelectorAll('.carte-piece').forEach(function(p){p.classList.remove('selected');});
+    carteSelected=null;
+  }
+}
+
+function majCarteProgress(){
+  document.getElementById('carte-progress').textContent=carteProgress+'/'+carteTotal+' pièces placées';
+}
+
+function nextCarte(){
+  carteIdx++;
+  document.querySelectorAll('#carte-game > div:not(.carte-arena):not([id])').forEach(function(el){el.remove();});
+  document.querySelectorAll('#carte-game > div[style*="rgba(107"]').forEach(function(el){el.remove();});
+  // Supprimer les divs résultat ajoutées
+  var items=document.getElementById('carte-game').children;
+  for(var i=items.length-1;i>=0;i--){
+    if(!items[i].id && !items[i].className.includes('carte-')) items[i].remove();
+  }
+  loadCarte();
+}
+
+function finCarte(){
+  document.getElementById('carte-game').style.display='none';
+  document.getElementById('carte-fin').style.display='block';
+  document.getElementById('carte-fin-score').textContent=carteScore+' points';
+  document.getElementById('carte-fin-detail').textContent=carteIdx+'/'+carteData.length+' schémas complétés';
+}
+
+// ──────────────────────────────────────
+// JEU 6 — BOSS DE FIN
+// ──────────────────────────────────────
+var BOSS_QUESTIONS = [
+  // ── STATUT & CARRIÈRE ──
+  {q:"Quelle est la différence fondamentale entre abandon de poste et sanction disciplinaire ?",choices:["L'abandon de poste est plus grave","L'abandon de poste constate la rupture du lien, sans être une sanction disciplinaire","L'abandon de poste nécessite un conseil de discipline","Les deux sont identiques"],ok:1,expl:"L'abandon de poste = procédure de constat (radiation), pas une sanction disciplinaire. Pas de conseil de discipline mais une mise en demeure préalable est obligatoire."},
+  {q:"Un fonctionnaire dont le poste est supprimé peut-il être licencié ?",choices:["Oui, comme dans le privé","Non — principe de séparation grade/emploi : il est pris en charge","Oui avec 6 mois de préavis","Oui si la collectivité est en difficulté financière"],ok:1,expl:"Principe fondamental du statut : le fonctionnaire est titulaire du GRADE, pas du poste. La suppression du poste n'entraîne jamais un licenciement."},
+  {q:"Quelle est la sanction disciplinaire qui ne nécessite PAS le passage en conseil de discipline ?",choices:["Exclusion temporaire de 5 jours","Rétrogradation","Avertissement et blâme","Mise à la retraite d'office"],ok:2,expl:"L'avertissement et le blâme sont des sanctions du 1er groupe — prononcées sans conseil de discipline. Toutes les autres nécessitent cette procédure."},
+  {q:"Quel est le délai maximum d'une exclusion temporaire de fonction (groupe 3) ?",choices:["10 jours","2 ans","5 ans","Illimitée"],ok:1,expl:"L'exclusion temporaire du groupe 3 peut aller de 11 jours à 2 ans maximum. Au-delà, c'est le groupe 4 (révocation ou retraite d'office)."},
+  {q:"En disponibilité, l'agent peut-il percevoir son traitement ?",choices:["Oui, à taux réduit","Non — aucun traitement ni droit à avancement","Oui, pendant les 3 premiers mois","Oui, si disponibilité pour raison familiale"],ok:1,expl:"La disponibilité suspend tout : traitement, avancement, droits à retraite. L'agent conserve son grade et son droit à réintégration."},
+  // ── RÉFORMES 2025 ──
+  {q:"Quel est le taux de cotisation CNRACL en 2027 ?",choices:["34,65%","37,65%","40,65%","43,65%"],ok:2,expl:"Trajectoire : 34,65% (2025) → 37,65% (2026) → 40,65% (2027) → 43,65% (2028). +3pts/an après la hausse initiale de +4pts en 2025."},
+  {q:"Depuis quand la participation à la prévoyance est-elle obligatoire pour les collectivités ?",choices:["Juillet 2023","Janvier 2024","Janvier 2025","Janvier 2026"],ok:2,expl:"Depuis le 1er janvier 2025 — 7€/mois minimum. La complémentaire santé (15€/mois) sera obligatoire à partir du 1er janvier 2026."},
+  {q:"La réforme CMO 2025 concerne-t-elle le congé longue maladie (CLM) ?",choices:["Oui, il passe aussi à 90%","Non — CLM et CLD ne sont pas concernés","Oui, mais seulement les 6 premiers mois","Oui, pour les fonctionnaires de catégorie C uniquement"],ok:1,expl:"Seul le CMO est concerné par la réforme. CLM et CLD restent à 100% puis 50% selon les règles classiques."},
+  {q:"Quel était le salaire net moyen d'un fonctionnaire en 2024 ?",choices:["3 200€","2 652€","2 100€","2 900€"],ok:1,expl:"2 652€ net moyen dans la FP, contre 2 735€ dans le privé, soit un écart de -83€ selon le rapport annuel état de la FP 2025."},
+  // ── DIALOGUE SOCIAL ──
+  {q:"Quelle instance a remplacé à la fois le CTM et le CHSCT dans la FPT depuis 2023 ?",choices:["CAP","CCP","CST","COS"],ok:2,expl:"Le Comité Social Territorial (CST) fusionne CTM + CHSCT. Installé en janvier 2023 dans chaque collectivité."},
+  {q:"Dans quelle loi la rupture conventionnelle a-t-elle été pérennisée ?",choices:["Loi du 6 août 2019","Loi n°2026-103 du 19 fév. 2026","PLF 2025","Décret 2020-1557"],ok:1,expl:"Pérennisée par la loi n°2026-103 du 19 fév. 2026 — inscrite au CGFP art. L552-1 à L552-5."},
+  {q:"Le préavis de grève dans la FP est de combien de jours francs ?",choices:["2 jours","3 jours","5 jours","8 jours"],ok:2,expl:"5 jours francs de préavis obligatoire (loi du 31 juillet 1963). La grève tournante et la grève surprise sont interdites dans la FP."},
+  // ── DÉONTOLOGIE ──
+  {q:"Quel article du CGFP codifie la protection fonctionnelle ?",choices:["L121-10","L131-2","L134-1","L552-1"],ok:2,expl:"CGFP art. L134-1 — obligation de l'administration de protéger ses agents contre les attaques liées à leurs fonctions."},
+  {q:"Qu'impose la loi Sauvadet (2012) pour les emplois supérieurs ?",choices:["20% de femmes","Parité stricte 50/50 à chaque nomination","50% de primo-nominations de chaque sexe","Aucune obligation chiffrée"],ok:2,expl:"50% de primo-nominations de chaque sexe aux emplois supérieurs et de direction. Les collectivités qui ne respectent pas cette obligation s'exposent à des pénalités."},
+  {q:"Un fonctionnaire peut-il divulguer des informations confidentielles à un journaliste ?",choices:["Oui, la liberté de la presse prime","Non, sauf via la procédure de lanceur d'alerte (loi Sapin II)","Oui, si les informations concernent un intérêt général","Non, jamais et sans aucune exception"],ok:1,expl:"La loi Sapin II (2016) protège les lanceurs d'alerte qui signalent des faits illégaux via la procédure légale (référent déontologue, Défenseur des droits). Hors procédure, c'est une faute."},
+  // ── DÉCENTRALISATION ──
+  {q:"Le contrôle de légalité du préfet est-il a priori ou a posteriori ?",choices:["A priori","A posteriori","Les deux selon l'acte","Ni l'un ni l'autre"],ok:1,expl:"A posteriori — l'acte est exécutoire dès publication. Le préfet dispose de 2 mois après réception pour le déférer au TA."},
+  {q:"La clause de compétence générale est-elle maintenue pour les communes ?",choices:["Non, supprimée par la loi NOTRe","Oui — seules les communes la conservent","Non, supprimée pour toutes les collectivités","Oui, mais limitée aux communes de + 50 000 hab."],ok:1,expl:"La loi NOTRe (2015) supprime la clause générale pour régions et départements mais les COMMUNES la conservent."},
+  {q:"Que signifie 'le fonctionnaire est titulaire de son grade, non de son emploi' ?",choices:["Il peut changer de poste librement","Il ne peut pas être licencié si son poste est supprimé","Il est toujours affecté au même poste","Il ne peut pas demander de mutation"],ok:1,expl:"Principe fondamental : la suppression d'un poste entraîne une prise en charge ou un reclassement, jamais un licenciement. Le grade est inamovible."},
+  // ── FORMATION & CPF ──
+  {q:"Combien d'heures par an capitalise le CPF dans la FP, et quel est son plafond ?",choices:["12h/an, plafond 60h","24h/an, plafond 120h","35h/an, plafond 200h","20h/an, plafond 150h"],ok:1,expl:"24 heures par an dans la limite de 120 heures. Pour les agents peu qualifiés, le rythme est de 48h/an."},
+  {q:"Le CNFPT est financé par quel taux de cotisation ?",choices:["0,5%","0,9%","1,2%","2%"],ok:1,expl:"0,9% de la masse salariale des collectivités territoriales finance le CNFPT pour la formation des agents territoriaux."},
+  // ── NUMÉRIQUE & RGPD ──
+  {q:"Qui peut sanctionner les organismes publics en cas de manquement au RGPD ?",choices:["Le Conseil d'État","La CNIL","Le préfet","La HATVP"],ok:1,expl:"La CNIL (autorité administrative indépendante) peut sanctionner tout organisme traitant des données personnelles, public ou privé."},
+  {q:"Quel est le plafond annuel du forfait télétravail ?",choices:["200€","253,44€","288€","360€"],ok:1,expl:"2,88€/jour × 88 jours maximum = 253,44€/an (décret 2020-524)."},
+  // ── PIÈGE ──
+  {q:"En 2025, la FPT est-elle le versant le plus important de la FP par le nombre d'agents ?",choices:["Oui, avec 2,5 millions d'agents","Non — la FPE est la plus nombreuse avec ~2,5M d'agents","Oui, depuis la loi NOTRe","Non — c'est la FPH"],ok:1,expl:"La FPE (État) est la plus nombreuse avec ~2,5M d'agents. La FPT compte ~1,9M et la FPH ~1,2M. Total : ~5,7M d'agents publics."},
+  {q:"L'index d'égalité F/H est obligatoire pour les collectivités de plus de combien d'habitants ?",choices:["10 000","20 000","40 000","100 000"],ok:2,expl:"Loi du 6 août 2019 : index obligatoire pour les collectivités de plus de 40 000 habitants."},
+  {q:"Quel est le montant de participation à la prévoyance obligatoire pour les collectivités en 2025 ?",choices:["5€/mois","7€/mois","10€/mois","15€/mois"],ok:1,expl:"7€/mois minimum depuis le 1er janvier 2025 = 20% d'un panier de référence de 35€. Le 15€ pour la santé démarre en 2026."},
+  {q:"Un fonctionnaire peut télétravailler au maximum combien de jours par semaine ?",choices:["1 jour","2 jours","3 jours","4 jours"],ok:2,expl:"Maximum 3 jours par semaine. La présence sur site est obligatoire a minima 2 jours par semaine."},
+];
+
+var bossVies=3, bossHP=10, bossQIdx=0, bossJeuScore=0, bossQData=[], bossCombo=0, bossQAnswered=false;
+
+function startBoss(){
+  bossVies=3; bossHP=10; bossQIdx=0; bossJeuScore=0; bossCombo=0;
+  bossQData=BOSS_QUESTIONS.slice().sort(()=>Math.random()-.5).slice(0,10);
+  document.getElementById('boss-intro').style.display='none';
+  document.getElementById('boss-fin').style.display='none';
+  document.getElementById('boss-game').style.display='block';
+  majBossUI();
+  loadBossQ();
+}
+
+function majBossUI(){
+  var livesHTML='';
+  for(var i=0;i<3;i++) livesHTML+='<span class="boss-life'+(i>=bossVies?' lost':'')+'">❤️</span>';
+  document.getElementById('boss-lives').innerHTML=livesHTML;
+  document.getElementById('boss-score-badge').textContent='❤️'.repeat(Math.max(0,bossVies))+'🖤'.repeat(Math.max(0,3-bossVies));
+  var hp=Math.max(0,bossHP); var pct=Math.round(hp/10*100);
+  document.getElementById('boss-hp-fill').style.width=pct+'%';
+  document.getElementById('boss-hp-label').textContent=hp+' / 10 PV';
+}
+
+function loadBossQ(){
+  if(bossQIdx>=bossQData.length){ finBoss(true); return; }
+  bossQAnswered=false;
+  var d=bossQData[bossQIdx];
+  document.getElementById('boss-q-num').textContent='Question '+(bossQIdx+1)+' / '+bossQData.length;
+  document.getElementById('boss-q-text').textContent=d.q;
+  document.getElementById('boss-feedback').style.display='none';
+  var ch=document.getElementById('boss-choices');
+  ch.innerHTML='';
+  var shuffled=d.choices.map(function(c,i){return{c:c,ok:i===d.ok};}).sort(()=>Math.random()-.5);
+  shuffled.forEach(function(item){
+    var btn=document.createElement('button');
+    btn.className='boss-choice';
+    btn.textContent=item.c;
+    btn.onclick=function(){repondreBoss(item,btn,shuffled);};
+    ch.appendChild(btn);
+  });
+  var combo=document.getElementById('boss-combo');
+  combo.textContent=bossCombo>=3?'🔥 COMBO x'+bossCombo:'';
+}
+
+function repondreBoss(item,btn,all){
+  if(bossQAnswered) return;
+  bossQAnswered=true;
+  document.querySelectorAll('.boss-choice').forEach(function(b){b.onclick=null;b.style.opacity='.5';});
+  var fb=document.getElementById('boss-feedback');
+  if(item.ok){
+    btn.classList.add('correct'); btn.style.opacity='1';
+    bossHP--; bossCombo++;
+    bossJeuScore+=100*(bossCombo>=3?2:1);
+    fb.innerHTML='<span style="color:#0d5a18;font-weight:800">✅ Dégât infligé au boss !</span><br>'+item.c+'<br><small>'+document.getElementById('boss-q-text').textContent.substring(0,50)+'...</small>';
+    // Animer le boss
+    var sp=document.getElementById('boss-sprite');
+    sp.classList.add('boss-hit');
+    setTimeout(function(){sp.classList.remove('boss-hit');},400);
+    if(bossHP<=0){
+      sp.classList.add('boss-dead');
+      setTimeout(function(){finBoss(true);},900);
+      return;
+    }
+  } else {
+    btn.classList.add('wrong'); btn.style.opacity='1';
+    all.forEach(function(it,i){ if(it.ok) document.querySelectorAll('.boss-choice')[i].classList.add('correct'); });
+    bossVies--; bossCombo=0;
+    fb.innerHTML='<span style="color:#aa0000;font-weight:800">❌ Vie perdue !</span><br>'+d.expl;
+    majBossUI();
+    if(bossVies<=0){ setTimeout(function(){finBoss(false);},900); return; }
+  }
+  fb.style.display='block';
+  majBossUI();
+  setTimeout(function(){
+    bossQIdx++;
+    loadBossQ();
+  },2000);
+}
+
+var d; // Pour l'explication dans repondreBoss
+// Correction : récupérer d dans la closure
+(function(){
+  var _repondreBoss=repondreBoss;
+  repondreBoss=function(item,btn,all){
+    d=bossQData[bossQIdx]; // mettre à jour d avant appel
+    _repondreBoss(item,btn,all);
+  };
+})();
+
+function finBoss(victoire){
+  document.getElementById('boss-game').style.display='none';
+  document.getElementById('boss-fin').style.display='block';
+  document.getElementById('boss-fin-icon').textContent=victoire?'🏆':'💀';
+  document.getElementById('boss-fin-titre').style.color=victoire?'#cc5de8':'#ff6b6b';
+  document.getElementById('boss-fin-titre').textContent=victoire?'BOSS VAINCU ! 🎉':'Éliminé... Revanche !';
+  document.getElementById('boss-fin-detail').textContent=(bossQData.length-bossHP)+'/'+bossQData.length+' bonnes réponses';
+  document.getElementById('boss-fin-score-txt').textContent='Score : '+bossJeuScore+' points';
+}
 
 </script>
 </body>
