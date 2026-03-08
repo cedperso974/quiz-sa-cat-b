@@ -420,7 +420,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .carte-drop-zones { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
 .carte-zone {
   background:rgba(77,150,255,.04); border:2px dashed rgba(77,150,255,.4);
-  border-radius:14px; padding:10px 8px; min-height:56px; text-align:center;
+  border-radius:14px; padding:12px 10px; min-height:64px; text-align:center;
   transition:all .2s; position:relative;
 }
 .carte-zone.highlight { border-color:#1a5abb; background:rgba(77,150,255,.12); }
@@ -436,13 +436,114 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   font-size:.78em; font-weight:600; transition:all .15s; user-select:none;
 }
 .carte-piece:hover { background:#dce8ff; border-color:#3060b0; transform:scale(1.05); }
-.carte-piece.selected { background:linear-gradient(135deg,#4d96ff,#2a6ed4); color:#1a2240; border-color:#6aadff; }
+.carte-piece.selected { background:linear-gradient(135deg,#4d96ff,#2a6ed4); color:#ffffff; border-color:#6aadff; font-weight:800; }
 .carte-piece.used { opacity:0; pointer-events:none; }
 .carte-score-ring { display:flex; flex-direction:column; align-items:center; margin-bottom:14px; }
 .carte-progress-text { font-size:.75em; color:#1a5abb; margin-top:4px; }
 
 .carte-zone-hint { font-size:.67em; color:#6a88bb; font-style:italic; margin-bottom:3px; }
 .carte-zone.filled .carte-zone-hint { display:none; }
+
+/* ══════════════════════════════════════
+   ATELIER VISUEL
+══════════════════════════════════════ */
+.visuel-btn { background:linear-gradient(135deg,#0a3d62,#1a6b9e); color:#7ecfff !important; border:2px solid #7ecfff !important; font-weight:800; letter-spacing:.5px; }
+.visuel-btn:hover { background:#7ecfff; color:#0a3d62 !important; }
+
+#screen-visuel { padding:0; }
+.visuel-header { background:linear-gradient(135deg,#0a3d62,#1a6b9e); padding:18px 20px 14px; display:flex; align-items:center; gap:12px; }
+.visuel-header-title { font-size:1.1em; font-weight:800; color:#fff; }
+.visuel-back { background:rgba(255,255,255,.15); border:none; color:#fff; font-size:.82em; font-weight:700; padding:7px 14px; border-radius:20px; cursor:pointer; }
+.visuel-back:hover { background:rgba(255,255,255,.3); }
+
+/* Hub visuels */
+.visuel-hub { padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.visuel-card { background:#fff; border-radius:16px; padding:16px 14px; text-align:center; cursor:pointer; box-shadow:0 2px 12px rgba(0,0,0,.08); border:2px solid transparent; transition:all .25s; }
+.visuel-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,.13); }
+.visuel-card .vc-icon { font-size:2em; margin-bottom:8px; }
+.visuel-card .vc-name { font-size:.8em; font-weight:800; color:#1a2240; }
+.visuel-card .vc-desc { font-size:.68em; color:#5a6070; margin-top:3px; line-height:1.4; }
+.vc1 { border-top:3px solid #e74c3c; }
+.vc2 { border-top:3px solid #8e44ad; }
+.vc3 { border-top:3px solid #16a085; }
+.vc4 { border-top:3px solid #e67e22; }
+.vc5 { border-top:3px solid #2980b9; }
+.vc6 { border-top:3px solid #27ae60; }
+
+/* Fenêtres visuels */
+.visuel-window { display:none; position:fixed; inset:0; background:#f5f7fc; z-index:200; overflow-y:auto; animation:slideUp .3s ease; }
+.visuel-win-header { background:#fff; padding:12px 16px; display:flex; align-items:center; gap:10px; border-bottom:2px solid #e8edf5; position:sticky; top:0; z-index:10; }
+.visuel-win-title { font-size:1em; font-weight:800; color:#1a2240; }
+.visuel-win-back { background:#f0f4ff; border:none; color:#1a5abb; font-size:.8em; font-weight:700; padding:7px 14px; border-radius:20px; cursor:pointer; }
+.visuel-content { padding:16px; }
+
+/* Infographies */
+.infog-section { background:#fff; border-radius:16px; padding:18px; margin-bottom:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.infog-title { font-size:.9em; font-weight:800; color:#1a2240; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.bar-wrap { margin-bottom:10px; }
+.bar-label { font-size:.75em; font-weight:600; color:#334; margin-bottom:4px; display:flex; justify-content:space-between; }
+.bar-track { background:#e8edf5; border-radius:20px; height:22px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:20px; transition:width 1.2s cubic-bezier(.4,0,.2,1); display:flex; align-items:center; padding-left:10px; font-size:.7em; font-weight:800; color:#fff; }
+.donut-wrap { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.donut-legend { flex:1; min-width:120px; }
+.donut-leg-item { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:.75em; color:#334; }
+.donut-leg-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.stat-box { background:linear-gradient(135deg,var(--sc),var(--sc2)); border-radius:12px; padding:14px 10px; text-align:center; }
+.stat-box .stat-num { font-size:1.4em; font-weight:900; color:#fff; }
+.stat-box .stat-lbl { font-size:.65em; color:rgba(255,255,255,.85); margin-top:3px; line-height:1.3; }
+
+/* Organigrammes */
+.orga-wrap { overflow-x:auto; }
+.orga-tree { display:flex; flex-direction:column; align-items:center; gap:0; min-width:280px; }
+.orga-row { display:flex; gap:8px; justify-content:center; margin-bottom:0; }
+.orga-node { background:#fff; border:2px solid var(--nc,#1a5abb); border-radius:12px; padding:10px 14px; text-align:center; cursor:pointer; font-size:.75em; font-weight:700; color:var(--nc,#1a5abb); transition:all .2s; min-width:80px; position:relative; }
+.orga-node:hover { background:var(--nc,#1a5abb); color:#fff; transform:scale(1.05); }
+.orga-node.top { background:var(--nc,#1a5abb); color:#fff; font-size:.8em; }
+.orga-connector { width:2px; background:#c8d8f0; height:20px; margin:0 auto; }
+.orga-connector-h { display:flex; justify-content:center; }
+.orga-connector-h-line { height:2px; background:#c8d8f0; flex:1; margin-top:10px; }
+.orga-tooltip { display:none; position:fixed; background:#1a2240; color:#fff; padding:10px 14px; border-radius:10px; font-size:.75em; max-width:220px; z-index:500; line-height:1.5; pointer-events:none; }
+.orga-tooltip.visible { display:block; }
+
+/* Frises */
+.frise-wrap { position:relative; padding:10px 0 10px 30px; }
+.frise-line { position:absolute; left:14px; top:0; bottom:0; width:3px; background:linear-gradient(180deg,#1a5abb,#27ae60); border-radius:3px; }
+.frise-item { position:relative; margin-bottom:20px; padding-left:24px; }
+.frise-dot { position:absolute; left:-23px; top:4px; width:16px; height:16px; border-radius:50%; background:var(--fc,#1a5abb); border:3px solid #fff; box-shadow:0 0 0 2px var(--fc,#1a5abb); }
+.frise-year { font-size:.72em; font-weight:900; color:var(--fc,#1a5abb); margin-bottom:2px; }
+.frise-event { font-size:.8em; font-weight:700; color:#1a2240; }
+.frise-detail { font-size:.72em; color:#5a6070; margin-top:2px; line-height:1.4; }
+
+/* Flowcharts */
+.flow-wrap { display:flex; flex-direction:column; align-items:center; gap:0; }
+.flow-node { background:#fff; border:2px solid var(--flc,#e67e22); border-radius:12px; padding:12px 16px; text-align:center; font-size:.78em; font-weight:700; color:#1a2240; width:85%; max-width:300px; position:relative; cursor:pointer; transition:all .2s; }
+.flow-node:hover { background:var(--flc,#e67e22); color:#fff; }
+.flow-node.start { background:var(--flc,#e67e22); color:#fff; border-radius:30px; }
+.flow-node.end { background:#27ae60; color:#fff; border-radius:30px; border-color:#27ae60; }
+.flow-node.end-bad { background:#e74c3c; color:#fff; border-radius:30px; border-color:#e74c3c; }
+.flow-node.decision { background:#f0f6ff; border-color:#1a5abb; transform:rotate(0deg); }
+.flow-arrow { font-size:1.2em; color:#aab; margin:4px 0; }
+.flow-branch { display:flex; gap:8px; justify-content:center; width:100%; }
+.flow-branch-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:0; max-width:160px; }
+.flow-branch-label { font-size:.65em; color:#5a6070; font-weight:700; background:#f0f4ff; border-radius:8px; padding:2px 8px; margin-bottom:2px; }
+.flow-sub { font-size:.68em; color:#5a6070; margin-top:3px; }
+
+/* Calculatrices */
+.calc-wrap { background:#fff; border-radius:16px; padding:18px; margin-bottom:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.calc-title { font-size:.88em; font-weight:800; color:#1a2240; margin-bottom:14px; }
+.calc-field { margin-bottom:12px; }
+.calc-field label { font-size:.75em; font-weight:700; color:#334; display:block; margin-bottom:5px; }
+.calc-field input, .calc-field select { width:100%; padding:9px 12px; border:2px solid #dde2ef; border-radius:10px; font-size:.85em; color:#1a2240; background:#f8f9fc; box-sizing:border-box; }
+.calc-field input:focus, .calc-field select:focus { border-color:#1a5abb; outline:none; background:#fff; }
+.calc-btn { width:100%; padding:13px; background:linear-gradient(135deg,#1a5abb,#2980d9); color:#fff; border:none; border-radius:12px; font-weight:800; font-size:.9em; cursor:pointer; margin-top:4px; }
+.calc-btn:hover { background:linear-gradient(135deg,#0d3d8c,#1a6bcc); }
+.calc-result { background:linear-gradient(135deg,#e8f4ff,#d0e8ff); border:2px solid #1a5abb; border-radius:12px; padding:14px; margin-top:12px; display:none; }
+.calc-result .cr-main { font-size:1.1em; font-weight:900; color:#0a2a70; }
+.calc-result .cr-detail { font-size:.75em; color:#1a3a70; margin-top:6px; line-height:1.6; }
+.calc-result.warn { background:linear-gradient(135deg,#fff5e0,#ffe8c0); border-color:#e67e22; }
+.calc-result.warn .cr-main { color:#7a3a00; }
+
 </style>
 </head>
 <body>
@@ -584,6 +685,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <button class="fiche-btn resume2025-btn" onclick="showScreen('screen-resume2025')" style="margin-top:8px">🗞️ Actualité FP 2025 — résumé concours</button>
   <button class="fiche-btn" onclick="showScreen('screen-liens')" style="margin-top:8px">🔗 Sources & références officielles</button>
   <button class="fiche-btn jeux-btn" onclick="showScreen('screen-jeux')" style="margin-top:8px">🕹️ Salle des Jeux — 6 mini-jeux</button>
+  <button class="fiche-btn visuel-btn" onclick="showScreen('screen-visuel')" style="margin-top:8px">🎨 Atelier Visuel — Infographies & Schémas</button>
 </div>
 
 
@@ -1877,6 +1979,7 @@ function selectMode(m){
 }
 
 function selectTheme(t){
+  seenQuestionIds.clear(); // reset anti-doublon au changement de thème
   if(t==='all'){
     // Tout déselectionner → sélectionner ALL
     selectedThemes=new Set(['all']);
@@ -1960,9 +2063,19 @@ function weightedShuffle(qs){
 }
 
 function startQuiz(){
-  const pool=getFilteredQ();
+  let pool=getFilteredQ();
   if(!pool.length){showToast('Aucune question pour ce thème');return;}
-  questions=weightedShuffle(pool);
+  // Anti-doublon : exclure les questions déjà vues dans cette session
+  let freshPool=pool.filter(q=>!seenQuestionIds.has(q.q));
+  // Si plus de 80% des questions déjà vues → reset pour ne pas bloquer
+  if(freshPool.length < pool.length * 0.2){
+    seenQuestionIds.clear();
+    freshPool=pool;
+    showToast('🔄 Toutes les questions ont été vues — remise à zéro !');
+  }
+  questions=weightedShuffle(freshPool);
+  // Marquer les questions comme vues
+  questions.forEach(q=>seenQuestionIds.add(q.q));
   current=0;
   userAnswers=Array(questions.length).fill(null);
   leitnerQueue=[];
@@ -2362,8 +2475,13 @@ function endBoss(){
 
 // ─── UTILITAIRES ───
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+    s.style.display='';
+  });
+  var el=document.getElementById(id);
+  el.classList.add('active');
+  el.style.display='block';
   window.scrollTo(0,0);
 }
 
@@ -2877,6 +2995,11 @@ function leitnerInject(isCorrect){
     questions.splice(insertAt,0,q);
     userAnswers.splice(insertAt,0,null);
     leitnerQueue.push({id:qId,pos:insertAt});
+    // Augmenter le poids pour les prochaines sessions
+    var gIdx=Q.indexOf(q);
+    if(gIdx>=0) qWeights[gIdx]=Math.min((qWeights[gIdx]||1)+1, 3);
+    // Ajouter à l'historique des erreurs
+    if(gIdx>=0 && errorHistory && !errorHistory.includes(gIdx)) errorHistory.push(gIdx);
     // Indicateur visuel
     showToast('📌 Question réinjectée dans '+delay+' questions');
   }
@@ -4426,6 +4549,1724 @@ function finBoss(victoire){
   document.getElementById('boss-fin-score-txt').textContent='Score : '+bossJeuScore+' points';
 }
 
+
+// ══════════════════════════════════════
+//  ATELIER VISUEL — JS
+// ══════════════════════════════════════
+function showVisuel(id) {
+  // Fermer tous les visuels ouverts
+  document.querySelectorAll('.visuel-window').forEach(function(el){ el.style.display='none'; });
+  var el = document.getElementById(id);
+  if (el) {
+    el.style.display = 'block';
+    // Animer les barres infographies
+    setTimeout(function(){
+      el.querySelectorAll('.bar-fill[data-w]').forEach(function(bar){
+        bar.style.width = bar.getAttribute('data-w');
+      });
+      // Animer les cercles du donut
+      el.querySelectorAll('circle[data-dash]').forEach(function(circle){
+        circle.setAttribute('stroke-dasharray', circle.getAttribute('data-dash'));
+      });
+    }, 100);
+  }
+}
+
+function closeVisuel(id) {
+  var el = document.getElementById(id);
+  if (el) el.style.display = 'none';
+}
+
+// Tooltip organigrammes
+document.addEventListener('click', function(e) {
+  var node = e.target.closest('.orga-node[data-tip]') || e.target.closest('.orga-node[data-tip2]');
+  var tip = document.getElementById('orga-tooltip') || document.getElementById('orga-tooltip2');
+  // Choisir le bon tooltip selon le contexte
+  var tip1 = document.getElementById('orga-tooltip');
+  var tip2 = document.getElementById('orga-tooltip2');
+  if (!node) {
+    if(tip1) tip1.classList.remove('visible');
+    if(tip2) tip2.classList.remove('visible');
+    return;
+  }
+  var tipText = node.getAttribute('data-tip') || node.getAttribute('data-tip2') || node.getAttribute('data-tip3');
+  var tip3 = document.getElementById('orga-tooltip3');
+  var activeTip = node.getAttribute('data-tip3') ? tip3 : (node.getAttribute('data-tip2') ? tip2 : tip1);
+  if(!activeTip) return;
+  activeTip.textContent = tipText;
+  activeTip.classList.add('visible');
+  activeTip.style.left = Math.min(e.clientX + 10, window.innerWidth - 240) + 'px';
+  activeTip.style.top = Math.min(e.clientY + 10, window.innerHeight - 120) + 'px';
+  return;
+  // DEAD CODE — ancienne version
+  var tip = document.getElementById('orga-tooltip');
+  if (!tip) return;
+  if (node) {
+    tip.textContent = node.getAttribute('data-tip');
+    tip.classList.add('visible');
+    tip.style.left = Math.min(e.clientX + 10, window.innerWidth - 240) + 'px';
+    tip.style.top = Math.min(e.clientY + 10, window.innerHeight - 120) + 'px';
+  } else {
+    tip.classList.remove('visible');
+  }
+});
+
+// ── Calculatrice CMO ──
+function calcCMO() {
+  var brut = parseFloat(document.getElementById('cmo-brut').value);
+  var duree = parseInt(document.getElementById('cmo-duree').value);
+  var res = document.getElementById('cmo-result');
+  if (!brut || !duree || brut < 500 || duree < 1 || duree > 12) {
+    res.style.display = 'block';
+    res.className = 'calc-result warn';
+    res.innerHTML = '<div class="cr-main">⚠️ Données invalides</div><div class="cr-detail">Traitement entre 500€ et 10 000€, durée entre 1 et 12 mois.</div>';
+    return;
+  }
+  var total = 0;
+  var detail = '';
+  for (var m = 1; m <= duree; m++) {
+    var taux = (m <= 3) ? 0.90 : 0.50;
+    var mensuel = brut * taux;
+    total += mensuel;
+    detail += 'Mois ' + m + ' : ' + taux*100 + '% → ' + mensuel.toFixed(0) + '€<br>';
+  }
+  var perteM13 = (duree <= 3) ? brut * 0.10 * duree : brut * 0.10 * 3 + brut * 0.50 * (duree - 3);
+  res.style.display = 'block';
+  res.className = 'calc-result';
+  res.innerHTML = '<div class="cr-main">Total perçu : ' + total.toFixed(0) + '€ sur ' + duree + ' mois</div>' +
+    '<div class="cr-detail">' + detail +
+    '<strong>Perte vs traitement plein :</strong> ' + perteM13.toFixed(0) + '€<br>' +
+    '<em>⚠️ Réforme mars 2025 : mois 1-3 à 90% (était 100%)</em></div>';
+}
+
+// ── Calculatrice CNRACL ──
+function calcCNRACL() {
+  var masse = parseFloat(document.getElementById('cnracl-masse').value);
+  var taux = parseFloat(document.getElementById('cnracl-annee').value);
+  var res = document.getElementById('cnracl-result');
+  if (!masse || masse < 1000) {
+    res.style.display = 'block';
+    res.className = 'calc-result warn';
+    res.innerHTML = '<div class="cr-main">⚠️ Masse salariale invalide</div>';
+    return;
+  }
+  var cotis = masse * taux / 100;
+  var cotis2024 = masse * 30.65 / 100;
+  var surcoût = cotis - cotis2024;
+  res.style.display = 'block';
+  res.className = 'calc-result';
+  res.innerHTML = '<div class="cr-main">Cotisation CNRACL : ' + Math.round(cotis).toLocaleString('fr-FR') + '€</div>' +
+    '<div class="cr-detail">' +
+    'Taux appliqué : <strong>' + taux + '%</strong><br>' +
+    'Base 2024 (30,65%) : ' + Math.round(cotis2024).toLocaleString('fr-FR') + '€<br>' +
+    'Surcoût vs 2024 : <strong style="color:#e74c3c">+' + Math.round(surcoût).toLocaleString('fr-FR') + '€/an</strong><br>' +
+    '<em>D\u00e9cret n\u00b02025-86 \u2014 trajectoire jusqu\u2019en 2028</em></div>';
+}
+
+// ── Calculatrice Retraite ──
+function calcRetraite() {
+  var annee = parseInt(document.getElementById('ret-annee').value);
+  var trim = parseInt(document.getElementById('ret-trim').value);
+  var res = document.getElementById('ret-result');
+  if (!annee || annee < 1950 || annee > 1990 || trim < 0) {
+    res.style.display = 'block'; res.className = 'calc-result warn';
+    res.innerHTML = '<div class="cr-main">⚠️ Données invalides</div>';
+    return;
+  }
+  var ageLegal = 64;
+  var trimReqTotal = 172; // génération 1965+
+  if (annee <= 1961) trimReqTotal = 167;
+  else if (annee <= 1963) trimReqTotal = 168 + (annee - 1961);
+  else if (annee <= 1964) trimReqTotal = 170;
+  else trimReqTotal = 172;
+  var anneeDepart = annee + ageLegal;
+  var trimRestants = Math.max(0, trimReqTotal - trim);
+  var anneesRestantes = (trimRestants / 4).toFixed(1);
+  res.style.display = 'block'; res.className = 'calc-result';
+  res.innerHTML = '<div class="cr-main">Départ estimé : ' + anneeDepart + ' (à ' + ageLegal + ' ans)</div>' +
+    '<div class="cr-detail">' +
+    'Trimestres requis pour votre génération : <strong>' + trimReqTotal + '</strong><br>' +
+    'Trimestres validés : <strong>' + trim + '</strong><br>' +
+    'Trimestres restants : <strong>' + trimRestants + '</strong> (~' + anneesRestantes + ' ans)<br>' +
+    '<em>⚠️ Estimation indicative — consultez votre relevé de carrière SiRh</em></div>';
+}
+
+// ── Calculatrice Télétravail ──
+function calcTT() {
+  var jours = parseInt(document.getElementById('tt-jours').value);
+  var semaines = parseInt(document.getElementById('tt-semaines').value);
+  var res = document.getElementById('tt-result');
+  if (jours > 3) jours = 3;
+  var joursAn = jours * semaines;
+  var plafonné = Math.min(joursAn, 88);
+  var forfait = plafonné * 2.88;
+  res.style.display = 'block'; res.className = 'calc-result';
+  res.innerHTML = '<div class="cr-main">Forfait annuel : ' + forfait.toFixed(2) + '€</div>' +
+    '<div class="cr-detail">' +
+    'Jours de TT estimés/an : ' + joursAn + (joursAn > 88 ? ' (plafonné à 88)' : '') + '<br>' +
+    'Jours pris en compte : <strong>' + plafonné + '</strong><br>' +
+    'Calcul : ' + plafonné + ' × 2,88€ = <strong>' + forfait.toFixed(2) + '€</strong><br>' +
+    '<em>Décret 2020-524 — plafond 88 jours/an = 253,44€ max</em></div>';
+}
+
+// ── Calculatrice PSC ──
+function calcPSC() {
+  var agents = parseInt(document.getElementById('psc-agents').value);
+  var type = document.getElementById('psc-type').value;
+  var res = document.getElementById('psc-result');
+  if (!agents || agents < 1) {
+    res.style.display = 'block'; res.className = 'calc-result warn';
+    res.innerHTML = '<div class="cr-main">⚠️ Nombre d\u0027agents invalide</div>';
+    return;
+  }
+  var prev = 7, sante = 15;
+  var montantMens = 0, detail = '';
+  if (type === 'prev') { montantMens = agents * prev; detail = 'Prévoyance : ' + agents + ' × 7€ = ' + montantMens + '€/mois'; }
+  else if (type === 'sante') { montantMens = agents * sante; detail = 'Santé : ' + agents + ' × 15€ = ' + montantMens + '€/mois'; }
+  else { montantMens = agents * (prev + sante); detail = 'Prévoyance : ' + agents + ' × 7€ = ' + (agents*prev) + '€/mois<br>Santé : ' + agents + ' × 15€ = ' + (agents*sante) + '€/mois'; }
+  var montantAn = montantMens * 12;
+  res.style.display = 'block'; res.className = 'calc-result';
+  res.innerHTML = '<div class="cr-main">Coût annuel employeur : ' + montantAn.toLocaleString('fr-FR') + '€</div>' +
+    '<div class="cr-detail">' + detail + '<br>Coût mensuel total : <strong>' + montantMens + '€</strong><br>' +
+    '<em>Obligation depuis jan. 2025 (prévoyance) et jan. 2026 (santé)</em></div>';
+}
+
+
+// ── Coût total agent ──
+function calcCoutAgent() {
+  var brut = parseFloat(document.getElementById('cout-brut').value);
+  var versant = document.getElementById('cout-versant').value;
+  var res = document.getElementById('cout-result');
+  if (!brut || brut < 1000) {
+    res.style.display='block'; res.className='calc-result warn';
+    res.innerHTML='<div class="cr-main">Traitement invalide</div>'; return;
+  }
+  var taux = {fpt2025:34.65, fpt2026:37.65, fpt2028:43.65, fpe:74.28};
+  var tauxCSG = 9.7, tauxAtmp = 0.6, tauxFormation = 0.9, tauxPrev = 7/brut*100;
+  var t = taux[versant];
+  var cnracl = brut * t / 100;
+  var csg = brut * tauxCSG / 100; // approximate part patronale
+  var formation = brut * tauxFormation / 100;
+  var total = brut + cnracl + brut*0.006 + formation;
+  var totalAn = total * 12;
+  res.style.display='block'; res.className='calc-result';
+  res.innerHTML = '<div class="cr-main">Coût mensuel employeur : ' + Math.round(total).toLocaleString('fr-FR') + '€</div>' +
+    '<div class="cr-detail">' +
+    'Traitement brut : ' + brut.toLocaleString('fr-FR') + '€<br>' +
+    'CNRACL/pension (' + t + '%) : +' + Math.round(cnracl).toLocaleString('fr-FR') + '€<br>' +
+    'ATMP (0,6%) : +' + Math.round(brut*0.006) + '€<br>' +
+    'Formation CNFPT (0,9%) : +' + Math.round(formation) + '€<br>' +
+    '<strong>Coût annuel total : ~' + Math.round(totalAn).toLocaleString('fr-FR') + '€</strong><br>' +
+    '<em>Estimation indicative hors NBI, SFT, primes variables</em></div>';
+}
+
+// ── Estimateur échelon SA ──
+function calcEchelon() {
+  var dateVal = document.getElementById('ech-date').value;
+  var rythme = document.getElementById('ech-rythme').value;
+  var res = document.getElementById('ech-result');
+  if (!dateVal) {
+    res.style.display='block'; res.className='calc-result warn';
+    res.innerHTML='<div class="cr-main">Date requise</div>'; return;
+  }
+  // Durées en mois par échelon pour SA cat B (approximatif)
+  var durees = {
+    min: [0,12,12,18,18,18,24,24,24,30,30],
+    moy: [0,15,15,22,22,22,28,28,28,35,35],
+    max: [0,18,18,27,27,27,33,33,33,42,42]
+  };
+  var d = durees[rythme];
+  var debut = new Date(dateVal + '-01');
+  var now = new Date();
+  var moisEcoules = (now.getFullYear() - debut.getFullYear()) * 12 + (now.getMonth() - debut.getMonth());
+  var echelon = 1, cumul = 0;
+  for (var i = 1; i < d.length; i++) {
+    cumul += d[i];
+    if (moisEcoules >= cumul) echelon = i + 1;
+    else break;
+  }
+  echelon = Math.min(echelon, 11);
+  var anneesService = (moisEcoules / 12).toFixed(1);
+  res.style.display='block'; res.className='calc-result';
+  res.innerHTML = '<div class="cr-main">Échelon estimé : ' + echelon + '/11</div>' +
+    '<div class="cr-detail">' +
+    'Années de service : ' + anneesService + ' ans<br>' +
+    'Rythme : ' + (rythme==='min'?'minimum':rythme==='moy'?'moyen':'maximum') + '<br>' +
+    '<em>⚠️ Estimation indicative — vérifiez votre arrêté de situation administrative</em></div>';
+}
+
+// ── ISRC Rupture conventionnelle ──
+function calcISRC() {
+  var brut = parseFloat(document.getElementById('isrc-brut').value);
+  var annees = parseInt(document.getElementById('isrc-annees').value);
+  var res = document.getElementById('isrc-result');
+  if (!brut || !annees || brut<1000 || annees<1) {
+    res.style.display='block'; res.className='calc-result warn';
+    res.innerHTML='<div class="cr-main">Données invalides</div>'; return;
+  }
+  // ISRC = 1/4 mois par année jusqu'à 10 ans + 1/3 mois au-delà (plafond 1/12 * 120 mois = 10 mois)
+  var tranche1 = Math.min(annees, 10) * brut / 4;
+  var tranche2 = Math.max(0, annees - 10) * brut / 3;
+  var isrc = tranche1 + tranche2;
+  var plafond = brut * 10; // approximation
+  isrc = Math.min(isrc, plafond);
+  res.style.display='block'; res.className='calc-result';
+  res.innerHTML = '<div class="cr-main">ISRC estimée : ' + Math.round(isrc).toLocaleString('fr-FR') + '€</div>' +
+    '<div class="cr-detail">' +
+    'Tranche 1 (1-10 ans) : ' + Math.round(tranche1).toLocaleString('fr-FR') + '€<br>' +
+    (annees > 10 ? 'Tranche 2 (+10 ans) : ' + Math.round(tranche2).toLocaleString('fr-FR') + '€<br>' : '') +
+    '⚠️ Si retour FP dans 6 ans → remboursement intégral<br>' +
+    '✅ Droit \u00e0 l\u2019ARE (allocation ch\u00f4mage) ouvert<br>' +
+    '<em>CGFP art. L552-1 \u2014 estimation indicative</em></div>';
+}
+
+// ── CPF ──
+function calcCPF() {
+  var annees = parseInt(document.getElementById('cpf-annees').value);
+  var temps = parseFloat(document.getElementById('cpf-temps').value);
+  var res = document.getElementById('cpf-result');
+  if (!annees || annees<1) {
+    res.style.display='block'; res.className='calc-result warn';
+    res.innerHTML='<div class="cr-main">Ancienneté invalide</div>'; return;
+  }
+  var heuresAn = 24 * temps; // 24h/an temps plein
+  var totalHeures = Math.min(annees * heuresAn, 120); // plafond 120h
+  res.style.display='block'; res.className='calc-result';
+  res.innerHTML = '<div class="cr-main">Droits CPF estimés : ' + Math.round(totalHeures) + 'h</div>' +
+    '<div class="cr-detail">' +
+    'Acquisition : ' + heuresAn.toFixed(0) + 'h/an (temps de travail ' + (temps*100) + '%)<br>' +
+    'Plafond légal : 120h<br>' +
+    'Utilisation : formation qualifiante, bilan de compétences, VAE<br>' +
+    '<em>D\u00e9cret 2017-928 \u2014 le CPF dans la FP fonctionne en heures (pas en euros comme dans le priv\u00e9)</em></div>';
+}
+
+
+// ── Temps partiel ──
+function calcTP() {
+  var brut = parseFloat(document.getElementById('tp-brut').value);
+  var q = parseFloat(document.getElementById('tp-quotite').value);
+  var res = document.getElementById('tp-result');
+  if (!brut || brut < 1000) { res.style.display='block';res.className='calc-result warn';res.innerHTML='<div class="cr-main">Montant invalide</div>';return; }
+  // Règle FP : TP 80% et 90% = traitement 6/7 et 8/9 (avantage)
+  var tauxReal = q;
+  var tauxTrait = q;
+  if (q === 0.8) tauxTrait = 6/7;   // 85,7% au lieu de 80%
+  if (q === 0.9) tauxTrait = 8/9;   // 88,9% au lieu de 90%
+  var mensuel = brut * tauxTrait;
+  var perte = brut - mensuel;
+  res.style.display='block';res.className='calc-result';
+  res.innerHTML='<div class="cr-main">Traitement TP : ' + mensuel.toFixed(2) + '€/mois</div>' +
+    '<div class="cr-detail">' +
+    'Quotité : ' + (q*100) + '% — Taux appliqué traitement : ' + (tauxTrait*100).toFixed(1) + '%<br>' +
+    (q===0.8?'<strong>⭐ Avantage 80%</strong> : trait. à 85,7% (6/7ème) au lieu de 80%<br>':
+     q===0.9?'<strong>⭐ Avantage 90%</strong> : trait. à 88,9% (8/9ème) au lieu de 90%<br>':
+     '') +
+    'Perte mensuelle : <strong>' + perte.toFixed(2) + '€</strong><br>' +
+    'Perte annuelle : <strong>' + (perte*12).toFixed(0) + '€</strong><br>' +
+    '<em>Décret n°82-624 — avantages 80% et 90% dans la FPT</em></div>';
+}
+
+// ── NBI ──
+function calcNBI() {
+  var pts = parseInt(document.getElementById('nbi-points').value);
+  var valPt = 4.9222; // valeur point 2025
+  var mensuel = pts * valPt;
+  var res = document.getElementById('nbi-result');
+  res.style.display='block';res.className='calc-result';
+  res.innerHTML='<div class="cr-main">NBI mensuelle : ' + mensuel.toFixed(2) + '€ bruts</div>' +
+    '<div class="cr-detail">' +
+    pts + ' points × ' + valPt + '€ (valeur point 2025)<br>' +
+    'NBI annuelle : <strong>' + (mensuel*12).toFixed(2) + '€</strong><br>' +
+    'La NBI est soumise à retenue pour pension CNRACL<br>' +
+    '<em>Décret n°93-522 du 26 mars 1993 — NBI FPT</em></div>';
+}
+
+// ── SFT ──
+function calcSFT() {
+  var n = parseInt(document.getElementById('sft-enfants').value);
+  var brut = parseFloat(document.getElementById('sft-brut').value);
+  var res = document.getElementById('sft-result');
+  if (n === 0) { res.style.display='block';res.className='calc-result warn';res.innerHTML='<div class="cr-main">Pas de SFT sans enfant à charge</div><div class="cr-detail">Le SFT n\u2019est vers\u00e9 qu\u2019aux agents ayant au moins 1 enfant \u00e0 charge.</div>';return; }
+  if (!brut || brut<1000) { res.style.display='block';res.className='calc-result warn';res.innerHTML='<div class="cr-main">Traitement invalide</div>';return; }
+  // SFT 2025 : part fixe + part proportionnelle
+  var fixes = [0, 2.29, 10.67, 15.24, 19.81, 24.38]; // montants fixes par enfant (approx 2025)
+  var tauxProp = [0, 0.03, 0.08, 0.12, 0.16, 0.20]; // taux proportionnel au traitement
+  var idx = Math.min(n, 5);
+  var sft = fixes[idx] + brut * tauxProp[idx];
+  res.style.display='block';res.className='calc-result';
+  res.innerHTML='<div class="cr-main">SFT estimé : ' + sft.toFixed(2) + '€/mois</div>' +
+    '<div class="cr-detail">' +
+    'Part fixe : ' + fixes[idx].toFixed(2) + '€<br>' +
+    'Part proportionnelle (' + (tauxProp[idx]*100) + '% du traitement) : ' + (brut*tauxProp[idx]).toFixed(2) + '€<br>' +
+    'SFT annuel : <strong>' + (sft*12).toFixed(0) + '€</strong><br>' +
+    (n >= 2 ? '<em>Le SFT est versé en totalité à l\u2019un des deux parents fonctionnaires</em>' : '') +
+    '</div>';
+}
+
+// ── RIFSEEP ──
+function calcRIFSEEP() {
+  var cat = document.getElementById('rifseep-cat').value;
+  var grp = parseInt(document.getElementById('rifseep-groupe').value);
+  var res = document.getElementById('rifseep-result');
+  // Plafonds IFSE indicatifs 2025 (montants bruts annuels max par cat/groupe)
+  var plafonds = {
+    A: [32000, 22000, 14000],
+    B: [17000, 13000,  9000],
+    C: [ 9000,  7000,  5000]
+  };
+  var plafondsMin = {
+    A: [18000, 12000, 7000],
+    B: [ 9000,  7000, 5000],
+    C: [ 5000,  4000, 3000]
+  };
+  var pMax = plafonds[cat][grp-1];
+  var pMin = plafondsMin[cat][grp-1];
+  var ifseMin = pMin/12, ifseMax = pMax/12;
+  var ciaMax = (cat==='A' ? 6000 : cat==='B' ? 3000 : 2000) / 12;
+  res.style.display='block';res.className='calc-result';
+  res.innerHTML='<div class="cr-main">IFSE : ' + ifseMin.toFixed(0) + '€ → ' + ifseMax.toFixed(0) + '€/mois</div>' +
+    '<div class="cr-detail">' +
+    'Catégorie <strong>' + cat + '</strong> — Groupe ' + grp + '<br>' +
+    'IFSE (part fixe) : ' + ifseMin.toFixed(0) + '€ à ' + ifseMax.toFixed(0) + '€/mois<br>' +
+    'CIA (part variable) : jusqu’à ' + ciaMax.toFixed(0) + '€/mois<br>' +
+    'Total estimé max : <strong>' + (ifseMax+ciaMax).toFixed(0) + '€/mois</strong><br>' +
+    '<em>Décret n°2014-513 — montants fixés par chaque collectivité dans la limite des plafonds</em></div>';
+}
+
 </script>
+
+<!-- ════════════════════════════════════════
+     ATELIER VISUEL
+════════════════════════════════════════ -->
+<div id="screen-visuel" class="screen">
+  <div class="visuel-header">
+    <button class="visuel-back" onclick="showScreen('screen-accueil')">← Retour</button>
+    <span class="visuel-header-title">🎨 Atelier Visuel</span>
+  </div>
+  <div class="visuel-hub">
+    <div class="visuel-card vc1" onclick="showVisuel('v-infog')">
+      <div class="vc-icon">📊</div>
+      <div class="vc-name">Infographies</div>
+      <div class="vc-desc">Chiffres clés animés, camemberts, barres</div>
+    </div>
+    <div class="visuel-card vc2" onclick="showVisuel('v-orga')">
+      <div class="vc-icon">🏛️</div>
+      <div class="vc-name">Organigrammes</div>
+      <div class="vc-desc">Hiérarchies cliquables avec définitions</div>
+    </div>
+    <div class="visuel-card vc3" onclick="showVisuel('v-frise')">
+      <div class="vc-icon">⏱️</div>
+      <div class="vc-name">Frises chrono</div>
+      <div class="vc-desc">Réformes & décentralisation scrollables</div>
+    </div>
+    <div class="visuel-card vc4" onclick="showVisuel('v-flow')">
+      <div class="vc-icon">🔄</div>
+      <div class="vc-name">Procédures</div>
+      <div class="vc-desc">Flowcharts disciplinaire, recours, mutation</div>
+    </div>
+    <div class="visuel-card vc5" onclick="showVisuel('v-calc')">
+      <div class="vc-icon">🧮</div>
+      <div class="vc-name">Calculatrices</div>
+      <div class="vc-desc">Retraite, CMO, CNRACL, Télétravail</div>
+    </div>
+    <div class="visuel-card vc6" onclick="showVisuel('v-carte-fp')">
+      <div class="vc-icon">🗺️</div>
+      <div class="vc-name">Carte FP</div>
+      <div class="vc-desc">Versants & chiffres clés par région</div>
+    </div>
+    <div class="visuel-card vc2" onclick="showVisuel('v-orga2')">
+      <div class="vc-icon">🏘️</div>
+      <div class="vc-name">Institutions</div>
+      <div class="vc-desc">Commune, département, dialogue social, normes</div>
+    </div>
+    <div class="visuel-card vc4" onclick="showVisuel('v-flow2')">
+      <div class="vc-icon">🎓</div>
+      <div class="vc-name">Carrière</div>
+      <div class="vc-desc">Concours, titularisation, promotion, mutation</div>
+    </div>
+    <div class="visuel-card vc1" onclick="showVisuel('v-infog2')">
+      <div class="vc-icon">📅</div>
+      <div class="vc-name">Congés & carrière</div>
+      <div class="vc-desc">Tableau congés, point d'indice, égalité F/H</div>
+    </div>
+    <div class="visuel-card vc5" onclick="showVisuel('v-calc2')">
+      <div class="vc-icon">💼</div>
+      <div class="vc-name">Coûts & ISRC</div>
+      <div class="vc-desc">Coût employeur, échelon, rupture conventionnelle, CPF</div>
+    </div>
+    <div class="visuel-card vc3" onclick="showVisuel('v-orga3')">
+      <div class="vc-icon">🌍</div>
+      <div class="vc-name">Région & EPCI</div>
+      <div class="vc-desc">Organigrammes région, intercommunalité, préfet</div>
+    </div>
+    <div class="visuel-card vc4" onclick="showVisuel('v-flow3')">
+      <div class="vc-icon">⚡</div>
+      <div class="vc-name">Droits agents</div>
+      <div class="vc-desc">Grève, harcèlement, disponibilité, CLM/CLD</div>
+    </div>
+    <div class="visuel-card vc1" onclick="showVisuel('v-infog3')">
+      <div class="vc-icon">🔢</div>
+      <div class="vc-name">Chiffres & stats</div>
+      <div class="vc-desc">Catégories A/B/C, dialogue social, retraites</div>
+    </div>
+    <div class="visuel-card vc5" onclick="showVisuel('v-calc3')">
+      <div class="vc-icon">⏱️</div>
+      <div class="vc-name">Temps & primes</div>
+      <div class="vc-desc">Temps partiel, NBI, SFT, heures sup</div>
+    </div>
+    <div class="visuel-card vc2" onclick="showVisuel('v-frise2')">
+      <div class="vc-icon">📜</div>
+      <div class="vc-name">Histoire FP</div>
+      <div class="vc-desc">Droit de grève, égalité, grandes lois sociales</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── INFOGRAPHIES ── -->
+<div id="v-infog" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-infog')">← Retour</button>
+    <span class="visuel-win-title">📊 Infographies animées</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">🏦 Trajectoire CNRACL 2024→2028</div>
+      <div class="bar-wrap"><div class="bar-label"><span>2024 (base)</span><span>30,65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#2980b9;width:0" data-w="56%">30,65%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2025 (+4pts)</span><span>34,65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="64%">34,65%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2026 (+3pts)</span><span>37,65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e67e22;width:0" data-w="70%">37,65%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2027 (+3pts)</span><span>40,65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#f39c12;width:0" data-w="75%">40,65%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2028 (+3pts)</span><span>43,65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#8e44ad;width:0" data-w="80%">43,65%</div></div></div>
+      <div style="font-size:.68em;color:#5a6070;margin-top:10px">⚠️ Hausse totale : +13 points en 4 ans — décret n°2025-86</div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">👥 Répartition des 5,7 millions d'agents</div>
+      <div class="donut-wrap">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#e8edf5" stroke-width="20"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#e74c3c" stroke-width="20"
+            stroke-dasharray="0 283" stroke-dashoffset="71"
+            style="transition:stroke-dasharray 1.5s ease" data-dash="157 126"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#2980b9" stroke-width="20"
+            stroke-dasharray="0 283" stroke-dashoffset="-86"
+            style="transition:stroke-dasharray 1.5s .3s ease" data-dash="119 164"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#27ae60" stroke-width="20"
+            stroke-dasharray="0 283" stroke-dashoffset="-205"
+            style="transition:stroke-dasharray 1.5s .6s ease" data-dash="75 208"/>
+          <text x="60" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2240">5,7M</text>
+          <text x="60" y="70" text-anchor="middle" font-size="8" fill="#5a6070">agents</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#e74c3c"></div><strong>FPE</strong> : ~2,5M (État)</div>
+          <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#2980b9"></div><strong>FPT</strong> : ~1,9M (Territoriale)</div>
+          <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#27ae60"></div><strong>FPH</strong> : ~1,2M (Hospitalière)</div>
+          <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#bdc3c7"></div>23% sont <strong>contractuels</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">💰 Chiffres clés rémunération 2025</div>
+      <div class="stat-grid">
+        <div class="stat-box" style="--sc:#1a5abb;--sc2:#2980d9"><div class="stat-num">2 652€</div><div class="stat-lbl">Salaire net moyen FP</div></div>
+        <div class="stat-box" style="--sc:#e67e22;--sc2:#f39c12"><div class="stat-num">2 735€</div><div class="stat-lbl">Salaire net moyen privé</div></div>
+        <div class="stat-box" style="--sc:#e74c3c;--sc2:#c0392b"><div class="stat-num">-83€</div><div class="stat-lbl">Écart FP vs privé</div></div>
+        <div class="stat-box" style="--sc:#8e44ad;--sc2:#6c3483"><div class="stat-num">0%</div><div class="stat-lbl">Revalorisation point 2025</div></div>
+        <div class="stat-box" style="--sc:#27ae60;--sc2:#1e8449"><div class="stat-num">23%</div><div class="stat-lbl">Contractuels dans la FP</div></div>
+        <div class="stat-box" style="--sc:#16a085;--sc2:#0e7060"><div class="stat-num">2M</div><div class="stat-lbl">Recrutements besoins 10 ans</div></div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🤒 Réforme CMO — Traitement selon la durée</div>
+      <div class="bar-wrap"><div class="bar-label"><span>Mois 1 à 3 (depuis mars 2025)</span><span style="color:#e67e22;font-weight:800">90%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e67e22;width:0" data-w="90%">90%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Mois 4 à 12 (inchangé)</span><span style="color:#2980b9;font-weight:800">50%</span></div><div class="bar-track"><div class="bar-fill" style="background:#2980b9;width:0" data-w="50%">50%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>CLM — Année 1 (inchangé)</span><span style="color:#27ae60;font-weight:800">100%</span></div><div class="bar-track"><div class="bar-fill" style="background:#27ae60;width:0" data-w="100%">100%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>CLM — Années 2 et 3</span><span style="color:#7f8c8d;font-weight:800">50%</span></div><div class="bar-track"><div class="bar-fill" style="background:#7f8c8d;width:0" data-w="50%">50%</div></div></div>
+      <div style="font-size:.68em;color:#e74c3c;margin-top:8px;font-weight:600">⚠️ Avant mars 2025 : CMO mois 1-3 = 100%. Perte : ~265€/mois pour un agent à 2 652€ net.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ORGANIGRAMMES ── -->
+<div id="v-orga" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-orga')">← Retour</button>
+    <span class="visuel-win-title">🏛️ Organigrammes interactifs</span>
+  </div>
+  <div class="visuel-content">
+    <div id="orga-tooltip" class="orga-tooltip"></div>
+
+    <div class="infog-section">
+      <div class="infog-title">⚖️ Juridictions administratives <span style="font-size:.7em;color:#888;font-weight:400">(clique pour définition)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row"><div class="orga-node top" style="--nc:#8e44ad" data-tip="Conseil d'État : juge de cassation des arrêts des CAA. Aussi juge de 1ère instance pour les actes des ministres. Plus haute juridiction administrative.">Conseil d'État 🔝</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#8e44ad" data-tip="8 Cours Administratives d'Appel — jugent les appels des jugements du TA. Compétence de droit commun en appel.">CAA Paris</div>
+          <div class="orga-node" style="--nc:#8e44ad" data-tip="8 CAA en France — Bordeaux, Douai, Lyon, Marseille, Nancy, Nantes, Paris, Versailles.">CAA Lyon</div>
+          <div class="orga-node" style="--nc:#8e44ad" data-tip="8 CAA au total (+ CAA de Versailles). Chaque CAA couvre un ressort géographique.">8 CAA...</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip="Tribunal Administratif : juge de 1ère instance. Compétent pour les litiges agents/administration. 42 TA en France. Délai moyen : ~1 an.">TA région A</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip="Référé liberté : juge du TA statue en 48h en cas d'atteinte grave à une liberté fondamentale (CJA art. L521-2).">TA région B</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip="42 Tribunaux Administratifs en France métropolitaine + outre-mer. Premier degré du contentieux administratif.">42 TA...</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🔴 Groupes de sanctions disciplinaires <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#27ae60;font-size:.72em" data-tip="GROUPE 1 — Sanctions légères : avertissement, blâme. Pas de conseil de discipline requis. Inscrit au dossier (blâme) ou non (avertissement).">G1 ✅ Avertissement / Blâme</div>
+        </div>
+        <div class="orga-connector" style="background:#e8edf5"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#e67e22;font-size:.72em" data-tip="GROUPE 2 — Exclusion temporaire de 1 à 10 jours. Conseil de discipline OBLIGATOIRE. Perte de traitement pendant la durée.">G2 ⚠️ Exclusion 1 à 10 jours</div>
+        </div>
+        <div class="orga-connector" style="background:#e8edf5"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#e74c3c;font-size:.72em" data-tip="GROUPE 3 — Rétrogradation et exclusion temporaire de 11 jours à 2 ans. Conseil de discipline obligatoire. Sanction grave pouvant durer 2 ans.">G3 🔴 Rétrogradation / Exclusion 11j-2ans</div>
+        </div>
+        <div class="orga-connector" style="background:#e8edf5"></div>
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#7b241c;font-size:.72em" data-tip="GROUPE 4 — Sanctions les plus graves : mise à la retraite d'office ou révocation (radiation des cadres). Fin de carrière dans la FP. Conseil de discipline obligatoire.">G4 ☠️ Révocation / Retraite d'office</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📋 Positions du fonctionnaire <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row"><div class="orga-node top" style="--nc:#27ae60" data-tip="ACTIVITÉ : position normale. L'agent est sur son poste, rémunéré, droits à avancement et retraite en cours. Poste d'origine.">🟢 Activité (position normale)</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip="DÉTACHEMENT : l'agent est placé hors de son corps d'origine pour exercer des fonctions dans un autre corps ou organisme. Rémunéré par l'organisme d'accueil. Droits à avancement conservés dans le corps d'origine.">🔵 Détachement</div>
+          <div class="orga-node" style="--nc:#e67e22" data-tip="DISPONIBILITÉ : l'agent est hors administration. Ni traitement, ni avancement, ni droits à retraite. Possible pour convenance personnelle, création d'entreprise, élever un enfant... Droit à réintégration conservé.">🟠 Disponibilité</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#8e44ad" data-tip="CONGÉ PARENTAL : l'agent cesse ses fonctions pour élever un enfant. Droits suspendus jusqu'aux 3 ans de l'enfant. Droit à réintégration garanti. Pas de traitement.">🟣 Congé parental</div>
+          <div class="orga-node" style="--nc:#7f8c8d" data-tip="DISPONIBILITÉ D'OFFICE : intervient après épuisement de tous les droits à congé maladie (CMO 12 mois + CLM 3 ans + CLD 5 ans). Pas de traitement. Droit à réintégration si guérison.">⚫ Dispo d'office</div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FRISES CHRONOLOGIQUES ── -->
+<div id="v-frise" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-frise')">← Retour</button>
+    <span class="visuel-win-title">⏱️ Frises chronologiques</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">🏛️ Histoire de la décentralisation</div>
+      <div class="frise-wrap"><div class="frise-line"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e74c3c"></div><div class="frise-year" style="--fc:#e74c3c">1982</div><div class="frise-event">Lois Defferre — Acte I</div><div class="frise-detail">Suppression de la tutelle a priori du préfet. Les régions deviennent des collectivités de plein exercice. Naissance du contrôle de légalité a posteriori.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e67e22"></div><div class="frise-year" style="--fc:#e67e22">1984</div><div class="frise-event">Loi du 26 janvier 1984 — Statut FPT</div><div class="frise-detail">Création du statut de la Fonction Publique Territoriale. Institution du CNFPT, des CAP, des centres de gestion.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#f39c12"></div><div class="frise-year" style="--fc:#f39c12">1999</div><div class="frise-event">Loi Chevènement — Intercommunalité</div><div class="frise-detail">Création des EPCI à fiscalité propre (CC, CA, CU). Développement de la coopération intercommunale.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#27ae60"></div><div class="frise-year" style="--fc:#27ae60">2003</div><div class="frise-event">Révision constitutionnelle — Acte II</div><div class="frise-detail">Organisation décentralisée de la République inscrite dans la Constitution. Expérimentation, subsidiarité, autonomie financière.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">2010</div><div class="frise-event">Loi RCT — Réforme des collectivités</div><div class="frise-detail">Création du conseiller territorial, des métropoles et des pôles métropolitains. Rationalisation de la carte intercommunale.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#8e44ad"></div><div class="frise-year" style="--fc:#8e44ad">2015</div><div class="frise-event">Loi NOTRe — Acte III</div><div class="frise-detail">Suppression clause générale régions/dpts. Blocs de compétences. Régions agrandies (13 régions). EPCI : seuil à 15 000 habitants.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#16a085"></div><div class="frise-year" style="--fc:#16a085">2019</div><div class="frise-event">Loi de transformation FP</div><div class="frise-detail">LDG, CST (remplacement CTM/CHSCT), rupture conventionnelle, mobilité renforcée, recrutement contractuel facilité.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e74c3c"></div><div class="frise-year" style="--fc:#e74c3c">2025-2026</div><div class="frise-event">Réformes en cours</div><div class="frise-detail">Réforme CMO (mars 2025), hausse CNRACL, PSC prévoyance (jan. 2025), PSC santé (jan. 2026), rupture conventionnelle pérennisée (fév. 2026).</div></div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📅 Calendrier PSC — Protection Sociale Complémentaire</div>
+      <div class="frise-wrap"><div class="frise-line" style="background:linear-gradient(180deg,#2980b9,#27ae60)"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#7f8c8d"></div><div class="frise-year" style="--fc:#7f8c8d">Juil. 2023</div><div class="frise-event">Accord collectif FPT signé</div><div class="frise-detail">Fixe les modalités de la PSC dans la FPT : paniers de référence, montants minimums, calendrier de mise en œuvre.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">1er jan. 2025</div><div class="frise-event">✅ Prévoyance obligatoire</div><div class="frise-detail">7€/mois minimum (20% d'un panier de 35€). Couvre : incapacité, invalidité, décès. Toutes les collectivités concernées.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#27ae60"></div><div class="frise-year" style="--fc:#27ae60">1er jan. 2026</div><div class="frise-event">🔜 Santé obligatoire</div><div class="frise-detail">15€/mois minimum (50% d'un panier de 30€). Couvre : remboursements santé complémentaires. Fort impact budgétaire pour les petites communes.</div></div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📜 Grandes réformes statutaires</div>
+      <div class="frise-wrap"><div class="frise-line" style="background:linear-gradient(180deg,#8e44ad,#e74c3c)"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#8e44ad"></div><div class="frise-year" style="--fc:#8e44ad">1983</div><div class="frise-event">Statut général des fonctionnaires</div><div class="frise-detail">Loi Le Pors du 13 juillet 1983 — droits et obligations communs aux 3 versants. Principes fondamentaux : grade, carrière, concours.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">2007</div><div class="frise-event">Loi mobilité et parcours professionnels</div><div class="frise-detail">Facilite la mobilité inter-versants. Création de la PNA (période de préparation au reclassement).</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#27ae60"></div><div class="frise-year" style="--fc:#27ae60">2012</div><div class="frise-event">Entretien professionnel</div><div class="frise-detail">Remplacement de la notation chiffrée par l'entretien professionnel annuel conduit par le supérieur hiérarchique direct.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e67e22"></div><div class="frise-year" style="--fc:#e67e22">2014</div><div class="frise-event">RIFSEEP</div><div class="frise-detail">Décret n°2014-513 — nouveau régime indemnitaire (IFSE + CIA) remplaçant l'ancien maquis de primes.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e74c3c"></div><div class="frise-year" style="--fc:#e74c3c">2019</div><div class="frise-event">Loi de transformation FP</div><div class="frise-detail">LDG, CST, rupture conventionnelle, renforcement contractuels, mobilité public-privé.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#16a085"></div><div class="frise-year" style="--fc:#16a085">2023</div><div class="frise-event">Réforme des retraites</div><div class="frise-detail">Âge légal porté à 64 ans. Départs anticipés possibles dès 58 ans (carrière longue). Impact : -13,3% de départs en 2024.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#c0392b"></div><div class="frise-year" style="--fc:#c0392b">Mars 2025</div><div class="frise-event">Réforme CMO</div><div class="frise-detail">Art. 189 loi n°2025-127 — CMO mois 1-3 passe de 100% à 90%. CNRACL : hausse cotisations +4pts (34,65%).</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FLOWCHARTS PROCÉDURES ── -->
+<div id="v-flow" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-flow')">← Retour</button>
+    <span class="visuel-win-title">🔄 Procédures étape par étape</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">🔴 Procédure disciplinaire</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#e74c3c">⚡ Fait fautif constaté</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">📋 Rapport hiérarchique établi</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">📁 Communication dossier à l'agent<div class="flow-sub">Droit d'accès au dossier individuel (CGFP art. L131-2)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Groupe 1 seulement ?<div class="flow-sub">(avertissement / blâme)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node" style="--flc:#27ae60;font-size:.7em">Sanction directe par l'autorité territoriale</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ NON</div>
+            <div class="flow-node" style="--flc:#e74c3c;font-size:.7em">Saisine du Conseil de Discipline<div class="flow-sub">Obligatoire G2, G3, G4</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">📝 Avis du Conseil de Discipline<div class="flow-sub">Non contraignant — l'autorité peut ne pas le suivre</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#1a5abb">⚖️ Décision de l'autorité territoriale<div class="flow-sub">Doit être motivée — proportionnelle à la faute</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Recours possible</div>
+            <div class="flow-node end" style="font-size:.7em">Recours gracieux / Tribunal Administratif</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Si acceptée</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Sanction exécutoire</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏛️ Voies de recours contre un acte administratif</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#2980b9">📄 Acte administratif défavorable notifié</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#2980b9">⏱️ Délai de 2 mois (droit commun)<div class="flow-sub">À compter de la notification ou publication</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Option A</div>
+            <div class="flow-node" style="--flc:#27ae60;font-size:.7em">Recours gracieux<div class="flow-sub">Auprès de l'auteur de l'acte → suspend le délai</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Option B</div>
+            <div class="flow-node" style="--flc:#16a085;font-size:.7em">Recours hiérarchique<div class="flow-sub">Auprès du supérieur → suspend le délai</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Décision satisfaisante ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node end" style="font-size:.7em">Fin du litige ✓</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ NON</div>
+            <div class="flow-node" style="--flc:#e74c3c;font-size:.7em">Saisine du TA dans les 2 mois</div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">TA → CAA (appel) → CE (cassation)</div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🚪 Procédure d'abandon de poste</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#e67e22">⚠️ Agent absent sans justification</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">📬 Mise en demeure écrite obligatoire<div class="flow-sub">Délai raisonnable pour rejoindre le poste — jurisprudence CE constante</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ L'agent rejoint-il son poste ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node end" style="font-size:.7em">Fin de procédure<div class="flow-sub">Éventuelle procédure disciplinaire séparée</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ NON</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Radiation des cadres<div class="flow-sub">Pas de conseil de discipline — constat administratif</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CALCULATRICES ── -->
+<div id="v-calc" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-calc')">← Retour</button>
+    <span class="visuel-win-title">🧮 Calculatrices interactives</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="calc-wrap">
+      <div class="calc-title">🤒 Calculatrice CMO — Traitement perçu</div>
+      <div class="calc-field"><label>Traitement brut mensuel (€)</label><input type="number" id="cmo-brut" placeholder="ex: 2000" min="1000" max="10000"></div>
+      <div class="calc-field"><label>Durée du CMO (mois)</label><input type="number" id="cmo-duree" placeholder="ex: 6" min="1" max="12"></div>
+      <button class="calc-btn" onclick="calcCMO()">Calculer</button>
+      <div class="calc-result" id="cmo-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">🏦 Calculatrice CNRACL — Cotisation employeur</div>
+      <div class="calc-field"><label>Masse salariale brute annuelle (€)</label><input type="number" id="cnracl-masse" placeholder="ex: 1000000" min="10000"></div>
+      <div class="calc-field"><label>Année</label>
+        <select id="cnracl-annee">
+          <option value="30.65">2024 — 30,65%</option>
+          <option value="34.65" selected>2025 — 34,65%</option>
+          <option value="37.65">2026 — 37,65%</option>
+          <option value="40.65">2027 — 40,65%</option>
+          <option value="43.65">2028 — 43,65%</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcCNRACL()">Calculer</button>
+      <div class="calc-result" id="cnracl-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">📅 Calculatrice Retraite — Estimation trimestres</div>
+      <div class="calc-field"><label>Année de naissance</label><input type="number" id="ret-annee" placeholder="ex: 1975" min="1950" max="1990"></div>
+      <div class="calc-field"><label>Nombre de trimestres validés à ce jour</label><input type="number" id="ret-trim" placeholder="ex: 80" min="0" max="172"></div>
+      <div class="calc-field"><label>Catégorie</label>
+        <select id="ret-cat">
+          <option value="A">Catégorie A (cadre)</option>
+          <option value="B" selected>Catégorie B (SA)</option>
+          <option value="C">Catégorie C</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcRetraite()">Estimer</button>
+      <div class="calc-result" id="ret-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">💻 Calculatrice Télétravail — Forfait annuel</div>
+      <div class="calc-field"><label>Nombre de jours de télétravail par semaine</label>
+        <select id="tt-jours">
+          <option value="1">1 jour/semaine</option>
+          <option value="2">2 jours/semaine</option>
+          <option value="3" selected>3 jours/semaine (maximum)</option>
+        </select>
+      </div>
+      <div class="calc-field"><label>Nombre de semaines travaillées dans l'année</label><input type="number" id="tt-semaines" value="44" min="1" max="52"></div>
+      <button class="calc-btn" onclick="calcTT()">Calculer</button>
+      <div class="calc-result" id="tt-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">🏦 Calculatrice PSC — Participation employeur</div>
+      <div class="calc-field"><label>Nombre d'agents</label><input type="number" id="psc-agents" placeholder="ex: 50" min="1"></div>
+      <div class="calc-field"><label>Type de participation</label>
+        <select id="psc-type">
+          <option value="prev">Prévoyance — 7€/mois (jan. 2025)</option>
+          <option value="sante">Santé — 15€/mois (jan. 2026)</option>
+          <option value="both">Les deux combinées</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcPSC()">Calculer</button>
+      <div class="calc-result" id="psc-result"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CARTE FP ── -->
+<div id="v-carte-fp" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-carte-fp')">← Retour</button>
+    <span class="visuel-win-title">🗺️ Carte — Les 3 versants de la FP</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">📊 Comparatif des 3 versants</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:linear-gradient(135deg,#fff5f5,#ffe8e8);border:2px solid #e74c3c;border-radius:14px;padding:14px">
+          <div style="font-size:.9em;font-weight:800;color:#c0392b;margin-bottom:8px">🏛️ FPE — Fonction Publique d'État</div>
+          <div style="font-size:.75em;color:#5a0a0a;line-height:1.7">
+            <strong>Effectifs :</strong> ~2,5 millions d'agents (le plus nombreux)<br>
+            <strong>Loi :</strong> Loi du 13 juillet 1983 + CGFP<br>
+            <strong>Employeurs :</strong> Ministères, préfectures, rectorats, juridictions<br>
+            <strong>Retraite :</strong> Régime des pensions civiles de l'État<br>
+            <strong>Exemples de corps :</strong> Attachés, inspecteurs, professeurs, magistrats
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f0f6ff,#e0edff);border:2px solid #2980b9;border-radius:14px;padding:14px">
+          <div style="font-size:.9em;font-weight:800;color:#1a5a8e;margin-bottom:8px">🏘️ FPT — Fonction Publique Territoriale</div>
+          <div style="font-size:.75em;color:#0a1a4a;line-height:1.7">
+            <strong>Effectifs :</strong> ~1,9 million d'agents<br>
+            <strong>Loi :</strong> Loi du 26 janvier 1984<br>
+            <strong>Employeurs :</strong> Communes, départements, régions, EPCI<br>
+            <strong>Retraite :</strong> CNRACL (en crise — hausse cotisations 2025-2028)<br>
+            <strong>Formation :</strong> CNFPT (0,9% masse salariale)<br>
+            <strong>Exemples de grades :</strong> Secrétaire Administratif, Attaché territorial, Rédacteur
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f0fff5,#e0f7e8);border:2px solid #27ae60;border-radius:14px;padding:14px">
+          <div style="font-size:.9em;font-weight:800;color:#1a7a40;margin-bottom:8px">🏥 FPH — Fonction Publique Hospitalière</div>
+          <div style="font-size:.75em;color:#0a3a1a;line-height:1.7">
+            <strong>Effectifs :</strong> ~1,2 million d'agents<br>
+            <strong>Loi :</strong> Loi du 9 janvier 1986<br>
+            <strong>Employeurs :</strong> Hôpitaux, EHPAD, établissements médico-sociaux<br>
+            <strong>Retraite :</strong> CNRACL (même caisse que la FPT)<br>
+            <strong>Exemples de corps :</strong> Infirmiers, sages-femmes, techniciens de laboratoire
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🔍 Points communs aux 3 versants</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:#f8f9fc;border-radius:10px;padding:12px;font-size:.75em;border-left:3px solid #1a5abb"><strong>Statut général</strong><br>Loi du 13 juillet 1983 commune aux 3 versants — droits et obligations fondamentaux</div>
+        <div style="background:#f8f9fc;border-radius:10px;padding:12px;font-size:.75em;border-left:3px solid #e74c3c"><strong>CGFP</strong><br>Code Général de la FP depuis 2022 — codification commune aux 3 versants</div>
+        <div style="background:#f8f9fc;border-radius:10px;padding:12px;font-size:.75em;border-left:3px solid #27ae60"><strong>CST / CNRACL</strong><br>FPT et FPH partagent la CNRACL et ont des CST depuis 2023</div>
+        <div style="background:#f8f9fc;border-radius:10px;padding:12px;font-size:.75em;border-left:3px solid #8e44ad"><strong>CPF / Entretien pro</strong><br>CPF (24h/an), entretien professionnel annuel — communs aux 3 versants</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ── ORGANIGRAMMES 2 : Commune / Instances dialogue / Normes ── -->
+<!-- ── FLOWCHARTS 2 : Mutation / Titularisation / Concours / Protection fonctionnelle ── -->
+<!-- ── INFOGRAPHIES 2 : Congés / Point d'indice / Coût agent ── -->
+<!-- ── CALCULATRICES 2 : Ancienneté/échelon / Coût employeur / ISRC ── -->
+
+<!-- ORGANIGRAMMES SUPPLÉMENTAIRES -->
+<div id="v-orga2" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-orga2')">← Retour</button>
+    <span class="visuel-win-title">🏛️ Organigrammes — Institutions</span>
+  </div>
+  <div class="visuel-content">
+    <div id="orga-tooltip2" class="orga-tooltip"></div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏘️ Organisation d'une commune <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#e74c3c" data-tip2="MAIRE : autorité exécutive de la commune. Élu par le conseil municipal. Représente l'État (état civil, police...) ET la commune. Chef du personnel municipal.">👑 Maire</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#e74c3c" data-tip2="ADJOINTS AU MAIRE : élus par le conseil municipal. Reçoivent délégation du maire pour des domaines précis (urbanisme, finances, RH...).">Adjoints au Maire</div>
+          <div class="orga-node" style="--nc:#8e44ad" data-tip2="CONSEIL MUNICIPAL : organe délibérant. Vote le budget, le règlement intérieur, les grandes décisions. Contrôle l'action du maire.">Conseil Municipal</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip2="DGS (Directeur Général des Services) : premier agent municipal. Prépare et exécute les décisions du maire. Coordonne toutes les directions. Grade : attaché principal ou administrateur territorial.">DGS</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip2="DGA (Directeur Général Adjoint) : seconde le DGS. Peut superviser un pôle de directions (pôle social, technique, administratif...).">DGA</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#27ae60;font-size:.68em" data-tip2="Direction des Ressources Humaines : gestion du personnel, paie, formation, discipline, recrutement. Le SA travaille souvent ici.">DRH</div>
+          <div class="orga-node" style="--nc:#27ae60;font-size:.68em" data-tip2="Direction des Finances : budget M57, marchés publics, comptabilité. Travaille avec le comptable public (trésor).">Finances</div>
+          <div class="orga-node" style="--nc:#27ae60;font-size:.68em" data-tip2="Direction des Services Techniques : voirie, bâtiments communaux, eau, assainissement, espaces verts.">Technique</div>
+          <div class="orga-node" style="--nc:#27ae60;font-size:.68em" data-tip2="Direction de l'Action Sociale : CCAS, aides sociales, petite enfance, personnes âgées. Compétence partagée avec le département.">Social</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🗣️ Instances de dialogue social <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#16a085" data-tip2="CST — Comité Social Territorial : instance de dialogue social créée par la loi de transformation FP 2019 (remplace CTM + CHSCT depuis 2023). Consulté sur : conditions de travail, organisation des services, règlement intérieur, télétravail, égalité F/H. Composition : représentants du personnel élus + représentants de la collectivité.">🟢 CST — Comité Social Territorial</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip2="CAP — Commission Administrative Paritaire : composée à parité de représentants de l'administration et du personnel. Compétente pour les situations individuelles des fonctionnaires titulaires : refus de titularisation, licenciement, disponibilité d'office, certains recours. Depuis les LDG (2020), elle ne gère plus les mutations et avancements.">CAP — Commission Administrative Paritaire</div>
+          <div class="orga-node" style="--nc:#e67e22" data-tip2="CCP — Commission Consultative Paritaire : équivalent de la CAP pour les agents contractuels. Consultée pour les sanctions disciplinaires, non-renouvellement de contrat, licenciement. Obligatoire dans les collectivités de plus de 50 agents.">CCP — Commission Consultative Paritaire</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#8e44ad;font-size:.72em" data-tip2="REPRESENTANTS SYNDICAUX : élus lors des élections professionnelles tous les 4 ans. Siègent au CST, CAP, CCP. Les organisations syndicales représentatives peuvent négocier des accords collectifs depuis la loi 2010.">Représentants syndicaux élus</div>
+          <div class="orga-node" style="--nc:#8e44ad;font-size:.72em" data-tip2="REFERENT DEONTOLOGUE : obligatoire dans les collectivités de plus de 50 agents depuis 2019. Conseille les agents sur leurs obligations déontologiques. Peut être mutualisé entre collectivités.">Référent déontologue</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">⚖️ Hiérarchie des normes juridiques <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row"><div class="orga-node top" style="--nc:#c0392b;font-size:.75em" data-tip2="BLOC DE CONSTITUTIONNALITÉ : Constitution du 4 oct. 1958 + Déclaration des droits de l'homme 1789 + Préambule 1946 + Charte de l'environnement 2004. Sommet de la hiérarchie. Contrôle : Conseil constitutionnel.">🔝 Bloc de constitutionnalité</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#e74c3c;font-size:.75em" data-tip2="BLOC DE CONVENTIONALITÉ : traités et accords internationaux (CEDH, droit UE...). Supérieurs aux lois nationales depuis l'arrêt Nicolo (CE 1989). Contrôle : tribunaux ordinaires par voie d'exception.">Bloc de conventionalité (traités, UE)</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#e67e22;font-size:.75em" data-tip2="LOIS ORGANIQUES ET ORDINAIRES : votées par le Parlement. Art. 34 Constitution fixe le domaine de la loi. Ex: loi du 13 juillet 1983 (statut FP), CGFP. Contrôle : Conseil constitutionnel (QPC ou a priori).">Lois organiques et ordinaires</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#f39c12;font-size:.75em" data-tip2="ORDONNANCES ET DÉCRETS EN CONSEIL D'ÉTAT : pris par le gouvernement. Ordonnances : art. 38 Constitution (habilitation du Parlement). Décrets : signés par le Président ou le PM. Ex: décret CNRACL n°2025-86.">Ordonnances + Décrets en CE</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#27ae60;font-size:.75em" data-tip2="DÉCRETS SIMPLES ET ARRÊTÉS MINISTÉRIELS : réglementation courante. Ex: décret sur le télétravail, arrêté fixant le panier PSC. Signés par le Premier ministre ou les ministres.">Décrets simples + Arrêtés ministériels</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#2980b9;font-size:.75em" data-tip2="ARRÊTÉS LOCAUX : pris par les autorités locales (maire, préfet, président de conseil). Ex: arrêté municipal réglementant la circulation. Doivent respecter toutes les normes supérieures. Contrôle : déféré préfectoral.">📍 Arrêtés locaux (maire, préfet...)</div></div>
+        <div class="orga-connector"></div>
+        <div class="orga-row"><div class="orga-node" style="--nc:#7f8c8d;font-size:.75em" data-tip2="CIRCULAIRES ET INSTRUCTIONS : ne sont pas des normes juridiques à proprement parler mais guident l'action des services. Ne peuvent créer de droits pour les administrés (arrêt Notre-Dame du Kreisker 1954).">📋 Circulaires et instructions de service</div></div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏢 Structure d'un Département <span style="font-size:.7em;color:#888;font-weight:400">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#8e44ad" data-tip2="CONSEIL DÉPARTEMENTAL : organe délibérant élu au suffrage universel direct tous les 6 ans (scrutin binominal mixte). Vote le budget, les politiques départementales. 101 départements en France.">Conseil Départemental</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#8e44ad" data-tip2="PRÉSIDENT DU CONSEIL DÉPARTEMENTAL : élu par le conseil. Autorité exécutive. Chef du personnel du département. Préside la commission permanente. Ordonnateur des dépenses.">Président du CD</div>
+          <div class="orga-node" style="--nc:#7f8c8d" data-tip2="PRÉFET DE DÉPARTEMENT : représentant de l'État. Exerce le contrôle de légalité des actes du département. Peut déférer au TA les actes illégaux dans les 2 mois.">Préfet (contrôle légalité)</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip2="COMPÉTENCES OBLIGATOIRES département (depuis NOTRe 2015) : action sociale (RSA, PMI, aide aux personnes âgées/handicapées), collèges, routes départementales, archives, culture. Clause générale supprimée.">🏥 Action sociale (RSA, PMI, PA...)</div>
+          <div class="orga-node" style="--nc:#27ae60" data-tip2="COLLÈGES : le département est responsable de la construction, l'entretien et l'équipement des collèges. Les agents TOS (techniciens, ouvriers, de service) sont des agents territoriaux.">🏫 Collèges</div>
+          <div class="orga-node" style="--nc:#e67e22" data-tip2="ROUTES DÉPARTEMENTALES : entretien et gestion du réseau routier départemental. Compétence partagée avec les communes pour la voirie communale.">🛣️ Routes</div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOWCHARTS SUPPLÉMENTAIRES -->
+<div id="v-flow2" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-flow2')">← Retour</button>
+    <span class="visuel-win-title">🔄 Procédures — Carrière & Mobilité</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">🏆 Procédure de recrutement par concours</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#2980b9">📢 Ouverture du concours — avis publié au JO/BOAMP</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#2980b9">📝 Inscription du candidat<div class="flow-sub">Vérification des conditions : nationalité, casier judiciaire, diplôme requis</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#2980b9">📚 Épreuves d'admissibilité<div class="flow-sub">Épreuves écrites — jury établit la liste des admissibles</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#2980b9">🗣️ Épreuves d'admission<div class="flow-sub">Épreuves orales (dont entretien avec jury)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">📋 Liste d'aptitude établie par le jury<div class="flow-sub">Classement par ordre de mérite — valable 3 ans</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Recrutement par une collectivité ?<div class="flow-sub">Le candidat doit être recruté dans les 3 ans</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node" style="--flc:#e67e22;font-size:.7em">Stage (1 an en général)<div class="flow-sub">Période probatoire</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ 3 ans écoulés</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Radiation de la liste<div class="flow-sub">Doit repasser le concours</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node end">🎉 Titularisation — fonctionnaire titulaire</div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🚀 Procédure de promotion interne</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#27ae60">👤 Agent en catégorie C ou B souhaitant évoluer</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Voie choisie ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Voie A</div>
+            <div class="flow-node" style="--flc:#27ae60;font-size:.7em">Examen professionnel<div class="flow-sub">Épreuves adaptées au grade visé</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Voie B</div>
+            <div class="flow-node" style="--flc:#16a085;font-size:.7em">Liste d'aptitude<div class="flow-sub">Proposition par l'autorité territoriale</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">📋 Avis CAP (si applicable)<div class="flow-sub">Les LDG définissent les critères de priorité depuis 2020</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">✅ Inscription sur liste d'aptitude<div class="flow-sub">Valable 3 ans — renouvelable 2 fois</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#27ae60">🏢 Recrutement dans le nouveau grade<div class="flow-sub">Suivi d'une période de stage si premier recrutement</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node end">🎉 Titularisation dans le nouveau grade</div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🔄 Procédure de mutation / mobilité</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#e67e22">👤 Agent souhaitant changer de poste</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">📋 Consultation des LDG (Lignes Directrices de Gestion)<div class="flow-sub">Critères de priorité définis par l'autorité territoriale</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Mutation interne ou inter-collectivités ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Interne</div>
+            <div class="flow-node" style="--flc:#27ae60;font-size:.7em">Accord autorité territoriale<div class="flow-sub">Acte de mutation — pas de CAP depuis 2020</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Inter-collectivités</div>
+            <div class="flow-node" style="--flc:#2980b9;font-size:.7em">Accord des 2 collectivités requis<div class="flow-sub">Arrêté de mutation + prise en charge éventuelle</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">📝 Arrêté de mutation pris par l'autorité d'accueil<div class="flow-sub">Conservation du grade, de l'ancienneté d'échelon</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node end">✅ Prise de poste</div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🛡️ Procédure de protection fonctionnelle</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#c0392b">⚠️ Agent victime d'attaque dans l'exercice de ses fonctions<div class="flow-sub">(harcèlement, menaces, violences, diffamation...)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e74c3c">📬 Demande écrite de protection fonctionnelle<div class="flow-sub">Auprès de l'autorité territoriale — CGFP art. L134-1</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ L'administration accorde-t-elle la protection ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node end" style="font-size:.7em">Assistance juridique + prise en charge frais de procédure<div class="flow-sub">Remboursement condamné si faute personnelle</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ REFUS</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Recours TA dans les 2 mois<div class="flow-sub">Le refus injustifié = faute de service</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🎓 Procédure de titularisation du stagiaire</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#16a085">📄 Recrutement — arrêté de nomination comme stagiaire</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#16a085">📅 Stage (durée fixée par statut particulier — souvent 1 an)<div class="flow-sub">Période probatoire — le stagiaire n'est pas encore titulaire</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#16a085">📋 Formation d'intégration CNFPT obligatoire<div class="flow-sub">5 jours minimum pour les catégories B et C</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#16a085">📝 Entretien d'évaluation par le supérieur hiérarchique<div class="flow-sub">Avis transmis à l'autorité territoriale</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Évaluation favorable ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node end" style="font-size:.7em">🎉 Titularisation<div class="flow-sub">Arrêté de titularisation — fonctionnaire titulaire</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">⚠️ Doute</div>
+            <div class="flow-node" style="--flc:#e67e22;font-size:.7em">Prolongation du stage<div class="flow-sub">Maximum 1 an supplémentaire</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ NON</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Licenciement pour insuffisance professionnelle<div class="flow-sub">Ou réintégration grade d'origine si déjà fonctionnaire</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- INFOGRAPHIES SUPPLÉMENTAIRES -->
+<div id="v-infog2" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-infog2')">← Retour</button>
+    <span class="visuel-win-title">📊 Infographies — Carrière & Congés</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">🤒 Tableau comparatif des congés maladie</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.75em">
+          <thead>
+            <tr style="background:#1a2240;color:#fff">
+              <th style="padding:10px 8px;text-align:left;border-radius:8px 0 0 0">Type</th>
+              <th style="padding:10px 8px;text-align:center">Durée max</th>
+              <th style="padding:10px 8px;text-align:center">Plein traitement</th>
+              <th style="padding:10px 8px;text-align:center;border-radius:0 8px 0 0">Demi-traitement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fff5f5;border-bottom:1px solid #eee">
+              <td style="padding:10px 8px;font-weight:800;color:#e74c3c">CMO</td>
+              <td style="padding:10px 8px;text-align:center">12 mois / 3 ans</td>
+              <td style="padding:10px 8px;text-align:center">3 mois à 90%<br><span style="font-size:.85em;color:#888">(réforme mars 2025)</span></td>
+              <td style="padding:10px 8px;text-align:center">9 mois à 50%</td>
+            </tr>
+            <tr style="background:#fff8f0;border-bottom:1px solid #eee">
+              <td style="padding:10px 8px;font-weight:800;color:#e67e22">CLM</td>
+              <td style="padding:10px 8px;text-align:center">3 ans</td>
+              <td style="padding:10px 8px;text-align:center">1 an à 100%</td>
+              <td style="padding:10px 8px;text-align:center">2 ans à 50%</td>
+            </tr>
+            <tr style="background:#f0fff5;border-bottom:1px solid #eee">
+              <td style="padding:10px 8px;font-weight:800;color:#27ae60">CLD</td>
+              <td style="padding:10px 8px;text-align:center">5 ans</td>
+              <td style="padding:10px 8px;text-align:center">2 ans à 100%</td>
+              <td style="padding:10px 8px;text-align:center">3 ans à 50%</td>
+            </tr>
+            <tr style="background:#f0f6ff;border-bottom:1px solid #eee">
+              <td style="padding:10px 8px;font-weight:800;color:#2980b9">Maternité</td>
+              <td style="padding:10px 8px;text-align:center">16 semaines<br><span style="font-size:.85em;color:#888">(3ème enfant : 26 sem.)</span></td>
+              <td style="padding:10px 8px;text-align:center">100%</td>
+              <td style="padding:10px 8px;text-align:center">—</td>
+            </tr>
+            <tr style="background:#f8f0ff">
+              <td style="padding:10px 8px;font-weight:800;color:#8e44ad">Paternité</td>
+              <td style="padding:10px 8px;text-align:center">25 jours<br><span style="font-size:.85em;color:#888">(naissances mult. : 32j)</span></td>
+              <td style="padding:10px 8px;text-align:center">100%</td>
+              <td style="padding:10px 8px;text-align:center">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:.68em;color:#e74c3c;margin-top:10px;font-weight:600">⚠️ CMO mois 1-3 : était 100% avant mars 2025, désormais 90% — perte ~265€/mois pour un agent à 2 652€ net.</div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📈 Évolution du point d'indice 2017→2025</div>
+      <div class="bar-wrap"><div class="bar-label"><span>2017-2021 (gel)</span><span style="color:#e74c3c">4,6860€ — GEL</span></div><div class="bar-track"><div class="bar-fill" style="background:#bdc3c7;width:0" data-w="85%">4,6860€</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Juil. 2022 (+3,5%)</span><span style="color:#27ae60">4,8500€ ↑</span></div><div class="bar-track"><div class="bar-fill" style="background:#27ae60;width:0" data-w="88%">+3,5%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Juil. 2023 (+1,5%)</span><span style="color:#2980b9">4,9222€ ↑</span></div><div class="bar-track"><div class="bar-fill" style="background:#2980b9;width:0" data-w="89.5%">+1,5%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2024 (gel)</span><span style="color:#e74c3c">4,9222€ — GEL</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="89.5%">GEL</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>2025 (gel)</span><span style="color:#e74c3c">4,9222€ — GEL</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="89.5%">GEL</div></div></div>
+      <div style="font-size:.68em;color:#5a6070;margin-top:10px">ℹ️ Valeur du point d'indice = base de calcul du traitement. Traitement brut = indice majoré × valeur du point. Gel depuis 2024 = perte de pouvoir d'achat réel (inflation ~2,5%/an).</div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">👥 Répartition hommes/femmes dans la FP</div>
+      <div class="stat-grid">
+        <div class="stat-box" style="--sc:#e91e8c;--sc2:#c2185b"><div class="stat-num">61%</div><div class="stat-lbl">Femmes dans la FP (globalement)</div></div>
+        <div class="stat-box" style="--sc:#1a5abb;--sc2:#1565c0"><div class="stat-num">77%</div><div class="stat-lbl">Femmes dans la FPH</div></div>
+        <div class="stat-box" style="--sc:#7b1fa2;--sc2:#6a1b9a"><div class="stat-num">60%</div><div class="stat-lbl">Femmes dans la FPT</div></div>
+        <div class="stat-box" style="--sc:#e74c3c;--sc2:#c0392b"><div class="stat-num">-13%</div><div class="stat-lbl">Écart salarial F/H dans la FP</div></div>
+        <div class="stat-box" style="--sc:#27ae60;--sc2:#1e8449"><div class="stat-num">40%</div><div class="stat-lbl">Femmes aux postes de direction A+</div></div>
+        <div class="stat-box" style="--sc:#e67e22;--sc2:#d35400"><div class="stat-num">5 ans</div><div class="stat-lbl">Retard carrière femme vs homme en moy.</div></div>
+      </div>
+      <div style="font-size:.68em;color:#5a6070;margin-top:10px">ℹ️ Loi de transformation FP 2019 : index égalité F/H obligatoire pour collectivités &gt;40 000 hab. depuis 2023. Objectif : 40% de femmes primo-nommées postes direction.</div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">💼 Congés annuels — Règles clés</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:#e8f4ff;border-radius:10px;padding:12px;font-size:.78em;border-left:4px solid #2980b9">
+          <strong>Durée :</strong> 25 jours ouvrés par an (5 semaines) pour un agent à temps plein — proratisé pour les temps partiels et les arrivées en cours d'année.
+        </div>
+        <div style="background:#e8fff0;border-radius:10px;padding:12px;font-size:.78em;border-left:4px solid #27ae60">
+          <strong>Fractionnement :</strong> L'agent doit prendre au moins 10 jours ouvrés consécutifs entre mai et octobre. L'accord de l'administration est requis pour les dates.
+        </div>
+        <div style="background:#fff8e8;border-radius:10px;padding:12px;font-size:.78em;border-left:4px solid #e67e22">
+          <strong>Report :</strong> Les congés non pris peuvent être épargnés sur un CET (Compte Épargne-Temps). Plafond : 70 jours maximum. Rachat possible ou utilisation en fin de carrière.
+        </div>
+        <div style="background:#f8e8ff;border-radius:10px;padding:12px;font-size:.78em;border-left:4px solid #8e44ad">
+          <strong>Jours de fractionnement :</strong> Si l'agent prend des congés hors de la période mai-octobre, il peut bénéficier de 1 ou 2 jours de congés supplémentaires.
+        </div>
+        <div style="background:#fff0f0;border-radius:10px;padding:12px;font-size:.78em;border-left:4px solid #e74c3c">
+          <strong>Congés exceptionnels :</strong> Mariage (5 jours), PACS (3 jours), décès conjoint (3 jours), décès parent (3 jours), naissance (3 jours) — droits distincts des CA.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CALCULATRICES SUPPLÉMENTAIRES -->
+<div id="v-calc2" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-calc2')">← Retour</button>
+    <span class="visuel-win-title">🧮 Calculatrices — Carrière & Coûts</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="calc-wrap">
+      <div class="calc-title">📊 Coût total d'un agent pour la collectivité</div>
+      <div class="calc-field"><label>Traitement brut mensuel (€)</label><input type="number" id="cout-brut" placeholder="ex: 2000" min="1000"></div>
+      <div class="calc-field"><label>Versant</label>
+        <select id="cout-versant">
+          <option value="fpt2025">FPT — 2025 (CNRACL 34,65%)</option>
+          <option value="fpt2026">FPT — 2026 (CNRACL 37,65%)</option>
+          <option value="fpt2028">FPT — 2028 (CNRACL 43,65%)</option>
+          <option value="fpe">FPE — État (pension civile 74,28%)</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcCoutAgent()">Calculer le coût employeur</button>
+      <div class="calc-result" id="cout-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">📅 Estimateur d'échelon — Catégorie B (SA)</div>
+      <div class="calc-field"><label>Date de titularisation (ou prise de poste équivalente)</label><input type="month" id="ech-date"></div>
+      <div class="calc-field"><label>Rythme d'avancement</label>
+        <select id="ech-rythme">
+          <option value="min">Minimum (ancienneté max avant passage)</option>
+          <option value="moy" selected>Moyen (entre min et max)</option>
+          <option value="max">Maximum (avancement rapide)</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcEchelon()">Estimer mon échelon actuel</button>
+      <div class="calc-result" id="ech-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">🤝 Simulateur Rupture Conventionnelle — ISRC estimée</div>
+      <div class="calc-field"><label>Traitement brut mensuel (€)</label><input type="number" id="isrc-brut" placeholder="ex: 2200" min="1000"></div>
+      <div class="calc-field"><label>Années de service dans la FP</label><input type="number" id="isrc-annees" placeholder="ex: 15" min="1" max="40"></div>
+      <button class="calc-btn" onclick="calcISRC()">Estimer mon ISRC</button>
+      <div class="calc-result" id="isrc-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">📚 Calculatrice CPF — Droits formation</div>
+      <div class="calc-field"><label>Années d'ancienneté dans la FP</label><input type="number" id="cpf-annees" placeholder="ex: 10" min="1" max="40"></div>
+      <div class="calc-field"><label>Temps de travail</label>
+        <select id="cpf-temps">
+          <option value="1">Temps plein</option>
+          <option value="0.8">80%</option>
+          <option value="0.5">50%</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcCPF()">Calculer mes droits CPF</button>
+      <div class="calc-result" id="cpf-result"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ MODULE : ORGA RÉGION & EPCI ══ -->
+<div id="v-orga3" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-orga3')">← Retour</button>
+    <span class="visuel-win-title">🌍 Région, EPCI & Préfet</span>
+  </div>
+  <div class="visuel-content">
+    <div id="orga-tooltip3" class="orga-tooltip"></div>
+
+    <div class="infog-section">
+      <div class="infog-title">🌍 Structure d'une Région <span style="font-size:.7em;color:#888">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#16a085" data-tip3="CONSEIL RÉGIONAL : organe délibérant élu au scrutin de liste à 2 tours tous les 6 ans. 18 régions (13 métropolitaines + 5 ultramarines). Vote le budget régional, les grandes politiques. Contrôle l'action du président.">Conseil Régional</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#16a085" data-tip3="PRÉSIDENT DU CONSEIL RÉGIONAL : autorité exécutive. Élu par le conseil régional. Prépare et exécute les délibérations. Chef du personnel régional. Ordonnateur des dépenses.">Président du CR</div>
+          <div class="orga-node" style="--nc:#27ae60" data-tip3="COMMISSION PERMANENTE : émanation du conseil régional, peut exercer les délégations données par le conseil. Permet de prendre des décisions entre les sessions plénières.">Commission permanente</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#2980b9" data-tip3="COMPÉTENCES RÉGION (loi NOTRe 2015) : développement économique CHEF DE FILE, formation professionnelle, lycées, transports interurbains et ferroviaires régionaux (TER), aménagement du territoire, fonds européens.">🏭 Développement économique</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip3="FORMATION PROFESSIONNELLE : la région est compétente pour la formation des demandeurs d'emploi, l'apprentissage, les lycées professionnels. Compétence exclusive depuis la loi NOTRe.">🎓 Formation pro / Lycées</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip3="TRANSPORTS : la région gère les TER (trains express régionaux) et les transports routiers interurbains (depuis la loi NOTRe qui a transféré cette compétence des départements).">🚂 Transports (TER)</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏘️ Intercommunalité — Types d'EPCI <span style="font-size:.7em;color:#888">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#8e44ad" data-tip3="MÉTROPOLE : EPCI le plus intégré. Plus de 400 000 hab. (ou 650 000 pour création ex nihilo). Compétences très larges : développement économique, aménagement, mobilité, habitat, énergie. Exemples : Grand Paris, Lyon, Marseille, Bordeaux...">🏙️ Métropole (&gt;400 000 hab.)</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#8e44ad" data-tip3="COMMUNAUTÉ URBAINE (CU) : plus de 250 000 habitants. Compétences obligatoires très étendues (développement économique, aménagement, habitat, voirie...). Fiscalité propre.">CU &gt;250 000 hab.</div>
+          <div class="orga-node" style="--nc:#2980b9" data-tip3="COMMUNAUTÉ D'AGGLOMÉRATION (CA) : plus de 50 000 hab. autour d'une ville-centre de plus de 15 000 hab. 4 compétences obligatoires + 3 optionnelles. Fiscalité propre. ~230 CA en France.">CA &gt;50 000 hab.</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#27ae60" data-tip3="COMMUNAUTÉ DE COMMUNES (CC) : EPCI le plus répandu (~1 000 CC). Zones rurales et semi-urbaines. Seuil minimal : 15 000 hab. (depuis NOTRe). 2 compétences obligatoires + 3 optionnelles. Fiscalité propre.">CC &gt;15 000 hab. (zones rurales)</div>
+          <div class="orga-node" style="--nc:#7f8c8d" data-tip3="SYNDICATS INTERCOMMUNAUX (SIC, SIVU, SIVOM) : pas de fiscalité propre. Financés par contributions des communes membres. Compétences limitées (eau, assainissement...). En diminution depuis les fusions imposées par NOTRe.">Syndicats (sans fiscalité propre)</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏛️ Rôle du Préfet <span style="font-size:.7em;color:#888">(clique pour détail)</span></div>
+      <div class="orga-wrap"><div class="orga-tree">
+        <div class="orga-row">
+          <div class="orga-node top" style="--nc:#c0392b" data-tip3="PRÉFET : représentant de l'État dans le département (préfet de département) ou la région (préfet de région). Nommé par décret du Président en Conseil des ministres. Corps des préfets = A+.">👮 Préfet — représentant de l'État</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#e74c3c" data-tip3="CONTRÔLE DE LÉGALITÉ : le préfet reçoit les actes des collectivités (délibérations, marchés publics, contrats...). Il dispose de 2 mois pour les déférer au TA s'ils lui semblent illégaux. Il ne peut pas les annuler lui-même.">⚖️ Contrôle de légalité</div>
+          <div class="orga-node" style="--nc:#e74c3c" data-tip3="CONTRÔLE BUDGÉTAIRE : le préfet saisit la Chambre Régionale des Comptes si le budget d'une collectivité est en déséquilibre ou si les dépenses obligatoires ne sont pas inscrites. La CRC rend un avis contraignant.">💰 Contrôle budgétaire (CRC)</div>
+        </div>
+        <div class="orga-connector"></div>
+        <div class="orga-row">
+          <div class="orga-node" style="--nc:#e67e22" data-tip3="DÉFÉRÉ PRÉFECTORAL : procédure par laquelle le préfet saisit le TA d'un acte illégal d'une collectivité. Délai : 2 mois après réception de l'acte. Le préfet peut assortir son recours d'une demande de suspension (référé-suspension).">📋 Déféré préfectoral (2 mois)</div>
+          <div class="orga-node" style="--nc:#e67e22" data-tip3="POUVOIR DE SUBSTITUTION : dans certains cas (police administrative), le préfet peut se substituer au maire défaillant pour prendre les mesures nécessaires à l'ordre public, aux frais de la commune.">🔄 Pouvoir de substitution</div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODULE : FLOWCHARTS DROITS AGENTS ══ -->
+<div id="v-flow3" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-flow3')">← Retour</button>
+    <span class="visuel-win-title">⚡ Droits agents — Procédures</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">✊ Exercice du droit de grève</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#e74c3c">📢 Décision de grève — organisation syndicale représentative</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e74c3c">📬 Préavis de grève obligatoire — 5 jours francs minimum<div class="flow-sub">Déposé par une organisation syndicale représentative auprès de l'autorité territoriale</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">🤝 Négociation obligatoire pendant le préavis<div class="flow-sub">L'administration DOIT négocier — refus = illégalité</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Accord trouvé ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node end" style="font-size:.7em">Fin du préavis — grève évitée</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ NON</div>
+            <div class="flow-node" style="--flc:#e74c3c;font-size:.7em">Grève déclenchée<div class="flow-sub">Retenue 1/30ème du traitement par jour</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#8e44ad">⚠️ Limites : service minimum dans certains services<div class="flow-sub">Collecte déchets, transports, crèches... — assignations possibles</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node end">📋 Reprise — aucune sanction possible pour fait de grève licite</div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">😰 Procédure en cas de harcèlement moral</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#c0392b">⚠️ Agent victime de harcèlement moral<div class="flow-sub">Agissements répétés, dégradation des conditions de travail — CGFP art. L133-2</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Voie A</div>
+            <div class="flow-node" style="--flc:#2980b9;font-size:.7em">Signalement au référent déontologue<div class="flow-sub">Obligatoire depuis 2019</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Voie B</div>
+            <div class="flow-node" style="--flc:#8e44ad;font-size:.7em">Demande de protection fonctionnelle<div class="flow-sub">Auprès de l'autorité territoriale</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Voie C</div>
+            <div class="flow-node" style="--flc:#e67e22;font-size:.7em">Défenseur des droits<div class="flow-sub">Autorité indépendante</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#27ae60">🛡️ Protection fonctionnelle accordée<div class="flow-sub">Assistance juridique + prise en charge frais — CGFP art. L134-1</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Poursuites pénales souhaitées ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Oui</div>
+            <div class="flow-node end" style="font-size:.7em">Plainte pénale — harcèlement moral puni 2 ans prison + 30 000€ amende</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Non</div>
+            <div class="flow-node end" style="font-size:.7em">Recours TA pour faute de service si administration négligente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏥 Passage CMO → CLM → CLD → Disponibilité d'office</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#e67e22">🤒 Agent en arrêt maladie</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#e67e22">CMO — Congé Maladie Ordinaire<div class="flow-sub">Max 12 mois sur 12 mois consécutifs — 90% puis 50%</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Maladie grave listée (longue maladie) ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ OUI</div>
+            <div class="flow-node" style="--flc:#8e44ad;font-size:.7em">CLM — 3 ans<div class="flow-sub">1 an à 100% + 2 ans à 50%</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">Maladie contractée en service</div>
+            <div class="flow-node" style="--flc:#e74c3c;font-size:.7em">CLD — 5 ans<div class="flow-sub">2 ans à 100% + 3 ans à 50%</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Droits épuisés — reprise possible ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ Guéri</div>
+            <div class="flow-node end" style="font-size:.7em">Reprise du poste ou reclassement</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ Inapte</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Disponibilité d'office<div class="flow-sub">Sans traitement — droit à réintégration si guérison</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🕐 Procédure heures supplémentaires</div>
+      <div class="flow-wrap">
+        <div class="flow-node start" style="--flc:#2980b9">⏰ Agent effectue des heures au-delà de 35h/semaine</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node decision" style="--flc:#1a5abb">❓ Heures demandées par l'autorité territoriale ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branch">
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">✅ Oui — autorisées</div>
+            <div class="flow-node" style="--flc:#27ae60;font-size:.7em">IHTS — Indemnité Horaire pour Travaux Supplémentaires<div class="flow-sub">Ou récupération — au choix de l'agent si accord employeur</div></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-branch-label">❌ Non — spontanées</div>
+            <div class="flow-node end-bad" style="font-size:.7em">Pas d'indemnisation de droit<div class="flow-sub">Sauf accord préalable de l'autorité</div></div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="--flc:#2980b9">Catégories A : pas d'IHTS — remplacé par NBI ou régime indemnitaire<div class="flow-sub">Principe : les catégories A sont censées gérer leur temps librement</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MODULE : INFOGRAPHIES CHIFFRES ══ -->
+<div id="v-infog3" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-infog3')">← Retour</button>
+    <span class="visuel-win-title">🔢 Chiffres clés & statistiques</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">📊 Répartition par catégorie dans la FPT</div>
+      <div class="bar-wrap"><div class="bar-label"><span>Catégorie C (agents d'exécution)</span><span style="color:#e74c3c;font-weight:800">75%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="75%">75%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Catégorie B (techniciens, SA...)</span><span style="color:#e67e22;font-weight:800">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e67e22;width:0" data-w="15%">15%</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Catégorie A (cadres, attachés...)</span><span style="color:#2980b9;font-weight:800">10%</span></div><div class="bar-track"><div class="bar-fill" style="background:#2980b9;width:0" data-w="10%">10%</div></div></div>
+      <div style="font-size:.68em;color:#5a6070;margin-top:8px">ℹ️ Le SA (Secrétaire Administratif) appartient à la catégorie B — grade intermédiaire entre agents d'exécution (C) et cadres de direction (A).</div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📉 Réformes des retraites — Chronologie</div>
+      <div class="bar-wrap"><div class="bar-label"><span>Loi Balladur 1993 — allongement privé</span><span style="color:#7f8c8d">150 trimestres → 160</span></div><div class="bar-track"><div class="bar-fill" style="background:#7f8c8d;width:0" data-w="60%">160 trim.</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Réforme Fillon 2003 — FP alignée</span><span style="color:#e67e22">37,5 ans → 40 ans</span></div><div class="bar-track"><div class="bar-fill" style="background:#e67e22;width:0" data-w="70%">160 trim.</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Réforme Woerth 2010 — âge retraite</span><span style="color:#e74c3c">60 ans → 62 ans</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="75%">166 trim.</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Réforme Touraine 2014 — durée</span><span style="color:#8e44ad">41 ans → 43 ans</span></div><div class="bar-track"><div class="bar-fill" style="background:#8e44ad;width:0" data-w="85%">172 trim.</div></div></div>
+      <div class="bar-wrap"><div class="bar-label"><span>Réforme Borne 2023 — âge légal</span><span style="color:#c0392b;font-weight:900">62 ans → 64 ans !</span></div><div class="bar-track"><div class="bar-fill" style="background:#c0392b;width:0" data-w="95%">172 trim.</div></div></div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🗳️ Dialogue social — Élections professionnelles</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:#e8f4ff;border-radius:10px;padding:12px;font-size:.75em;border-left:4px solid #2980b9">
+          <strong>Périodicité :</strong> Tous les 4 ans. Dernières élections : <strong>décembre 2022</strong>. Prochaines : décembre 2026.
+        </div>
+        <div style="background:#f8f9fc;border-radius:10px;padding:12px;font-size:.75em">
+          <strong>Résultats 2022 — FPT (en % des suffrages) :</strong><br>
+          <div style="margin-top:8px">
+            <div class="bar-wrap"><div class="bar-label"><span>CGT-FTE</span><span>22,5%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e74c3c;width:0" data-w="22.5%">22,5%</div></div></div>
+            <div class="bar-wrap"><div class="bar-label"><span>CFDT</span><span>19,3%</span></div><div class="bar-track"><div class="bar-fill" style="background:#e67e22;width:0" data-w="19.3%">19,3%</div></div></div>
+            <div class="bar-wrap"><div class="bar-label"><span>FO</span><span>14,2%</span></div><div class="bar-track"><div class="bar-fill" style="background:#f39c12;width:0" data-w="14.2%">14,2%</div></div></div>
+            <div class="bar-wrap"><div class="bar-label"><span>UNSA</span><span>11,8%</span></div><div class="bar-track"><div class="bar-fill" style="background:#2980b9;width:0" data-w="11.8%">11,8%</div></div></div>
+            <div class="bar-wrap"><div class="bar-label"><span>FA-FPT</span><span>9,6%</span></div><div class="bar-track"><div class="bar-fill" style="background:#8e44ad;width:0" data-w="9.6%">9,6%</div></div></div>
+          </div>
+        </div>
+        <div style="background:#e8fff0;border-radius:10px;padding:12px;font-size:.75em;border-left:4px solid #27ae60">
+          <strong>Seuil de représentativité :</strong> 8% des suffrages pour siéger au CST national. Les organisations représentatives peuvent négocier des accords collectifs et désigner des représentants syndicaux.
+        </div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">📋 Chiffres clés — Les 3 versants comparés</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.73em">
+          <thead>
+            <tr style="background:#1a2240;color:#fff">
+              <th style="padding:9px 8px;text-align:left">Critère</th>
+              <th style="padding:9px 8px;text-align:center;color:#ff8080">FPE</th>
+              <th style="padding:9px 8px;text-align:center;color:#80c4ff">FPT</th>
+              <th style="padding:9px 8px;text-align:center;color:#80ffaa">FPH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fff;border-bottom:1px solid #eee"><td style="padding:8px">Effectifs</td><td style="text-align:center;font-weight:700">2,5M</td><td style="text-align:center;font-weight:700">1,9M</td><td style="text-align:center;font-weight:700">1,2M</td></tr>
+            <tr style="background:#f8f9fc;border-bottom:1px solid #eee"><td style="padding:8px">Loi fondatrice</td><td style="text-align:center">1983</td><td style="text-align:center">1984</td><td style="text-align:center">1986</td></tr>
+            <tr style="background:#fff;border-bottom:1px solid #eee"><td style="padding:8px">Retraite</td><td style="text-align:center">Pensions civiles État</td><td style="text-align:center">CNRACL</td><td style="text-align:center">CNRACL</td></tr>
+            <tr style="background:#f8f9fc;border-bottom:1px solid #eee"><td style="padding:8px">Formation</td><td style="text-align:center">IGPDE</td><td style="text-align:center">CNFPT</td><td style="text-align:center">ANFH</td></tr>
+            <tr style="background:#fff;border-bottom:1px solid #eee"><td style="padding:8px">Concours SA/equiv.</td><td style="text-align:center">Secrétaire admin.</td><td style="text-align:center">Secrétaire admin.</td><td style="text-align:center">Adjoint admin.</td></tr>
+            <tr style="background:#f8f9fc"><td style="padding:8px">% contractuels</td><td style="text-align:center">21%</td><td style="text-align:center">22%</td><td style="text-align:center">31%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MODULE : CALCULATRICES TEMPS & PRIMES ══ -->
+<div id="v-calc3" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-calc3')">← Retour</button>
+    <span class="visuel-win-title">⏱️ Temps de travail & Primes</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="calc-wrap">
+      <div class="calc-title">⏰ Calculatrice Temps Partiel — Impact traitement</div>
+      <div class="calc-field"><label>Traitement brut mensuel temps plein (€)</label><input type="number" id="tp-brut" placeholder="ex: 2200" min="1000"></div>
+      <div class="calc-field"><label>Quotité de temps partiel</label>
+        <select id="tp-quotite">
+          <option value="0.9">90%</option>
+          <option value="0.8" selected>80%</option>
+          <option value="0.7">70%</option>
+          <option value="0.6">60%</option>
+          <option value="0.5">50%</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcTP()">Calculer</button>
+      <div class="calc-result" id="tp-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">⭐ Calculatrice NBI — Nouvelle Bonification Indiciaire</div>
+      <div class="calc-field"><label>Points NBI attribués à votre poste</label>
+        <select id="nbi-points">
+          <option value="10">10 pts — Secrétaire de mairie &lt;2000 hab.</option>
+          <option value="15">15 pts — Responsable de service technique</option>
+          <option value="20" selected>20 pts — Secrétaire de mairie 2000-10000 hab.</option>
+          <option value="25">25 pts — Chef de service financier</option>
+          <option value="30">30 pts — DGS petite commune</option>
+          <option value="40">40 pts — DGS ville moyenne</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcNBI()">Calculer ma NBI mensuelle</button>
+      <div class="calc-result" id="nbi-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">👨‍👩‍👧 Calculatrice SFT — Supplément Familial de Traitement</div>
+      <div class="calc-field"><label>Nombre d'enfants à charge</label>
+        <select id="sft-enfants">
+          <option value="0">0 enfant (pas de SFT)</option>
+          <option value="1">1 enfant</option>
+          <option value="2" selected>2 enfants</option>
+          <option value="3">3 enfants</option>
+          <option value="4">4 enfants</option>
+          <option value="5">5 enfants et plus</option>
+        </select>
+      </div>
+      <div class="calc-field"><label>Traitement brut mensuel (€)</label><input type="number" id="sft-brut" placeholder="ex: 2000" min="1000"></div>
+      <button class="calc-btn" onclick="calcSFT()">Calculer mon SFT</button>
+      <div class="calc-result" id="sft-result"></div>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-title">📊 Simulateur RIFSEEP — IFSE + CIA estimé</div>
+      <div class="calc-field"><label>Catégorie</label>
+        <select id="rifseep-cat">
+          <option value="A">Catégorie A (attaché territorial)</option>
+          <option value="B" selected>Catégorie B (SA)</option>
+          <option value="C">Catégorie C (adjoint administratif)</option>
+        </select>
+      </div>
+      <div class="calc-field"><label>Groupe de fonctions (1 = plus complexe)</label>
+        <select id="rifseep-groupe">
+          <option value="1">Groupe 1 — Fonctions supérieures / encadrement</option>
+          <option value="2" selected>Groupe 2 — Fonctions intermédiaires</option>
+          <option value="3">Groupe 3 — Fonctions d'exécution</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcRIFSEEP()">Estimer mon RIFSEEP</button>
+      <div class="calc-result" id="rifseep-result"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MODULE : FRISE HISTOIRE FP ══ -->
+<div id="v-frise2" class="visuel-window">
+  <div class="visuel-win-header">
+    <button class="visuel-win-back" onclick="closeVisuel('v-frise2')">← Retour</button>
+    <span class="visuel-win-title">📜 Histoire sociale de la FP</span>
+  </div>
+  <div class="visuel-content">
+
+    <div class="infog-section">
+      <div class="infog-title">✊ Histoire du droit de grève dans la FP</div>
+      <div class="frise-wrap"><div class="frise-line" style="background:linear-gradient(180deg,#e74c3c,#e67e22)"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#7f8c8d"></div><div class="frise-year" style="--fc:#7f8c8d">1864</div><div class="frise-event">Droit de grève reconnu dans le secteur privé</div><div class="frise-detail">Loi Ollivier — dépénalise la grève pour les travailleurs du privé. Les fonctionnaires restent exclus.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e74c3c"></div><div class="frise-year" style="--fc:#e74c3c">1946</div><div class="frise-event">Droit de grève inscrit dans le Préambule de la Constitution</div><div class="frise-detail">Préambule de la Constitution de 1946 (valeur constitutionnelle) : "Le droit de grève s'exerce dans le cadre des lois qui le réglementent." S'applique aux fonctionnaires.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e67e22"></div><div class="frise-year" style="--fc:#e67e22">1963</div><div class="frise-event">Loi du 31 juillet 1963 — préavis obligatoire</div><div class="frise-detail">Obligation de déposer un préavis de 5 jours francs avant toute grève dans la FP. Seule une organisation syndicale représentative peut déposer le préavis.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#f39c12"></div><div class="frise-year" style="--fc:#f39c12">1987</div><div class="frise-event">Grève dans les services essentiels — service minimum</div><div class="frise-detail">Développement progressif du service minimum dans certains secteurs (transport, éducation). Encadrement renforcé par jurisprudence CE.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">2007</div><div class="frise-event">Loi sur le dialogue social et la continuité du service</div><div class="frise-detail">Renforce l'obligation de négociation pendant le préavis. Crée le service minimum d'accueil dans les écoles primaires en cas de grève des enseignants.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#8e44ad"></div><div class="frise-year" style="--fc:#8e44ad">2010</div><div class="frise-event">Loi sur le dialogue social — représentativité syndicale</div><div class="frise-detail">Réforme de la représentativité syndicale dans la FP. Seuil de 8% pour être représentatif. Généralisation des accords collectifs.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#27ae60"></div><div class="frise-year" style="--fc:#27ae60">2019</div><div class="frise-event">Loi de transformation FP — dialogue social rénové</div><div class="frise-detail">Création du CST (fusion CTM + CHSCT). Renforcement des droits à négociation collective. Accords collectifs opposables possibles dans la FP.</div></div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">👩 Égalité femmes-hommes dans la FP — Chronologie</div>
+      <div class="frise-wrap"><div class="frise-line" style="background:linear-gradient(180deg,#e91e8c,#8e44ad)"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#7f8c8d"></div><div class="frise-year" style="--fc:#7f8c8d">1946</div><div class="frise-event">Principe d'égalité d'accès aux emplois publics</div><div class="frise-detail">Le Préambule de 1946 garantit l'égalité des droits entre femmes et hommes, notamment l'accès aux emplois publics.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e91e8c"></div><div class="frise-year" style="--fc:#e91e8c">1983</div><div class="frise-event">Statut général — principe de non-discrimination</div><div class="frise-detail">La loi Le Pors affirme l'égalité de traitement entre fonctionnaires sans distinction de sexe. Principe d'égale admissibilité aux concours.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#c2185b"></div><div class="frise-year" style="--fc:#c2185b">2001</div><div class="frise-event">Loi Génisson — égalité professionnelle</div><div class="frise-detail">Obligation de négocier sur l'égalité professionnelle dans la FP. Première approche structurée de l'égalité salariale.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#8e44ad"></div><div class="frise-year" style="--fc:#8e44ad">2012</div><div class="frise-event">Loi Sauvadet — objectif 40% de femmes aux postes de direction</div><div class="frise-detail">Objectif progressif de 40% de femmes parmi les primo-nominations aux emplois d'encadrement supérieur et de direction. Pénalité financière si non-respect.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#6a1b9a"></div><div class="frise-year" style="--fc:#6a1b9a">2019</div><div class="frise-event">Loi transformation FP — plan d'action égalité obligatoire</div><div class="frise-detail">Les collectivités de plus de 20 000 hab. doivent établir un plan d'action pluriannuel sur l'égalité professionnelle. Référent égalité obligatoire dans les grandes collectivités.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e91e8c"></div><div class="frise-year" style="--fc:#e91e8c">2023</div><div class="frise-event">Index égalité F/H — collectivités &gt;40 000 hab.</div><div class="frise-detail">Depuis 2023, les collectivités de plus de 40 000 habitants doivent publier un index d'égalité professionnelle (sur 100 points). Mesure les écarts de rémunération et de promotion.</div></div>
+      </div>
+    </div>
+
+    <div class="infog-section">
+      <div class="infog-title">🏛️ Grandes lois sociales — FP de 1945 à aujourd'hui</div>
+      <div class="frise-wrap"><div class="frise-line" style="background:linear-gradient(180deg,#2980b9,#27ae60)"></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">1945</div><div class="frise-event">Création de la Sécurité Sociale</div><div class="frise-detail">Ordonnances de 1945. Les fonctionnaires ont leur propre régime : CNRACL (1945) pour FPT/FPH, régime des pensions civiles pour FPE.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#27ae60"></div><div class="frise-year" style="--fc:#27ae60">1983-1986</div><div class="frise-event">Statuts des 3 versants</div><div class="frise-detail">FPE : loi 1983 (statut général) / FPT : loi 1984 / FPH : loi 1986. Codifiés dans le CGFP depuis 2022.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e67e22"></div><div class="frise-year" style="--fc:#e67e22">2001</div><div class="frise-event">Loi ARTT — 35 heures dans la FP</div><div class="frise-detail">Application des 35 heures dans la FP. Décret 2001-623 pour la FPT. Durée annuelle : 1 607 heures. Mise en place des RTT et du compte épargne-temps (CET).</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#8e44ad"></div><div class="frise-year" style="--fc:#8e44ad">2007</div><div class="frise-event">Loi mobilité — inter-versants</div><div class="frise-detail">Facilite la mobilité entre les 3 versants. Principe de portabilité des droits acquis. Ouverture du détachement intégration.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#16a085"></div><div class="frise-year" style="--fc:#16a085">2016</div><div class="frise-event">Loi Déontologie — HATVP, référent, lanceurs alerte</div><div class="frise-detail">Renforce les obligations déontologiques. Création du référent déontologue. Encadrement des conflits d'intérêts. Protection des lanceurs d'alerte.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#2980b9"></div><div class="frise-year" style="--fc:#2980b9">2019</div><div class="frise-event">Loi de transformation FP</div><div class="frise-detail">La plus grande réforme depuis 1983 : LDG, CST, rupture conventionnelle, recrutement contractuel facilité, index égalité, RIFSEEP généralisé.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#c0392b"></div><div class="frise-year" style="--fc:#c0392b">2022</div><div class="frise-event">CGFP — Code Général de la FP</div><div class="frise-detail">Codification à droit constant des 3 statuts dans un seul code. Simplifie l'accès au droit de la FP. Entrée en vigueur au 1er mars 2022.</div></div>
+        <div class="frise-item"><div class="frise-dot" style="--fc:#e74c3c"></div><div class="frise-year" style="--fc:#e74c3c">2025</div><div class="frise-event">Réforme CMO + hausse CNRACL</div><div class="frise-detail">Art. 189 loi n°2025-127 : CMO mois 1-3 passe à 90%. Décret n°2025-86 : CNRACL hausse de +4pts (34,65%) avec trajectoire jusqu'en 2028 (+43,65%).</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
