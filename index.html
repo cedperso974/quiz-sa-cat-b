@@ -3476,9 +3476,19 @@ function resetMenu(){
 function fermerJeu(id) {
   // Stopper le chrono carte si actif
   if(typeof carteChronoInterval !== 'undefined') clearInterval(carteChronoInterval);
+  if(typeof hintsAutoInterval !== 'undefined') clearInterval(hintsAutoInterval);
   // Masquer la modale correction carte si ouverte
   var modal = document.getElementById('carte-correction-modal');
   if(modal) modal.style.display = 'none';
+  // Réinitialiser l'état de la carte mentale
+  if(id === 'carte'){
+    carteIdx=0; carteScore=0; carteData=[]; cartePlaced=[]; carteSelected=null;
+    carteProgress=0; carteTotal=0; carteDuJourMode=false;
+    document.getElementById('carte-score').textContent='0 pts';
+    document.getElementById('carte-intro').style.display='block';
+    document.getElementById('carte-game').style.display='none';
+    document.getElementById('carte-fin').style.display='none';
+  }
   var jeuEl = document.getElementById('jeu-'+id);
   if(jeuEl){ jeuEl.classList.remove('active'); jeuEl.style.display = ''; }
   document.body.style.overflow = '';
@@ -4161,7 +4171,7 @@ var CARTE_DATA = [
   // ── 1. PROCÉDURE DISCIPLINAIRE ──
   {centre:"PROCÉDURE\nDISCIPLINAIRE",theme:"Sanctions & groupes",
    zones:["Groupe 1","Groupe 2","Groupe 3","Groupe 4"],
-   hints:["Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?"],
+   hints:["Sanction légère, avertissement ou blâme ?","Exclusion courte : combien de jours max ?","Exclusion longue ou rétrogradation ?","Sanction ultime, fin de carrière ?"],
    pieces:["Avertissement / Blâme","Exclusion 1 à 10 jours","Rétrogradation / Exclusion 11j-2ans","Révocation / Retraite d'office"],
    solution:[0,1,2,3],
    explications:["G1 : avertissement, blâme — pas de conseil de discipline requis","G2 : exclusion temporaire de 1 à 10 jours — conseil de discipline obligatoire","G3 : rétrogradation ou exclusion de 11 jours à 2 ans — conseil de discipline obligatoire","G4 : mise à la retraite d'office ou révocation — sanction la plus grave"],
@@ -4170,7 +4180,7 @@ var CARTE_DATA = [
   // ── 2. LOIS DE ROLLAND ──
   {centre:"LOIS DE\nROLLAND",theme:"Principes du Service Public",
    zones:["Continuité","Égalité","Mutabilité","Neutralité"],
-   hints:["Définition du principe","Définition du principe","Définition du principe","Définition du principe"],
+   hints:["Pas d'interruption du service ?","Même traitement pour tous les usagers ?","Le service évolue avec la société ?","Pas d'opinion dans les fonctions ?"],
    pieces:["Pas d'interruption du SP","Même service pour tous","Adaptation aux besoins","Pas d'opinion dans les fonctions"],
    solution:[0,1,2,3],
    explications:["Continuité : fondement du service minimum et de l'encadrement du droit de grève (préavis 5j)","Égalité : même accès et même traitement pour tous les usagers, sans discrimination","Mutabilité (adaptabilité) : le SP doit évoluer avec les besoins de la société et les techniques","Neutralité : l'agent ne manifeste aucune opinion politique ou religieuse dans l'exercice de ses fonctions"],
@@ -4179,7 +4189,7 @@ var CARTE_DATA = [
   // ── 3. POSITIONS DU FONCTIONNAIRE ──
   {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Positions statutaires",
    zones:["Position normale","Hors corps / organisme accueil","Sans traitement","Droits suspendus"],
-   hints:["Nom de la position","Nom de la position","Nom de la position","Nom de la position"],
+   hints:["Agent sur son poste habituel ?","Agent placé hors de son corps ?","Agent hors administration, sans traitement ?","Agent en congé pour enfant ?"],
    pieces:["Activité (poste habituel)","Détachement","Disponibilité","Congé parental"],
    solution:[0,1,2,3],
    explications:["Activité : position normale — agent présent sur son poste, rémunéré, droits pleins","Détachement : agent placé hors de son corps, rémunéré par l'organisme d'accueil","Disponibilité : hors administration — ni traitement, ni avancement, ni droits à retraite","Congé parental : droits à avancement et retraite suspendus — jusqu'aux 3 ans de l'enfant"],
@@ -4188,7 +4198,7 @@ var CARTE_DATA = [
   // ── 4. CNRACL RÉFORME 2025 ──
   {centre:"CNRACL\nRÉFORME 2025",theme:"Trajectoire des cotisations",
    zones:["Taux 2025","Taux 2026","Taux 2027","Taux 2028"],
-   hints:["Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?"],
+   hints:["Taux 2025 : +4pts → quel % ?","Taux 2026 : +3pts supplémentaires ?","Taux 2027 : vers quel % ?","Taux 2028 : objectif final ?"],
    pieces:["34,65%","37,65%","40,65%","43,65%"],
    solution:[0,1,2,3],
    explications:["2025 : 34,65% — hausse de +4pts par rapport à 30,65% (décret n°2025-86)","2026 : 37,65% — +3pts selon la trajectoire programmée","2027 : 40,65% — la hausse continue pour combler le déficit structurel","2028 : 43,65% — objectif final de la trajectoire de redressement CNRACL"],
@@ -4197,7 +4207,7 @@ var CARTE_DATA = [
   // ── 5. CST ──
   {centre:"DIALOGUE\nSOCIAL FPT",theme:"Le Comité Social Territorial",
    zones:["Fusion de quoi ?","Nom de l'instance","Compétence principale","Date de création"],
-   hints:["Quelles anciennes instances ?","Quel est le nom actuel ?","Que traite-t-il ?","Depuis quand ?"],
+   hints:["Fusion CTE + CHSCT → quel sigle ?","Nom de la nouvelle instance unifiée ?","Compétence : conditions de travail & … ?","Réforme entrée en vigueur quand ?"],
    pieces:["CTM + CHSCT","CST","Conditions de travail & formation","Janvier 2023"],
    solution:[0,1,2,3],
    explications:["Fusion du Comité Technique Municipal (CTM) + CHSCT (hygiène & sécurité)","Le Comité Social Territorial (CST) — une instance unique par collectivité","Traite : conditions de travail, organisation des services, formation, égalité professionnelle","Installé en janvier 2023 — issu de la loi de transformation FP du 6 août 2019"],
@@ -4206,7 +4216,7 @@ var CARTE_DATA = [
   // ── 6. PSC ──
   {centre:"PROTECTION\nSOCIALE PSC",theme:"Participation employeur territorial",
    zones:["Prévoyance — depuis","Prévoyance — montant","Santé — depuis","Santé — montant"],
-   hints:["Quelle date ?","Quel minimum ?","Quelle date ?","Quel minimum ?"],
+   hints:["Participation employeur santé : depuis quand ?","Montant minimum mensuel santé ?","Participation prévoyance : depuis quand ?","Montant minimum mensuel prévoyance ?"],
    pieces:["Janvier 2025","7€/mois min (20% de 35€)","Janvier 2026","15€/mois min (50% de 30€)"],
    solution:[0,1,2,3],
    explications:["Prévoyance obligatoire depuis le 1er janvier 2025 — accord collectif FPT 2023","7€/mois minimum = 20% d'un panier de référence de 35€ (prévoyance)","Complémentaire santé obligatoire à partir du 1er janvier 2026","15€/mois minimum = 50% d'un panier de 30€ (santé) — loi de transformation FP 2019"],
@@ -4215,7 +4225,7 @@ var CARTE_DATA = [
   // ── 7. RUPTURE CONVENTIONNELLE ──
   {centre:"RUPTURE\nCONVENTIONNELLE",theme:"Dispositif pérennisé 2026",
    zones:["Fondement légal","Indemnité versée","Droit chômage ?","Remboursement si..."],
-   hints:["Où est-ce codifié ?","Quel nom ?","Oui ou non ?","Quelle condition ?"],
+   hints:["Article du CGFP qui la codifie ?","Nom de l'indemnité versée à l'agent ?","L'agent a-t-il droit au chômage ?","Condition : ancienneté minimum ?"],
    pieces:["CGFP art. L552-1 à L552-5","ISRC","Oui — allocation chômage","Retour FP dans les 6 ans"],
    solution:[0,1,2,3],
    explications:["Codifiée au CGFP par la loi n°2026-103 du 19 fév. 2026 — art. L552-1 à L552-5","ISRC = Indemnité Spécifique de Rupture Conventionnelle — calculée selon l'ancienneté","Oui — l'agent peut percevoir l'allocation chômage (ARE) après la rupture","Si retour dans la FP dans les 6 ans → remboursement intégral de l'ISRC"],
@@ -4224,7 +4234,7 @@ var CARTE_DATA = [
   // ── 8. CATÉGORIES HIÉRARCHIQUES ──
   {centre:"CATÉGORIES\nHIÉRARCHIQUES",theme:"Organisation de la FP",
    zones:["Catégorie A","Catégorie B","Catégorie C","Exemple concours B"],
-   hints:["Quel niveau d'études ?","Quel niveau d'études ?","Quel niveau d'études ?","Quel poste ?"],
+   hints:["Catégorie C : niveau d'études requis ?","Catégorie B : niveau d'études requis ?","Catégorie A : niveau d'études requis ?","Exemple de poste de direction ?"],
    pieces:["Cadres (niveau licence)","Intermédiaires (niveau bac)","Exécution (niveau < bac)","Secrétaire Administratif"],
    solution:[0,1,2,3],
    explications:["Catégorie A : emplois de conception, d'encadrement supérieur — niveau licence minimum","Catégorie B : emplois d'application et d'encadrement intermédiaire — niveau bac","Catégorie C : emplois d'exécution — niveau inférieur au bac (le plus nombreux en FPT)","Le concours de Secrétaire Administratif est l'emblème de la catégorie B — externe, interne, 3ème voie"],
@@ -4251,7 +4261,7 @@ var CARTE_DATA = [
   // ── 11. RECRUTEMENT CONCOURS ──
   {centre:"RECRUTEMENT\nCONCOURS SA",theme:"Voies d'accès catégorie B",
    zones:["Concours externe","Concours interne","3ème concours","Promotion interne"],
-   hints:["Pour qui ?","Pour qui ?","Pour qui ?","Quelle condition ?"],
+   hints:["Concours externe : ouvert à qui ?","Concours interne : ouvert à qui ?","3e voie : pour quel profil ?","Durée du stage après réussite ?"],
    pieces:["Diplômés sans expérience FP","Fonctionnaires avec 1 an de services","Élus, bénévoles, mandataires (4 ans)","Au choix / examen professionnel"],
    solution:[0,1,2,3],
    explications:["Externe : ouvert aux diplômés (niveau bac) sans condition d'ancienneté dans la FP","Interne : ouvert aux fonctionnaires justifiant d'au moins 1 an de services effectifs","3ème concours : ouvert aux élus locaux, mandataires associatifs, dirigeants d'entreprise (4 ans minimum)","Promotion interne : accès au grade supérieur par inscription sur liste d'aptitude ou examen professionnel"],
@@ -4278,7 +4288,7 @@ var CARTE_DATA = [
   // ── 14. RESPONSABILITÉ ADMINISTRATIVE ──
   {centre:"RESPONSABILITÉ\nADMINISTRATIVE",theme:"Faute service vs personnelle",
    zones:["Faute de service","Faute personnelle","Conséquence faute service","Conséquence faute perso"],
-   hints:["Qui est responsable ?","Qui est responsable ?","Qui paie ?","Qui paie ?"],
+   hints:["Faute de service : qui est responsable ?","Faute personnelle : qui est responsable ?","Réparation faute service : qui paie ?","Réparation faute personnelle : qui paie ?"],
    pieces:["L'administration répond","L'agent répond personnellement","Indemnisation par la collectivité","Indemnisation par l'agent lui-même"],
    solution:[0,1,2,3],
    explications:["Faute de service : commise dans l'exercice des fonctions, non détachable — l'administration est responsable","Faute personnelle : détachable du service (intention de nuire, comportement inexcusable) — l'agent est responsable","Faute de service → la victime est indemnisée par la collectivité (juge administratif)","Faute personnelle → l'agent indemnise lui-même (juge judiciaire). Cumul possible si les deux fautes coexistent"],
@@ -4287,7 +4297,7 @@ var CARTE_DATA = [
   // ── 15. DECENTRALISATION ──
   {centre:"3 VAGUES DE\nDÉCENTRALISATION",theme:"Histoire de la décentralisation",
    zones:["1ère vague — 1982","2ème vague — 2003","3ème vague — 2015","Principe commun"],
-   hints:["Quelle loi ?","Quelle loi ?","Quelle loi ?","Quel contrôle ?"],
+   hints:["1ère vague 1982 : quelle loi fondatrice ?","2ème vague 2003 : quelle révision ?","3ème vague 2015 : quelle loi ?","Contrôle remplacé par quoi en 1982 ?"],
    pieces:["Lois Defferre — libertés communes","Acte II — expérimentation, RF autonome","Loi NOTRe — blocs de compétences","Contrôle de légalité a posteriori"],
    solution:[0,1,2,3],
    explications:["1982 : lois Defferre — suppression de la tutelle a priori, création des régions comme collectivités de plein exercice","2003 : Acte II — expérimentation, principe de subsidiarité, autonomie financière inscrite dans la Constitution","2015 : loi NOTRe — suppression clause générale pour régions/dpts, nouveau découpage, renforcement des EPCI","Principe constant : contrôle de légalité a posteriori du préfet (2 mois pour déférer au TA)"],
@@ -4296,7 +4306,7 @@ var CARTE_DATA = [
   // ── 16. COMPÉTENCES COLLECTIVITÉS ──
   {centre:"COMPÉTENCES\nCOLLECTIVITÉS",theme:"Loi NOTRe 2015",
    zones:["Région","Département","Commune","EPCI"],
-   hints:["Compétence principale ?","Compétence principale ?","Compétence principale ?","Rôle principal ?"],
+   hints:["Compétence principale de la Région ?","Compétence principale du Département ?","Compétence principale de la Commune ?","Domaine partagé entre tous les niveaux ?"],
    pieces:["Développement économique & formation","Solidarités & action sociale","Services de proximité (clause générale)","Coopération intercommunale"],
    solution:[0,1,2,3],
    explications:["Région : chef de file du développement économique, formation professionnelle, lycées, transport ferroviaire régional","Département : chef de file des solidarités (RSA, APA, ASE), collèges, routes départementales","Commune : conserve la clause de compétence générale — urbanisme, état civil, police administrative","EPCI : regroupe les communes pour exercer des compétences mutualisées (eau, déchets, transport urbain...)"],
@@ -4332,7 +4342,7 @@ var CARTE_DATA = [
   // ── 20. RECOURS ADMINISTRATIFS ──
   {centre:"RECOURS\nADMINISTRATIFS",theme:"Voies de recours",
    zones:["Recours gracieux","Recours hiérarchique","Recours contentieux","Délai de droit commun"],
-   hints:["Auprès de qui ?","Auprès de qui ?","Devant qui ?","Quel délai ?"],
+   hints:["Recours gracieux : auprès de qui ?","Recours hiérarchique : auprès de qui ?","Recours contentieux : devant qui ?","Délai pour saisir le juge ?"],
    pieces:["Auprès de l'auteur de l'acte","Auprès du supérieur hiérarchique","Tribunal administratif","2 mois à compter de la notification"],
    solution:[0,1,2,3],
    explications:["Recours gracieux : demande à l'auteur de l'acte de le retirer ou le modifier — suspend le délai contentieux","Recours hiérarchique : demande au supérieur de l'auteur — suspend aussi le délai contentieux","Recours contentieux : saisine du TA — doit être précédé en principe d'un RAPO (recours administratif préalable obligatoire) dans certains cas","Délai de droit commun : 2 mois à compter de la notification ou publication de l'acte pour former un recours"],
@@ -4341,7 +4351,7 @@ var CARTE_DATA = [
   // ── 21. ABANDON DE POSTE ──
   {centre:"ABANDON\nDE POSTE",theme:"Procédure et conséquences",
    zones:["Nature juridique","Étape obligatoire","Conséquence","≠ Sanction disciplinaire ?"],
-   hints:["C'est quoi exactement ?","Que doit faire l'admin ?","Que devient l'agent ?","Vrai ou faux ?"],
+   hints:["Absence sans justification : combien de jours ?","Que doit envoyer l'administration ?","Conséquence : radiation ou licenciement ?","L'agent a-t-il droit à l'ARE ?"],
    pieces:["Constat de rupture du lien de service","Mise en demeure préalable écrite","Radiation des cadres","Vrai — pas de conseil de discipline"],
    solution:[0,1,2,3],
    explications:["L'abandon de poste est un constat administratif, pas une sanction disciplinaire — il constate que l'agent a rompu son lien avec le service","La mise en demeure est OBLIGATOIRE — sans elle, la radiation est illégale (jurisprudence CE constante)","L'agent est radié des cadres et perd la qualité de fonctionnaire","Vrai : pas de conseil de discipline, pas de procédure disciplinaire — mais mise en demeure obligatoire"],
@@ -4350,7 +4360,7 @@ var CARTE_DATA = [
   // ── 22. PROTECTION FONCTIONNELLE ──
   {centre:"PROTECTION\nFONCTIONNELLE",theme:"CGFP art. L134-1",
    zones:["Qui bénéficie ?","Ce que couvre","Qui paie ?","Cas de refus"],
-   hints:["Tous les agents ?","Quels actes ?","L'administration ou l'agent ?","Quelle exception ?"],
+   hints:["S'applique à tous les agents ? (oui/non)","Couvre attaques, menaces et … ?","Qui prend en charge les frais de justice ?","Exception : faute personnelle détachable ?"],
    pieces:["Tout fonctionnaire (titulaire et stagiaire)","Menaces, violences, injures, poursuites","L'administration (collectivité)","Faute personnelle détachable du service"],
    solution:[0,1,2,3],
    explications:["Tous les fonctionnaires bénéficient de la protection fonctionnelle — titulaires, stagiaires, et parfois contractuels","Couvre : menaces, violences, injures, harcèlement, poursuites judiciaires injustifiées liées aux fonctions","L'administration doit protéger et indemniser l'agent — c'est une obligation, pas une faculté","La protection peut être refusée si les faits constituent une faute personnelle détachable de l'exercice des fonctions"],
@@ -4359,7 +4369,7 @@ var CARTE_DATA = [
   // ── 23. CONGÉS STATUTAIRES ──
   {centre:"CONGÉS\nSTATUTAIRES",theme:"Principaux congés du fonctionnaire",
    zones:["CMO — durée max","CLM — durée max","CLD — durée max","Congé maternité"],
-   hints:["Combien de jours/mois ?","Combien d'années ?","Combien d'années ?","Durée de base ?"],
+   hints:["Congé annuel : combien de jours ouvrés ?","CLM : durée maximale totale ?","CLD : durée maximale totale ?","CET : plafond de jours accumulés ?"],
    pieces:["12 mois sur 12 mois consécutifs","3 ans (1 an plein + 2 ans demi)","5 ans (2 ans pleins + 3 ans demi)","16 semaines (6 avant + 10 après)"],
    solution:[0,1,2,3],
    explications:["CMO : jusqu'à 12 mois consécutifs — depuis mars 2025 : 90% les 3 premiers mois, puis 50%","CLM : 3 ans maximum — 1 an à plein traitement + 2 ans à demi-traitement. Affections graves listées","CLD : 5 ans maximum — 2 ans à plein traitement + 3 ans à demi-traitement. Maladies contractées en service","Congé maternité : 16 semaines (droit commun) — 26 semaines dès le 3ème enfant. Maintien intégral du traitement"],
@@ -4377,7 +4387,7 @@ var CARTE_DATA = [
   // ── 25. GRÈVE DANS LA FP ──
   {centre:"DROIT DE GRÈVE\nFONCTION PUBLIQUE",theme:"Encadrement et limites",
    zones:["Préavis obligatoire","Formes interdites","Agents ne pouvant grever","Fondement légal"],
-   hints:["Combien de jours ?","Quelles formes ?","Quels corps ?","Quelle loi ?"],
+   hints:["Préavis obligatoire : combien de jours francs ?","Forme interdite : grève … ?","Corps totalement privés du droit de grève ?","Retenue sur salaire : quel fraction ?"],
    pieces:["5 jours francs","Grève tournante et surprise","Policiers, militaires (certains)","Loi du 31 juillet 1963"],
    solution:[0,1,2,3],
    explications:["Préavis de 5 jours francs obligatoire — déposé par une organisation syndicale représentative auprès de l'autorité hiérarchique","Grève tournante (services à tour de rôle) et grève surprise (sans préavis) sont interdites dans la FP","Certains corps ne peuvent pas faire grève : militaires, policiers nationaux, magistrats judiciaires, agents des services essentiels","Loi du 31 juillet 1963 encadre le droit de grève dans la FP — équilibre entre continuité du SP et droit fondamental"],
@@ -4386,7 +4396,7 @@ var CARTE_DATA = [
   // ── 26. CUMUL D'ACTIVITÉS ──
   {centre:"CUMUL\nD'ACTIVITÉS",theme:"Règles et exceptions",
    zones:["Principe général","Activités autorisées","Obligation formelle","Décret de référence"],
-   hints:["Interdit ou autorisé ?","Exemple d'exception ?","Quelle démarche ?","Quel texte ?"],
+   hints:["Cumul avec emploi privé : interdit ou encadré ?","Création d'entreprise : durée maximum ?","Démarche obligatoire : déclaration à qui ?","Texte de référence : loi du … ?"],
    pieces:["Interdiction de principe","Activités accessoires (enseignement, créations...)","Déclaration à l'autorité hiérarchique","Décret n°2020-69 du 30 jan. 2020"],
    solution:[0,1,2,3],
    explications:["Principe : le fonctionnaire consacre l'intégralité de son activité professionnelle aux fonctions qui lui sont confiées","Exceptions : activités accessoires listées (enseignement, conseil, création artistique, auto-entrepreneur sous conditions...)","Obligation de déclaration préalable à l'autorité hiérarchique — même pour les activités autorisées","Décret n°2020-69 du 30 janvier 2020 régit le cumul d'activités dans la FP"],
@@ -4413,7 +4423,7 @@ var CARTE_DATA = [
   // ── 29. STATUT GÉNÉRAL FP ──
   {centre:"STATUT GÉNÉRAL\nFONCTION PUBLIQUE",theme:"3 versants de la FP",
    zones:["FPE","FPT","FPH","Effectif total approx."],
-   hints:["Quel versant état ?","Quel versant territorial ?","Quel versant hospitalier ?","Combien d'agents ?"],
+   hints:["Versant État : sigle ?","Versant Territorial : sigle ?","Versant Hospitalier : sigle ?","Loi fondatrice commune aux 3 versants ?"],
    pieces:["~2,5 millions d'agents","~1,9 million d'agents","~1,2 million d'agents","~5,7 millions d'agents"],
    solution:[0,1,2,3],
    explications:["FPE (État) : ~2,5 millions — le versant le plus nombreux, régi par la loi du 13 juillet 1983","FPT (Territoriale) : ~1,9 million — agents des collectivités et EPCI, régi par la loi du 26 janvier 1984","FPH (Hospitalière) : ~1,2 million — agents des hôpitaux et établissements médico-sociaux, loi du 9 janvier 1986","Total : ~5,7 millions d'agents publics en France (rapport annuel état de la FP 2025)"],
@@ -5402,8 +5412,8 @@ function lancerCarteDuJour(carteIdx){
     showToast('✅ Déjà faite aujourd\u2019hui ! Choisis une autre.');
     return;
   }
-  // Lancer la carte en niveau 2
-  setCarteNiveau(2);
+  // Lancer la carte en niveau 1 (guidé, avec indices)
+  setCarteNiveau(1);
   carteScore=0; carteIdx_launch=carteIdx;
   carteData = [CARTE_DATA[carteIdx]];
   carteIdx = 0;
