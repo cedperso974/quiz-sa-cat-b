@@ -544,6 +544,72 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .calc-result.warn { background:linear-gradient(135deg,#fff5e0,#ffe8c0); border-color:#e67e22; }
 .calc-result.warn .cr-main { color:#7a3a00; }
 
+
+/* ── Niveaux carte mentale ── */
+.carte-niveau-bar { display:flex; gap:6px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+.carte-niv-btn { padding:7px 14px; border-radius:20px; border:2px solid #b0ccf0; background:#f0f6ff; color:#1a3a6e; font-size:.75em; font-weight:700; cursor:pointer; transition:all .2s; }
+.carte-niv-btn.active { background:linear-gradient(135deg,#1a5abb,#0d2244); color:#fff; border-color:#1a5abb; }
+.carte-niv-btn.niv1 { border-color:#27ae60; }
+.carte-niv-btn.niv1.active { background:linear-gradient(135deg,#27ae60,#1a7a40); border-color:#27ae60; }
+.carte-niv-btn.niv2 { border-color:#e67e22; }
+.carte-niv-btn.niv2.active { background:linear-gradient(135deg,#e67e22,#b7600a); border-color:#e67e22; }
+.carte-niv-btn.niv3 { border-color:#e74c3c; }
+.carte-niv-btn.niv3.active { background:linear-gradient(135deg,#e74c3c,#c0392b); border-color:#e74c3c; }
+.carte-niv-btn.niv4 { border-color:#8e44ad; }
+.carte-niv-btn.niv4.active { background:linear-gradient(135deg,#8e44ad,#6c3483); border-color:#8e44ad; }
+
+/* ── Chrono carte ── */
+.carte-chrono-wrap { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.carte-chrono-display { font-size:1.1em; font-weight:900; color:#1a5abb; min-width:36px; }
+.carte-chrono-bar { flex:1; height:6px; background:#e8edf5; border-radius:3px; overflow:hidden; }
+.carte-chrono-fill { height:100%; background:linear-gradient(90deg,#27ae60,#2ecc71); border-radius:3px; transition:width .5s linear; }
+.carte-chrono-fill.danger { background:linear-gradient(90deg,#e74c3c,#ff6b6b); }
+
+/* ── Input niveau 4 (frappe libre) ── */
+.carte-zone-input { width:100%; padding:6px 8px; border:2px solid #b0ccf0; border-radius:8px; font-size:.8em; font-family:inherit; color:#1a2240; background:#fff; margin-top:4px; }
+.carte-zone-input:focus { outline:none; border-color:#1a5abb; }
+.carte-zone-input.correct { border-color:#27ae60; background:#eafaf5; }
+.carte-zone-input.wrong   { border-color:#e74c3c; background:#fff0f0; }
+
+/* ── Historique carte ── */
+.carte-histo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:10px; }
+.carte-histo-item { background:#f0f6ff; border-radius:10px; padding:10px; font-size:.72em; border-left:4px solid #b0ccf0; }
+.carte-histo-item.maitrise { border-color:#27ae60; background:#eafaf5; }
+.carte-histo-item.difficile { border-color:#e74c3c; background:#fff0f0; }
+.carte-histo-name { font-weight:800; color:#1a2240; margin-bottom:3px; }
+.carte-histo-stats { color:#556070; }
+
+/* ── Exemple en correction ── */
+.carte-exemple-box { background:#fff8e8; border:1.5px solid #f0c040; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:.78em; color:#5a3e00; line-height:1.5; }
+.carte-exemple-label { font-weight:800; color:#b7600a; margin-bottom:3px; }
+
+/* ── Badge niveau sur la carte ── */
+.carte-niveau-badge { display:inline-block; padding:3px 10px; border-radius:12px; font-size:.7em; font-weight:800; margin-bottom:8px; }
+.badge-niv1 { background:#eafaf5; color:#1a7a40; }
+.badge-niv2 { background:#fff4e8; color:#b7600a; }
+.badge-niv3 { background:#fff0f0; color:#c0392b; }
+.badge-niv4 { background:#f5eaff; color:#6c3483; }
+
+/* ── Points faibles bouton ── */
+.carte-faibles-btn { background:linear-gradient(135deg,#e74c3c,#c0392b); color:#fff; border:none; border-radius:12px; padding:10px 18px; font-weight:800; font-size:.82em; cursor:pointer; margin-top:8px; width:100%; }
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* ── Carte du jour ── */
+#carte-du-jour-banner { transition: opacity .2s; }
+#carte-du-jour-banner:active { opacity:.85; }
+
+/* ── Streak carte mentale ── */
+.streak-fire { animation: fireFlicker .6s ease-in-out infinite alternate; }
+@keyframes fireFlicker { from{transform:scale(1)} to{transform:scale(1.15)} }
+
+/* ── Déblocage cartes ── */
+.carte-locked { opacity:.45; pointer-events:none; filter:grayscale(1); position:relative; }
+.carte-locked::after { content:'🔒'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.4em; }
+.carte-unlock-anim { animation: unlockPop .5s cubic-bezier(.36,2,.6,1); }
+@keyframes unlockPop { 0%{transform:scale(.5);opacity:0} 100%{transform:scale(1);opacity:1} }
+
+/* ── Carte du jour complétée ── */
+.cdj-done { background:linear-gradient(135deg,#27ae60,#1a7a40) !important; }
 </style>
 </head>
 <body>
@@ -561,6 +627,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="menu-hero">
     <h2>Prépare ton concours 🎯</h2>
     <p>401 questions · 14 thèmes · Avril 2026</p>
+  </div>
+  <div id="carte-du-jour-banner" style="display:none;background:linear-gradient(135deg,#003580,#1a5abb);border-radius:14px;padding:12px 14px;margin-bottom:12px;cursor:pointer;color:#fff" onclick="lancerCarteDuJour()">
+    <div style="font-size:.72em;font-weight:700;opacity:.8;margin-bottom:2px">🗓️ CARTE DU JOUR</div>
+    <div style="font-weight:900;font-size:.92em" id="cdj-titre">Chargement...</div>
+    <div style="font-size:.72em;opacity:.75;margin-top:3px">Tap pour commencer → 2 minutes chrono</div>
   </div>
   <div class="stats-row">
     <div class="stat-card"><div class="val" id="statTotal">0</div><div class="lbl">Questions vues</div></div>
@@ -900,18 +971,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="jeu-header">
     <button class="jeu-back" onclick="fermerJeu('carte')">← Quitter</button>
     <span class="jeu-title">🗺️ Carte Mentale</span>
-    <span class="jeu-score-badge" id="carte-score">0 pts</span>
+    <span class="jeu-score-badge" id="carte-score">0 pts</span><span id="carte-streak-badge" style="font-size:.85em;margin-left:4px"></span>
   </div>
   <div id="carte-intro" style="text-align:center;padding:20px 0">
     <div style="font-size:3em;margin-bottom:12px">🗺️</div>
     <div style="color:#1a2240;font-size:1.05em;font-weight:700;margin-bottom:8px">Place les bonnes pièces</div>
     <div style="color:#556070;font-size:.85em;line-height:1.6;margin-bottom:12px">Un concept central s'affiche.<br>Clique une pièce puis la zone où elle doit aller.<br>Bonne association = points !</div>
     <div style="background:#f0f6ff;border:2px solid #90b8f0;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.78em;color:#1a3a6e;text-align:left"><strong>🖱️ Mode d'emploi :</strong> 1) Clique une pièce (elle devient bleue) · 2) Clique la zone cible · ✅ Vert = correct · ❌ Secousse = mauvaise zone, réessaie !</div>
-    <button class="btn-start" onclick="startCarte()" style="background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800">🗺️ Commencer</button>
+    <div style="margin:12px 0 6px;font-size:.8em;font-weight:700;color:#1a3a6e">Choisis ton niveau :</div>
+    <div class="carte-niveau-bar">
+      <button class="carte-niv-btn niv1 active" id="niv-btn-1" onclick="setCarteNiveau(1)">🟢 Niveau 1<br><span style="font-weight:400;font-size:.85em">Guidé</span></button>
+      <button class="carte-niv-btn niv2" id="niv-btn-2" onclick="setCarteNiveau(2)">🟠 Niveau 2<br><span style="font-weight:400;font-size:.85em">Sans indices</span></button>
+      <button class="carte-niv-btn niv3" id="niv-btn-3" onclick="setCarteNiveau(3)">🔴 Niveau 3<br><span style="font-weight:400;font-size:.85em">Initiales seules</span></button>
+      <button class="carte-niv-btn niv4" id="niv-btn-4" onclick="setCarteNiveau(4)">🟣 Niveau 4<br><span style="font-weight:400;font-size:.85em">Tu tapes tout</span></button>
+    </div>
+    <button class="btn-start" onclick="startCarte()" style="background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800;margin-top:8px">🗺️ Commencer</button>
+    <button class="carte-faibles-btn" onclick="startCarteFaibles()" id="btn-carte-faibles" style="display:none">💪 Retravailler mes points faibles</button>
+    <div id="carte-histo-preview" style="margin-top:14px"></div>
   </div>
   <div id="carte-game" style="display:none">
     <div class="carte-arena">
+      <div id="carte-niv-badge" class="carte-niveau-badge badge-niv1" style="display:block;text-align:center;margin-bottom:4px"></div>
       <div class="carte-theme-label" id="carte-theme-label">THÈME</div>
+      <div class="carte-chrono-wrap" id="carte-chrono-wrap"><div class="carte-chrono-display" id="carte-chrono-display">60</div><div class="carte-chrono-bar"><div class="carte-chrono-fill" id="carte-chrono-fill" style="width:100%"></div></div></div>
       <div class="carte-center" id="carte-center"></div>
       <div class="carte-score-ring">
         <div style="font-size:.75em;color:#1a5abb" id="carte-progress"></div>
@@ -4052,7 +4134,8 @@ var CARTE_DATA = [
    hints:["Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?","Quelle(s) sanction(s) ?"],
    pieces:["Avertissement / Blâme","Exclusion 1 à 10 jours","Rétrogradation / Exclusion 11j-2ans","Révocation / Retraite d'office"],
    solution:[0,1,2,3],
-   explications:["G1 : avertissement, blâme — pas de conseil de discipline requis","G2 : exclusion temporaire de 1 à 10 jours — conseil de discipline obligatoire","G3 : rétrogradation ou exclusion de 11 jours à 2 ans — conseil de discipline obligatoire","G4 : mise à la retraite d'office ou révocation — sanction la plus grave"]},
+   explications:["G1 : avertissement, blâme — pas de conseil de discipline requis","G2 : exclusion temporaire de 1 à 10 jours — conseil de discipline obligatoire","G3 : rétrogradation ou exclusion de 11 jours à 2 ans — conseil de discipline obligatoire","G4 : mise à la retraite d'office ou révocation — sanction la plus grave"],
+   exemple:"\u{1F4CB} Marc arrive régulièrement en retard → avertissement (G1). S'il falsifie un document officiel → exclusion 11j-2ans (G3). S'il détourne des fonds publics → révocation (G4)."},
 
   // ── 2. LOIS DE ROLLAND ──
   {centre:"LOIS DE\nROLLAND",theme:"Principes du Service Public",
@@ -4060,7 +4143,8 @@ var CARTE_DATA = [
    hints:["Définition du principe","Définition du principe","Définition du principe","Définition du principe"],
    pieces:["Pas d'interruption du SP","Même service pour tous","Adaptation aux besoins","Pas d'opinion dans les fonctions"],
    solution:[0,1,2,3],
-   explications:["Continuité : fondement du service minimum et de l'encadrement du droit de grève (préavis 5j)","Égalité : même accès et même traitement pour tous les usagers, sans discrimination","Mutabilité (adaptabilité) : le SP doit évoluer avec les besoins de la société et les techniques","Neutralité : l'agent ne manifeste aucune opinion politique ou religieuse dans l'exercice de ses fonctions"]},
+   explications:["Continuité : fondement du service minimum et de l'encadrement du droit de grève (préavis 5j)","Égalité : même accès et même traitement pour tous les usagers, sans discrimination","Mutabilité (adaptabilité) : le SP doit évoluer avec les besoins de la société et les techniques","Neutralité : l'agent ne manifeste aucune opinion politique ou religieuse dans l'exercice de ses fonctions"],
+   exemple:"\u{1F4CB} Une mairie ferme son état-civil 3 semaines → viole la Continuité. Elle refuse l'accès à une personne handicapée → viole l'Égalité. Elle refuse d'adopter la dématérialisation → viole la Mutabilité."},
 
   // ── 3. POSITIONS DU FONCTIONNAIRE ──
   {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Positions statutaires",
@@ -4305,16 +4389,16 @@ function loadCarte(){
   carteTotal=d.zones.length; carteProgress=0;
   document.getElementById('carte-theme-label').textContent=d.theme.toUpperCase();
   document.getElementById('carte-center').textContent=d.centre;
-  // Zones
-  var zh='';
-  d.zones.forEach(function(z,i){
-    var hint=d.hints?d.hints[i]:'';
-    zh+='<div class="carte-zone" id="carte-zone-'+i+'" onclick="placerPiece('+i+')">';
-    zh+='<div class="carte-zone-label">'+z+'</div>';
-    if(hint) zh+='<div class="carte-zone-hint">'+hint+'</div>';
-    zh+='<div class="carte-zone-content" id="carte-zone-content-'+i+'"></div>';
-    zh+='</div>';
-  });
+  // Badge niveau
+  var nivLabels={1:'🟢 Niveau 1 — Guidé',2:'🟠 Niveau 2 — Sans indices',3:'🔴 Niveau 3 — Initiales',4:'🟣 Niveau 4 — Frappe libre'};
+  var nivClasses={1:'badge-niv1',2:'badge-niv2',3:'badge-niv3',4:'badge-niv4'};
+  var badgeEl=document.getElementById('carte-niv-badge');
+  if(badgeEl){ badgeEl.textContent=nivLabels[carteNiveau]||''; badgeEl.className='carte-niveau-badge '+(nivClasses[carteNiveau]||''); }
+  // Démarrer chrono + hints auto
+  startCarteChrono();
+  startHintsAuto(d);
+  // Zones — selon niveau
+  var zh = loadCarteNiveau(d);
   document.getElementById('carte-zones').innerHTML=zh;
   // Pièces mélangées
   var order=d.pieces.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
@@ -4352,12 +4436,8 @@ function placerPiece(zi){
     carteSelected=null;
     majCarteProgress();
     if(carteProgress>=carteTotal){
-      setTimeout(function(){
-        var res='<div style="background:#fff;border:2px solid #2a8a40;border-radius:14px;padding:14px;margin-top:12px;font-size:.82em;color:#0d3a15;line-height:1.9">';
-        d.explications.forEach(function(e,i){ res+='<strong>'+d.zones[i]+' :</strong> '+e+'<br>'; });
-        res+='</div><div style="text-align:center;margin-top:12px"><button class="btn-start" onclick="nextCarte()" style="font-size:.9em">Schéma suivant →</button></div>';
-        document.getElementById('carte-game').insertAdjacentHTML('beforeend', res);
-      }, 300);
+      clearInterval(carteChronoInterval);
+      setTimeout(function(){ nextCarte(); }, 500);
     }
   } else {
     zone.classList.add('wrong-zone');
@@ -4384,10 +4464,16 @@ function nextCarte(){
 }
 
 function finCarte(){
+  clearInterval(carteChronoInterval);
+  var modal = document.getElementById('carte-correction-modal');
+  if(modal) modal.style.display='none';
   document.getElementById('carte-game').style.display='none';
   document.getElementById('carte-fin').style.display='block';
   document.getElementById('carte-fin-score').textContent=carteScore+' points';
   document.getElementById('carte-fin-detail').textContent=carteIdx+'/'+carteData.length+' schémas complétés';
+  carteFaiblesMode = false;
+  afficherHistorique();
+  document.getElementById('carte-intro').style.display='block';
 }
 
 // ──────────────────────────────────────
@@ -4933,6 +5019,450 @@ function calcRIFSEEP() {
     '<em>Décret n°2014-513 — montants fixés par chaque collectivité dans la limite des plafonds</em></div>';
 }
 
+
+// ══════════════════════════════
+// CARTE MENTALE — NIVEAUX & CHRONO
+// ══════════════════════════════
+var carteNiveau = 1;
+var carteChronoInterval = null;
+var carteChronoLeft = 60;
+var carteHistorique = {}; // {theme: {tentatives, reussites}}
+var carteFaiblesMode = false;
+var carteRecord = {}; // {theme: meilleurTemps}
+
+function setCarteNiveau(n){
+  carteNiveau = n;
+  document.querySelectorAll('.carte-niv-btn').forEach(function(b){ b.classList.remove('active'); });
+  var btn = document.getElementById('niv-btn-'+n);
+  if(btn) btn.classList.add('active');
+  // Adapter le chrono selon niveau
+  carteChronoLeft = n===1?90 : n===2?70 : n===3?50 : 999;
+}
+
+
+// ── Indice progressif ──
+var hintsAutoInterval = null;
+var hintsShown = 0;
+
+function startHintsAuto(d){
+  clearInterval(hintsAutoInterval);
+  hintsShown = 0;
+  if(carteNiveau !== 1 && carteNiveau !== 2) return; // seulement niveaux 1-2
+  hintsAutoInterval = setInterval(function(){
+    // Trouver une zone non remplie et révéler son indice progressivement
+    for(var i=0; i<d.zones.length; i++){
+      if(cartePlaced[i]===null){
+        var hint = document.getElementById('carte-hint-auto-'+i);
+        if(hint && hint.dataset.step !== 'done'){
+          var step = parseInt(hint.dataset.step||0);
+          var piece = d.pieces[d.solution[i]];
+          if(step===0 && carteNiveau===1){
+            // 1ère lettre
+            hint.textContent = '💡 ' + piece[0] + '...';
+            hint.style.display='block';
+            hint.dataset.step='1';
+          } else if(step==='1' || (step===0 && carteNiveau===2)){
+            // 3 premières lettres
+            hint.textContent = '💡 ' + piece.substring(0,3) + '...';
+            hint.style.display='block';
+            hint.dataset.step='2';
+          } else if(step==='2'){
+            // Mot entier
+            hint.textContent = '💡 ' + piece;
+            hint.style.display='block';
+            hint.dataset.step='done';
+          }
+          hintsShown++;
+          break;
+        }
+      }
+    }
+  }, 8000); // toutes les 8 secondes
+}
+
+function stopHintsAuto(){
+  clearInterval(hintsAutoInterval);
+}
+
+
+function startCarteChrono(){
+  clearInterval(carteChronoInterval);
+  var total = carteNiveau===1?90 : carteNiveau===2?70 : carteNiveau===3?50 : 999;
+  carteChronoLeft = total;
+  var wrap = document.getElementById('carte-chrono-wrap');
+  var disp = document.getElementById('carte-chrono-display');
+  var fill = document.getElementById('carte-chrono-fill');
+  if(!wrap) return;
+  if(carteNiveau===4){ wrap.style.display='none'; return; }
+  wrap.style.display='flex';
+  fill.classList.remove('danger');
+  fill.style.width='100%';
+  fill.style.transition='none';
+  setTimeout(function(){
+    fill.style.transition='width .5s linear';
+    carteChronoInterval = setInterval(function(){
+      carteChronoLeft--;
+      var pct = Math.max(0, carteChronoLeft/total*100);
+      disp.textContent = carteChronoLeft;
+      fill.style.width = pct+'%';
+      if(carteChronoLeft <= 15) fill.classList.add('danger');
+      if(carteChronoLeft <= 0){
+        clearInterval(carteChronoInterval);
+        // Temps écoulé — montrer correction puis passer
+        showToast('⏰ Temps écoulé !');
+        setTimeout(function(){ finChrono(); }, 800);
+      }
+    }, 1000);
+  }, 100);
+}
+
+function finChrono(){
+  clearInterval(carteChronoInterval);
+  var d = carteData[carteIdx];
+  // Remplir les zones non remplies avec les bonnes réponses en rouge
+  d.zones.forEach(function(z, i){
+    if(cartePlaced[i]===null){
+      var zone = document.getElementById('carte-zone-'+i);
+      var content = document.getElementById('carte-zone-content-'+i);
+      if(zone && content){
+        zone.classList.add('wrong-zone');
+        content.textContent = d.pieces[d.solution[i]] + ' ✗';
+      }
+    }
+  });
+  setTimeout(function(){ nextCarte(); }, 2000);
+}
+
+function loadCarteNiveau(d){
+  // Selon le niveau, construire les zones différemment
+  var zh = '';
+  d.zones.forEach(function(z, i){
+    zh += '<div class="carte-zone" id="carte-zone-'+i+'" onclick="placerPiece('+i+')">';
+    if(carteNiveau === 1){
+      // Guidé : nom de zone + hint
+      zh += '<div class="carte-zone-label">'+z+'</div>';
+      var hint = d.hints ? d.hints[i] : '';
+      if(hint) zh += '<div class="carte-zone-hint">'+hint+'</div>';
+      zh += '<div class="carte-hint-auto" id="carte-hint-auto-'+i+'" data-step="0" style="display:none;color:#e67e22;font-size:.72em;font-weight:700;margin-top:3px"></div>';
+    } else if(carteNiveau === 2){
+      // Sans indices : nom de zone seulement
+      zh += '<div class="carte-zone-label">'+z+'</div>';
+      zh += '<div class="carte-hint-auto" id="carte-hint-auto-'+i+'" data-step="0" style="display:none;color:#e67e22;font-size:.72em;font-weight:700;margin-top:3px"></div>';
+    } else if(carteNiveau === 3){
+      // Initiales : seulement les premières lettres du nom de zone
+      var initiales = z.split(' ').map(function(w){ return w[0]||''; }).join('. ') + '.';
+      zh += '<div class="carte-zone-label" style="letter-spacing:2px;color:#aaa">'+initiales+'</div>';
+    } else {
+      // Niveau 4 : zones vides + input texte
+      zh += '<div class="carte-zone-label" style="color:#ccc;font-size:.65em">Zone '+(i+1)+'</div>';
+      zh += '<input class="carte-zone-input" id="carte-input-'+i+'" placeholder="Tape ta réponse..." onkeydown="if(event.key===\u0027Enter\u0027)validerInputCarte('+i+')">';
+      zh += '<button onclick="validerInputCarte('+i+')" style="font-size:.7em;padding:4px 8px;margin-top:4px;background:#1a5abb;color:#fff;border:none;border-radius:6px;cursor:pointer">✓</button>';
+    }
+    zh += '<div class="carte-zone-content" id="carte-zone-content-'+i+'"></div>';
+    zh += '</div>';
+  });
+  return zh;
+}
+
+function validerInputCarte(zi){
+  var d = carteData[carteIdx];
+  var input = document.getElementById('carte-input-'+zi);
+  if(!input || cartePlaced[zi]!==null) return;
+  var val = input.value.trim().toLowerCase();
+  // Chercher la pièce correspondante (comparaison flexible)
+  var bonneReponse = d.pieces[d.solution[zi]].toLowerCase();
+  var mots = bonneReponse.split(/\s+/);
+  var ok = val === bonneReponse || 
+           mots.some(function(m){ return m.length > 3 && val.includes(m); }) ||
+           bonneReponse.includes(val) && val.length >= 4;
+  if(ok){
+    input.classList.add('correct');
+    input.disabled = true;
+    document.getElementById('carte-zone-content-'+zi).textContent = d.pieces[d.solution[zi]] + ' ✓';
+    document.getElementById('carte-zone-'+zi).classList.add('filled');
+    cartePlaced[zi] = d.solution[zi];
+    carteProgress++;
+    carteScore += Math.ceil(20 / d.zones.length);
+    document.getElementById('carte-score').textContent = carteScore + ' pts';
+    if(carteProgress >= carteTotal) setTimeout(nextCarte, 800);
+  } else {
+    input.classList.add('wrong');
+    setTimeout(function(){ input.classList.remove('wrong'); input.value=''; }, 600);
+  }
+}
+
+function nextCarte(){
+  clearInterval(carteChronoInterval);
+  var d = carteData[carteIdx];
+  var reussite = carteProgress >= carteTotal;
+  // Mettre à jour historique
+  if(!carteHistorique[d.theme]) carteHistorique[d.theme]={tentatives:0,reussites:0,nom:d.centre.replace('\n',' ')};
+  carteHistorique[d.theme].tentatives++;
+  if(reussite) carteHistorique[d.theme].reussites++;
+  // Afficher exemple + explication avant de passer
+  afficherCorrection(d, reussite);
+}
+
+function afficherCorrection(d, reussite){
+  // Construire popup correction
+  var html = '<div style="padding:14px;max-height:60vh;overflow-y:auto">';
+  html += '<div style="font-size:1.1em;font-weight:900;color:'+(reussite?'#27ae60':'#e74c3c')+';margin-bottom:8px">'+(reussite?'✅ Parfait !':'❌ Pas tout à fait...')+'</div>';
+  // Explications
+  if(d.explications){
+    html += '<div style="font-size:.78em;color:#1a2240;margin-bottom:8px"><strong>Ce qu\u2019il faut retenir :</strong></div>';
+    d.zones.forEach(function(z,i){
+      var expl = d.explications[i]||'';
+      var correct = cartePlaced[i] === d.solution[i];
+      html += '<div style="margin-bottom:5px;font-size:.75em;padding:6px 8px;border-radius:8px;background:'+(correct?'#eafaf5':'#fff0f0')+';border-left:3px solid '+(correct?'#27ae60':'#e74c3c')+'">';
+      html += '<strong>'+z+'</strong> → '+d.pieces[d.solution[i]]+'<br><span style="color:#556070">'+expl+'</span></div>';
+    });
+  }
+  // Exemple concret
+  if(d.exemple){
+    html += '<div class="carte-exemple-box"><div class="carte-exemple-label">💡 Exemple concret</div>'+d.exemple+'</div>';
+  }
+  html += '<button onclick="fermerModalCarte()" style="margin-top:12px;width:100%;padding:12px;background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-size:.9em">Sch\u00e9ma suivant \u2192</button>';
+  html += '</div>';
+  var modal = document.getElementById('carte-correction-modal');
+  if(!modal){
+    modal = document.createElement('div');
+    modal.id = 'carte-correction-modal';
+    modal.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.2);z-index:9999;animation:slideUp .3s ease';
+    document.body.appendChild(modal);
+  }
+  modal.innerHTML = html;
+  modal.style.display = 'block';
+}
+
+function startCarteFaibles(){
+  // Filtrer les cartes avec taux < 60%
+  var faibles = CARTE_DATA.filter(function(d){
+    var h = carteHistorique[d.theme];
+    if(!h) return false;
+    return h.reussites/h.tentatives < 0.6;
+  });
+  if(!faibles.length){
+    showToast('💪 Aucun point faible — tu maîtrises tout !');
+    return;
+  }
+  carteFaiblesMode = true;
+  carteScore=0; carteIdx=0;
+  carteData = faibles.slice().sort(function(){return Math.random()-.5;});
+  document.getElementById('carte-intro').style.display='none';
+  document.getElementById('carte-fin').style.display='none';
+  document.getElementById('carte-game').style.display='block';
+  loadCarte();
+}
+
+function afficherHistorique(){
+  var themes = Object.keys(carteHistorique);
+  if(!themes.length) return;
+  var btn = document.getElementById('btn-carte-faibles');
+  if(btn) btn.style.display='block';
+  var preview = document.getElementById('carte-histo-preview');
+  if(!preview) return;
+  var html = '<div style="font-size:.78em;font-weight:700;color:#1a3a6e;margin-bottom:6px">📊 Ton historique</div>';
+  html += '<div class="carte-histo-grid">';
+  themes.forEach(function(t){
+    var h = carteHistorique[t];
+    var pct = Math.round(h.reussites/h.tentatives*100);
+    var cls = pct>=80?'maitrise':pct<50?'difficile':'';
+    html += '<div class="carte-histo-item '+cls+'">';
+    html += '<div class="carte-histo-name">'+h.nom+'</div>';
+    html += '<div class="carte-histo-stats">'+h.reussites+'/'+h.tentatives+' ✓ — '+pct+'%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  preview.innerHTML = html;
+}
+
+
+function fermerModalCarte(){
+  var modal = document.getElementById('carte-correction-modal');
+  if(modal) modal.style.display='none';
+  stopHintsAuto();
+  carteIdx++;
+  loadCarte();
+}
+
+// ══════════════════════════════════════════════════
+// OPTION 3 — CARTE DU JOUR
+// ══════════════════════════════════════════════════
+var carteDuJourDate = '';
+var carteDuJourIdx = 0;
+
+function initCarteDuJour(){
+  var today = new Date().toISOString().slice(0,10);
+  // Choisir une carte déterministement selon la date
+  var seed = today.split('-').reduce(function(a,b){ return parseInt(a)+parseInt(b); }, 0);
+  carteDuJourIdx = seed % CARTE_DATA.length;
+  carteDuJourDate = today;
+  var banner = document.getElementById('carte-du-jour-banner');
+  var titre = document.getElementById('cdj-titre');
+  if(!banner || !titre) return;
+  // Vérifier si déjà faite aujourd'hui
+  var done = localStorage.getItem('sa_cdj_date') === today;
+  banner.style.display = 'block';
+  titre.textContent = CARTE_DATA[carteDuJourIdx].centre.replace('\n',' ') + ' →';
+  if(done){
+    banner.classList.add('cdj-done');
+    titre.textContent = '✅ ' + CARTE_DATA[carteDuJourIdx].centre.replace('\n',' ') + ' — Faite !';
+  }
+}
+
+function lancerCarteDuJour(){
+  var today = new Date().toISOString().slice(0,10);
+  if(localStorage.getItem('sa_cdj_date') === today){
+    showToast('\u2705 D\u00e9j\u00e0 faite aujourd\u2019hui ! Reviens demain.');
+    return;
+  }
+  // Lancer la carte du jour en niveau 2 (un peu de challenge)
+  setCarteNiveau(2);
+  carteScore=0; carteIdx=0;
+  carteData = [CARTE_DATA[carteDuJourIdx]];
+  // Fermer le menu, ouvrir le jeu carte
+  showScreen('screen-menu');
+  setTimeout(function(){
+    document.querySelectorAll('.jeu-window').forEach(function(w){ w.style.display='none'; });
+    var jeu = document.getElementById('jeu-carte');
+    if(jeu){
+      jeu.style.display='block';
+      document.getElementById('carte-intro').style.display='none';
+      document.getElementById('carte-fin').style.display='none';
+      document.getElementById('carte-game').style.display='block';
+      loadCarte();
+      // Marquer comme faite à la fin (via nextCarte on save)
+      carteDuJourMode = true;
+    }
+  }, 100);
+}
+var carteDuJourMode = false;
+
+// ══════════════════════════════════════════════════
+// OPTION 7 — STREAK VISUEL CARTE MENTALE
+// ══════════════════════════════════════════════════
+var carteStreakCount = 0; // cartes consécutives réussies sans erreur
+
+function updateCarteStreak(reussite){
+  if(reussite){
+    carteStreakCount++;
+  } else {
+    carteStreakCount = 0;
+  }
+  var badge = document.getElementById('carte-streak-badge');
+  if(!badge) return;
+  if(carteStreakCount >= 3){
+    var feux = carteStreakCount >= 7 ? '\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25' : carteStreakCount >= 5 ? '\uD83D\uDD25\uD83D\uDD25' : '\uD83D\uDD25';
+    badge.innerHTML = '<span class="streak-fire">'+feux+'</span> '+carteStreakCount+' d\u2019affil\u00e9e !';
+    badge.style.color = carteStreakCount >= 7 ? '#e74c3c' : carteStreakCount >= 5 ? '#e67e22' : '#f0b429';
+    if(carteStreakCount === 3) showToast('\uD83D\uDD25 3 d\u2019affil\u00e9e — bonne s\u00e9rie !');
+    if(carteStreakCount === 5) showToast('\uD83D\uDD25\uD83D\uDD25 5 d\u2019affil\u00e9e — impressionnant !');
+    if(carteStreakCount === 7) showToast('\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 7 d\u2019affil\u00e9e — tu es en feu !');
+  } else {
+    badge.innerHTML = '';
+  }
+  // Sauvegarder streak carte
+  try{ localStorage.setItem('sa_carte_streak', carteStreakCount); }catch(e){}
+}
+
+// ══════════════════════════════════════════════════
+// OPTION 8 — DÉBLOCAGE PROGRESSIF
+// ══════════════════════════════════════════════════
+var cartesDebloquees = [];
+
+function initCartesDebloquees(){
+  try{
+    var saved = JSON.parse(localStorage.getItem('sa_cartes_debloquees')||'null');
+    if(saved) { cartesDebloquees = saved; return; }
+  }catch(e){}
+  // Par défaut : les 10 premières débloquées
+  cartesDebloquees = CARTE_DATA.slice(0,10).map(function(d){ return d.centre; });
+}
+
+function debloquerCarte(centre){
+  if(cartesDebloquees.indexOf(centre) === -1){
+    cartesDebloquees.push(centre);
+    try{ localStorage.setItem('sa_cartes_debloquees', JSON.stringify(cartesDebloquees)); }catch(e){}
+    showToast('\uD83D\uDD13 Nouveau schéma débloqué : ' + centre.replace('\n',' ') + ' !');
+  }
+}
+
+function getCartesDisponibles(){
+  return CARTE_DATA.filter(function(d){
+    return cartesDebloquees.indexOf(d.centre) !== -1;
+  });
+}
+
+function getNbCartesTotal(){ return CARTE_DATA.length; }
+
+// Afficher le compteur de déblocage dans l'intro
+function afficherProgresDeblocage(){
+  var pv = document.getElementById('carte-histo-preview');
+  if(!pv) return;
+  var pct = Math.round(cartesDebloquees.length / CARTE_DATA.length * 100);
+  var html = '<div style="background:#f0f6ff;border-radius:10px;padding:10px;margin-bottom:8px;font-size:.78em">';
+  html += '<strong style="color:#1a3a6e">\uD83D\uDD13 Progression : '+cartesDebloquees.length+'/'+CARTE_DATA.length+' schémas débloqués ('+pct+'%)</strong>';
+  html += '<div style="height:6px;background:#e8edf5;border-radius:3px;margin-top:5px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#1a5abb,#4d96ff);border-radius:3px;transition:width .5s"></div></div>';
+  if(cartesDebloquees.length < CARTE_DATA.length){
+    html += '<div style="color:#556070;margin-top:4px">Réussis des schémas pour débloquer les suivants !</div>';
+  } else {
+    html += '<div style="color:#27ae60;font-weight:700;margin-top:4px">\u2705 Tous les schémas débloqués — tu es une championne !</div>';
+  }
+  html += '</div>';
+  // Coller avant le bloc historique existant
+  var existing = pv.innerHTML;
+  pv.innerHTML = html + existing;
+}
+
+// ══ Modifier startCarte pour utiliser les cartes disponibles ══
+var _origStartCarte = startCarte;
+startCarte = function(){
+  initCartesDebloquees();
+  var dispo = getCartesDisponibles();
+  carteScore=0; carteIdx=0;
+  carteData = dispo.slice().sort(function(){return Math.random()-.5;});
+  document.getElementById('carte-intro').style.display='none';
+  document.getElementById('carte-fin').style.display='none';
+  document.getElementById('carte-game').style.display='block';
+  loadCarte();
+};
+
+// ══ Modifier nextCarte pour débloquer + streak ══
+var _origNextCarte = nextCarte;
+nextCarte = function(){
+  clearInterval(carteChronoInterval);
+  var d = carteData[carteIdx];
+  var reussite = carteProgress >= carteTotal;
+  // Streak
+  updateCarteStreak(reussite);
+  // Débloquer la carte suivante si réussite
+  if(reussite){
+    var allIdx = CARTE_DATA.indexOf(d);
+    if(allIdx !== -1 && allIdx+1 < CARTE_DATA.length){
+      debloquerCarte(CARTE_DATA[allIdx+1].centre);
+    }
+    // Carte du jour : sauvegarder
+    if(carteDuJourMode){
+      try{ localStorage.setItem('sa_cdj_date', new Date().toISOString().slice(0,10)); }catch(e){}
+      carteDuJourMode = false;
+    }
+  }
+  // Mettre à jour historique
+  if(!carteHistorique[d.theme]) carteHistorique[d.theme]={tentatives:0,reussites:0,nom:d.centre.replace('\n',' ')};
+  carteHistorique[d.theme].tentatives++;
+  if(reussite) carteHistorique[d.theme].reussites++;
+  afficherCorrection(d, reussite);
+};
+
+// ══ Init au chargement ══
+var _origLoadState = loadState;
+document.addEventListener('DOMContentLoaded', function(){
+  initCarteDuJour();
+  initCartesDebloquees();
+  try{
+    carteStreakCount = parseInt(localStorage.getItem('sa_carte_streak')||0);
+  }catch(e){}
+});
 </script>
 
 <!-- ════════════════════════════════════════
