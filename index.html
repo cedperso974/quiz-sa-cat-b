@@ -1943,6 +1943,8 @@ let chronoInterval=null, chronoLeft=90;
 let fcQuestions=[], fcCurrent=0, fcFlipped=false;
 let bossQuestions=[], bossCurrent=0, bossLives=3, bossScore=0;
 
+// Anti-doublon : questions déjà vues dans la session
+let seenQuestionIds = new Set();
 // Répétition espacée : poids par question (défaut=1, difficile=3, facile=0.3)
 let qWeights={};
 // Leitner : file de réinjection {qIdx, delay} 
@@ -4135,7 +4137,7 @@ var CARTE_DATA = [
    pieces:["Avertissement / Blâme","Exclusion 1 à 10 jours","Rétrogradation / Exclusion 11j-2ans","Révocation / Retraite d'office"],
    solution:[0,1,2,3],
    explications:["G1 : avertissement, blâme — pas de conseil de discipline requis","G2 : exclusion temporaire de 1 à 10 jours — conseil de discipline obligatoire","G3 : rétrogradation ou exclusion de 11 jours à 2 ans — conseil de discipline obligatoire","G4 : mise à la retraite d'office ou révocation — sanction la plus grave"],
-   exemple:"\u{1F4CB} Marc arrive régulièrement en retard → avertissement (G1). S'il falsifie un document officiel → exclusion 11j-2ans (G3). S'il détourne des fonds publics → révocation (G4)."},
+   exemple:"📋 Marc arrive régulièrement en retard → avertissement (G1). S'il falsifie un document officiel → exclusion 11j-2ans (G3). S'il détourne des fonds publics → révocation (G4)."},
 
   // ── 2. LOIS DE ROLLAND ──
   {centre:"LOIS DE\nROLLAND",theme:"Principes du Service Public",
@@ -4144,7 +4146,7 @@ var CARTE_DATA = [
    pieces:["Pas d'interruption du SP","Même service pour tous","Adaptation aux besoins","Pas d'opinion dans les fonctions"],
    solution:[0,1,2,3],
    explications:["Continuité : fondement du service minimum et de l'encadrement du droit de grève (préavis 5j)","Égalité : même accès et même traitement pour tous les usagers, sans discrimination","Mutabilité (adaptabilité) : le SP doit évoluer avec les besoins de la société et les techniques","Neutralité : l'agent ne manifeste aucune opinion politique ou religieuse dans l'exercice de ses fonctions"],
-   exemple:"\u{1F4CB} Une mairie ferme son état-civil 3 semaines → viole la Continuité. Elle refuse l'accès à une personne handicapée → viole l'Égalité. Elle refuse d'adopter la dématérialisation → viole la Mutabilité."},
+   exemple:"📋 Une mairie ferme son état-civil 3 semaines → viole la Continuité. Elle refuse l'accès à une personne handicapée → viole l'Égalité. Elle refuse d'adopter la dématérialisation → viole la Mutabilité."},
 
   // ── 3. POSITIONS DU FONCTIONNAIRE ──
   {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Positions statutaires",
@@ -4152,7 +4154,8 @@ var CARTE_DATA = [
    hints:["Nom de la position","Nom de la position","Nom de la position","Nom de la position"],
    pieces:["Activité (poste habituel)","Détachement","Disponibilité","Congé parental"],
    solution:[0,1,2,3],
-   explications:["Activité : position normale — agent présent sur son poste, rémunéré, droits pleins","Détachement : agent placé hors de son corps, rémunéré par l'organisme d'accueil","Disponibilité : hors administration — ni traitement, ni avancement, ni droits à retraite","Congé parental : droits à avancement et retraite suspendus — jusqu'aux 3 ans de l'enfant"]},
+   explications:["Activité : position normale — agent présent sur son poste, rémunéré, droits pleins","Détachement : agent placé hors de son corps, rémunéré par l'organisme d'accueil","Disponibilité : hors administration — ni traitement, ni avancement, ni droits à retraite","Congé parental : droits à avancement et retraite suspendus — jusqu'aux 3 ans de l'enfant"],
+   exemple:"📋 Sophie demande une disponibilité pour créer son entreprise → sans traitement, droits suspendus. Paul est détaché à la Région → rémunéré par la Région, conserve ses droits à avancement."},
 
   // ── 4. CNRACL RÉFORME 2025 ──
   {centre:"CNRACL\nRÉFORME 2025",theme:"Trajectoire des cotisations",
@@ -4160,7 +4163,8 @@ var CARTE_DATA = [
    hints:["Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?","Quel taux employeur ?"],
    pieces:["34,65%","37,65%","40,65%","43,65%"],
    solution:[0,1,2,3],
-   explications:["2025 : 34,65% — hausse de +4pts par rapport à 30,65% (décret n°2025-86)","2026 : 37,65% — +3pts selon la trajectoire programmée","2027 : 40,65% — la hausse continue pour combler le déficit structurel","2028 : 43,65% — objectif final de la trajectoire de redressement CNRACL"]},
+   explications:["2025 : 34,65% — hausse de +4pts par rapport à 30,65% (décret n°2025-86)","2026 : 37,65% — +3pts selon la trajectoire programmée","2027 : 40,65% — la hausse continue pour combler le déficit structurel","2028 : 43,65% — objectif final de la trajectoire de redressement CNRACL"],
+   exemple:"📋 En 2024 la commune paye 30,65% pour Marc (2 000€ brut) = 613€/mois. En 2028 au taux 43,65% = 873€/mois. Surcoût : +260€/mois par agent, soit +3 120€/an."},
 
   // ── 5. CST ──
   {centre:"DIALOGUE\nSOCIAL FPT",theme:"Le Comité Social Territorial",
@@ -4168,7 +4172,8 @@ var CARTE_DATA = [
    hints:["Quelles anciennes instances ?","Quel est le nom actuel ?","Que traite-t-il ?","Depuis quand ?"],
    pieces:["CTM + CHSCT","CST","Conditions de travail & formation","Janvier 2023"],
    solution:[0,1,2,3],
-   explications:["Fusion du Comité Technique Municipal (CTM) + CHSCT (hygiène & sécurité)","Le Comité Social Territorial (CST) — une instance unique par collectivité","Traite : conditions de travail, organisation des services, formation, égalité professionnelle","Installé en janvier 2023 — issu de la loi de transformation FP du 6 août 2019"]},
+   explications:["Fusion du Comité Technique Municipal (CTM) + CHSCT (hygiène & sécurité)","Le Comité Social Territorial (CST) — une instance unique par collectivité","Traite : conditions de travail, organisation des services, formation, égalité professionnelle","Installé en janvier 2023 — issu de la loi de transformation FP du 6 août 2019"],
+   exemple:"📋 La mairie modifie les horaires → consulte le CST. Un agent conteste sa note → saisit la CAP. Un accident survient → le FSSCT est réuni d\'urgence."},
 
   // ── 6. PSC ──
   {centre:"PROTECTION\nSOCIALE PSC",theme:"Participation employeur territorial",
@@ -4176,7 +4181,8 @@ var CARTE_DATA = [
    hints:["Quelle date ?","Quel minimum ?","Quelle date ?","Quel minimum ?"],
    pieces:["Janvier 2025","7€/mois min (20% de 35€)","Janvier 2026","15€/mois min (50% de 30€)"],
    solution:[0,1,2,3],
-   explications:["Prévoyance obligatoire depuis le 1er janvier 2025 — accord collectif FPT 2023","7€/mois minimum = 20% d'un panier de référence de 35€ (prévoyance)","Complémentaire santé obligatoire à partir du 1er janvier 2026","15€/mois minimum = 50% d'un panier de 30€ (santé) — loi de transformation FP 2019"]},
+   explications:["Prévoyance obligatoire depuis le 1er janvier 2025 — accord collectif FPT 2023","7€/mois minimum = 20% d'un panier de référence de 35€ (prévoyance)","Complémentaire santé obligatoire à partir du 1er janvier 2026","15€/mois minimum = 50% d'un panier de 30€ (santé) — loi de transformation FP 2019"],
+   exemple:"📋 Depuis jan. 2025, la commune verse 7€/mois pour la prévoyance de Léa. Dès jan. 2026 : +15€/mois pour la mutuelle santé. Total employeur minimum : 22€/mois par agent."},
 
   // ── 7. RUPTURE CONVENTIONNELLE ──
   {centre:"RUPTURE\nCONVENTIONNELLE",theme:"Dispositif pérennisé 2026",
@@ -4184,7 +4190,8 @@ var CARTE_DATA = [
    hints:["Où est-ce codifié ?","Quel nom ?","Oui ou non ?","Quelle condition ?"],
    pieces:["CGFP art. L552-1 à L552-5","ISRC","Oui — allocation chômage","Retour FP dans les 6 ans"],
    solution:[0,1,2,3],
-   explications:["Codifiée au CGFP par la loi n°2026-103 du 19 fév. 2026 — art. L552-1 à L552-5","ISRC = Indemnité Spécifique de Rupture Conventionnelle — calculée selon l'ancienneté","Oui — l'agent peut percevoir l'allocation chômage (ARE) après la rupture","Si retour dans la FP dans les 6 ans → remboursement intégral de l'ISRC"]},
+   explications:["Codifiée au CGFP par la loi n°2026-103 du 19 fév. 2026 — art. L552-1 à L552-5","ISRC = Indemnité Spécifique de Rupture Conventionnelle — calculée selon l'ancienneté","Oui — l'agent peut percevoir l'allocation chômage (ARE) après la rupture","Si retour dans la FP dans les 6 ans → remboursement intégral de l'ISRC"],
+   exemple:"📋 Paul, SA depuis 12 ans, traitement 2 200€. ISRC = 1/4 mois × 2 200€ × 12 = 6 600€ net d\'impôt. Il touche aussi l\'ARE (chômage) pendant 2 ans."},
 
   // ── 8. CATÉGORIES HIÉRARCHIQUES ──
   {centre:"CATÉGORIES\nHIÉRARCHIQUES",theme:"Organisation de la FP",
@@ -4192,7 +4199,8 @@ var CARTE_DATA = [
    hints:["Quel niveau d'études ?","Quel niveau d'études ?","Quel niveau d'études ?","Quel poste ?"],
    pieces:["Cadres (niveau licence)","Intermédiaires (niveau bac)","Exécution (niveau < bac)","Secrétaire Administratif"],
    solution:[0,1,2,3],
-   explications:["Catégorie A : emplois de conception, d'encadrement supérieur — niveau licence minimum","Catégorie B : emplois d'application et d'encadrement intermédiaire — niveau bac","Catégorie C : emplois d'exécution — niveau inférieur au bac (le plus nombreux en FPT)","Le concours de Secrétaire Administratif est l'emblème de la catégorie B — externe, interne, 3ème voie"]},
+   explications:["Catégorie A : emplois de conception, d'encadrement supérieur — niveau licence minimum","Catégorie B : emplois d'application et d'encadrement intermédiaire — niveau bac","Catégorie C : emplois d'exécution — niveau inférieur au bac (le plus nombreux en FPT)","Le concours de Secrétaire Administratif est l'emblème de la catégorie B — externe, interne, 3ème voie"],
+   exemple:"📋 Adjoint administratif (C) : gère le courrier. SA (B) : coordonne un service, rédige les délibérations. Attaché territorial (A) : pilote une direction, conseille les élus."},
 
   // ── 9. RÉFORME CMO 2025 ──
   {centre:"RÉFORME CMO\n2025",theme:"Congé maladie ordinaire",
@@ -4200,7 +4208,8 @@ var CARTE_DATA = [
    hints:["Combien de mois ?","Quel % du traitement ?","Mois suivants → quel taux ?","Quels congés exclus ?"],
    pieces:["3 premiers mois du CMO","90% du traitement brut","Mois 4 à 12 → maintenu à 50%","CLM et CLD inchangés"],
    solution:[0,1,2,3],
-   explications:["Les 3 PREMIERS mois du CMO passent de 100% à 90% — en vigueur depuis le 1er mars 2025 (art. 189 loi n°2025-127)","90% du traitement brut — contre 100% auparavant. Perte ~265€/mois pour un agent à 2 652€ net","Les mois 4 à 12 du CMO restent à 50% — INCHANGÉS par la réforme. Au-delà → CLM ou CLD","CLM (congé longue maladie, 3 ans) et CLD (congé longue durée, 5 ans) ne sont PAS concernés"]},
+   explications:["Les 3 PREMIERS mois du CMO passent de 100% à 90% — en vigueur depuis le 1er mars 2025 (art. 189 loi n°2025-127)","90% du traitement brut — contre 100% auparavant. Perte ~265€/mois pour un agent à 2 652€ net","Les mois 4 à 12 du CMO restent à 50% — INCHANGÉS par la réforme. Au-delà → CLM ou CLD","CLM (congé longue maladie, 3 ans) et CLD (congé longue durée, 5 ans) ne sont PAS concernés"],
+   exemple:"📋 Marc arrêté 5 mois en 2025 : mois 1-3 = 90% (avant : 100%), mois 4-5 = 50%. Perte totale : 3 × 10% de son traitement. CLM pour longue maladie : inchangé."},
 
   // ── 10. DOSSIER ADMINISTRATIF ──
   {centre:"DOSSIER\nADMINISTRATIF",theme:"Droits de l'agent",
@@ -4208,7 +4217,8 @@ var CARTE_DATA = [
    hints:["Quel droit ?","À quel moment ?","Quels contenus ?","Quel article ?"],
    pieces:["Consulter son dossier complet","Avant toute décision défavorable","Mentions de condamnations pénales","CGFP art. L131-2"],
    solution:[0,1,2,3],
-   explications:["L'agent a le droit de consulter son dossier individuel complet avant toute décision le concernant","Ce droit s'exerce AVANT toute décision défavorable : sanction, non-titularisation, mutation forcée...","Le dossier ne peut pas contenir de mentions de condamnations pénales ni d'opinions politiques/religieuses","CGFP art. L131-2 — droit fondamental de la défense, applicable à tous les agents y compris stagiaires"]},
+   explications:["L'agent a le droit de consulter son dossier individuel complet avant toute décision le concernant","Ce droit s'exerce AVANT toute décision défavorable : sanction, non-titularisation, mutation forcée...","Le dossier ne peut pas contenir de mentions de condamnations pénales ni d'opinions politiques/religieuses","CGFP art. L131-2 — droit fondamental de la défense, applicable à tous les agents y compris stagiaires"],
+   exemple:"📋 Julie veut consulter son dossier avant un entretien disciplinaire → droit absolu, 48h accordées. Son chef ne peut pas y glisser une note anonyme → strictement interdit."},
 
   // ── 11. RECRUTEMENT CONCOURS ──
   {centre:"RECRUTEMENT\nCONCOURS SA",theme:"Voies d'accès catégorie B",
@@ -4216,7 +4226,8 @@ var CARTE_DATA = [
    hints:["Pour qui ?","Pour qui ?","Pour qui ?","Quelle condition ?"],
    pieces:["Diplômés sans expérience FP","Fonctionnaires avec 1 an de services","Élus, bénévoles, mandataires (4 ans)","Au choix / examen professionnel"],
    solution:[0,1,2,3],
-   explications:["Externe : ouvert aux diplômés (niveau bac) sans condition d'ancienneté dans la FP","Interne : ouvert aux fonctionnaires justifiant d'au moins 1 an de services effectifs","3ème concours : ouvert aux élus locaux, mandataires associatifs, dirigeants d'entreprise (4 ans minimum)","Promotion interne : accès au grade supérieur par inscription sur liste d'aptitude ou examen professionnel"]},
+   explications:["Externe : ouvert aux diplômés (niveau bac) sans condition d'ancienneté dans la FP","Interne : ouvert aux fonctionnaires justifiant d'au moins 1 an de services effectifs","3ème concours : ouvert aux élus locaux, mandataires associatifs, dirigeants d'entreprise (4 ans minimum)","Promotion interne : accès au grade supérieur par inscription sur liste d'aptitude ou examen professionnel"],
+   exemple:"📋 Aïcha réussit le concours SA externe → inscrite sur liste d\'aptitude 2 ans. Recrutée par Saint-Denis → stage 1 an. Titularisée après avis favorable. Refus = licenciement indemnisé."},
 
   // ── 12. OBLIGATIONS DU FONCTIONNAIRE ──
   {centre:"OBLIGATIONS\nDU FONCTIONNAIRE",theme:"Devoirs statutaires",
@@ -4224,7 +4235,8 @@ var CARTE_DATA = [
    hints:["Obéissance à...","Ne pas divulguer...","S'abstenir de...","Consacrer son temps à..."],
    pieces:["Obéissance hiérarchique","Secret professionnel","Neutralité / Réserve","Exercice exclusif des fonctions"],
    solution:[0,1,2,3],
-   explications:["Obéissance hiérarchique — sauf ordre manifestement illégal (CGFP art. L121-10)","Secret professionnel — violation punie pénalement (art. 226-13 Code pénal)","Neutralité et réserve — pas d'opinion politique/religieuse dans les fonctions ; discrétion hors service","Exercice exclusif — interdiction de principe du cumul d'activités (sauf exceptions décret 2020-69)"]},
+   explications:["Obéissance hiérarchique — sauf ordre manifestement illégal (CGFP art. L121-10)","Secret professionnel — violation punie pénalement (art. 226-13 Code pénal)","Neutralité et réserve — pas d'opinion politique/religieuse dans les fonctions ; discrétion hors service","Exercice exclusif — interdiction de principe du cumul d'activités (sauf exceptions décret 2020-69)"],
+   exemple:"📋 Marc refuse de falsifier un document (ordre illégal) → il est protégé. Mais il refuse un ordre légal sans raison → faute disciplinaire passible de sanction."},
 
   // ── 13. DROITS DU FONCTIONNAIRE ──
   {centre:"DROITS\nDU FONCTIONNAIRE",theme:"Droits statutaires",
@@ -4232,7 +4244,8 @@ var CARTE_DATA = [
    hints:["Quel droit syndical ?","Quel compte ?","Quelle protection ?","Dans quelle situation ?"],
    pieces:["Droit syndical (organisations)","CPF — 24h/an, plafond 120h","Protection fonctionnelle (L134-1)","Danger grave et imminent"],
    solution:[0,1,2,3],
-   explications:["Droit syndical : liberté d'adhérer à une organisation syndicale, droit à des décharges d'activité","CPF (Compte Personnel de Formation) : 24h/an dans la limite de 120h — remplace le DIF depuis 2017","Protection fonctionnelle : l'administration protège et indemnise l'agent victime d'attaques liées à ses fonctions","Droit de retrait : l'agent peut se retirer d'une situation de danger grave et imminent — sans sanction"]},
+   explications:["Droit syndical : liberté d'adhérer à une organisation syndicale, droit à des décharges d'activité","CPF (Compte Personnel de Formation) : 24h/an dans la limite de 120h — remplace le DIF depuis 2017","Protection fonctionnelle : l'administration protège et indemnise l'agent victime d'attaques liées à ses fonctions","Droit de retrait : l'agent peut se retirer d'une situation de danger grave et imminent — sans sanction"],
+   exemple:"📋 Sophie se syndique → libre, sans autorisation. Elle consulte son dossier → droit absolu. Formation continue à sa demande : peut être refusée si nécessités de service."},
 
   // ── 14. RESPONSABILITÉ ADMINISTRATIVE ──
   {centre:"RESPONSABILITÉ\nADMINISTRATIVE",theme:"Faute service vs personnelle",
@@ -4240,7 +4253,8 @@ var CARTE_DATA = [
    hints:["Qui est responsable ?","Qui est responsable ?","Qui paie ?","Qui paie ?"],
    pieces:["L'administration répond","L'agent répond personnellement","Indemnisation par la collectivité","Indemnisation par l'agent lui-même"],
    solution:[0,1,2,3],
-   explications:["Faute de service : commise dans l'exercice des fonctions, non détachable — l'administration est responsable","Faute personnelle : détachable du service (intention de nuire, comportement inexcusable) — l'agent est responsable","Faute de service → la victime est indemnisée par la collectivité (juge administratif)","Faute personnelle → l'agent indemnise lui-même (juge judiciaire). Cumul possible si les deux fautes coexistent"]},
+   explications:["Faute de service : commise dans l'exercice des fonctions, non détachable — l'administration est responsable","Faute personnelle : détachable du service (intention de nuire, comportement inexcusable) — l'agent est responsable","Faute de service → la victime est indemnisée par la collectivité (juge administratif)","Faute personnelle → l'agent indemnise lui-même (juge judiciaire). Cumul possible si les deux fautes coexistent"],
+   exemple:"📋 Agent blesse un usager avec le véhicule de service → faute de service → commune responsable. Il insulte un usager par malveillance → faute personnelle → il paie sur ses deniers propres."},
 
   // ── 15. DECENTRALISATION ──
   {centre:"3 VAGUES DE\nDÉCENTRALISATION",theme:"Histoire de la décentralisation",
@@ -4248,7 +4262,8 @@ var CARTE_DATA = [
    hints:["Quelle loi ?","Quelle loi ?","Quelle loi ?","Quel contrôle ?"],
    pieces:["Lois Defferre — libertés communes","Acte II — expérimentation, RF autonome","Loi NOTRe — blocs de compétences","Contrôle de légalité a posteriori"],
    solution:[0,1,2,3],
-   explications:["1982 : lois Defferre — suppression de la tutelle a priori, création des régions comme collectivités de plein exercice","2003 : Acte II — expérimentation, principe de subsidiarité, autonomie financière inscrite dans la Constitution","2015 : loi NOTRe — suppression clause générale pour régions/dpts, nouveau découpage, renforcement des EPCI","Principe constant : contrôle de légalité a posteriori du préfet (2 mois pour déférer au TA)"]},
+   explications:["1982 : lois Defferre — suppression de la tutelle a priori, création des régions comme collectivités de plein exercice","2003 : Acte II — expérimentation, principe de subsidiarité, autonomie financière inscrite dans la Constitution","2015 : loi NOTRe — suppression clause générale pour régions/dpts, nouveau découpage, renforcement des EPCI","Principe constant : contrôle de légalité a posteriori du préfet (2 mois pour déférer au TA)"],
+   exemple:"📋 1982 : la commune signe ses contrats sans visa préfectoral. 2003 : le département reçoit le RSA. 2015 (NOTRe) : la région devient chef de file du développement économique."},
 
   // ── 16. COMPÉTENCES COLLECTIVITÉS ──
   {centre:"COMPÉTENCES\nCOLLECTIVITÉS",theme:"Loi NOTRe 2015",
@@ -4256,7 +4271,8 @@ var CARTE_DATA = [
    hints:["Compétence principale ?","Compétence principale ?","Compétence principale ?","Rôle principal ?"],
    pieces:["Développement économique & formation","Solidarités & action sociale","Services de proximité (clause générale)","Coopération intercommunale"],
    solution:[0,1,2,3],
-   explications:["Région : chef de file du développement économique, formation professionnelle, lycées, transport ferroviaire régional","Département : chef de file des solidarités (RSA, APA, ASE), collèges, routes départementales","Commune : conserve la clause de compétence générale — urbanisme, état civil, police administrative","EPCI : regroupe les communes pour exercer des compétences mutualisées (eau, déchets, transport urbain...)"]},
+   explications:["Région : chef de file du développement économique, formation professionnelle, lycées, transport ferroviaire régional","Département : chef de file des solidarités (RSA, APA, ASE), collèges, routes départementales","Commune : conserve la clause de compétence générale — urbanisme, état civil, police administrative","EPCI : regroupe les communes pour exercer des compétences mutualisées (eau, déchets, transport urbain...)"],
+   exemple:"📋 La Région finance lycées et TER. Le Département gère collèges et RSA. La Commune délivre les permis de construire. La culture et le sport sont partagés entre tous."},
 
   // ── 17. ÉGALITÉ PROFESSIONNELLE ──
   {centre:"ÉGALITÉ\nPROFESSIONNELLE F/H",theme:"Obligations des collectivités",
@@ -4264,7 +4280,8 @@ var CARTE_DATA = [
    hints:["Quel seuil habitants ?","Quel pourcentage ?","Quel écart moyen ?","Quelle loi ?"],
    pieces:["40 000 habitants","50% primo-nominations chaque sexe","-410€/mois en défaveur des femmes","Loi du 6 août 2019"],
    solution:[0,1,2,3],
-   explications:["Index égalité F/H obligatoire pour les collectivités de plus de 40 000 habitants","Loi Sauvadet (2012) : 50% de primo-nominations de chaque sexe aux emplois supérieurs et de direction","Écart de -410€/mois dans la FPT lié à la surreprésentation des femmes en catégorie C","Loi de transformation de la FP du 6 août 2019 renforce les obligations d'égalité professionnelle"]},
+   explications:["Index égalité F/H obligatoire pour les collectivités de plus de 40 000 habitants","Loi Sauvadet (2012) : 50% de primo-nominations de chaque sexe aux emplois supérieurs et de direction","Écart de -410€/mois dans la FPT lié à la surreprésentation des femmes en catégorie C","Loi de transformation de la FP du 6 août 2019 renforce les obligations d'égalité professionnelle"],
+   exemple:"📋 Collectivité 50 000 hab., 2 femmes sur 10 postes de direction : pénalité. Publie son index F/H annuellement. Objectif légal : 40% de femmes aux primo-nominations."},
 
   // ── 18. TÉLÉTRAVAIL ──
   {centre:"TÉLÉTRAVAIL\nFP 2023",theme:"Règles et limites",
@@ -4272,7 +4289,8 @@ var CARTE_DATA = [
    hints:["Combien de jours max ?","Minimum sur site ?","Quel montant ?","Quel plafond ?"],
    pieces:["3 jours maximum","2 jours minimum sur site","2,88€ / jour","253,44€ / an"],
    solution:[0,1,2,3],
-   explications:["Maximum 3 jours de télétravail par semaine (décret 2016-151 modifié)","Présence minimale de 2 jours sur site par semaine — obligatoire","Forfait de remboursement : 2,88€ par jour de télétravail effectif","Plafond : 2,88€ × 88 jours = 253,44€ par an (décret 2020-524)"]},
+   explications:["Maximum 3 jours de télétravail par semaine (décret 2016-151 modifié)","Présence minimale de 2 jours sur site par semaine — obligatoire","Forfait de remboursement : 2,88€ par jour de télétravail effectif","Plafond : 2,88€ × 88 jours = 253,44€ par an (décret 2020-524)"],
+   exemple:"📋 Léa télétravaille 2j\/semaine (plafond 3j). Elle perçoit 2,88€ × 88j max = 253,44€\/an. Elle doit avoir un espace de travail adapté et une connexion sécurisée."},
 
   // ── 19. RIFSEEP ──
   {centre:"RIFSEEP",theme:"Régime indemnitaire",
@@ -4280,7 +4298,8 @@ var CARTE_DATA = [
    hints:["Que signifie l'acronyme ?","Nom de la part fixe ?","Nom de la part variable ?","Quelle année ?"],
    pieces:["Fonctions Sujétions Expertise Engagement Pro","IFSE (Indemnité de Fonctions)","CIA (Complément Indemnitaire Annuel)","Décret n°2014-513"],
    solution:[0,1,2,3],
-   explications:["RIFSEEP = Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel","IFSE : part fixe versée mensuellement — reflète le niveau de fonctions et l'expertise","CIA : part variable annuelle — reflète l'engagement professionnel. Peut être nulle.","Instauré par le décret n°2014-513 du 20 mai 2014 — remplace l'ancien maquis de primes"]},
+   explications:["RIFSEEP = Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel","IFSE : part fixe versée mensuellement — reflète le niveau de fonctions et l'expertise","CIA : part variable annuelle — reflète l'engagement professionnel. Peut être nulle.","Instauré par le décret n°2014-513 du 20 mai 2014 — remplace l'ancien maquis de primes"],
+   exemple:"📋 Marc, SA groupe 2 : IFSE = 450€\/mois (fixe). En décembre : CIA = 800€ selon son entretien. Total indemnitaire annuel : 6 200€ bruts. Montant fixé par délibération."},
 
   // ── 20. RECOURS ADMINISTRATIFS ──
   {centre:"RECOURS\nADMINISTRATIFS",theme:"Voies de recours",
@@ -4288,7 +4307,8 @@ var CARTE_DATA = [
    hints:["Auprès de qui ?","Auprès de qui ?","Devant qui ?","Quel délai ?"],
    pieces:["Auprès de l'auteur de l'acte","Auprès du supérieur hiérarchique","Tribunal administratif","2 mois à compter de la notification"],
    solution:[0,1,2,3],
-   explications:["Recours gracieux : demande à l'auteur de l'acte de le retirer ou le modifier — suspend le délai contentieux","Recours hiérarchique : demande au supérieur de l'auteur — suspend aussi le délai contentieux","Recours contentieux : saisine du TA — doit être précédé en principe d'un RAPO (recours administratif préalable obligatoire) dans certains cas","Délai de droit commun : 2 mois à compter de la notification ou publication de l'acte pour former un recours"]},
+   explications:["Recours gracieux : demande à l'auteur de l'acte de le retirer ou le modifier — suspend le délai contentieux","Recours hiérarchique : demande au supérieur de l'auteur — suspend aussi le délai contentieux","Recours contentieux : saisine du TA — doit être précédé en principe d'un RAPO (recours administratif préalable obligatoire) dans certains cas","Délai de droit commun : 2 mois à compter de la notification ou publication de l'acte pour former un recours"],
+   exemple:"📋 Paul conteste son affectation → recours gracieux auprès du maire (2 mois). Refus → recours hiérarchique au Préfet. Nouveau refus → recours contentieux TA dans les 2 mois."},
 
   // ── 21. ABANDON DE POSTE ──
   {centre:"ABANDON\nDE POSTE",theme:"Procédure et conséquences",
@@ -4296,7 +4316,8 @@ var CARTE_DATA = [
    hints:["C'est quoi exactement ?","Que doit faire l'admin ?","Que devient l'agent ?","Vrai ou faux ?"],
    pieces:["Constat de rupture du lien de service","Mise en demeure préalable écrite","Radiation des cadres","Vrai — pas de conseil de discipline"],
    solution:[0,1,2,3],
-   explications:["L'abandon de poste est un constat administratif, pas une sanction disciplinaire — il constate que l'agent a rompu son lien avec le service","La mise en demeure est OBLIGATOIRE — sans elle, la radiation est illégale (jurisprudence CE constante)","L'agent est radié des cadres et perd la qualité de fonctionnaire","Vrai : pas de conseil de discipline, pas de procédure disciplinaire — mais mise en demeure obligatoire"]},
+   explications:["L'abandon de poste est un constat administratif, pas une sanction disciplinaire — il constate que l'agent a rompu son lien avec le service","La mise en demeure est OBLIGATOIRE — sans elle, la radiation est illégale (jurisprudence CE constante)","L'agent est radié des cadres et perd la qualité de fonctionnaire","Vrai : pas de conseil de discipline, pas de procédure disciplinaire — mais mise en demeure obligatoire"],
+   exemple:"📋 Marc absent 10 jours sans justification. Commune envoie une mise en demeure recommandée. Sans réponse sous 15 jours → radiation d\'office, sans droit au chômage."},
 
   // ── 22. PROTECTION FONCTIONNELLE ──
   {centre:"PROTECTION\nFONCTIONNELLE",theme:"CGFP art. L134-1",
@@ -4304,7 +4325,8 @@ var CARTE_DATA = [
    hints:["Tous les agents ?","Quels actes ?","L'administration ou l'agent ?","Quelle exception ?"],
    pieces:["Tout fonctionnaire (titulaire et stagiaire)","Menaces, violences, injures, poursuites","L'administration (collectivité)","Faute personnelle détachable du service"],
    solution:[0,1,2,3],
-   explications:["Tous les fonctionnaires bénéficient de la protection fonctionnelle — titulaires, stagiaires, et parfois contractuels","Couvre : menaces, violences, injures, harcèlement, poursuites judiciaires injustifiées liées aux fonctions","L'administration doit protéger et indemniser l'agent — c'est une obligation, pas une faculté","La protection peut être refusée si les faits constituent une faute personnelle détachable de l'exercice des fonctions"]},
+   explications:["Tous les fonctionnaires bénéficient de la protection fonctionnelle — titulaires, stagiaires, et parfois contractuels","Couvre : menaces, violences, injures, harcèlement, poursuites judiciaires injustifiées liées aux fonctions","L'administration doit protéger et indemniser l'agent — c'est une obligation, pas une faculté","La protection peut être refusée si les faits constituent une faute personnelle détachable de l'exercice des fonctions"],
+   exemple:"📋 Un élu menace Sophie après sa décision → elle demande la protection fonctionnelle. La commune paie son avocat et couvre les dommages et intérêts éventuels."},
 
   // ── 23. CONGÉS STATUTAIRES ──
   {centre:"CONGÉS\nSTATUTAIRES",theme:"Principaux congés du fonctionnaire",
@@ -4312,7 +4334,8 @@ var CARTE_DATA = [
    hints:["Combien de jours/mois ?","Combien d'années ?","Combien d'années ?","Durée de base ?"],
    pieces:["12 mois sur 12 mois consécutifs","3 ans (1 an plein + 2 ans demi)","5 ans (2 ans pleins + 3 ans demi)","16 semaines (6 avant + 10 après)"],
    solution:[0,1,2,3],
-   explications:["CMO : jusqu'à 12 mois consécutifs — depuis mars 2025 : 90% les 3 premiers mois, puis 50%","CLM : 3 ans maximum — 1 an à plein traitement + 2 ans à demi-traitement. Affections graves listées","CLD : 5 ans maximum — 2 ans à plein traitement + 3 ans à demi-traitement. Maladies contractées en service","Congé maternité : 16 semaines (droit commun) — 26 semaines dès le 3ème enfant. Maintien intégral du traitement"]},
+   explications:["CMO : jusqu'à 12 mois consécutifs — depuis mars 2025 : 90% les 3 premiers mois, puis 50%","CLM : 3 ans maximum — 1 an à plein traitement + 2 ans à demi-traitement. Affections graves listées","CLD : 5 ans maximum — 2 ans à plein traitement + 3 ans à demi-traitement. Maladies contractées en service","Congé maternité : 16 semaines (droit commun) — 26 semaines dès le 3ème enfant. Maintien intégral du traitement"],
+   exemple:"📋 Marc a 25j de CA, en pose 20 → peut reporter 5j dans son CET (plafond 60j). Arrêt maladie 2 mois → CMO. Cancer diagnostiqué → CLM : 1 an à 100% puis 2 ans à 50%."},
 
   // ── 24. LAÏCITÉ ──
   {centre:"LAÏCITÉ ET\nFONCTION PUBLIQUE",theme:"Obligations de neutralité",
@@ -4320,7 +4343,8 @@ var CARTE_DATA = [
    hints:["Quel comportement ?","Quel acte précis ?","Quelle liberté résiduelle ?","Quelle loi ?"],
    pieces:["Neutralité stricte dans les fonctions","Tout signe religieux ostensible","Pratiquer sa religion hors service","Loi du 9 décembre 1905"],
    solution:[0,1,2,3],
-   explications:["L'agent public est soumis à une obligation stricte de neutralité dans l'exercice de ses fonctions — quelle que soit sa religion","Interdit : tout signe religieux ostensible (voile, kippa, croix visible, etc.) pendant le service","Permis : l'agent est libre de pratiquer sa religion en dehors du service — la laïcité ne touche pas la vie privée","Texte fondateur : loi du 9 décembre 1905 de séparation des Églises et de l'État — principe constitutionnel"]},
+   explications:["L'agent public est soumis à une obligation stricte de neutralité dans l'exercice de ses fonctions — quelle que soit sa religion","Interdit : tout signe religieux ostensible (voile, kippa, croix visible, etc.) pendant le service","Permis : l'agent est libre de pratiquer sa religion en dehors du service — la laïcité ne touche pas la vie privée","Texte fondateur : loi du 9 décembre 1905 de séparation des Églises et de l'État — principe constitutionnel"],
+   exemple:"📋 Un agent porte un voile pendant l\'accueil du public → interdit (neutralité). Un usager exige d\'être servi par un homme → la commune refuse (principe d\'égalité de traitement)."},
 
   // ── 25. GRÈVE DANS LA FP ──
   {centre:"DROIT DE GRÈVE\nFONCTION PUBLIQUE",theme:"Encadrement et limites",
@@ -4328,7 +4352,8 @@ var CARTE_DATA = [
    hints:["Combien de jours ?","Quelles formes ?","Quels corps ?","Quelle loi ?"],
    pieces:["5 jours francs","Grève tournante et surprise","Policiers, militaires (certains)","Loi du 31 juillet 1963"],
    solution:[0,1,2,3],
-   explications:["Préavis de 5 jours francs obligatoire — déposé par une organisation syndicale représentative auprès de l'autorité hiérarchique","Grève tournante (services à tour de rôle) et grève surprise (sans préavis) sont interdites dans la FP","Certains corps ne peuvent pas faire grève : militaires, policiers nationaux, magistrats judiciaires, agents des services essentiels","Loi du 31 juillet 1963 encadre le droit de grève dans la FP — équilibre entre continuité du SP et droit fondamental"]},
+   explications:["Préavis de 5 jours francs obligatoire — déposé par une organisation syndicale représentative auprès de l'autorité hiérarchique","Grève tournante (services à tour de rôle) et grève surprise (sans préavis) sont interdites dans la FP","Certains corps ne peuvent pas faire grève : militaires, policiers nationaux, magistrats judiciaires, agents des services essentiels","Loi du 31 juillet 1963 encadre le droit de grève dans la FP — équilibre entre continuité du SP et droit fondamental"],
+   exemple:"📋 CGT dépose un préavis le lundi pour grève vendredi → 5 jours francs respectés. Paul fait grève 2 jours → retenue 2\/30ème. Grève sans préavis syndical → illégale."},
 
   // ── 26. CUMUL D'ACTIVITÉS ──
   {centre:"CUMUL\nD'ACTIVITÉS",theme:"Règles et exceptions",
@@ -4336,7 +4361,8 @@ var CARTE_DATA = [
    hints:["Interdit ou autorisé ?","Exemple d'exception ?","Quelle démarche ?","Quel texte ?"],
    pieces:["Interdiction de principe","Activités accessoires (enseignement, créations...)","Déclaration à l'autorité hiérarchique","Décret n°2020-69 du 30 jan. 2020"],
    solution:[0,1,2,3],
-   explications:["Principe : le fonctionnaire consacre l'intégralité de son activité professionnelle aux fonctions qui lui sont confiées","Exceptions : activités accessoires listées (enseignement, conseil, création artistique, auto-entrepreneur sous conditions...)","Obligation de déclaration préalable à l'autorité hiérarchique — même pour les activités autorisées","Décret n°2020-69 du 30 janvier 2020 régit le cumul d'activités dans la FP"]},
+   explications:["Principe : le fonctionnaire consacre l'intégralité de son activité professionnelle aux fonctions qui lui sont confiées","Exceptions : activités accessoires listées (enseignement, conseil, création artistique, auto-entrepreneur sous conditions...)","Obligation de déclaration préalable à l'autorité hiérarchique — même pour les activités autorisées","Décret n°2020-69 du 30 janvier 2020 régit le cumul d'activités dans la FP"],
+   exemple:"📋 Marc donne des cours de tennis le week-end → autorisé avec déclaration. Il crée une SARL de conseil RH → autorisé 2 ans max. Il travaille pour un concurrent privé → interdit."},
 
   // ── 27. NOTATION ET ÉVALUATION ──
   {centre:"ÉVALUATION\nPROFESSIONNELLE",theme:"Entretien professionnel",
@@ -4344,7 +4370,8 @@ var CARTE_DATA = [
    hints:["Tous les combien ?","Quel supérieur ?","Que comprend-il ?","Quel impact ?"],
    pieces:["Annuelle","Le supérieur hiérarchique direct","Résultats, objectifs, compétences, formation","Avancement d'échelon et de grade"],
    solution:[0,1,2,3],
-   explications:["Entretien professionnel annuel — a remplacé la notation chiffrée depuis 2012","Conduit par le supérieur hiérarchique direct de l'agent","Porte sur : résultats obtenus, objectifs de l'année suivante, compétences, besoins de formation","Le compte rendu est pris en compte pour l'avancement d'échelon et l'inscription sur les listes d'aptitude"]},
+   explications:["Entretien professionnel annuel — a remplacé la notation chiffrée depuis 2012","Conduit par le supérieur hiérarchique direct de l'agent","Porte sur : résultats obtenus, objectifs de l'année suivante, compétences, besoins de formation","Le compte rendu est pris en compte pour l'avancement d'échelon et l'inscription sur les listes d'aptitude"],
+   exemple:"📋 Julie conteste sa note → entretien DRH puis recours CAP. Depuis les LDG 2022, la CIA est directement liée à l\'entretien annuel. Pas d\'entretien = pas de CIA modulé."},
 
   // ── 28. JURIDICTIONS ADMINISTRATIVES ──
   {centre:"JURIDICTIONS\nADMINISTRATIVES",theme:"Organisation de la justice admin.",
@@ -4352,7 +4379,8 @@ var CARTE_DATA = [
    hints:["Quel tribunal ?","Quelle cour ?","Quelle juridiction suprême ?","Procédure d'urgence ?"],
    pieces:["Tribunal Administratif (TA)","Cour Administrative d'Appel (CAA)","Conseil d'État (CE)","TA en référé (48h)"],
    solution:[0,1,2,3],
-   explications:["Tribunal Administratif : juge de 1ère instance — compétent pour les litiges agents/administration","Cour Administrative d'Appel : 8 CAA en France — juge les appels des jugements du TA","Conseil d'État : juge de cassation, et aussi juge de 1ère instance pour les actes réglementaires ministériels","Référé : procédure d'urgence devant le TA — décision en 48h pour les atteintes à une liberté fondamentale"]},
+   explications:["Tribunal Administratif : juge de 1ère instance — compétent pour les litiges agents/administration","Cour Administrative d'Appel : 8 CAA en France — juge les appels des jugements du TA","Conseil d'État : juge de cassation, et aussi juge de 1ère instance pour les actes réglementaires ministériels","Référé : procédure d'urgence devant le TA — décision en 48h pour les atteintes à une liberté fondamentale"],
+   exemple:"📋 Paul conteste son licenciement → TA de Saint-Denis. Commune fait appel → CAA de Bordeaux. Pourvoi en cassation → Conseil d\'État. Conflit État\/commune → Tribunal des conflits."},
 
   // ── 29. STATUT GÉNÉRAL FP ──
   {centre:"STATUT GÉNÉRAL\nFONCTION PUBLIQUE",theme:"3 versants de la FP",
@@ -4360,7 +4388,8 @@ var CARTE_DATA = [
    hints:["Quel versant état ?","Quel versant territorial ?","Quel versant hospitalier ?","Combien d'agents ?"],
    pieces:["~2,5 millions d'agents","~1,9 million d'agents","~1,2 million d'agents","~5,7 millions d'agents"],
    solution:[0,1,2,3],
-   explications:["FPE (État) : ~2,5 millions — le versant le plus nombreux, régi par la loi du 13 juillet 1983","FPT (Territoriale) : ~1,9 million — agents des collectivités et EPCI, régi par la loi du 26 janvier 1984","FPH (Hospitalière) : ~1,2 million — agents des hôpitaux et établissements médico-sociaux, loi du 9 janvier 1986","Total : ~5,7 millions d'agents publics en France (rapport annuel état de la FP 2025)"]},
+   explications:["FPE (État) : ~2,5 millions — le versant le plus nombreux, régi par la loi du 13 juillet 1983","FPT (Territoriale) : ~1,9 million — agents des collectivités et EPCI, régi par la loi du 26 janvier 1984","FPH (Hospitalière) : ~1,2 million — agents des hôpitaux et établissements médico-sociaux, loi du 9 janvier 1986","Total : ~5,7 millions d'agents publics en France (rapport annuel état de la FP 2025)"],
+   exemple:"📋 Marc recruté par concours (titre), nommé stagiaire puis titularisé (grade), affecté sur un poste SA (emploi). Loi 1983 : principes communs aux 3 versants FPE\/FPT\/FPH."},
 
   // ── 30. CONFLITS D'INTÉRÊTS ──
   {centre:"CONFLIT\nD'INTÉRÊTS",theme:"Prévention et déontologie",
@@ -4368,7 +4397,8 @@ var CARTE_DATA = [
    hints:["C'est quoi ?","Que doit faire l'agent ?","Quelle autorité ?","Quelle loi ?"],
    pieces:["Intérêt personnel influençant une décision","Déport (délégation à un tiers)","HATVP + référent déontologue","Loi Sapin II — 2016"],
    solution:[0,1,2,3],
-   explications:["Conflit d'intérêts : situation où un intérêt personnel (financier, familial...) est de nature à influencer l'exercice impartial d'une fonction","Déport : l'agent se récuse et délègue la décision à un collègue ou supérieur — obligation CGFP art. L121-3","HATVP pour les hauts fonctionnaires ; référent déontologue pour les agents des collectivités (+50 agents)","Loi Sapin II du 9 décembre 2016 — renforce la prévention de la corruption et des conflits d'intérêts dans la FP"]},
+   explications:["Conflit d'intérêts : situation où un intérêt personnel (financier, familial...) est de nature à influencer l'exercice impartial d'une fonction","Déport : l'agent se récuse et délègue la décision à un collègue ou supérieur — obligation CGFP art. L121-3","HATVP pour les hauts fonctionnaires ; référent déontologue pour les agents des collectivités (+50 agents)","Loi Sapin II du 9 décembre 2016 — renforce la prévention de la corruption et des conflits d'intérêts dans la FP"],
+   exemple:"📋 La DGS est au jury, son fils est candidat : elle se déporte (obligation légale). Un élu vote un marché pour l’entreprise familiale : prise illégale d’intérêts = délit pénal."}
 ];
 
 var carteIdx=0, carteScore=0, carteData=[], carteSelected=null, carteProgress=0, carteTotal=0, cartePlaced=[];
