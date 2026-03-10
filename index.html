@@ -2567,6 +2567,12 @@ function showScreen(id){
   if(!el){ console.error('showScreen: ID introuvable →',id); return; }
   el.classList.add('active');
   el.style.display='block';
+  // Nettoyer les overlays persistants en quittant le quiz
+  var cb=document.getElementById('correctionBox');
+  if(cb) cb.classList.remove('show');
+  if(typeof chronoInterval!=='undefined') clearInterval(chronoInterval);
+  // Réinitialiser le menu si on y revient
+  if(id==='screen-menu' && typeof resetMenu==='function') resetMenu();
   window.scrollTo(0,0);
 }
 
@@ -3452,8 +3458,29 @@ function lancerJeu(id) {
   document.getElementById('jeu-'+id).classList.add('active');
   document.body.style.overflow = 'hidden';
 }
+function resetMenu(){
+  // Réinitialiser la sélection de thèmes → "Tous les thèmes"
+  selectedThemes = new Set(['all']);
+  seenQuestionIds.clear();
+  document.querySelectorAll('.theme-card').forEach(function(c){ c.classList.remove('selected'); });
+  var allCard = document.querySelector('.theme-card.all-themes');
+  if(allCard) allCard.classList.add('selected');
+  // Réinitialiser le mode → entraînement par défaut
+  document.querySelectorAll('.mode-btn').forEach(function(b){ b.classList.remove('active'); });
+  var defMode = document.getElementById('modeEntrainement');
+  if(defMode) defMode.classList.add('active');
+  // Mettre à jour le bouton démarrer
+  if(typeof updateStartBtn === 'function') updateStartBtn();
+}
+
 function fermerJeu(id) {
-  document.getElementById('jeu-'+id).classList.remove('active');
+  // Stopper le chrono carte si actif
+  if(typeof carteChronoInterval !== 'undefined') clearInterval(carteChronoInterval);
+  // Masquer la modale correction carte si ouverte
+  var modal = document.getElementById('carte-correction-modal');
+  if(modal) modal.style.display = 'none';
+  var jeuEl = document.getElementById('jeu-'+id);
+  if(jeuEl){ jeuEl.classList.remove('active'); jeuEl.style.display = ''; }
   document.body.style.overflow = '';
   showScreen('screen-jeux');
 }
