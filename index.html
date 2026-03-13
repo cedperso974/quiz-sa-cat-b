@@ -652,6 +652,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .duel-opt{padding:13px 15px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.92em;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;font-family:'DM Sans',sans-serif}
 .duel-opt:hover{border-color:var(--navy);background:#eef3ff}
 .duel-opt.selected{border-color:var(--navy);background:#eef3ff;font-weight:700}
+
+/* ── Duel thèmes ── */
+.duel-theme-item{display:flex;align-items:center;gap:7px;padding:9px 11px;border:2px solid #e0e8f5;border-radius:11px;cursor:pointer;background:#fff;transition:all .15s;font-size:.83em;font-weight:600;color:#1a2240;user-select:none}
+.duel-theme-item.active{border-color:var(--navy);background:#eef3ff}
+.duel-theme-emoji{font-size:1.1em;flex-shrink:0}
+.duel-theme-label{line-height:1.2}
+
+/* ── Hub Duel ── */
+.duel-hub-card{background:linear-gradient(135deg,#fef9e7,#fdf3d0);border:2px solid #f0c040;border-radius:16px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s}
+.duel-hub-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(240,192,64,.3)}
+.duel-hub-icon{font-size:1.8em;display:block;margin-bottom:6px}
+.duel-hub-name{font-weight:800;font-size:.92em;color:#1a2240;margin-bottom:3px}
+.duel-hub-desc{font-size:.72em;color:#666;line-height:1.3}
+.duel-hub-surprise{background:linear-gradient(135deg,#f3e8ff,#ede0ff);border-color:#c084fc}
+.duel-hub-surprise .duel-hub-name{color:#581c87}
 </style>
 </head>
 <body>
@@ -844,12 +859,38 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="jeu-desc">10 questions difficiles. 3 vies. Tue le boss.</div>
     </div>
   </div>
-<!-- ════════ MODE DUEL ════════ -->
-<div style="margin-top:16px;padding:0 2px">
-  <div class="jeu-card" style="background:linear-gradient(135deg,#fef9e7,#fdf3d0);border:2px solid #f0c040;border-radius:18px;padding:18px 16px;text-align:center;cursor:pointer;transition:all .2s" onclick="ouvrirDuel()">
-    <span style="font-size:2em">🎮</span>
-    <div style="font-weight:800;font-size:1.05em;color:#1a2240;margin:6px 0 4px">Mode Duel</div>
-    <div style="font-size:.82em;color:#555">2 joueurs · même appareil · tour par tour</div>
+<!-- ════════ HUB DUEL ════════ -->
+<div style="margin-top:20px;padding:0 2px">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+    <span style="font-size:1.3em">🎮</span>
+    <span style="font-weight:800;font-size:1.05em;color:#1a2240">Modes Duel — 2 joueurs</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="duel-hub-card" onclick="ouvrirDuel()">
+      <span class="duel-hub-icon">⚔️</span>
+      <div class="duel-hub-name">Tour par Tour</div>
+      <div class="duel-hub-desc">Mêmes questions · réponse cachée · révélation</div>
+    </div>
+    <div class="duel-hub-card" onclick="ouvrirBuzzer()">
+      <span class="duel-hub-icon">🔔</span>
+      <div class="duel-hub-name">Le Buzzer</div>
+      <div class="duel-hub-desc">1er qui buzz répond · faux = point adverse</div>
+    </div>
+    <div class="duel-hub-card" onclick="ouvrirSprint()">
+      <span class="duel-hub-icon">⚡</span>
+      <div class="duel-hub-name">Sprint 60s</div>
+      <div class="duel-hub-desc">Max de bonnes réponses en 60 secondes</div>
+    </div>
+    <div class="duel-hub-card" onclick="ouvrirPari()">
+      <span class="duel-hub-icon">🎯</span>
+      <div class="duel-hub-name">Le Pari</div>
+      <div class="duel-hub-desc">Mise x2 si sûr · faux = -1 point</div>
+    </div>
+    <div class="duel-hub-card duel-hub-surprise" onclick="ouvrirSurprise()" style="grid-column:1/-1">
+      <span class="duel-hub-icon">🎲</span>
+      <div class="duel-hub-name">🦹 Le Voleur</div>
+      <div class="duel-hub-desc">Vole les points · corrige les erreurs · stratégie !</div>
+    </div>
   </div>
 </div>
 </div>
@@ -5853,6 +5894,39 @@ var duelScores = [0, 0];
 var duelPhase = 'p1'; // 'p1' | 'p2'
 var duelSelectedOpt = -1;
 
+window.duelAbandonner = function duelAbandonner() {
+  document.getElementById('duel-reveal-overlay').style.display = 'none';
+  document.getElementById('duel-pass-overlay').style.display = 'none';
+  var ov = document.createElement('div');
+  ov.id = 'duel-confirm-ov';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:30px';
+  var box = document.createElement('div');
+  box.style.cssText = 'background:#fff;border-radius:20px;padding:28px 24px;text-align:center;max-width:320px;width:100%';
+  box.innerHTML = '<div style="font-size:2em;margin-bottom:12px">🏳️</div>'
+    + '<div style="font-weight:800;color:#1a2240;font-size:1.1em;margin-bottom:8px">Abandonner le duel ?</div>'
+    + '<div style="font-size:.85em;color:#666;margin-bottom:20px">Les scores seront perdus.</div>';
+  var btnOui = document.createElement('button');
+  btnOui.textContent = 'Oui, quitter';
+  btnOui.style.cssText = 'width:100%;padding:13px;background:#c0392b;color:#fff;font-weight:800;border:none;border-radius:12px;cursor:pointer;margin-bottom:10px;font-size:.95em';
+  btnOui.onclick = function() { document.getElementById('duel-confirm-ov').remove(); showScreen('screen-menu'); };
+  var btnNon = document.createElement('button');
+  btnNon.textContent = 'Non, continuer';
+  btnNon.style.cssText = 'width:100%;padding:13px;background:#f4f6fb;color:#1a2240;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-size:.95em';
+  btnNon.onclick = function() { document.getElementById('duel-confirm-ov').remove(); };
+  box.appendChild(btnOui);
+  box.appendChild(btnNon);
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+}
+
+
+function duelAbandonner() {
+  if(!confirm('Abandonner le duel ?')) return;
+  document.getElementById('duel-reveal-overlay').style.display = 'none';
+  document.getElementById('duel-pass-overlay').style.display = 'none';
+  showScreen('screen-menu');
+}
+
 function ouvrirDuel() {
   showScreen('screen-duel');
   document.getElementById('duel-setup').style.display = 'block';
@@ -5865,6 +5939,10 @@ function ouvrirDuel() {
   document.querySelectorAll('.duel-nb-btn').forEach(function(b){
     b.classList.toggle('active', b.dataset.nb === '5');
   });
+  // Reset thèmes — tout décoché
+  document.querySelectorAll('.duel-theme-chk').forEach(function(c){ c.checked = false; });
+  document.querySelectorAll('.duel-theme-item').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('duel-all-btn').textContent = 'Tout cocher';
 }
 
 function setDuelNb(n, btn) {
@@ -5873,24 +5951,43 @@ function setDuelNb(n, btn) {
   btn.classList.add('active');
 }
 
+function duelToggleAllThemes() {
+  var chks = document.querySelectorAll('.duel-theme-chk');
+  var items = document.querySelectorAll('.duel-theme-item');
+  var allChecked = Array.from(chks).every(function(c){ return c.checked; });
+  chks.forEach(function(c){ c.checked = !allChecked; });
+  items.forEach(function(el){ el.classList.toggle('active', !allChecked); });
+  document.getElementById('duel-all-btn').textContent = allChecked ? 'Tout cocher' : 'Tout décocher';
+}
+
+function duelThemeClick(el) {
+  var chk = el.querySelector('.duel-theme-chk');
+  chk.checked = !chk.checked;
+  el.classList.toggle('active', chk.checked);
+  var total = document.querySelectorAll('.duel-theme-chk').length;
+  var checked = document.querySelectorAll('.duel-theme-chk:checked').length;
+  document.getElementById('duel-all-btn').textContent = checked === total ? 'Tout décocher' : 'Tout cocher';
+}
+
 function lancerDuel() {
   var n1 = document.getElementById('duel-p1-name').value.trim();
   var n2 = document.getElementById('duel-p2-name').value.trim();
-  if(!n1 || !n2) {
-    alert('Entre les prénoms des 2 joueurs !');
-    return;
-  }
+  if(!n1 || !n2) { alert('Entre les prénoms des 2 joueurs !'); return; }
+  // Thèmes sélectionnés
+  var selectedT = Array.from(document.querySelectorAll('.duel-theme-chk:checked')).map(function(c){ return c.value; });
+  if(selectedT.length === 0) { alert('Sélectionne au moins un thème !'); return; }
   duelP1 = n1; duelP2 = n2;
   duelScores = [0, 0];
   duelAnswers = [];
   duelCurrent = 0;
-  // Piocher questions (toutes thèmes, QCM uniquement, pas fill)
-  var pool2 = [];
-  Object.values(qData).forEach(function(arr) {
-    arr.forEach(function(q) {
-      if(!q.fill && !q.m && q.o && q.o.length >= 2) pool2.push(q);
-    });
+  // Piocher questions depuis Q filtrées par thème
+  var pool2 = Q.filter(function(q) {
+    return !q.fill && !q.m && q.o && q.o.length >= 2 && selectedT.indexOf(q.t) !== -1;
   });
+  if(pool2.length < duelNb) {
+    if(pool2.length === 0) { alert('Aucune question pour ces thèmes !'); return; }
+    duelNb = pool2.length;
+  }
   pool2 = pool2.sort(function(){ return Math.random()-.5; }).slice(0, duelNb);
   duelQuestions = pool2;
 
@@ -5941,16 +6038,9 @@ function duelAfficherQuestion() {
   document.getElementById('duel-reveal-overlay').style.display = 'none';
   document.getElementById('duel-pass-overlay').style.display = 'none';
 
-  // Bouton valider
-  var valBtn = document.getElementById('duel-valider-btn');
-  if(!valBtn) {
-    valBtn = document.createElement('button');
-    valBtn.id = 'duel-valider-btn';
-    valBtn.style.cssText = "width:100%;padding:14px;background:var(--navy);color:#fff;font-weight:800;font-size:1em;border:none;border-radius:14px;cursor:pointer;margin-top:10px";
-    valBtn.onclick = duelValider;
-    document.getElementById('duel-game').appendChild(valBtn);
-  }
-  valBtn.textContent = '✓ Valider';
+  // Afficher les boutons fixes
+  document.getElementById('duel-valider-btn').style.display = 'block';
+  document.getElementById('duel-quitter-btn').style.display = 'block';
 }
 
 function duelValider() {
@@ -6073,6 +6163,566 @@ function duelFin() {
   });
   document.getElementById('duel-fin-detail').innerHTML = detail;
 }
+
+
+// ════════════════════════════════════════════════════
+// UTILITAIRES COMMUNS AUX MODES DUEL
+// ════════════════════════════════════════════════════
+function setDuelNbFor(screenId, n, btn) {
+  document.querySelectorAll('.' + screenId + '-nb-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  window['_duelNb_' + screenId] = n;
+}
+
+function duelToggleAllFor(screenId) {
+  var container = document.getElementById('screen-' + screenId + '-setup') ||
+                  document.getElementById(screenId + '-setup');
+  if(!container) container = document.getElementById('screen-' + screenId);
+  var chks = container.querySelectorAll('.duel-theme-chk');
+  var items = container.querySelectorAll('.duel-theme-item');
+  var allChecked = Array.from(chks).every(function(c){ return c.checked; });
+  chks.forEach(function(c){ c.checked = !allChecked; });
+  items.forEach(function(el){ el.classList.toggle('active', !allChecked); });
+  var btn = document.getElementById(screenId + '-all-btn');
+  if(btn) btn.textContent = allChecked ? 'Tout cocher' : 'Tout décocher';
+}
+
+function getThemesFor(screenId) {
+  var container = document.getElementById('screen-' + screenId);
+  return Array.from(container.querySelectorAll('.duel-theme-chk:checked')).map(function(c){ return c.value; });
+}
+
+function getPoolFor(screenId) {
+  var selectedT = getThemesFor(screenId);
+  if(selectedT.length === 0) return null;
+  return Q.filter(function(q){
+    return !q.fill && !q.m && q.o && q.o.length >= 2 && selectedT.indexOf(q.t) !== -1;
+  });
+}
+
+function getNbFor(screenId) {
+  return window['_duelNb_' + screenId] || 10;
+}
+
+function setupScreenFor(screenId) {
+  var el = document.getElementById('screen-' + screenId);
+  el.querySelectorAll('.duel-theme-chk').forEach(function(c){ c.checked = false; });
+  el.querySelectorAll('.duel-theme-item').forEach(function(el){ el.classList.remove('active'); });
+  var allBtn = document.getElementById(screenId + '-all-btn');
+  if(allBtn) allBtn.textContent = 'Tout cocher';
+  window['_duelNb_' + screenId] = parseInt(el.querySelector('.duel-nb-btn.active')?.dataset?.nb || 10);
+  document.getElementById(screenId + '-setup').style.display = 'block';
+  document.getElementById(screenId + '-game').style.display = 'none';
+  document.getElementById(screenId + '-fin').style.display = 'none';
+}
+
+function duelAbandonnerMode(screenId) {
+  var ov = document.createElement('div');
+  ov.id = 'abandon-ov';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:30px';
+  var box = document.createElement('div');
+  box.style.cssText = 'background:#fff;border-radius:20px;padding:28px 24px;text-align:center;max-width:320px;width:100%';
+  box.innerHTML = '<div style="font-size:2em;margin-bottom:10px">🏳️</div><div style="font-weight:800;color:#1a2240;font-size:1.05em;margin-bottom:6px">Abandonner ?</div><div style="font-size:.85em;color:#666;margin-bottom:18px">Les scores seront perdus.</div>';
+  var b1 = document.createElement('button');
+  b1.textContent = 'Oui, quitter';
+  b1.style.cssText = 'width:100%;padding:12px;background:#c0392b;color:#fff;font-weight:800;border:none;border-radius:12px;cursor:pointer;margin-bottom:8px;font-size:.95em';
+  b1.onclick = function(){ document.getElementById('abandon-ov').remove(); showScreen('screen-menu'); };
+  var b2 = document.createElement('button');
+  b2.textContent = 'Non, continuer';
+  b2.style.cssText = 'width:100%;padding:12px;background:#f4f6fb;color:#1a2240;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-size:.95em';
+  b2.onclick = function(){ document.getElementById('abandon-ov').remove(); };
+  box.appendChild(b1); box.appendChild(b2);
+  ov.appendChild(box); document.body.appendChild(ov);
+}
+
+function finDuelCommun(screenId, p1, p2, s1, s2, detailHtml) {
+  document.getElementById(screenId + '-game').style.display = 'none';
+  var fin = document.getElementById(screenId + '-fin');
+  fin.style.display = 'block';
+  var trophy, title;
+  if(s1 > s2){ trophy='🏆'; title = p1 + ' gagne !'; }
+  else if(s2 > s1){ trophy='🏆'; title = p2 + ' gagne !'; }
+  else { trophy='🤝'; title = 'Égalité !'; }
+  fin.innerHTML = '<div style="font-size:4em;margin-bottom:10px">' + trophy + '</div>'
+    + '<div style="font-family:\'Playfair Display\',serif;font-size:1.4em;font-weight:800;color:var(--navy);margin-bottom:14px">' + title + '</div>'
+    + '<div style="background:#f4f6fb;border-radius:16px;padding:18px;margin-bottom:14px;display:flex;justify-content:space-around;align-items:center">'
+    + '<div><div style="font-size:.82em;color:#666;font-weight:600">' + p1 + '</div><div style="font-size:2.4em;font-weight:900;color:var(--navy)">' + s1 + '</div></div>'
+    + '<div style="font-size:1.3em;color:#ccc">VS</div>'
+    + '<div><div style="font-size:.82em;color:#666;font-weight:600">' + p2 + '</div><div style="font-size:2.4em;font-weight:900;color:var(--navy)">' + s2 + '</div></div>'
+    + '</div>'
+    + (detailHtml ? '<div style="text-align:left;margin-bottom:16px">' + detailHtml + '</div>' : '')
+    + '<button onclick="ouvrirMode(\'' + screenId + '\')" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">🔄 Rejouer</button>'
+    + '<button onclick="showScreen(\'screen-menu\')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Menu</button>';
+}
+
+function ouvrirMode(screenId) {
+  showScreen('screen-' + screenId);
+  setupScreenFor(screenId);
+}
+function ouvrirBuzzer(){ ouvrirMode('buzzer'); }
+function ouvrirSprint(){ ouvrirMode('sprint'); }
+function ouvrirPari(){ ouvrirMode('pari'); }
+function ouvrirSurprise(){ ouvrirMode('voleur'); }
+
+// ════════════════════════════════════════════════════
+// MODE BUZZER
+// ════════════════════════════════════════════════════
+var bzP1='', bzP2='', bzS1=0, bzS2=0, bzCurrent=0, bzQuestions=[], bzTimer=null, bzAnswered=false;
+
+function lancerBuzzer() {
+  var n1=document.getElementById('buzzer-p1').value.trim();
+  var n2=document.getElementById('buzzer-p2').value.trim();
+  if(!n1||!n2){alert('Entre les prénoms !');return;}
+  var pool=getPoolFor('buzzer');
+  if(!pool){alert('Sélectionne au moins un thème !');return;}
+  var nb=getNbFor('buzzer');
+  if(pool.length<nb) nb=pool.length;
+  bzP1=n1; bzP2=n2; bzS1=0; bzS2=0; bzCurrent=0;
+  bzQuestions=pool.sort(function(){return Math.random()-.5;}).slice(0,nb);
+  document.getElementById('buzzer-setup').style.display='none';
+  document.getElementById('buzzer-game').style.display='block';
+  bzAfficher();
+}
+
+function bzAfficher() {
+  if(bzCurrent>=bzQuestions.length){bzFin();return;}
+  bzAnswered=false;
+  clearInterval(bzTimer);
+  var q=bzQuestions[bzCurrent];
+  var pct=Math.round(bzCurrent/bzQuestions.length*100);
+  var html='<div style="display:flex;justify-content:space-between;background:#f4f6fb;border-radius:14px;padding:12px 16px;margin-bottom:14px;align-items:center">'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+bzP1+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+bzS1+'</div></div>'
+    +'<div style="color:#ccc;font-weight:900">VS</div>'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+bzP2+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+bzS2+'</div></div>'
+    +'</div>'
+    +'<div style="background:#e8edf5;border-radius:4px;height:5px;margin-bottom:14px"><div style="background:linear-gradient(90deg,#f0c040,#e6a817);height:5px;border-radius:4px;width:'+pct+'%"></div></div>'
+    +'<div style="text-align:center;font-size:.82em;color:#888;margin-bottom:12px">Q '+(bzCurrent+1)+'/'+bzQuestions.length+'</div>'
+    +'<div style="background:#fff;border-radius:16px;padding:18px;border:2px solid #e8edf5;margin-bottom:16px">'
+    +'<div style="font-size:1.05em;font-weight:700;color:#1a2240;line-height:1.5;margin-bottom:0">'+wrapSigles(q.q||'')+'</div>'
+    +'</div>'
+    +'<div id="bz-chrono" style="text-align:center;font-size:2.5em;font-weight:900;color:var(--navy);margin-bottom:16px">10</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">'
+    +'<button onclick="bzBuzz(1)" style="padding:22px 10px;background:linear-gradient(135deg,#e8f0fe,#c7d7f8);border:3px solid #1a5abb;border-radius:16px;font-size:1.1em;font-weight:900;color:#1a2240;cursor:pointer;font-family:\'DM Sans\',sans-serif">🔔 BUZZ<br><span style="font-size:.65em;font-weight:600;color:#555">'+bzP1+'</span></button>'
+    +'<button onclick="bzBuzz(2)" style="padding:22px 10px;background:linear-gradient(135deg,#fef3c7,#fde68a);border:3px solid #d97706;border-radius:16px;font-size:1.1em;font-weight:900;color:#1a2240;cursor:pointer;font-family:\'DM Sans\',sans-serif">🔔 BUZZ<br><span style="font-size:.65em;font-weight:600;color:#555">'+bzP2+'</span></button>'
+    +'</div>'
+    +'<button onclick="duelAbandonnerMode(\'buzzer\')" style="width:100%;padding:11px;background:none;border:2px solid #e0e0e0;color:#888;font-weight:600;font-size:.88em;border-radius:12px;cursor:pointer">✕ Abandonner</button>';
+  document.getElementById('buzzer-game').innerHTML=html;
+  // Chrono 10s
+  var t=10;
+  bzTimer=setInterval(function(){
+    t--;
+    var el=document.getElementById('bz-chrono');
+    if(el) el.textContent=t;
+    if(t<=0){clearInterval(bzTimer);if(!bzAnswered)bzTimeout();}
+  },1000);
+}
+
+function bzBuzz(player) {
+  if(bzAnswered) return;
+  bzAnswered=true;
+  clearInterval(bzTimer);
+  var q=bzQuestions[bzCurrent];
+  var nom=player===1?bzP1:bzP2;
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  // Afficher options pour que le joueur réponde
+  var optsHtml='<div style="font-weight:800;color:#1a2240;font-size:.95em;margin-bottom:12px">🔔 '+nom+' a buzzé !<br><span style="font-size:.85em;font-weight:600;color:#555">Choisissez la réponse :</span></div>';
+  q.o.forEach(function(opt,i){
+    optsHtml+='<button onclick="bzRepondre('+player+','+i+')" style="width:100%;padding:12px 14px;margin-bottom:8px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.9em;font-weight:600;cursor:pointer;text-align:left;font-family:\'DM Sans\',sans-serif">'+wrapSigles(opt)+'</button>';
+  });
+  var game=document.getElementById('buzzer-game');
+  var box=game.querySelector('div[style*="border:2px solid #e8edf5"]');
+  if(box) box.innerHTML=optsHtml;
+}
+
+function bzRepondre(player, choix) {
+  var q=bzQuestions[bzCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  var ok=choix===correctIdx;
+  var nom=player===1?bzP1:bzP2;
+  var adversaire=player===1?bzP2:bzP1;
+  if(ok){ if(player===1)bzS1+=2; else bzS2+=2; }
+  else { if(player===1)bzS2+=1; else bzS1+=1; }
+  // Révélation
+  var msg=ok
+    ?'<div style="background:#dcfce7;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px"><div style="font-size:1.5em">✅</div><div style="font-weight:800;color:#14532d;font-size:1.05em">'+nom+' a bon ! +2 points</div></div>'
+    :'<div style="background:#fde8e8;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px"><div style="font-size:1.5em">❌</div><div style="font-weight:800;color:#b71c1c;font-size:1.05em">'+nom+' a faux !<br><span style="font-weight:600;font-size:.85em">'+adversaire+' marque 1 point</span></div><div style="font-size:.85em;color:#555;margin-top:6px">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div></div>';
+  var isLast=bzCurrent>=bzQuestions.length-1;
+  var nextBtn='<button onclick="'+(isLast?'bzFin':'bzNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+  document.getElementById('buzzer-game').innerHTML='<div style="padding-top:10px">'+msg+nextBtn+'</div>';
+}
+
+function bzTimeout() {
+  var q=bzQuestions[bzCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  var isLast=bzCurrent>=bzQuestions.length-1;
+  document.getElementById('buzzer-game').innerHTML='<div style="padding-top:10px">'
+    +'<div style="background:#fff3e0;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px">'
+    +'<div style="font-size:1.5em">⏱</div><div style="font-weight:800;color:#7c2d12;font-size:1em">Temps écoulé ! Personne ne marque.</div>'
+    +'<div style="font-size:.85em;color:#555;margin-top:6px">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div></div>'
+    +'<button onclick="'+(isLast?'bzFin':'bzNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>'
+    +'</div>';
+}
+
+function bzNext(){ bzCurrent++; bzAfficher(); }
+function bzFin(){ finDuelCommun('buzzer',bzP1,bzP2,bzS1,bzS2,''); }
+
+// ════════════════════════════════════════════════════
+// MODE SPRINT 60s
+// ════════════════════════════════════════════════════
+var spP1='',spP2='',spS1=0,spS2=0,spTime1=0,spQuestions=[],spCurrent=0,spPhase=1,spTimer=null,spStartTime=0;
+
+function lancerSprint(){
+  var n1=document.getElementById('sprint-p1').value.trim();
+  var n2=document.getElementById('sprint-p2').value.trim();
+  if(!n1||!n2){alert('Entre les prénoms !');return;}
+  var pool=getPoolFor('sprint');
+  if(!pool){alert('Sélectionne au moins un thème !');return;}
+  var nb=getNbFor('sprint');
+  if(pool.length<nb)nb=pool.length;
+  spP1=n1;spP2=n2;spS1=0;spS2=0;spTime1=0;spCurrent=0;spPhase=1;
+  spQuestions=pool.sort(function(){return Math.random()-.5;}).slice(0,nb);
+  document.getElementById('sprint-setup').style.display='none';
+  document.getElementById('sprint-game').style.display='block';
+  spAfficherPassage();
+}
+
+function spAfficherPassage(){
+  var nom=spPhase===1?spP1:spP2;
+  var game=document.getElementById('sprint-game');
+  game.innerHTML='<div style="text-align:center;padding:30px 20px">'
+    +'<div style="font-size:3em;margin-bottom:14px">'+(spPhase===1?'👤':'👤')+'</div>'
+    +'<div style="font-weight:800;font-size:1.3em;color:var(--navy);margin-bottom:8px">À '+nom+' de jouer !</div>'
+    +(spPhase===2?'<div style="background:#f4f6fb;border-radius:12px;padding:12px;margin-bottom:16px;font-size:.9em;color:#555">'+spP1+' a marqué <strong>'+spS1+' points</strong><br>Passe l\'appareil à '+spP2+' !</div>':'')
+    +'<div style="font-size:.9em;color:#555;margin-bottom:24px">60 secondes · '+spQuestions.length+' questions · max de bonnes réponses</div>'
+    +'<button onclick="spLancerChrono()" style="width:100%;padding:16px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.1em;border:none;border-radius:14px;cursor:pointer">▶ Démarrer le chrono !</button>'
+    +'</div>';
+}
+
+function spLancerChrono(){
+  spCurrent=0; spStartTime=Date.now(); var t=60;
+  spAfficherQ(t);
+  spTimer=setInterval(function(){
+    t=Math.max(0,60-Math.round((Date.now()-spStartTime)/1000));
+    var el=document.getElementById('sp-chrono');
+    if(el){el.textContent=t;el.style.color=t<=10?'#c0392b':'var(--navy)';}
+    if(t<=0){clearInterval(spTimer);spFinPhase();}
+  },500);
+}
+
+function spAfficherQ(t){
+  if(spCurrent>=spQuestions.length){clearInterval(spTimer);spFinPhase();return;}
+  var q=spQuestions[spCurrent];
+  var score=spPhase===1?spS1:spS2;
+  var nom=spPhase===1?spP1:spP2;
+  var html='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+    +'<span style="font-size:.82em;color:#666">Q '+(spCurrent+1)+'/'+spQuestions.length+'</span>'
+    +'<span id="sp-chrono" style="font-size:1.8em;font-weight:900;color:var(--navy)">'+t+'</span>'
+    +'<span style="font-size:.82em;font-weight:700;color:var(--navy)">'+nom+' : '+score+' pts</span>'
+    +'</div>'
+    +'<div style="background:#e8edf5;border-radius:4px;height:4px;margin-bottom:14px"><div style="background:linear-gradient(90deg,#f0c040,#e6a817);height:4px;border-radius:4px;width:'+Math.round(spCurrent/spQuestions.length*100)+'%"></div></div>'
+    +'<div style="background:#fff;border-radius:16px;padding:16px;border:2px solid #e8edf5;margin-bottom:12px">'
+    +'<div style="font-size:.98em;font-weight:700;color:#1a2240;line-height:1.5">'+wrapSigles(q.q||'')+'</div>'
+    +'</div>'
+    +'<div style="display:flex;flex-direction:column;gap:8px">';
+  q.o.forEach(function(opt,i){
+    html+='<button onclick="spRepondre('+i+')" style="padding:12px 14px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.9em;font-weight:600;cursor:pointer;text-align:left;font-family:\'DM Sans\',sans-serif">'+wrapSigles(opt)+'</button>';
+  });
+  html+='</div>';
+  document.getElementById('sprint-game').innerHTML=html;
+}
+
+function spRepondre(choix){
+  var q=spQuestions[spCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  if(choix===correctIdx){if(spPhase===1)spS1++;else spS2++;}
+  spCurrent++;
+  var t=Math.max(0,60-Math.round((Date.now()-spStartTime)/1000));
+  if(t<=0||spCurrent>=spQuestions.length){clearInterval(spTimer);spFinPhase();}
+  else spAfficherQ(t);
+}
+
+function spFinPhase(){
+  clearInterval(spTimer);
+  if(spPhase===1){
+    spPhase=2; spAfficherPassage();
+  } else {
+    // Égalité → comparer temps (non mesuré ici → afficher égalité)
+    finDuelCommun('sprint',spP1,spP2,spS1,spS2,'');
+  }
+}
+
+// ════════════════════════════════════════════════════
+// MODE PARI
+// ════════════════════════════════════════════════════
+var prP1='',prP2='',prS1=0,prS2=0,prCurrent=0,prQuestions=[],prPhase='p1',prMise1=1,prMise2=1;
+
+function lancerPari(){
+  var n1=document.getElementById('pari-p1').value.trim();
+  var n2=document.getElementById('pari-p2').value.trim();
+  if(!n1||!n2){alert('Entre les prénoms !');return;}
+  var pool=getPoolFor('pari');
+  if(!pool){alert('Sélectionne au moins un thème !');return;}
+  var nb=getNbFor('pari');
+  if(pool.length<nb)nb=pool.length;
+  prP1=n1;prP2=n2;prS1=0;prS2=0;prCurrent=0;prPhase='p1';
+  prQuestions=pool.sort(function(){return Math.random()-.5;}).slice(0,nb);
+  document.getElementById('pari-setup').style.display='none';
+  document.getElementById('pari-game').style.display='block';
+  prAfficher();
+}
+
+function prAfficher(){
+  if(prCurrent>=prQuestions.length){prFin();return;}
+  var q=prQuestions[prCurrent];
+  var nom=prPhase==='p1'?prP1:prP2;
+  var pct=Math.round(prCurrent/prQuestions.length*100);
+  var html='<div style="display:flex;justify-content:space-between;background:#f4f6fb;border-radius:14px;padding:12px 16px;margin-bottom:14px;align-items:center">'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+prP1+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+prS1+'</div></div>'
+    +'<div style="color:#ccc;font-weight:900">VS</div>'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+prP2+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+prS2+'</div></div>'
+    +'</div>'
+    +'<div style="background:#e8edf5;border-radius:4px;height:5px;margin-bottom:12px"><div style="background:linear-gradient(90deg,#f0c040,#e6a817);height:5px;border-radius:4px;width:'+pct+'%"></div></div>'
+    +'<div style="font-size:.82em;text-align:right;color:#888;margin-bottom:12px">Q '+(prCurrent+1)+'/'+prQuestions.length+' · 👤 '+nom+'</div>'
+    +'<div style="background:#e8f0fe;border-radius:12px;padding:14px;margin-bottom:12px;text-align:center">'
+    +'<div style="font-weight:800;color:#1a2240;font-size:.95em;margin-bottom:8px">🎯 '+nom+', quelle est ta mise ?</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<button id="pr-mise-1" onclick="prSetMise(1)" style="padding:14px;border:2px solid #c7d7f8;border-radius:12px;background:#fff;font-weight:700;color:#1a2240;cursor:pointer;font-family:\'DM Sans\',sans-serif"><span style="font-size:1.2em">😌</span><br>Normale<br><span style="font-size:.78em;color:#555">+1 si correct</span></button>'
+    +'<button id="pr-mise-2" onclick="prSetMise(2)" style="padding:14px;border:2px solid #c7d7f8;border-radius:12px;background:#fff;font-weight:700;color:#1a2240;cursor:pointer;font-family:\'DM Sans\',sans-serif"><span style="font-size:1.2em">🤩</span><br>Double ou rien<br><span style="font-size:.78em;color:#555">+2 si bon, -1 si faux</span></button>'
+    +'</div></div>'
+    +'<div style="background:#fff;border-radius:16px;padding:16px;border:2px solid #e8edf5;margin-bottom:12px">'
+    +'<div id="pr-q-text" style="font-size:.98em;font-weight:700;color:#1a2240;line-height:1.5;margin-bottom:12px">'+wrapSigles(q.q||'')+'</div>'
+    +'<div id="pr-opts" style="display:flex;flex-direction:column;gap:8px"></div>'
+    +'</div>'
+    +'<button onclick="duelAbandonnerMode(\'pari\')" style="width:100%;padding:11px;background:none;border:2px solid #e0e0e0;color:#888;font-weight:600;font-size:.85em;border-radius:12px;cursor:pointer">✕ Abandonner</button>';
+  document.getElementById('pari-game').innerHTML=html;
+  // Mise par défaut = 1
+  if(prPhase==='p1') prMise1=1; else prMise2=1;
+  prSetMise(1);
+  prAfficherOpts();
+}
+
+function prSetMise(m){
+  if(prPhase==='p1') prMise1=m; else prMise2=m;
+  var b1=document.getElementById('pr-mise-1');
+  var b2=document.getElementById('pr-mise-2');
+  if(b1&&b2){
+    b1.style.borderColor=m===1?'var(--navy)':'#c7d7f8';
+    b1.style.background=m===1?'#eef3ff':'#fff';
+    b2.style.borderColor=m===2?'#d97706':'#c7d7f8';
+    b2.style.background=m===2?'#fef3c7':'#fff';
+  }
+}
+
+function prAfficherOpts(){
+  var q=prQuestions[prCurrent];
+  var container=document.getElementById('pr-opts');
+  if(!container)return;
+  container.innerHTML='';
+  q.o.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.style.cssText='padding:12px 14px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.9em;font-weight:600;cursor:pointer;text-align:left;font-family:\'DM Sans\',sans-serif;width:100%';
+    btn.innerHTML=wrapSigles(opt);
+    btn.onclick=function(){ prValider(i); };
+    container.appendChild(btn);
+  });
+}
+
+var prAnswers=[];
+function prValider(choix){
+  var q=prQuestions[prCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  var mise=prPhase==='p1'?prMise1:prMise2;
+  if(prPhase==='p1'){
+    prAnswers[prCurrent]={p1:choix,p1m:mise,p2:-1,p2m:1};
+    // Passe à P2
+    var ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px';
+    ov.innerHTML='<div style="font-size:3em;margin-bottom:14px">📱</div>'
+      +'<div style="color:#fff;font-size:1.2em;font-weight:800;margin-bottom:6px">✅ '+prP1+' a répondu !</div>'
+      +'<div style="color:#aaa;font-size:.9em;margin-bottom:24px">Passe l\'appareil à '+prP2+' sans montrer l\'écran</div>'
+      +'<button onclick="this.closest(\'div[style*=fixed]\').remove();prPhase=\'p2\';prAfficher()" style="background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1em;padding:14px 32px;border:none;border-radius:14px;cursor:pointer">▶ Je suis '+prP2+', prêt !</button>';
+    document.body.appendChild(ov);
+  } else {
+    prAnswers[prCurrent].p2=choix;
+    prAnswers[prCurrent].p2m=mise;
+    // Révélation
+    var ok1=prAnswers[prCurrent].p1===correctIdx;
+    var ok2=prAnswers[prCurrent].p2===correctIdx;
+    var m1=prAnswers[prCurrent].p1m;
+    var m2=prAnswers[prCurrent].p2m;
+    var delta1=ok1?m1:(m1===2?-1:0);
+    var delta2=ok2?m2:(m2===2?-1:0);
+    prS1+=delta1; prS2+=delta2;
+    var isLast=prCurrent>=prQuestions.length-1;
+    var revHtml='<div style="text-align:center;font-size:1.8em;margin-bottom:12px">🔓</div>'
+      +'<div style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:#14532d">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div>'
+      +prResBloc(prP1,ok1,delta1,prAnswers[prCurrent].p1m)
+      +prResBloc(prP2,ok2,delta2,prAnswers[prCurrent].p2m)
+      +'<button onclick="'+(isLast?'prFin':'prNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-top:8px">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+    var ov2=document.createElement('div');
+    ov2.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center';
+    var inner=document.createElement('div');
+    inner.style.cssText='max-width:400px;width:100%;padding-top:20px';
+    inner.innerHTML=revHtml;
+    ov2.appendChild(inner);
+    document.body.appendChild(ov2);
+    prPhase='p1';
+    prCurrent++;
+  }
+}
+
+function prResBloc(nom,ok,delta,mise){
+  var bg=ok?'#dcfce7':'#fde8e8';
+  var col=ok?'#14532d':'#b71c1c';
+  var miseLabel=mise===2?'🤩 Double ou rien':'😌 Normale';
+  var deltaStr=(delta>0?'+':'')+delta+' pt'+(Math.abs(delta)>1?'s':'');
+  return '<div style="background:'+bg+';border-radius:12px;padding:12px 14px;margin-bottom:10px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center">'
+    +'<strong style="color:'+col+'">'+nom+'</strong>'
+    +'<span style="font-size:.78em;color:#555">'+miseLabel+'</span>'
+    +'</div>'
+    +'<div style="font-weight:900;font-size:1.2em;color:'+col+';margin-top:4px">'+(ok?'✅':'❌')+' '+deltaStr+'</div>'
+    +'</div>';
+}
+
+function prNext(){ prAfficher(); }
+function prFin(){ finDuelCommun('pari',prP1,prP2,prS1,prS2,''); }
+
+// ════════════════════════════════════════════════════
+// MODE VOLEUR (SURPRISE)
+// ════════════════════════════════════════════════════
+var vlP1='',vlP2='',vlS1=0,vlS2=0,vlCurrent=0,vlQuestions=[],vlPhase='p1',vlP1ans=-1;
+
+function lancerVoleur(){
+  var n1=document.getElementById('voleur-p1').value.trim();
+  var n2=document.getElementById('voleur-p2').value.trim();
+  if(!n1||!n2){alert('Entre les prénoms !');return;}
+  var pool=getPoolFor('voleur');
+  if(!pool){alert('Sélectionne au moins un thème !');return;}
+  var nb=getNbFor('voleur');
+  if(pool.length<nb)nb=pool.length;
+  vlP1=n1;vlP2=n2;vlS1=0;vlS2=0;vlCurrent=0;vlPhase='p1';vlP1ans=-1;
+  vlQuestions=pool.sort(function(){return Math.random()-.5;}).slice(0,nb);
+  document.getElementById('voleur-setup').style.display='none';
+  document.getElementById('voleur-game').style.display='block';
+  vlAfficher();
+}
+
+function vlAfficher(){
+  if(vlCurrent>=vlQuestions.length){vlFin();return;}
+  vlPhase='p1'; vlP1ans=-1;
+  var q=vlQuestions[vlCurrent];
+  var pct=Math.round(vlCurrent/vlQuestions.length*100);
+  var html=vlScoreBar()
+    +'<div style="background:#e8edf5;border-radius:4px;height:5px;margin-bottom:12px"><div style="background:linear-gradient(90deg,#f0c040,#e6a817);height:5px;border-radius:4px;width:'+pct+'%"></div></div>'
+    +'<div style="font-size:.82em;text-align:right;color:#888;margin-bottom:12px">Q '+(vlCurrent+1)+'/'+vlQuestions.length+' · 👤 '+vlP1+' répond</div>'
+    +'<div style="background:#fff;border-radius:16px;padding:16px;border:2px solid #e8edf5;margin-bottom:12px">'
+    +'<div style="font-size:.98em;font-weight:700;color:#1a2240;line-height:1.5;margin-bottom:12px">'+wrapSigles(q.q||'')+'</div>'
+    +'<div id="vl-opts" style="display:flex;flex-direction:column;gap:8px"></div>'
+    +'</div>'
+    +'<button onclick="duelAbandonnerMode(\'voleur\')" style="width:100%;padding:11px;background:none;border:2px solid #e0e0e0;color:#888;font-weight:600;font-size:.85em;border-radius:12px;cursor:pointer">✕ Abandonner</button>';
+  document.getElementById('voleur-game').innerHTML=html;
+  vlAfficherOpts();
+}
+
+function vlScoreBar(){
+  return '<div style="display:flex;justify-content:space-between;background:#f4f6fb;border-radius:14px;padding:12px 16px;margin-bottom:14px;align-items:center">'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+vlP1+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+vlS1+'</div></div>'
+    +'<div style="color:#ccc;font-weight:900">VS</div>'
+    +'<div style="text-align:center;flex:1"><div style="font-size:.78em;color:#666">'+vlP2+'</div><div style="font-size:1.8em;font-weight:900;color:var(--navy)">'+vlS2+'</div></div>'
+    +'</div>';
+}
+
+function vlAfficherOpts(){
+  var q=vlQuestions[vlCurrent];
+  var container=document.getElementById('vl-opts');
+  if(!container)return;
+  container.innerHTML='';
+  q.o.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.style.cssText='padding:12px 14px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.9em;font-weight:600;cursor:pointer;text-align:left;font-family:\'DM Sans\',sans-serif;width:100%';
+    btn.innerHTML=wrapSigles(opt);
+    btn.onclick=function(){ vlValiderP1(i); };
+    container.appendChild(btn);
+  });
+}
+
+function vlValiderP1(choix){
+  var q=vlQuestions[vlCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  vlP1ans=choix;
+  var ok=choix===correctIdx;
+  // Overlay passe à P2
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px';
+  var action=ok
+    ?'<div style="color:#fff;font-size:1.1em;font-weight:800;margin-bottom:8px">'+vlP1+' a répondu.</div><div style="color:#ffd700;font-weight:700;font-size:.95em;margin-bottom:6px">🦹 '+vlP2+' — veux-tu tenter de voler le point ?</div><div style="color:#aaa;font-size:.82em;margin-bottom:20px">Même réponse = tu voles ! Mauvaise réponse = -1 pour toi.</div>'
+    :'<div style="color:#fff;font-size:1.1em;font-weight:800;margin-bottom:8px">'+vlP1+' a répondu.</div><div style="color:#ffd700;font-weight:700;font-size:.95em;margin-bottom:6px">🎯 '+vlP2+' — peux-tu corriger pour +2 points ?</div><div style="color:#aaa;font-size:.82em;margin-bottom:20px">Bonne réponse = +2 points ! Mauvaise = 0.</div>';
+  ov.innerHTML='<div style="font-size:2.5em;margin-bottom:14px">📱</div>'+action
+    +'<button onclick="this.closest(\'div[style*=fixed]\').remove();vlPhase=\'p2\';vlAfficherP2()" style="background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1em;padding:14px 28px;border:none;border-radius:14px;cursor:pointer">▶ Je suis '+vlP2+', prêt !</button>';
+  document.body.appendChild(ov);
+}
+
+function vlAfficherP2(){
+  var q=vlQuestions[vlCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  var p1ok=vlP1ans===correctIdx;
+  var html=vlScoreBar()
+    +'<div style="background:'+(p1ok?'#fff3e0':'#fde8e8')+';border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:'+(p1ok?'#7c2d12':'#b71c1c')+'">'
+    +(p1ok?'🦹 Vole le point de '+vlP1+' !':'🎯 Corrige '+vlP1+' pour +2 !')
+    +'</div>'
+    +'<div style="background:#fff;border-radius:16px;padding:16px;border:2px solid #e8edf5;margin-bottom:12px">'
+    +'<div style="font-size:.98em;font-weight:700;color:#1a2240;line-height:1.5;margin-bottom:12px">'+wrapSigles(q.q||'')+'</div>'
+    +'<div id="vl-opts-p2" style="display:flex;flex-direction:column;gap:8px"></div>'
+    +'</div>';
+  document.getElementById('voleur-game').innerHTML=html;
+  var container=document.getElementById('vl-opts-p2');
+  q.o.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.style.cssText='padding:12px 14px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.9em;font-weight:600;cursor:pointer;text-align:left;font-family:\'DM Sans\',sans-serif;width:100%';
+    btn.innerHTML=wrapSigles(opt);
+    btn.onclick=function(){ vlValiderP2(i); };
+    container.appendChild(btn);
+  });
+}
+
+function vlValiderP2(choix){
+  var q=vlQuestions[vlCurrent];
+  var correctIdx=Array.isArray(q.c)?q.c[0]:q.c;
+  var p1ok=vlP1ans===correctIdx;
+  var p2ok=choix===correctIdx;
+  var msg='',d1=0,d2=0;
+  if(p1ok&&p2ok){
+    // P2 vole le point
+    d2=1; msg='🦹 '+vlP2+' vole le point ! +1';
+  } else if(p1ok&&!p2ok){
+    // P1 garde, P2 perd
+    d1=1; d2=-1; msg='😅 '+vlP2+' rate le vol ! '+vlP1+' garde son point. '+vlP2+' -1.';
+  } else if(!p1ok&&p2ok){
+    // P2 corrige : +2
+    d2=2; msg='🎯 '+vlP2+' corrige ! +2 points !';
+  } else {
+    // Les deux faux
+    msg='😬 Les deux ont faux. Personne ne marque.';
+  }
+  vlS1+=d1; vlS2+=d2;
+  var isLast=vlCurrent>=vlQuestions.length-1;
+  var revHtml='<div style="text-align:center;font-size:1.8em;margin-bottom:12px">🔓</div>'
+    +'<div style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:#14532d">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div>'
+    +'<div style="background:#f4f6fb;border-radius:12px;padding:14px;text-align:center;margin-bottom:12px;font-weight:700;color:#1a2240;font-size:.95em">'+msg+'</div>'
+    +'<button onclick="'+(isLast?'vlFin':'vlNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center';
+  var inner=document.createElement('div');
+  inner.style.cssText='max-width:400px;width:100%;padding-top:20px';
+  inner.innerHTML=revHtml;
+  ov.appendChild(inner);
+  document.body.appendChild(ov);
+  vlCurrent++;
+}
+
+function vlNext(){ document.querySelectorAll('div[style*="z-index:9001"]').forEach(function(e){e.remove();}); vlAfficher(); }
+function vlFin(){ document.querySelectorAll('div[style*="z-index:9001"]').forEach(function(e){e.remove();}); finDuelCommun('voleur',vlP1,vlP2,vlS1,vlS2,''); }
 
 </script>
 
@@ -7441,6 +8091,71 @@ function duelFin() {
         <button class="duel-nb-btn" data-nb="20" onclick="setDuelNb(20,this)">20</button>
       </div>
     </div>
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <label style="font-weight:700;color:var(--navy);font-size:.9em">Thèmes</label>
+        <button onclick="duelToggleAllThemes()" id="duel-all-btn" style="font-size:.78em;padding:4px 10px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;font-weight:600">Tout cocher</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+        <label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Statut">
+        <input type="checkbox" value="Statut" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">📜</span>
+        <span class="duel-theme-label">Statut</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Discipline">
+        <input type="checkbox" value="Discipline" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">⚖️</span>
+        <span class="duel-theme-label">Discipline</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Mobilité">
+        <input type="checkbox" value="Mobilité" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🚀</span>
+        <span class="duel-theme-label">Mobilité</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Dialogue social">
+        <input type="checkbox" value="Dialogue social" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🤝</span>
+        <span class="duel-theme-label">Dialogue social</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Temps de travail">
+        <input type="checkbox" value="Temps de travail" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">⏰</span>
+        <span class="duel-theme-label">Temps de travail</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Contentieux">
+        <input type="checkbox" value="Contentieux" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🏛️</span>
+        <span class="duel-theme-label">Contentieux</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Instances">
+        <input type="checkbox" value="Instances" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🏢</span>
+        <span class="duel-theme-label">Instances</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Recrutement">
+        <input type="checkbox" value="Recrutement" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🎓</span>
+        <span class="duel-theme-label">Recrutement</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Acronymes">
+        <input type="checkbox" value="Acronymes" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🔤</span>
+        <span class="duel-theme-label">Acronymes</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Valeurs SP">
+        <input type="checkbox" value="Valeurs SP" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">⚖️</span>
+        <span class="duel-theme-label">Valeurs SP</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="RH Approfondi">
+        <input type="checkbox" value="RH Approfondi" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">👥</span>
+        <span class="duel-theme-label">RH Approfondi</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Actualité 2025">
+        <input type="checkbox" value="Actualité 2025" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🗞️</span>
+        <span class="duel-theme-label">Actualité 2025</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Politiques publiques">
+        <input type="checkbox" value="Politiques publiques" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">🏙️</span>
+        <span class="duel-theme-label">Politiques publiques</span>
+      </label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Carrière et rémunération">
+        <input type="checkbox" value="Carrière et rémunération" class="duel-theme-chk" style="display:none">
+        <span class="duel-theme-emoji">💰</span>
+        <span class="duel-theme-label">Carrière et rémunération</span>
+      </label>
+      </div>
+    </div>
     <button onclick="lancerDuel()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer">
       ⚔️ C'est parti !
     </button>
@@ -7449,6 +8164,7 @@ function duelFin() {
 
   <!-- Jeu -->
   <div id="duel-game" style="display:none">
+
     <!-- Header scores -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;background:#f4f6fb;border-radius:14px;padding:12px 16px">
       <div style="text-align:center;flex:1">
@@ -7483,6 +8199,10 @@ function duelFin() {
         ▶ Je suis prêt
       </button>
     </div>
+    <!-- Boutons action fixes -->
+    <button id="duel-valider-btn" onclick="duelValider()" style="width:100%;padding:14px;background:var(--navy);color:#fff;font-weight:800;font-size:1em;border:none;border-radius:14px;cursor:pointer;margin-top:10px;font-family:'DM Sans',sans-serif;display:none">✓ Valider</button>
+    <button id="duel-quitter-btn" onclick="if(window.duelAbandonner)window.duelAbandonner();else alert('fn manquante')" style="width:100%;padding:13px;background:none;border:2px solid #e0e0e0;color:#666;font-weight:700;font-size:.95em;border-radius:14px;cursor:pointer;margin-top:10px;font-family:'DM Sans',sans-serif;display:none">✕ Abandonner le duel</button>
+
     <!-- Révélation overlay -->
     <div id="duel-reveal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px">
       <div style="max-width:400px;margin:0 auto;padding-top:10px">
@@ -7514,6 +8234,179 @@ function duelFin() {
       ← Menu principal
     </button>
   </div>
+</div>
+
+<div id="screen-buzzer" class="screen" style="display:none">
+  <div id="buzzer-setup" style="padding:20px 0">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:2.5em">🔔</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:8px 0 4px">🔔 Le Buzzer</h2>
+      <p style="font-size:.85em;color:#666;line-height:1.5">Appareil posé entre vous — 1er qui buzz répond !</p>
+    </div>
+    <div style="background:#e8f0fe;border-radius:14px;padding:16px 18px;margin-bottom:18px;border-left:4px solid #1a5abb">
+      <div style="font-weight:800;color:#1a2240;font-size:1em;margin-bottom:10px">📋 Règles du jeu</div>
+      <div style="font-size:.92em;color:#1a3060;line-height:1.7">
+🔔 <strong>Appareil posé à plat entre vous deux.</strong><br>
+▶ Une question s'affiche → chacun lit en silence.<br>
+⚡ Le <strong>1er qui appuie sur son bouton BUZZ</strong> a la parole.<br>
+✅ Bonne réponse → <strong>+2 points</strong><br>
+❌ Mauvaise réponse → <strong>0 point, l'autre marque +1</strong><br>
+⏱ Si personne ne buzz en <strong>10 secondes</strong> → question suivante, 0 point.
+</div>
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:12px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 1</label>
+      <input id="buzzer-p1" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:14px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 2</label>
+      <input id="buzzer-p2" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <label style="font-weight:700;color:var(--navy);font-size:.9em">Thèmes</label>
+        <button onclick="duelToggleAllFor('buzzer')" id="buzzer-all-btn" style="font-size:.78em;padding:4px 10px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;font-weight:600">Tout cocher</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Statut"><input type="checkbox" value="Statut" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">📜</span><span class="duel-theme-label">Statut</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Discipline"><input type="checkbox" value="Discipline" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Discipline</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Mobilité"><input type="checkbox" value="Mobilité" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🚀</span><span class="duel-theme-label">Mobilité</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Dialogue social"><input type="checkbox" value="Dialogue social" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🤝</span><span class="duel-theme-label">Dialogue social</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Temps de travail"><input type="checkbox" value="Temps de travail" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⏰</span><span class="duel-theme-label">Temps de travail</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Contentieux"><input type="checkbox" value="Contentieux" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏛️</span><span class="duel-theme-label">Contentieux</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Instances"><input type="checkbox" value="Instances" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏢</span><span class="duel-theme-label">Instances</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Recrutement"><input type="checkbox" value="Recrutement" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🎓</span><span class="duel-theme-label">Recrutement</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Acronymes"><input type="checkbox" value="Acronymes" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🔤</span><span class="duel-theme-label">Acronymes</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Valeurs SP"><input type="checkbox" value="Valeurs SP" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Valeurs SP</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="RH Approfondi"><input type="checkbox" value="RH Approfondi" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">👥</span><span class="duel-theme-label">RH Approfondi</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Actualité 2025"><input type="checkbox" value="Actualité 2025" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🗞️</span><span class="duel-theme-label">Actualité 2025</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Politiques publiques"><input type="checkbox" value="Politiques publiques" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏙️</span><span class="duel-theme-label">Politiques publiques</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Carrière et rémunération"><input type="checkbox" value="Carrière et rémunération" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">💰</span><span class="duel-theme-label">Carrière et rémunération</span></label></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">Nombre de questions</label>
+      <div style="display:flex;gap:8px"><button class="buzzer-nb-btn duel-nb-btn active" data-nb="10" onclick="setDuelNbFor('buzzer',10,this)">10</button><button class="buzzer-nb-btn duel-nb-btn" data-nb="15" onclick="setDuelNbFor('buzzer',15,this)">15</button><button class="buzzer-nb-btn duel-nb-btn" data-nb="20" onclick="setDuelNbFor('buzzer',20,this)">20</button></div>
+    </div>
+    <button onclick="lancerBuzzer()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">⚔️ C'est parti !</button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Retour</button>
+  </div>
+  <div id="buzzer-game" style="display:none"></div>
+  <div id="buzzer-fin" style="display:none;text-align:center;padding:20px 0"></div>
+</div>
+<div id="screen-sprint" class="screen" style="display:none">
+  <div id="sprint-setup" style="padding:20px 0">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:2.5em">⚡</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:8px 0 4px">⚡ Sprint 60s</h2>
+      <p style="font-size:.85em;color:#666;line-height:1.5">Chacun joue seul 60 secondes — qui répond le plus ?</p>
+    </div>
+    <div style="background:#e8f0fe;border-radius:14px;padding:16px 18px;margin-bottom:18px;border-left:4px solid #1a5abb">
+      <div style="font-weight:800;color:#1a2240;font-size:1em;margin-bottom:10px">📋 Règles du jeu</div>
+      <div style="font-size:.92em;color:#1a3060;line-height:1.7">
+⚡ <strong>Chacun joue seul, l'un après l'autre.</strong><br>
+▶ P1 répond à un maximum de questions en <strong>60 secondes</strong>.<br>
+▶ Puis P2 joue les <strong>mêmes questions</strong> dans le même ordre.<br>
+🏆 Celui qui a le plus de <strong>bonnes réponses</strong> gagne.<br>
+💡 En cas d'égalité → le plus <strong>rapide</strong> l'emporte.
+</div>
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:12px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 1</label>
+      <input id="sprint-p1" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:14px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 2</label>
+      <input id="sprint-p2" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <label style="font-weight:700;color:var(--navy);font-size:.9em">Thèmes</label>
+        <button onclick="duelToggleAllFor('sprint')" id="sprint-all-btn" style="font-size:.78em;padding:4px 10px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;font-weight:600">Tout cocher</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Statut"><input type="checkbox" value="Statut" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">📜</span><span class="duel-theme-label">Statut</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Discipline"><input type="checkbox" value="Discipline" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Discipline</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Mobilité"><input type="checkbox" value="Mobilité" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🚀</span><span class="duel-theme-label">Mobilité</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Dialogue social"><input type="checkbox" value="Dialogue social" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🤝</span><span class="duel-theme-label">Dialogue social</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Temps de travail"><input type="checkbox" value="Temps de travail" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⏰</span><span class="duel-theme-label">Temps de travail</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Contentieux"><input type="checkbox" value="Contentieux" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏛️</span><span class="duel-theme-label">Contentieux</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Instances"><input type="checkbox" value="Instances" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏢</span><span class="duel-theme-label">Instances</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Recrutement"><input type="checkbox" value="Recrutement" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🎓</span><span class="duel-theme-label">Recrutement</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Acronymes"><input type="checkbox" value="Acronymes" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🔤</span><span class="duel-theme-label">Acronymes</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Valeurs SP"><input type="checkbox" value="Valeurs SP" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Valeurs SP</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="RH Approfondi"><input type="checkbox" value="RH Approfondi" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">👥</span><span class="duel-theme-label">RH Approfondi</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Actualité 2025"><input type="checkbox" value="Actualité 2025" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🗞️</span><span class="duel-theme-label">Actualité 2025</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Politiques publiques"><input type="checkbox" value="Politiques publiques" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏙️</span><span class="duel-theme-label">Politiques publiques</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Carrière et rémunération"><input type="checkbox" value="Carrière et rémunération" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">💰</span><span class="duel-theme-label">Carrière et rémunération</span></label></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">Nombre de questions</label>
+      <div style="display:flex;gap:8px"><button class="sprint-nb-btn duel-nb-btn active" data-nb="10" onclick="setDuelNbFor('sprint',10,this)">10</button><button class="sprint-nb-btn duel-nb-btn" data-nb="15" onclick="setDuelNbFor('sprint',15,this)">15</button><button class="sprint-nb-btn duel-nb-btn" data-nb="20" onclick="setDuelNbFor('sprint',20,this)">20</button></div>
+    </div>
+    <button onclick="lancerSprint()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">⚔️ C'est parti !</button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Retour</button>
+  </div>
+  <div id="sprint-game" style="display:none"></div>
+  <div id="sprint-fin" style="display:none;text-align:center;padding:20px 0"></div>
+</div>
+<div id="screen-pari" class="screen" style="display:none">
+  <div id="pari-setup" style="padding:20px 0">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:2.5em">🎯</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:8px 0 4px">🎯 Le Pari</h2>
+      <p style="font-size:.85em;color:#666;line-height:1.5">Tour par tour avec mise secrète — bluff et stratégie !</p>
+    </div>
+    <div style="background:#e8f0fe;border-radius:14px;padding:16px 18px;margin-bottom:18px;border-left:4px solid #1a5abb">
+      <div style="font-weight:800;color:#1a2240;font-size:1em;margin-bottom:10px">📋 Règles du jeu</div>
+      <div style="font-size:.92em;color:#1a3060;line-height:1.7">
+🎯 <strong>Tour par tour, comme le duel classique — mais avec une mise.</strong><br>
+▶ Avant de répondre, chaque joueur choisit sa mise :<br>
+&nbsp;&nbsp;&nbsp;• <strong>Mise normale : +1 point</strong> si correct<br>
+&nbsp;&nbsp;&nbsp;• <strong>Double ou rien : +2 points</strong> si correct, <strong>-1 point</strong> si faux<br>
+🤫 La mise est secrète jusqu'à la révélation.<br>
+🏆 Gagne celui qui a le plus de points à la fin.
+</div>
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:12px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 1</label>
+      <input id="pari-p1" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:14px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 2</label>
+      <input id="pari-p2" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <label style="font-weight:700;color:var(--navy);font-size:.9em">Thèmes</label>
+        <button onclick="duelToggleAllFor('pari')" id="pari-all-btn" style="font-size:.78em;padding:4px 10px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;font-weight:600">Tout cocher</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Statut"><input type="checkbox" value="Statut" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">📜</span><span class="duel-theme-label">Statut</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Discipline"><input type="checkbox" value="Discipline" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Discipline</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Mobilité"><input type="checkbox" value="Mobilité" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🚀</span><span class="duel-theme-label">Mobilité</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Dialogue social"><input type="checkbox" value="Dialogue social" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🤝</span><span class="duel-theme-label">Dialogue social</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Temps de travail"><input type="checkbox" value="Temps de travail" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⏰</span><span class="duel-theme-label">Temps de travail</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Contentieux"><input type="checkbox" value="Contentieux" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏛️</span><span class="duel-theme-label">Contentieux</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Instances"><input type="checkbox" value="Instances" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏢</span><span class="duel-theme-label">Instances</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Recrutement"><input type="checkbox" value="Recrutement" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🎓</span><span class="duel-theme-label">Recrutement</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Acronymes"><input type="checkbox" value="Acronymes" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🔤</span><span class="duel-theme-label">Acronymes</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Valeurs SP"><input type="checkbox" value="Valeurs SP" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Valeurs SP</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="RH Approfondi"><input type="checkbox" value="RH Approfondi" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">👥</span><span class="duel-theme-label">RH Approfondi</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Actualité 2025"><input type="checkbox" value="Actualité 2025" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🗞️</span><span class="duel-theme-label">Actualité 2025</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Politiques publiques"><input type="checkbox" value="Politiques publiques" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏙️</span><span class="duel-theme-label">Politiques publiques</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Carrière et rémunération"><input type="checkbox" value="Carrière et rémunération" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">💰</span><span class="duel-theme-label">Carrière et rémunération</span></label></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">Nombre de questions</label>
+      <div style="display:flex;gap:8px"><button class="pari-nb-btn duel-nb-btn active" data-nb="5" onclick="setDuelNbFor('pari',5,this)">5</button><button class="pari-nb-btn duel-nb-btn" data-nb="10" onclick="setDuelNbFor('pari',10,this)">10</button><button class="pari-nb-btn duel-nb-btn" data-nb="15" onclick="setDuelNbFor('pari',15,this)">15</button></div>
+    </div>
+    <button onclick="lancerPari()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">⚔️ C'est parti !</button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Retour</button>
+  </div>
+  <div id="pari-game" style="display:none"></div>
+  <div id="pari-fin" style="display:none;text-align:center;padding:20px 0"></div>
+</div>
+<div id="screen-voleur" class="screen" style="display:none">
+  <div id="voleur-setup" style="padding:20px 0">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:2.5em">🦹</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:8px 0 4px">🦹 Le Voleur</h2>
+      <p style="font-size:.85em;color:#666;line-height:1.5">Vole les points de ton adversaire — ou perds les tiens !</p>
+    </div>
+    <div style="background:#e8f0fe;border-radius:14px;padding:16px 18px;margin-bottom:18px;border-left:4px solid #1a5abb">
+      <div style="font-weight:800;color:#1a2240;font-size:1em;margin-bottom:10px">📋 Règles du jeu</div>
+      <div style="font-size:.92em;color:#1a3060;line-height:1.7">
+🦹 <strong>Le Voleur — Jeu de rôle inversé !</strong><br>
+▶ P1 répond à une question.<br>
+✅ S'il a <strong>bon</strong> → il marque 1 point. P2 peut tenter de lui <strong>voler</strong> en répondant aussi.<br>
+&nbsp;&nbsp;&nbsp;• Si P2 donne la même bonne réponse → P2 vole le point, P1 ne marque rien !<br>
+&nbsp;&nbsp;&nbsp;• Si P2 se trompe → P1 garde son point <strong>et</strong> P2 perd 1 point.<br>
+❌ Si P1 a <strong>faux</strong> → P2 peut <strong>corriger</strong> pour marquer 2 points.<br>
+🧠 Stratégie : vaut-il mieux voler ou laisser passer ?
+</div>
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:12px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 1</label>
+      <input id="voleur-p1" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:16px;margin-bottom:14px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 2</label>
+      <input id="voleur-p2" type="text" placeholder="Prénom..." maxlength="20" style="width:100%;padding:11px 13px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <label style="font-weight:700;color:var(--navy);font-size:.9em">Thèmes</label>
+        <button onclick="duelToggleAllFor('voleur')" id="voleur-all-btn" style="font-size:.78em;padding:4px 10px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;font-weight:600">Tout cocher</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Statut"><input type="checkbox" value="Statut" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">📜</span><span class="duel-theme-label">Statut</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Discipline"><input type="checkbox" value="Discipline" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Discipline</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Mobilité"><input type="checkbox" value="Mobilité" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🚀</span><span class="duel-theme-label">Mobilité</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Dialogue social"><input type="checkbox" value="Dialogue social" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🤝</span><span class="duel-theme-label">Dialogue social</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Temps de travail"><input type="checkbox" value="Temps de travail" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⏰</span><span class="duel-theme-label">Temps de travail</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Contentieux"><input type="checkbox" value="Contentieux" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏛️</span><span class="duel-theme-label">Contentieux</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Instances"><input type="checkbox" value="Instances" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏢</span><span class="duel-theme-label">Instances</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Recrutement"><input type="checkbox" value="Recrutement" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🎓</span><span class="duel-theme-label">Recrutement</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Acronymes"><input type="checkbox" value="Acronymes" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🔤</span><span class="duel-theme-label">Acronymes</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Valeurs SP"><input type="checkbox" value="Valeurs SP" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">⚖️</span><span class="duel-theme-label">Valeurs SP</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="RH Approfondi"><input type="checkbox" value="RH Approfondi" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">👥</span><span class="duel-theme-label">RH Approfondi</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Actualité 2025"><input type="checkbox" value="Actualité 2025" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🗞️</span><span class="duel-theme-label">Actualité 2025</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Politiques publiques"><input type="checkbox" value="Politiques publiques" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">🏙️</span><span class="duel-theme-label">Politiques publiques</span></label><label class="duel-theme-item" onclick="duelThemeClick(this)" data-t="Carrière et rémunération"><input type="checkbox" value="Carrière et rémunération" class="duel-theme-chk" style="display:none"><span class="duel-theme-emoji">💰</span><span class="duel-theme-label">Carrière et rémunération</span></label></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">Nombre de questions</label>
+      <div style="display:flex;gap:8px"><button class="voleur-nb-btn duel-nb-btn active" data-nb="5" onclick="setDuelNbFor('voleur',5,this)">5</button><button class="voleur-nb-btn duel-nb-btn" data-nb="10" onclick="setDuelNbFor('voleur',10,this)">10</button><button class="voleur-nb-btn duel-nb-btn" data-nb="15" onclick="setDuelNbFor('voleur',15,this)">15</button></div>
+    </div>
+    <button onclick="lancerVoleur()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">⚔️ C'est parti !</button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Retour</button>
+  </div>
+  <div id="voleur-game" style="display:none"></div>
+  <div id="voleur-fin" style="display:none;text-align:center;padding:20px 0"></div>
 </div>
 </body>
 </html>
