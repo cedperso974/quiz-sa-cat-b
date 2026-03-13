@@ -96,7 +96,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .wrong-msg{color:var(--red);font-weight:700;font-size:.92em;margin-bottom:8px}
 .answer-text{font-weight:600;color:var(--navy);margin-bottom:6px;font-size:.88em}
 .expl-text{font-size:.85em;color:#445;line-height:1.55;margin-bottom:8px}
-.mnemo-box{background:linear-gradient(135deg,var(--navy),#2a4a7f);color:white;border-radius:10px;padding:11px 13px;margin:8px 0;font-size:.83em;line-height:1.55}
+.mnemo-box{background:linear-gradient(135deg,#e8f0fe,#dbeafe);color:#1a2240;border-radius:10px;padding:11px 13px;margin:8px 0;font-size:.83em;line-height:1.55}
 .mnemo-label{color:var(--gold);font-weight:700;font-size:.76em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .source-link{font-size:.76em;color:var(--blue)}
 .source-link a{color:var(--blue);text-decoration:underline;word-break:break-all}
@@ -110,7 +110,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .flashcard{width:100%;position:relative;transform-style:preserve-3d;transition:transform .5s;min-height:210px}
 .flashcard.flipped{transform:rotateY(180deg)}
 .card-front,.card-back{position:absolute;inset:0;border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;backface-visibility:hidden;min-height:210px}
-.card-front{background:linear-gradient(135deg,var(--navy),var(--navy2));color:white}
+.card-front{background:linear-gradient(135deg,#e8f0fe,#dbeafe);color:#1a2240}
 .card-front .card-q{font-family:'Playfair Display',serif;font-size:1.05em;line-height:1.5}
 .card-back{background:white;transform:rotateY(180deg);box-shadow:var(--shadow)}
 .card-back .card-a{font-size:.9em;line-height:1.55;color:var(--text)}
@@ -123,7 +123,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .boss-lives{display:flex;gap:5px;justify-content:center;margin:12px 0;font-size:1.3em}
 .boss-bar-wrap{background:#eee;border-radius:10px;overflow:hidden;height:8px;margin:10px 0}
 .boss-bar{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:10px;transition:width .4s}
-.score-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:18px;padding:24px;text-align:center;color:white;margin-bottom:18px}
+.score-hero{background:linear-gradient(135deg,#e8f0fe,#c7d7f8);border-radius:18px;padding:24px;text-align:center;color:#1a2240;margin-bottom:18px}
 .score-big{font-size:3.5em;font-weight:900;color:var(--gold);line-height:1}
 .score-label{opacity:.75;margin-top:3px;font-size:.88em}
 .score-msg{font-size:1.05em;font-weight:600;margin-top:8px}
@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fill-input:focus{border-color:var(--gold)}
 .fill-input.fill-correct{border-color:var(--green)!important;background:#eafaf5!important;color:var(--green);font-weight:700}
 .fill-input.fill-wrong{border-color:#e74c3c!important;background:#fef5f5!important;color:#e74c3c}
-.fill-btn{padding:12px 20px;background:var(--navy);color:#1a2240;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
+.fill-btn{padding:12px 20px;background:var(--navy);color:#ffffff;border:none;border-radius:12px;font-size:.95em;font-weight:700;cursor:pointer;white-space:nowrap}
 .fill-btn:hover{background:var(--navy2)}
 .fill-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7em;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
 
@@ -184,11 +184,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ── Résumé session ── */
 .summary-header{font-family:'Playfair Display',serif;font-size:1.1em;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .summary-tip{font-size:.75em;color:var(--muted);text-align:center;margin-top:8px;font-style:italic}
-.summary-card{background:linear-gradient(135deg,#1a237e,#283593);color:white;border-radius:14px;padding:16px;margin-bottom:10px;position:relative}
-.summary-num{position:absolute;top:12px;right:14px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:700}
-.summary-q{font-size:.85em;opacity:.85;margin-bottom:8px;line-height:1.4}
-.summary-rep{font-size:.95em;font-weight:700;margin-bottom:6px;color:#ffd700}
-.summary-mnemo{font-size:.78em;background:rgba(255,255,255,.12);border-radius:8px;padding:6px 10px;line-height:1.4;font-style:italic}
+.summary-card{background:linear-gradient(135deg,#eef4ff,#e8f0fe);color:#1a2240;border-radius:14px;padding:16px;margin-bottom:10px;position:relative;border:1px solid #c7d7f8}
+.summary-num{position:absolute;top:12px;right:14px;width:26px;height:26px;border-radius:50%;background:#c7d7f8;color:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:700}
+.summary-q{font-size:.85em;color:#374151;margin-bottom:8px;line-height:1.4}
+.summary-rep{font-size:.95em;font-weight:700;margin-bottom:6px;color:#166534}
+.summary-mnemo{font-size:.78em;background:#dbeafe;color:#1e3a8a;border-radius:8px;padding:6px 10px;line-height:1.4;font-style:italic}
 
 /* ── Dictionnaire ── */
 .dico-search{width:100%;padding:12px 16px;border:2px solid var(--border,#e0e5ef);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95em;margin-bottom:14px;outline:none;transition:border-color .2s}
@@ -278,7 +278,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .resume-title{font-family:'Playfair Display',serif;font-size:.98em;font-weight:700;color:var(--navy);margin-bottom:8px}
 .resume-body{font-size:.83em;color:var(--text);line-height:1.8}
 .resume-source{font-size:.72em;color:var(--muted);margin-top:10px;font-style:italic;border-top:1px solid #f0f2f8;padding-top:6px}
-.resume2025-btn{background:linear-gradient(135deg,#1a237e,#c0392b)!important;color:white!important;font-weight:700!important}
+.resume2025-btn{background:linear-gradient(135deg,#e8eaf6,#fce4ec)!important;color:#1a237e!important;font-weight:700!important}
 
 /* ══════════════════════════════════
    SALLE DES JEUX — CSS GLOBAL
@@ -347,8 +347,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .intox-chrono-num { position:relative; z-index:1; font-size:1.2em; font-weight:800; color:#1a5abb; }
 .intox-btns { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .intox-btn { padding:16px; border-radius:14px; border:none; font-size:1em; font-weight:800; cursor:pointer; transition:all .15s; }
-.intox-vrai { background:#6bcb77; color:#0d2b10; }
-.intox-faux { background:#ff6b6b; color:#2b0d0d; }
+.intox-vrai { background:#e8f5e9; color:#1b5e20; }
+.intox-faux { background:#fde8e8; color:#b71c1c; }
 .intox-btn:hover { transform:scale(1.04); }
 .intox-feedback { border-radius:14px; padding:14px 16px; font-size:.88em; line-height:1.6; margin-top:8px; }
 .intox-feedback.ok { background:#e8f9ec; border:1px solid #6bcb77; color:#0d3a15; font-weight:600; }
@@ -376,10 +376,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ══ JEU 4 — DOSSIER CHAUD ══ */
 .dossier-article { background:linear-gradient(135deg,#fffaf0,#fff5e0); border-radius:16px; padding:18px; border:1px solid #e0c898; margin-bottom:14px; }
-.dossier-tag { display:inline-block; background:#ff922b; color:#1a2240; font-size:.68em; font-weight:800; padding:3px 10px; border-radius:20px; margin-bottom:8px; letter-spacing:.5px; }
+.dossier-tag { display:inline-block; background:#fff3e0; color:#1a2240; font-size:.68em; font-weight:800; padding:3px 10px; border-radius:20px; margin-bottom:8px; letter-spacing:.5px; }
 .dossier-headline { font-size:1.05em; font-weight:800; color:#2a1a00; line-height:1.4; margin-bottom:8px; }
 .dossier-body { font-size:.82em; color:#5a3a10; line-height:1.7; border-top:1px solid rgba(255,200,100,.15); padding-top:10px; }
-.dossier-timer-bar { height:4px; background:#2d1a00; border-radius:2px; margin-bottom:14px; overflow:hidden; }
+.dossier-timer-bar { height:4px; background:#fff3e0; border-radius:2px; margin-bottom:14px; overflow:hidden; }
 .dossier-timer-fill { height:100%; background:linear-gradient(90deg,#6bcb77,#ffd93d,#ff6b6b); border-radius:2px; transition:width 1s linear; }
 .dossier-q { background:rgba(255,146,43,.06); border:1px solid rgba(255,146,43,.3); border-radius:12px; padding:14px; margin-bottom:10px; }
 .dossier-q-text { font-size:.88em; color:#2a1400; font-weight:600; margin-bottom:10px; }
@@ -416,7 +416,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ══ JEU 6 — CARTE MENTALE ══ */
 .carte-arena { background:linear-gradient(135deg,#f0f6ff,#e5f0ff); border-radius:16px; padding:16px; border:1px solid #b0ccf0; margin-bottom:14px; }
 .carte-theme-label { text-align:center; font-size:.82em; color:#1a5abb; font-weight:700; margin-bottom:12px; letter-spacing:.5px; }
-.carte-center { text-align:center; background:linear-gradient(135deg,#2980b9,#1a5abb); border-radius:50%; width:130px; height:130px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border:4px solid #7ecfff; font-size:.82em; font-weight:900; color:#ffffff !important; padding:12px; line-height:1.4; text-shadow:0 1px 4px rgba(0,0,0,.6); }
+.carte-center { text-align:center; background:linear-gradient(135deg,#dbeafe,#bfdbfe); border-radius:50%; width:130px; height:130px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border:4px solid #7ecfff; font-size:.82em; font-weight:900; color:#ffffff !important; padding:12px; line-height:1.4; text-shadow:0 1px 4px rgba(0,0,0,.6); }
 .carte-drop-zones { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
 .carte-zone {
   background:rgba(77,150,255,.04); border:2px dashed rgba(77,150,255,.4);
@@ -503,7 +503,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .orga-connector { width:2px; background:#c8d8f0; height:20px; margin:0 auto; }
 .orga-connector-h { display:flex; justify-content:center; }
 .orga-connector-h-line { height:2px; background:#c8d8f0; flex:1; margin-top:10px; }
-.orga-tooltip { display:none; position:fixed; background:#1a2240; color:#fff; padding:10px 14px; border-radius:10px; font-size:.75em; max-width:220px; z-index:500; line-height:1.5; pointer-events:none; }
+.orga-tooltip { display:none; position:fixed; background:#eef4ff; color:#1a237e; padding:10px 14px; border-radius:10px; font-size:.75em; max-width:220px; z-index:500; line-height:1.5; pointer-events:none; }
 .orga-tooltip.visible { display:block; }
 
 /* Frises */
@@ -520,8 +520,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .flow-node { background:#fff; border:2px solid var(--flc,#e67e22); border-radius:12px; padding:12px 16px; text-align:center; font-size:.78em; font-weight:700; color:#1a2240; width:85%; max-width:300px; position:relative; cursor:pointer; transition:all .2s; }
 .flow-node:hover { background:var(--flc,#e67e22); color:#fff; }
 .flow-node.start { background:var(--flc,#e67e22); color:#fff; border-radius:30px; }
-.flow-node.end { background:#27ae60; color:#fff; border-radius:30px; border-color:#27ae60; }
-.flow-node.end-bad { background:#e74c3c; color:#fff; border-radius:30px; border-color:#e74c3c; }
+.flow-node.end { background:#e8f5e9; color:#1b5e20; border-radius:30px; border-color:#e8f5e9; }
+.flow-node.end-bad { background:#fde8e8; color:#b71c1c; border-radius:30px; border-color:#e57373; }
 .flow-node.decision { background:#f0f6ff; border-color:#1a5abb; transform:rotate(0deg); }
 .flow-arrow { font-size:1.2em; color:#aab; margin:4px 0; }
 .flow-branch { display:flex; gap:8px; justify-content:center; width:100%; }
@@ -548,13 +548,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ── Niveaux carte mentale ── */
 .carte-niveau-bar { display:flex; gap:6px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
 .carte-niv-btn { padding:7px 14px; border-radius:20px; border:2px solid #b0ccf0; background:#f0f6ff; color:#1a3a6e; font-size:.75em; font-weight:700; cursor:pointer; transition:all .2s; }
-.carte-niv-btn.active { background:linear-gradient(135deg,#1a5abb,#0d2244); color:#fff; border-color:#1a5abb; }
+.carte-niv-btn.active { background:linear-gradient(135deg,#dbeafe,#bfdbfe); color:#1e3a8a; border-color:#1a5abb; }
 .carte-niv-btn.niv1 { border-color:#27ae60; }
-.carte-niv-btn.niv1.active { background:linear-gradient(135deg,#27ae60,#1a7a40); border-color:#27ae60; }
+.carte-niv-btn.niv1.active { background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-color:#16a34a; }
 .carte-niv-btn.niv2 { border-color:#e67e22; }
-.carte-niv-btn.niv2.active { background:linear-gradient(135deg,#e67e22,#b7600a); border-color:#e67e22; }
+.carte-niv-btn.niv2.active { background:linear-gradient(135deg,#fff7ed,#fed7aa); border-color:#ea580c; }
 .carte-niv-btn.niv3 { border-color:#e74c3c; }
-.carte-niv-btn.niv3.active { background:linear-gradient(135deg,#e74c3c,#c0392b); border-color:#e74c3c; }
+.carte-niv-btn.niv3.active { background:linear-gradient(135deg,#fde8e8,#ffcdd2); color:#b71c1c; border-color:#e5737c; }
 .carte-niv-btn.niv4 { border-color:#8e44ad; }
 .carte-niv-btn.niv4.active { background:linear-gradient(135deg,#8e44ad,#6c3483); border-color:#8e44ad; }
 
@@ -591,7 +591,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .badge-niv4 { background:#f5eaff; color:#6c3483; }
 
 /* ── Points faibles bouton ── */
-.carte-faibles-btn { background:linear-gradient(135deg,#e74c3c,#c0392b); color:#fff; border:none; border-radius:12px; padding:10px 18px; font-weight:800; font-size:.82em; cursor:pointer; margin-top:8px; width:100%; }
+.carte-faibles-btn { background:linear-gradient(135deg,#fff3e0,#ffe0b2); color:#bf360c; border:none; border-radius:12px; padding:10px 18px; font-weight:800; font-size:.82em; cursor:pointer; margin-top:8px; width:100%; }
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
 /* ── Carte du jour ── */
@@ -610,6 +610,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ── Carte du jour complétée ── */
 .cdj-done { background:linear-gradient(135deg,#27ae60,#1a7a40) !important; }
+
+/* Sigles cliquables dans les fiches */
+.sigle-tip {
+  color: #1565c0;
+  border-bottom: 1.5px dashed #1565c0;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.sigle-tip sup {
+  font-size: .6em;
+  color: #1976d2;
+  margin-left: 1px;
+}
+.sigle-tip:active { opacity: .7; }
+
+#btnStartSticky {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8000;
+  background: linear-gradient(135deg, #e6a817, #f0c040);
+  color: #1a2240;
+  font-weight: 900;
+  font-size: 1.05em;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.35);
+  cursor: pointer;
+  white-space: nowrap;
+}
+#btnStartSticky.visible { display: block; }
 </style>
 </head>
 <body>
@@ -2094,23 +2129,244 @@ function selectTheme(t){
 function updateStartBtn(){
   const pool=getFilteredQ();
   const btn=document.getElementById('btnStart');
+  const sticky=document.getElementById('btnStartSticky');
   if(!btn) return;
-  if(selectedThemes.has('all')){
-    btn.textContent='▶ Commencer ('+pool.length+' questions)';
-  } else {
-    const names=Array.from(selectedThemes);
-    const label=names.length===1?names[0]:names.length+' thèmes';
-    btn.textContent='▶ Commencer — '+label+' ('+pool.length+' questions)';
+  var isAll = selectedThemes.has('all');
+  var names = Array.from(selectedThemes);
+  var label = isAll ? pool.length+' questions' : (names.length===1 ? names[0] : names.length+' thèmes')+' · '+pool.length+'q';
+  var txt = '▶ Commencer — ' + label;
+  btn.textContent = txt;
+  // Sticky : visible dès qu'un thème spécifique est sélectionné
+  if(sticky){
+    if(!isAll && names.length > 0){
+      sticky.textContent = txt;
+      sticky.classList.add('visible');
+    } else {
+      sticky.classList.remove('visible');
+    }
   }
 }
 
 function launchQuiz(){
+  // Cacher le bouton sticky
+  var st=document.getElementById('btnStartSticky');
+  if(st) st.classList.remove('visible');
   if(currentMode==='flashcard'){startFlashcard();return;}
   if(currentMode==='boss'){showBossScreen();return;}
   startQuiz();
 }
 
 // ─── FICHES ───
+// ─── DICTIONNAIRE SIGLES ───
+var SIGLES_DEF = {
+  "RIFSEEP":"Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertises et Engagement Professionnel. Composé de l'IFSE (part fixe) + CIA (part variable annuelle).",
+  "IFSE":"Indemnité de Fonctions, Sujétions et Expertise — part fixe du RIFSEEP, versée mensuellement selon le poste.",
+  "CIA":"Complément Indemnitaire Annuel — part variable du RIFSEEP, versée en fonction de l'engagement professionnel de l'année.",
+  "NBI":"Nouvelle Bonification Indiciaire — points d'indice supplémentaires accordés pour certains postes à responsabilité ou technicité particulière.",
+  "SFT":"Supplément Familial de Traitement — complément de rémunération versé aux agents ayant au moins 1 enfant à charge.",
+  "CLM":"Congé de Longue Maladie — 3 ans max : 1 an à plein traitement + 2 ans à demi-traitement. Pour affection grave.",
+  "CLD":"Congé de Longue Durée — 5 ans max : 3 ans plein + 2 ans demi. Pour affections spécifiques (cancer, tuberculose…).",
+  "CMO":"Congé de Maladie Ordinaire — 90 jours à plein traitement puis demi-traitement. Depuis mars 2025 : 90% les 3 premiers mois.",
+  "CPF":"Compte Personnel de Formation — 24h/an (→120h) puis 12h/an (→150h max). Droit individuel à la formation.",
+  "VAE":"Validation des Acquis de l'Expérience — permet d'obtenir une certification grâce à l'expérience professionnelle (min. 1 an).",
+  "GPEEC":"Gestion Prévisionnelle des Emplois, des Effectifs et des Compétences — obligatoire dans les collectivités de +150 agents.",
+  "LDG":"Lignes Directrices de Gestion — remplacent la CAP pour les mutations et promotions depuis la loi FP 2019.",
+  "OETH":"Obligation d'Emploi des Travailleurs Handicapés — taux de 6% de l'effectif pour tout employeur de +20 agents.",
+  "FIPHFP":"Fonds pour l'Insertion des Personnes Handicapées dans la Fonction Publique — reçoit les contributions des employeurs publics n'atteignant pas 6% d'OETH.",
+  "CNRACL":"Caisse Nationale de Retraites des Agents des Collectivités Locales — régime de retraite de base des agents FPT et FPH.",
+  "RAFP":"Retraite Additionnelle de la Fonction Publique — régime de retraite complémentaire par points, alimenté par les primes (plafond 20% du traitement brut). Obligatoire pour les 3 versants.",
+  "CAP":"Commission Administrative Paritaire — instance consultée pour les décisions individuelles défavorables (licenciement, sanction…). Plus compétente pour mutations/promotions depuis 2019.",
+  "CST":"Comité Social Territorial — instance de dialogue social FPT (fusion CTE + CHSCT depuis janvier 2023). Consulté sur organisation du travail, conditions de travail.",
+  "CSA":"Comité Social d'Administration — équivalent du CST pour la FPE.",
+  "CSE":"Comité Social d'Établissement — équivalent du CST pour la FPH.",
+  "FSSCT":"Formation Spécialisée en matière de Santé, Sécurité et Conditions de Travail — sous-commission du CST, obligatoire dans les collectivités d'au moins 200 agents.",
+  "CDG":"Centre de Gestion — organisme gérant les ressources humaines des collectivités de la FPT (concours, CAP, CDIsation…). Propre à la FPT.",
+  "CNFPT":"Centre National de la Fonction Publique Territoriale — assure la formation professionnelle des agents territoriaux. Cotisation : 0,9% de la masse salariale.",
+  "CSFPT":"Conseil Supérieur de la Fonction Publique Territoriale — consulté sur les projets de loi et décrets relatifs à la FPT.",
+  "CET":"Compte Épargne-Temps — dispositif permettant d'épargner des jours de congé non pris, plafonné à 60 jours dans la FPT.",
+  "MAD":"Mise À Disposition — l'agent travaille dans un autre organisme tout en restant dans son corps d'origine. Son traitement est remboursé.",
+  "CGFP":"Code Général de la Fonction Publique — codification de la loi du 13 juillet 1983 et des statuts FP. En vigueur depuis mars 2022.",
+  "RAEP":"Reconnaissance des Acquis de l'Expérience Professionnelle — dossier présenté lors de certains concours (3e voie, interne).",
+  "BIEP":"Bourse Interministérielle de l'Emploi Public — remplacée par Place de l'Emploi Public. Site de publication des offres d'emploi public.",
+  "HATVP":"Haute Autorité pour la Transparence de la Vie Publique — reçoit les déclarations d'intérêts et de patrimoine des hauts fonctionnaires.",
+  "INSP":"Institut National du Service Public — remplace l'ENA depuis le 1er janvier 2022. Forme les hauts fonctionnaires de l'État.",
+  "IRA":"Institut Régional d'Administration — forme les attachés d'administration de l'État (catégorie A).",
+  "RGPD":"Règlement Général sur la Protection des Données — règlement UE 2016/679, applicable depuis mai 2018. Encadre le traitement des données personnelles.",
+  "CNIL":"Commission Nationale de l'Informatique et des Libertés — autorité de contrôle du RGPD en France.",
+  "CADA":"Commission d'Accès aux Documents Administratifs — garantit le droit d'accès aux documents administratifs.",
+  "QPC":"Question Prioritaire de Constitutionnalité — permet à tout justiciable de contester la constitutionnalité d'une loi devant le Conseil Constitutionnel.",
+  "REP":"Recours pour Excès de Pouvoir — recours contentieux visant à annuler un acte administratif illégal.",
+  "TA":"Tribunal Administratif — juridiction administrative de premier degré. Juge les litiges entre l'administration et les administrés.",
+  "CAA":"Cour Administrative d'Appel — juridiction d'appel des tribunaux administratifs.",
+  "LDG":"Lignes Directrices de Gestion — remplacent la CAP pour mutations et promotions (loi FP du 6 août 2019).",
+  "FPE":"Fonction Publique d'État — 1er versant. Corps, IRA, INSP, SRE pour la retraite.",
+  "FPT":"Fonction Publique Territoriale — 2e versant. Cadres d'emplois, CNFPT, CDG, CNRACL.",
+  "FPH":"Fonction Publique Hospitalière — 3e versant. Corps hospitaliers, ANFH, CNRACL.",
+  "ANFH":"Association Nationale pour la Formation permanente du personnel Hospitalier — finance la formation des agents FPH (2,1% masse salariale).",
+  "DDI":"Direction Départementale Interministérielle — service déconcentré de l'État au niveau départemental.",
+  "SGAR":"Secrétariat Général pour les Affaires Régionales — coordonne l'action interministérielle au niveau régional.",
+  "DREETS":"Direction Régionale de l'Économie, de l'Emploi, du Travail et des Solidarités — service déconcentré régional.",
+  "ANCT":"Agence Nationale de la Cohésion des Territoires — accompagne les collectivités dans leurs projets de développement.",
+  "FP":"Fonction Publique — ensemble des 3 versants : FPE (État), FPT (Territoriale), FPH (Hospitalière). Environ 5,7 millions d'agents.",
+  "EPCI":"Établissement Public de Coopération Intercommunale — groupement de communes (communauté de communes, d'agglomération, urbaine, métropole).",
+  "EPA":"Établissement Public Administratif — personne morale de droit public gérant une mission de service public (ex : CNFPT, CDG, universités).",
+  "EPIC":"Établissement Public Industriel et Commercial — personne morale de droit public avec activité commerciale (ex : SNCF, La Poste avant privatisation).",
+  "ENA":"École Nationale d'Administration — ancienne école de formation des hauts fonctionnaires, remplacée par l'INSP le 1er janvier 2022.",
+  "GIPA":"Garantie Individuelle du Pouvoir d'Achat — dispositif de compensation pour les agents dont le traitement a progressé moins vite que l'inflation. Supprimée en 2025.",
+  "IB":"Indice Brut — valeur numérique de référence attribuée à chaque échelon. Sert à calculer l'Indice Majoré.",
+  "IM":"Indice Majoré — indice servant au calcul du traitement brut mensuel. Traitement = IM × valeur du point d'indice.",
+  "RTT":"Réduction du Temps de Travail — jours de repos compensateurs accordés en contrepartie d'un temps de travail hebdomadaire supérieur à 35h.",
+  "CDD":"Contrat à Durée Déterminée — contrat de travail temporaire. Dans la FP, utilisé pour les agents contractuels non titulaires.",
+  "CDI":"Contrat à Durée Indéterminée — contrat sans terme fixé. Dans la FP, les contractuels peuvent être CDIsés après 6 ans de CDD.",
+  "DGS":"Directeur Général des Services — premier agent de la collectivité. Prépare et exécute les décisions de l'exécutif local.",
+  "DRH":"Direction des Ressources Humaines — service en charge de la gestion du personnel (recrutement, carrière, formation, paie).",
+  "RH":"Ressources Humaines — ensemble des fonctions de gestion du personnel dans une organisation.",
+  "CHSCT":"Comité d'Hygiène, de Sécurité et des Conditions de Travail — ancienne instance, fusionnée avec le CTE pour former le CST depuis janvier 2023.",
+  "CTE":"Comité Technique d'Établissement (ou Comité Technique) — ancienne instance consultative FPT, fusionnée avec le CHSCT pour former le CST en 2023.",
+  "CTM":"Comité Technique Ministériel — ancienne instance de dialogue social au niveau ministériel (FPE), remplacée par le CSA.",
+  "CCFP":"Conseil Commun de la Fonction Publique — instance de dialogue social commune aux 3 versants de la FP.",
+  "DDHC":"Déclaration des Droits de l'Homme et du Citoyen — texte de 1789 à valeur constitutionnelle. Art. 6 : égal accès aux emplois publics selon les mérites.",
+  "CGCT":"Code Général des Collectivités Territoriales — code regroupant les règles d'organisation et de fonctionnement des collectivités locales.",
+  "CRPA":"Code des Relations entre le Public et l'Administration — régi les relations entre l'administration et les usagers (droit d'accès, délais, silence...).",
+  "CJA":"Code de Justice Administrative — régit les procédures devant les juridictions administratives (TA, CAA, CE).",
+  "PCAET":"Plan Climat-Air-Énergie Territorial — document de planification obligatoire pour les EPCI de +20 000 habitants. Définit la stratégie climatique locale.",
+  "SRADDET":"Schéma Régional d'Aménagement, de Développement Durable et d'Égalité des Territoires — document de planification régionale à long terme.",
+  "SNBC":"Stratégie Nationale Bas-Carbone — feuille de route française pour atteindre la neutralité carbone en 2050.",
+  "PLU":"Plan Local d'Urbanisme — document d'urbanisme communal ou intercommunal définissant les règles d'occupation des sols.",
+  "DGAFP":"Direction Générale de l'Administration et de la Fonction Publique — administration centrale chargée de la politique RH de l'État.",
+  "DGCL":"Direction Générale des Collectivités Locales — direction du ministère de l'Intérieur en charge des collectivités territoriales.",
+  "IGAS":"Inspection Générale des Affaires Sociales — corps d'inspection et de contrôle des politiques sociales, de santé et du travail.",
+  "IGF":"Inspection Générale des Finances — corps d'inspection chargé du contrôle et de l'audit des finances publiques.",
+  "AAI":"Autorité Administrative Indépendante — organisme public sans personnalité morale, indépendant du gouvernement (ex : CNIL, Défenseur des droits, CADA).",
+  "DSN":"Déclaration Sociale Nominative — déclaration mensuelle dématérialisée remplaçant les formulaires sociaux. Obligatoire pour les employeurs publics.",
+  "DUERP":"Document Unique d'Évaluation des Risques Professionnels — document obligatoire recensant tous les risques professionnels dans une collectivité.",
+  "SST":"Sauveteur Secouriste du Travail — agent formé aux gestes de premiers secours en milieu professionnel.",
+  "ISST":"Inspecteur Santé et Sécurité au Travail — agent chargé du contrôle des conditions de travail dans la FPT.",
+  "ISRC":"Indemnité Spécifique de Rupture Conventionnelle — indemnité versée au fonctionnaire titulaire lors d'une rupture conventionnelle. Calculée en fonction de l'ancienneté.",
+  "PSC":"Protection Sociale Complémentaire — dispositif de couverture santé et prévoyance cofinancé par l'employeur public. Obligatoire depuis 2022-2025.",
+  "QPV":"Quartier Prioritaire de la politique de la Ville — zone urbaine défavorisée bénéficiant de dispositifs renforcés d'action publique.",
+  "ZRR":"Zone de Revitalisation Rurale — territoire rural bénéficiant de mesures d'aide au développement économique et à l'installation de services publics.",
+  "MDPH":"Maison Départementale des Personnes Handicapées — guichet unique pour l'accès aux droits et prestations des personnes handicapées. Gérée par le département.",
+  "RQTH":"Reconnaissance de la Qualité de Travailleur Handicapé — statut attribué par la MDPH permettant de bénéficier de l'OETH et d'aménagements de poste.",
+  "AAH":"Allocation aux Adultes Handicapés — prestation financière versée aux personnes handicapées en situation de précarité. Financée par l'État.",
+  "CAF":"Caisse d'Allocations Familiales — organisme de sécurité sociale versant les prestations familiales et sociales.",
+  "CPAM":"Caisse Primaire d'Assurance Maladie — organisme gérant l'assurance maladie obligatoire pour les salariés du secteur privé.",
+  "CARSAT":"Caisse d'Assurance Retraite et de la Santé au Travail — gère la retraite et la prévoyance des travailleurs du secteur privé.",
+  "CCAS":"Centre Communal d'Action Sociale — établissement public communal gérant les aides sociales locales (aide alimentaire, portage repas...).",
+  "SDIS":"Service Départemental d'Incendie et de Secours — établissement public gérant les sapeurs-pompiers et les secours d'urgence au niveau départemental.",
+  "ONF":"Office National des Forêts — établissement public chargé de la gestion des forêts publiques (domaniales et communales).",
+  "SNCF":"Société Nationale des Chemins de fer Français — entreprise ferroviaire nationale, transformée en SA à capitaux publics en 2020.",
+  "UE":"Union Européenne — organisation supranationale regroupant 27 États membres. Produit des règlements et directives applicables dans la FP (ex : RGPD).",
+  "EEE":"Espace Économique Européen — zone regroupant l'UE + Islande, Liechtenstein, Norvège. Les ressortissants EEE peuvent accéder aux concours de la FP.",
+  "SRE":"Service des Retraites de l'État — régime de retraite des fonctionnaires de l'État (FPE). Équivalent de la CNRACL pour la FPH et FPT.",
+  "PPCR":"Parcours Professionnels, Carrières et Rémunérations — réforme de 2016 modernisant les grilles indiciaires et la progression de carrière dans les 3 versants.",
+  "GRH":"Gestion des Ressources Humaines — ensemble des pratiques de pilotage du personnel (recrutement, formation, évaluation, mobilité, rémunération).",
+  "LFI":"Loi de Finances Initiale — loi votée en fin d'année fixant le budget de l'État pour l'année suivante (recettes et dépenses).",
+  "PLF":"Projet de Loi de Finances — projet de budget de l'État présenté par le gouvernement au Parlement chaque automne.",
+  "FEDER":"Fonds Européen de Développement Régional — fonds structurel UE finançant des projets de développement économique et territorial.",
+  "FSE":"Fonds Social Européen — fonds UE finançant des actions en faveur de l'emploi, de la formation et de l'inclusion sociale.",
+  "PFRH":"Plateforme Régionale d'Appui Interministériel à la GRH — service d'appui RH mutualisé pour les services de l'État en région.",
+  "DSP":"Délégation de Service Public — contrat par lequel une collectivité confie la gestion d'un service public à un opérateur privé (ex : eau, transport).",
+  "ERP":"Établissement Recevant du Public — tout bâtiment accessible au public, soumis à des règles strictes de sécurité et d'accessibilité.",
+  "IHTS":"Indemnité Horaire pour Travaux Supplémentaires — compensation financière des heures supplémentaires pour les agents de catégorie C et B.",
+  "IAT":"Indemnité d'Administration et de Technicité — prime forfaitaire mensuelle versée à certains agents de catégorie C.",
+  "MPO":"Mission de Préfiguration et d'Observation — peut désigner diverses missions temporaires d'étude préalable à une réforme.",
+  "FPTLV":"Formation Professionnelle Tout au Long de la Vie — ensemble des dispositifs de formation continue pour les agents publics (CPF, VAE, bilan de compétences...).",
+  "PNA":"Plan National d'Action — plan gouvernemental définissant des objectifs et mesures dans un domaine particulier (ex : PNA alimentation durable).",
+  "PPR":"Plan de Prévention des Risques — document de planification réglementaire définissant les zones exposées à des risques naturels ou technologiques.",
+  "PEC":"Parcours Emploi Compétences — contrat aidé remplaçant les emplois d'avenir, favorisant l'insertion professionnelle des personnes éloignées de l'emploi.",
+  "MSAP":"Maison de Services Au Public — ancien nom des Maisons France Services. Guichet unique de services publics en zones rurales.",
+  "CRC":"Chambre Régionale des Comptes — juridiction financière contrôlant les comptes et la gestion des collectivités territoriales.",
+  "MPD":"Mise à Disposition — voir MAD. Agent qui reste dans son corps d'origine mais travaille pour un autre organisme.",
+  "HALDE":"Haute Autorité de Lutte contre les Discriminations et pour l'Égalité — ancienne AAI fusionnée dans le Défenseur des droits en 2011.",
+  "OPCA":"Organisme Paritaire Collecteur Agréé — ancien organisme collectant les fonds de formation professionnelle, remplacé par les OPCO en 2019.",
+  "ARS":"Agence Régionale de Santé — établissement public de l'État pilotant la politique de santé au niveau régional.",
+  "DDETS":"Direction Départementale de l'Emploi, du Travail et des Solidarités — service déconcentré de l'État au niveau départemental.",
+  "DDT":"Direction Départementale des Territoires — service déconcentré gérant l'aménagement du territoire, l'urbanisme et l'agriculture.",
+  "DDPP":"Direction Départementale de la Protection des Populations — contrôle la sécurité alimentaire, la concurrence et la protection des consommateurs.",
+  "SA":"Secrétaire Administratif — cadre d'emplois de catégorie B de la FPT. Concours d'accès ouvert aux titulaires d'un baccalauréat.",
+  "PACS":"Pacte Civil de Solidarité — contrat d'union civile entre deux personnes. Ouvre certains droits dans la FP (congés, mutation prioritaire).",
+  "CE":"Conseil d'État — juridiction administrative suprême. Juge en cassation les décisions des CAA. Conseille aussi le gouvernement.",
+  "CP":"Congé Parental — position statutaire permettant à un agent de suspendre son activité pour élever un enfant de moins de 3 ans.",
+  "AI":"Arrêté Individuel — décision administrative nominative (nomination, avancement, sanction). Opposé à l'acte réglementaire.",
+  "CTP":"Comité Technique Paritaire — ancienne dénomination du CT/CTE avant les réformes. Instance de dialogue social dans la FPT.",
+  "CT":"Comité Technique — ancienne instance consultative paritaire dans la FPT, remplacée par le CST depuis janvier 2023.",
+  "CNSA":"Caisse Nationale de Solidarité pour l'Autonomie — finance les politiques d'aide aux personnes âgées et handicapées. Gère la CNDS.",
+  "CNDS":"Caisse Nationale du Sport (ex-Centre National pour le Développement du Sport) — finance le développement du sport en France.",
+  "INAP":"Institut National d'Administration Publique — organisme de formation des cadres de la FPT (ancienne appellation avant intégration au CNFPT).",
+  "FMPE":"Fonds pour la Modernisation et l'Investissement en Santé — finance la transformation des établissements de santé.",
+  "MSSA":"Maison de Santé et de Services Au Public — structure regroupant des professionnels de santé en milieu rural.",
+  "CQP":"Certificat de Qualification Professionnelle — certification professionnelle délivrée par une branche professionnelle.",
+  "TECV":"Transition Énergétique pour la Croissance Verte — loi de 2015 fixant les objectifs français en matière de réduction des émissions de CO2.",
+  "DIF":"Droit Individuel à la Formation — ancien dispositif remplacé par le CPF en 2017. Permettait aux agents d'accumuler des heures de formation.",
+  "ASA":"Autorisation Spéciale d'Absence — absence autorisée non déductible du congé annuel, accordée pour des événements familiaux ou syndicaux.",
+  "BACS":"Baccalauréat — diplôme de fin d'études secondaires, niveau requis pour la catégorie B de la FP.",
+  "CCP":"Commission Consultative Paritaire — instance représentative des agents contractuels de droit public dans la FP.",
+  "DIRECCTE":"Direction Régionale des Entreprises, de la Concurrence, de la Consommation, du Travail et de l'Emploi — service déconcentré, remplacé par les DREETS en 2021.",
+  "EPS":"Établissement Public de Santé — hôpital public relevant de la FPH. Dirigé par un directeur nommé par le ministre de la Santé.",
+  "FO":"Force Ouvrière — organisation syndicale représentative dans la FP. Participe aux négociations au CCFP et dans les CSA/CST.",
+  "PEP":"Projet Éducatif de Proximité — dispositif de coordination des actions éducatives à l'échelle locale (commune, EPCI).",
+  "BI":"Bilan d'Insuffisance — appréciation portée sur un agent lors de l'évaluation, pouvant déclencher une procédure disciplinaire.",
+};
+
+// Wrapper les sigles dans le texte HTML de la fiche
+function wrapSigles(html) {
+  if(!html) return '';
+  var sigles = Object.keys(SIGLES_DEF).sort(function(a,b){return b.length - a.length;});
+  // Splitter en balises HTML et texte pur — on ne touche qu'aux segments texte
+  var parts = html.split(/(<[^>]+>)/);
+  parts = parts.map(function(part, i) {
+    if(i % 2 === 1) return part; // balise → intouché
+    if(!part.trim()) return part;
+    sigles.forEach(function(s) {
+      var escaped = s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      // Regex : sigle entouré de non-mot, et pas déjà dans un attribut data-sigle
+      var regex = new RegExp('(?<![\\w\\-])(' + escaped + ')(?![\\w\\-])', 'g');
+      var safeKey = encodeURIComponent(s);
+      // Re-splitter le segment sur les spans déjà présents pour ne pas re-wrapper
+      var subParts = part.split(/(<span[^>]*data-sigle[^>]*>.*?<\/span>)/);
+      part = subParts.map(function(sp, si) {
+        if(si % 2 === 1) return sp; // déjà un span sigle → intouché
+        return sp.replace(regex, function(match) {
+          return '<span class="sigle-tip" data-sigle="' + safeKey + '" onclick="showSigleTip(this)">' + match + '<sup>\u24d8</sup></span>';
+        });
+      }).join('');
+    });
+    return part;
+  });
+  return parts.join('');
+}
+
+function showSigleTip(el) {
+  var sigle = decodeURIComponent(el.getAttribute('data-sigle')||'');
+  var def = SIGLES_DEF[sigle] || '';
+  // Fermer tooltip existante
+  var old = document.getElementById('sigle-tooltip');
+  if(old) { old.remove(); if(old._target===el) return; }
+  var tip = document.createElement('div');
+  tip.id = 'sigle-tooltip';
+  tip._target = el;
+  tip.innerHTML = '<strong>'+sigle+'</strong><br>'+def.replace(/&quot;/g,'"').replace(/&#39;/g,"'")+'<button onclick="document.getElementById(\'sigle-tooltip\').remove()" style="display:block;margin-top:8px;font-size:.75em;background:#c5d8fa;border:1px solid #93b5ef;color:#1a237e;font-weight:700;padding:3px 10px;border-radius:4px;cursor:pointer">✕ Fermer</button>';
+  tip.style.cssText='position:fixed;z-index:9999;background:#eef4ff;color:#1a237e;padding:12px 15px;border-radius:10px;font-size:.82em;max-width:280px;box-shadow:0 4px 20px rgba(0,0,0,.25);line-height:1.5;border:1.5px solid #b3c8f5;';
+  document.body.appendChild(tip);
+  // Positionner près de l'élément
+  var r = el.getBoundingClientRect();
+  var top = r.bottom + 6;
+  var left = Math.min(r.left, window.innerWidth - 295);
+  if(top + 150 > window.innerHeight) top = r.top - 10 - tip.offsetHeight;
+  tip.style.top = Math.max(10, top)+'px';
+  tip.style.left = Math.max(10, left)+'px';
+  // Fermer en cliquant ailleurs
+  setTimeout(function(){
+    document.addEventListener('click', function closeTip(e){
+      if(!tip.contains(e.target) && e.target !== el){
+        tip.remove(); document.removeEventListener('click', closeTip);
+      }
+    });
+  }, 100);
+  event.stopPropagation();
+}
+
 function openFiche(){
   const t=selectedThemes.has('all')||selectedThemes.size!==1?'Statut':Array.from(selectedThemes)[0];
   const f=FICHES[t];
@@ -2119,12 +2375,21 @@ function openFiche(){
   f.sections.forEach(s=>{
     html+=`<div class="fiche-section"><h4>${s.title}</h4>`;
     s.items.forEach(it=>{
-      html+=`<div class="fiche-item"><span class="fiche-bullet">${it.k}</span><span>${it.v}</span></div>`;
+      html+='<div class="fiche-item">';
+      var kDef = SIGLES_DEF[it.k] || '';
+      if(kDef){
+        html+='<span class="fiche-bullet sigle-tip" data-sigle="'+encodeURIComponent(it.k)+'" onclick="showSigleTip(this)" title="'+it.k+'">'+it.k+'<sup>ⓘ</sup></span>';
+      } else {
+        html+='<span class="fiche-bullet">'+it.k+'</span>';
+      }
+      html+='<span>'+wrapSigles(it.v)+'</span></div>';
     });
     html+='</div>';
   });
-  html+=`<div class="fiche-key"><strong>🔑 À retenir :</strong><br>${f.key}</div>`;
-  html+=`<button class="btn-close-fiche" onclick="document.getElementById('ficheModal').classList.remove('open')">✓ Fermer</button>`;
+  html+=`<div class="fiche-key"><strong>🔑 À retenir :</strong><br>${wrapSigles(f.key)}</div>`;
+  html = wrapSigles(html);
+  html+=`<p style="font-size:.75em;color:#888;text-align:center;margin-top:8px">ℹ️ Tape sur un sigle souligné pour sa définition</p>`;
+  html+=`<button class="btn-close-fiche" onclick="document.getElementById('ficheModal').classList.remove('open');resetMenu();">✓ Fermer</button>`;
   document.getElementById('ficheContent').innerHTML=html;
   document.getElementById('ficheModal').classList.add('open');
 }
@@ -2149,17 +2414,9 @@ function weightedShuffle(qs){
 function startQuiz(){
   let pool=getFilteredQ();
   if(!pool.length){showToast('Aucune question pour ce thème');return;}
-  // Anti-doublon : exclure les questions déjà vues dans cette session
-  let freshPool=pool.filter(q=>!seenQuestionIds.has(q.q));
-  // Si plus de 80% des questions déjà vues → reset pour ne pas bloquer
-  if(freshPool.length < pool.length * 0.2){
-    seenQuestionIds.clear();
-    freshPool=pool;
-    showToast('🔄 Toutes les questions ont été vues — remise à zéro !');
-  }
-  questions=weightedShuffle(freshPool);
-  // Marquer les questions comme vues
-  questions.forEach(q=>seenQuestionIds.add(q.q));
+  // Anti-doublon : reset à chaque nouveau lancement (session = 1 lancement)
+  seenQuestionIds.clear();
+  questions=weightedShuffle(pool);
   current=0;
   userAnswers=Array(questions.length).fill(null);
   leitnerQueue=[];
@@ -2195,7 +2452,7 @@ function showQuestion(){
   document.getElementById('progressFg').style.width=pct+'%';
   document.getElementById('qConsigne').textContent=q.fill?'✏️ Complétez la phrase':q.m?'✔ Plusieurs réponses possibles':'○ Une seule bonne réponse';
   document.getElementById('btnVoirCorrection').style.display=(currentMode==='examen'||q.fill)?'none':'inline-flex';
-  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qText').innerHTML=wrapSigles(q.q||'');
   document.getElementById('correctionBox').classList.remove('show');
 
   // Chrono par question (mode entraînement uniquement)
@@ -2240,7 +2497,7 @@ function showQuestion(){
     q.o.forEach((opt,i)=>{
       const label=document.createElement('label');
       label.className='option'+(saved.includes(i)?' selected':'');
-      label.innerHTML='<input type="'+type+'" name="opt" value="'+i+'" '+(saved.includes(i)?'checked':'')+'>  <span class="option-label">'+opt+'</span>';
+      label.innerHTML='<input type="'+type+'" name="opt" value="'+i+'" '+(saved.includes(i)?'checked':'')+'>  <span class="option-label">'+wrapSigles(opt)+'</span>';
       label.addEventListener('change',()=>{
         label.classList.toggle('selected',label.querySelector('input').checked);
       });
@@ -2306,16 +2563,16 @@ function showAnswer(){
   const bonus=chronoLeft>60?10:chronoLeft>30?5:0;
   if(isOk) addXP(10+bonus);
 
-  var bonneRep=q.fill?q.a[0].toUpperCase():q.c.map(i=>q.o[i]).join(' / ');
+  var bonneRep=q.fill?wrapSigles(q.a[0].toUpperCase()):q.c.map(i=>wrapSigles(q.o[i])).join(' / ');
   document.getElementById('corrMsg').innerHTML=isOk
     ?'<div class="correct-msg">✅ La bonne réponse !</div>'
     :'<div class="wrong-msg">❌ Bonne réponse : '+bonneRep+'</div>';
   document.getElementById('corrAnswer').textContent='';
-  document.getElementById('corrExpl').textContent=q.e;
+  document.getElementById('corrExpl').innerHTML=wrapSigles(q.e||'');
 
   if(q.mn&&q.mn.length>10){
     document.getElementById('corrMnemo').style.display='block';
-    document.getElementById('corrMnemoText').textContent=q.mn;
+    document.getElementById('corrMnemoText').innerHTML=wrapSigles(q.mn||'');
   } else {
     document.getElementById('corrMnemo').style.display='none';
   }
@@ -2374,7 +2631,7 @@ function finishQuiz(){
     if(ok) byTheme[q.t].ok++;
 
     if(!ok){
-      const userTxt=user.length?(q.fill?('<em>'+( user[0]||'Sans réponse')+'</em>'):user.map(j=>q.o[j]).join(', ')):'<em>Sans réponse</em>';
+      const userTxt=user.length?(q.fill?('<em>'+(user[0]||'Sans réponse')+'</em>'):user.map(j=>wrapSigles(q.o[j])).join(', ')):'<em>Sans réponse</em>';
       errHtml+=`<div class="error-accordion">
         <div class="error-header" onclick="this.nextElementSibling.classList.toggle('open')">
           <span><span class="err-theme-badge">${q.t}</span>Q${i+1} — ${q.q.substring(0,60)}${q.q.length>60?'…':''}</span>
@@ -2383,8 +2640,8 @@ function finishQuiz(){
         <div class="error-body">
           <div class="err-user">❌ Ta réponse : ${userTxt}</div>
           <div class="err-correct">✅ Bonne réponse : ${q.fill?q.a[0].toUpperCase():q.c.map(j=>q.o[j]).join(', ')}</div>
-          <div class="err-expl">${q.e}</div>
-          ${q.mn?`<div class="err-mnemo">💡 <strong>Mnémo :</strong> ${q.mn}</div>`:''}
+          <div class="err-expl">${wrapSigles(q.e||"")}</div>
+          ${q.mn?`<div class="err-mnemo">💡 <strong>Mnémo :</strong> ${wrapSigles(q.mn)}</div>`:''}
           <div style="margin-top:6px;font-size:.76em"><a href="${q.s}" target="_blank" style="color:var(--blue)">${q.s}</a></div>
         </div>
       </div>`;
@@ -2452,8 +2709,8 @@ function showFlashcard(){
   fcFlipped=false;
   const card=document.getElementById('flashcard');
   card.classList.remove('flipped');
-  document.getElementById('fcQuestion').textContent=q.q;
-  document.getElementById('fcAnswer').textContent=(q.fill?q.a[0].toUpperCase():q.c.map(i=>q.o[i]).join('\n'))+(q.mn?'\n\n💡 '+q.mn:'');
+  document.getElementById('fcQuestion').innerHTML=wrapSigles(q.q||'');
+  document.getElementById('fcAnswer').innerHTML=wrapSigles((q.fill?q.a[0].toUpperCase():q.c.map(i=>q.o[i]).join('<br>'))+(q.mn?'<br><br>💡 '+q.mn:''));
   document.getElementById('fcCounter').textContent=(fcCurrent+1)+'/'+fcQuestions.length;
   document.getElementById('fcProgressFg').style.width=Math.round((fcCurrent+1)/fcQuestions.length*100)+'%';
 }
@@ -2491,7 +2748,7 @@ function showBossQuestion(){
   const q=bossQuestions[bossCurrent];
   document.getElementById('bossQNum').textContent=bossCurrent+1;
   document.getElementById('bossBar').style.width=Math.round((bossCurrent/bossQuestions.length)*100)+'%';
-  document.getElementById('bossQText').textContent=q.q;
+  document.getElementById('bossQText').innerHTML=wrapSigles(q.q||'');
 
   let livesHtml='';
   for(let i=0;i<3;i++) livesHtml+=i<bossLives?'❤️':'🖤';
@@ -2503,7 +2760,7 @@ function showBossQuestion(){
   q.o.forEach((opt,i)=>{
     const label=document.createElement('label');
     label.className='option';
-    label.innerHTML=`<input type="${type}" name="boss_opt" value="${i}"> <span class="option-label">${opt}</span>`;
+    label.innerHTML=`<input type="${type}" name="boss_opt" value="${i}"> <span class="option-label">${wrapSigles(opt)}</span>`;
     label.addEventListener('change',()=>label.classList.toggle('selected',label.querySelector('input').checked));
     container.appendChild(label);
   });
@@ -2707,7 +2964,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   loadState();
   // Fermer fiche si clic hors de la boîte
   document.getElementById('ficheModal').addEventListener('click',function(e){
-    if(e.target===this) this.classList.remove('open');
+    if(e.target===this){ this.classList.remove('open'); resetMenu(); }
   });
 });
 
@@ -2747,9 +3004,9 @@ function buildSessionSummary(){
     var mnemo=q.mn||'';
     return '<div class="summary-card">'
       +'<div class="summary-num">'+(i+1)+'</div>'
-      +'<div class="summary-q">'+q.q.substring(0,90)+(q.q.length>90?'…':'')+'</div>'
-      +'<div class="summary-rep">✅ '+rep+'</div>'
-      +(mnemo?'<div class="summary-mnemo">💡 '+mnemo+'</div>':'')
+      +'<div class="summary-q">'+wrapSigles(q.q.substring(0,90)+(q.q.length>90?'…':''))+'</div>'
+      +'<div class="summary-rep">✅ '+wrapSigles(rep)+'</div>'
+      +(mnemo?'<div class="summary-mnemo">💡 '+wrapSigles(mnemo)+'</div>':'')
       +'</div>';
   }).join('');
 }
@@ -3471,6 +3728,9 @@ function resetMenu(){
   if(defMode) defMode.classList.add('active');
   // Mettre à jour le bouton démarrer
   if(typeof updateStartBtn === 'function') updateStartBtn();
+  // Cacher le sticky au reset
+  var sticky = document.getElementById('btnStartSticky');
+  if(sticky) sticky.classList.remove('visible');
 }
 
 function fermerJeu(id) {
@@ -3650,7 +3910,7 @@ function afficherProces(){
   var d=procesData[procesIdx];
   document.getElementById('proces-speaker-avatar').textContent='👨‍⚖️';
   document.getElementById('proces-speaker-name').textContent='LE JUGE';
-  document.getElementById('proces-speech').textContent='Accusation : "'+d.accusation+'" — '+d.juge;
+  document.getElementById('proces-speech').innerHTML='Accusation : "'+wrapSigles(d.accusation)+'" — '+wrapSigles(d.juge);
   document.getElementById('proces-verdict').style.display='none';
   var ch=document.getElementById('proces-choices');
   ch.innerHTML='';
@@ -3658,7 +3918,7 @@ function afficherProces(){
   shuffled.forEach(function(c2){
     var btn=document.createElement('button');
     btn.className='proces-choice';
-    btn.textContent=c2.txt;
+    btn.innerHTML=wrapSigles(c2.txt||'');
     btn.onclick=function(){ repondreProces(c2,btn,shuffled.map(function(x){return x;})); };
     ch.appendChild(btn);
   });
@@ -3671,13 +3931,13 @@ function repondreProces(choix, btn, all){
     btn.classList.add('correct'); btn.style.opacity='1';
     procesScore+=200;
     verd.className='proces-verdict';
-    verd.innerHTML='<strong>✅ Argument retenu !</strong><br>'+choix.explication+'<br><br><button class="btn-start" onclick="nextProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px">Suite →</button>';
+    verd.innerHTML='<strong>✅ Argument retenu !</strong><br>'+wrapSigles(choix.explication||'')+'<br><br><button class="btn-start" onclick="nextProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px">Suite →</button>';
   } else {
     btn.classList.add('wrong'); btn.style.opacity='1';
     procesVies--;
     majViesProces();
     verd.className='proces-verdict coupable';
-    verd.innerHTML='<strong>❌ Argument rejeté !</strong><br>'+choix.explication+'<br><br>'+
+    verd.innerHTML='<strong>❌ Argument rejeté !</strong><br>'+wrapSigles(choix.explication||'')+'<br><br>'+
       (procesVies>0?'<button class="btn-start" onclick="nextProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px;background:linear-gradient(135deg,#8b0000,#cc0000)">Continuer →</button>':'<button class="btn-start" onclick="finProces()" style="font-size:.85em;padding:10px 20px;margin-top:8px;background:linear-gradient(135deg,#8b0000,#cc0000)">Voir le verdict</button>');
   }
   verd.style.display='block';
@@ -3799,7 +4059,7 @@ function startIntox(){
 function afficherIntox(){
   if(intoxIdx>=intoxData.length){ finIntox(); return; }
   var d=intoxData[intoxIdx];
-  document.getElementById('intox-statement').textContent=d.s;
+  document.getElementById('intox-statement').innerHTML=wrapSigles(d.s||'');
   document.getElementById('intox-src').textContent='📎 Source : '+d.src;
   document.getElementById('intox-feedback').style.display='none';
   document.getElementById('intox-next-wrap').style.display='none';
@@ -3834,7 +4094,7 @@ function repondreIntox(rep){
   if(rep===null){
     intoxStreak=0;
     fb.className='intox-feedback ko';
-    fb.innerHTML='⏱ Temps écoulé ! '+d.expl;
+    fb.innerHTML='⏱ Temps écoulé ! '+wrapSigles(d.expl||'');
   } else if(rep===d.vrai){
     intoxBonnes++;
     var mult=Math.max(1,intoxStreak+1);
@@ -3843,11 +4103,11 @@ function repondreIntox(rep){
     intoxStreak++;
     if(intoxStreak>intoxMaxStreak) intoxMaxStreak=intoxStreak;
     fb.className='intox-feedback ok';
-    fb.innerHTML=(intoxStreak>1?'🔥 Combo x'+intoxStreak+' ! +'+pts+' pts<br>':'✅ +'+pts+' pts<br>')+d.expl;
+    fb.innerHTML=(intoxStreak>1?'🔥 Combo x'+intoxStreak+' ! +'+pts+' pts<br>':'✅ +'+pts+' pts<br>')+wrapSigles(d.expl||'');
   } else {
     intoxStreak=0;
     fb.className='intox-feedback ko';
-    fb.innerHTML='❌ '+d.expl;
+    fb.innerHTML='❌ '+wrapSigles(d.expl||'');
   }
   fb.style.display='block';
   document.getElementById('intox-score').textContent=intoxScore+' pts';
@@ -3938,7 +4198,7 @@ function majQSJIndices(){
   var d=qsjData[qsjIdx];
   var html='';
   for(var i=0;i<d.indices.length;i++){
-    if(i<=qsjIndiceVisible) html+='<div class="quisuisje-indice">💡 Indice '+(i+1)+' : '+d.indices[i]+'</div>';
+    if(i<=qsjIndiceVisible) html+='<div class="quisuisje-indice">💡 Indice '+(i+1)+' : '+wrapSigles(d.indices[i])+'</div>';
     else html+='<div class="quisuisje-hidden">💡 Indice '+(i+1)+' : ???</div>';
   }
   document.getElementById('qsj-indices').innerHTML=html;
@@ -3971,9 +4231,9 @@ function validerQSJ(){
   var res=document.getElementById('qsj-result');
   if(ok){
     qsjScore+=qsjPtsDispo;
-    res.innerHTML='<div class="ans-main">✅ '+d.reponse+'</div><div class="ans-sub">+'+qsjPtsDispo+' points<br>'+d.detail+'</div>';
+    res.innerHTML='<div class="ans-main">✅ '+wrapSigles(d.reponse||'')+'</div><div class="ans-sub">+'+qsjPtsDispo+' points<br>'+wrapSigles(d.detail||'')+'</div>';
   } else {
-    res.innerHTML='<div class="ans-main" style="color:#ff6b6b">❌ C\'était : '+d.reponse+'</div><div class="ans-sub">'+d.detail+'</div>';
+    res.innerHTML='<div class="ans-main" style="color:#ff6b6b">❌ C\'était : '+wrapSigles(d.reponse||'')+'</div><div class="ans-sub">'+wrapSigles(d.detail||'')+'</div>';
   }
   res.style.display='block';
   document.getElementById('quisuisje-score').textContent=qsjScore+' pts';
@@ -4094,7 +4354,7 @@ function loadDossier(){
   d.questions.forEach(function(q,qi){
     qhtml+='<div class="dossier-q" id="dossier-q'+qi+'"><div class="dossier-q-text">'+(qi+1)+'. '+q.q+'</div><div class="dossier-q-choices">';
     q.choices.forEach(function(ch,ci){
-      qhtml+='<button class="dossier-q-choice" onclick="repondreDossier('+qi+','+ci+',this)">'+ch+'</button>';
+      qhtml+='<button class="dossier-q-choice" onclick="repondreDossier('+qi+','+ci+',this)">'+wrapSigles(ch)+'</button>';
     });
     qhtml+='</div></div>';
   });
@@ -4632,7 +4892,7 @@ function loadBossQ(){
   bossQAnswered=false;
   var d=bossQData[bossQIdx];
   document.getElementById('boss-q-num').textContent='Question '+(bossQIdx+1)+' / '+bossQData.length;
-  document.getElementById('boss-q-text').textContent=d.q;
+  document.getElementById('boss-q-text').innerHTML=wrapSigles(d.q||'');
   document.getElementById('boss-feedback').style.display='none';
   var ch=document.getElementById('boss-choices');
   ch.innerHTML='';
@@ -4657,7 +4917,7 @@ function repondreBoss(item,btn,all){
     btn.classList.add('correct'); btn.style.opacity='1';
     bossHP--; bossCombo++;
     bossJeuScore+=100*(bossCombo>=3?2:1);
-    fb.innerHTML='<span style="color:#0d5a18;font-weight:800">✅ Dégât infligé au boss !</span><br>'+item.c+'<br><small>'+document.getElementById('boss-q-text').textContent.substring(0,50)+'...</small>';
+    fb.innerHTML='<span style="color:#0d5a18;font-weight:800">✅ Dégât infligé au boss !</span><br>'+wrapSigles(item.c||'')+'<br><small>'+document.getElementById('boss-q-text').textContent.substring(0,50)+'...</small>';
     // Animer le boss
     var sp=document.getElementById('boss-sprite');
     sp.classList.add('boss-hit');
@@ -4671,7 +4931,7 @@ function repondreBoss(item,btn,all){
     btn.classList.add('wrong'); btn.style.opacity='1';
     all.forEach(function(it,i){ if(it.ok) document.querySelectorAll('.boss-choice')[i].classList.add('correct'); });
     bossVies--; bossCombo=0;
-    fb.innerHTML='<span style="color:#aa0000;font-weight:800">❌ Vie perdue !</span><br>'+d.expl;
+    fb.innerHTML='<span style="color:#aa0000;font-weight:800">❌ Vie perdue !</span><br>'+wrapSigles(d.expl||'');
     majBossUI();
     if(bossVies<=0){ setTimeout(function(){finBoss(false);},900); return; }
   }
@@ -5282,12 +5542,12 @@ function afficherCorrection(d, reussite){
       var expl = d.explications[i]||'';
       var correct = cartePlaced[i] === d.solution[i];
       html += '<div style="margin-bottom:5px;font-size:.75em;padding:6px 8px;border-radius:8px;background:'+(correct?'#eafaf5':'#fff0f0')+';border-left:3px solid '+(correct?'#27ae60':'#e74c3c')+'">';
-      html += '<strong>'+z+'</strong> → '+d.pieces[d.solution[i]]+'<br><span style="color:#556070">'+expl+'</span></div>';
+      html += '<strong>'+z+'</strong> → '+d.pieces[d.solution[i]]+'<br><span style="color:#556070">'+wrapSigles(expl)+'</span></div>';
     });
   }
   // Exemple concret
   if(d.exemple){
-    html += '<div class="carte-exemple-box"><div class="carte-exemple-label">💡 Exemple concret</div>'+d.exemple+'</div>';
+    html += '<div class="carte-exemple-box"><div class="carte-exemple-label">💡 Exemple concret</div>'+wrapSigles(d.exemple||'')+'</div>';
   }
   html += '<button onclick="fermerModalCarte()" style="margin-top:12px;width:100%;padding:12px;background:linear-gradient(135deg,#003580,#0055cc);color:#fff;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-size:.9em">Sch\u00e9ma suivant \u2192</button>';
   html += '</div>';
@@ -6342,7 +6602,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:.75em">
           <thead>
-            <tr style="background:#1a2240;color:#fff">
+            <tr style="background:#1e3a6e;color:#ffffff">
               <th style="padding:10px 8px;text-align:left;border-radius:8px 0 0 0">Type</th>
               <th style="padding:10px 8px;text-align:center">Durée max</th>
               <th style="padding:10px 8px;text-align:center">Plein traitement</th>
@@ -6750,7 +7010,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:.73em">
           <thead>
-            <tr style="background:#1a2240;color:#fff">
+            <tr style="background:#1e3a6e;color:#ffffff">
               <th style="padding:9px 8px;text-align:left">Critère</th>
               <th style="padding:9px 8px;text-align:center;color:#ff8080">FPE</th>
               <th style="padding:9px 8px;text-align:center;color:#80c4ff">FPT</th>
@@ -6902,5 +7162,7 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 
+
+<button id="btnStartSticky" onclick="launchQuiz()">▶ Commencer</button>
 </body>
 </html>
