@@ -645,6 +645,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   white-space: nowrap;
 }
 #btnStartSticky.visible { display: block; }
+
+/* ── Mode Duel ── */
+.duel-nb-btn{flex:1;padding:10px;border:2px solid #c7d7f8;background:#fff;border-radius:10px;font-weight:700;font-size:.95em;color:var(--navy);cursor:pointer;transition:all .15s}
+.duel-nb-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.duel-opt{padding:13px 15px;border:2px solid #e8edf5;border-radius:12px;background:#fff;color:#1a2240;font-size:.92em;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;font-family:'DM Sans',sans-serif}
+.duel-opt:hover{border-color:var(--navy);background:#eef3ff}
+.duel-opt.selected{border-color:var(--navy);background:#eef3ff;font-weight:700}
 </style>
 </head>
 <body>
@@ -837,6 +844,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="jeu-desc">10 questions difficiles. 3 vies. Tue le boss.</div>
     </div>
   </div>
+<!-- ════════ MODE DUEL ════════ -->
+<div style="margin-top:16px;padding:0 2px">
+  <div class="jeu-card" style="background:linear-gradient(135deg,#fef9e7,#fdf3d0);border:2px solid #f0c040;border-radius:18px;padding:18px 16px;text-align:center;cursor:pointer;transition:all .2s" onclick="ouvrirDuel()">
+    <span style="font-size:2em">🎮</span>
+    <div style="font-weight:800;font-size:1.05em;color:#1a2240;margin:6px 0 4px">Mode Duel</div>
+    <div style="font-size:.82em;color:#555">2 joueurs · même appareil · tour par tour</div>
+  </div>
+</div>
 </div>
 
 <!-- ════════ JEU 1 : LE PROCÈS ════════ -->
@@ -5827,6 +5842,238 @@ document.addEventListener('DOMContentLoaded', function(){
     carteStreakCount = parseInt(localStorage.getItem('sa_carte_streak')||0);
   }catch(e){}
 });
+
+// ════════════════════════════════════════════════════
+// MODE DUEL
+// ════════════════════════════════════════════════════
+var duelP1 = '', duelP2 = '', duelNb = 5;
+var duelQuestions = [], duelCurrent = 0;
+var duelAnswers = []; // [{p1: idx, p2: idx}]
+var duelScores = [0, 0];
+var duelPhase = 'p1'; // 'p1' | 'p2'
+var duelSelectedOpt = -1;
+
+function ouvrirDuel() {
+  showScreen('screen-duel');
+  document.getElementById('duel-setup').style.display = 'block';
+  document.getElementById('duel-game').style.display = 'none';
+  document.getElementById('duel-fin').style.display = 'none';
+  document.getElementById('duel-p1-name').value = '';
+  document.getElementById('duel-p2-name').value = '';
+  duelScores = [0, 0];
+  duelNb = 5;
+  document.querySelectorAll('.duel-nb-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.nb === '5');
+  });
+}
+
+function setDuelNb(n, btn) {
+  duelNb = n;
+  document.querySelectorAll('.duel-nb-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+function lancerDuel() {
+  var n1 = document.getElementById('duel-p1-name').value.trim();
+  var n2 = document.getElementById('duel-p2-name').value.trim();
+  if(!n1 || !n2) {
+    alert('Entre les prénoms des 2 joueurs !');
+    return;
+  }
+  duelP1 = n1; duelP2 = n2;
+  duelScores = [0, 0];
+  duelAnswers = [];
+  duelCurrent = 0;
+  // Piocher questions (toutes thèmes, QCM uniquement, pas fill)
+  var pool2 = [];
+  Object.values(qData).forEach(function(arr) {
+    arr.forEach(function(q) {
+      if(!q.fill && !q.m && q.o && q.o.length >= 2) pool2.push(q);
+    });
+  });
+  pool2 = pool2.sort(function(){ return Math.random()-.5; }).slice(0, duelNb);
+  duelQuestions = pool2;
+
+  document.getElementById('duel-setup').style.display = 'none';
+  document.getElementById('duel-game').style.display = 'block';
+  document.getElementById('duel-fin').style.display = 'none';
+  document.getElementById('duel-s1-name').textContent = duelP1;
+  document.getElementById('duel-s2-name').textContent = duelP2;
+  duelPhase = 'p1';
+  duelAfficherQuestion();
+}
+
+function duelAfficherQuestion() {
+  var q = duelQuestions[duelCurrent];
+  duelSelectedOpt = -1;
+
+  // Progress
+  var pct = Math.round(duelCurrent / duelQuestions.length * 100);
+  document.getElementById('duel-progress').textContent = 'Q ' + (duelCurrent+1) + '/' + duelQuestions.length;
+  document.getElementById('duel-prog-bar').style.width = pct + '%';
+  document.getElementById('duel-whose-turn').textContent = (duelPhase === 'p1' ? '👤 ' + duelP1 : '👤 ' + duelP2) + ' répond';
+
+  // Scores
+  document.getElementById('duel-s1-score').textContent = duelScores[0];
+  document.getElementById('duel-s2-score').textContent = duelScores[1];
+
+  // Question
+  document.getElementById('duel-q-text').innerHTML = wrapSigles(q.q || '');
+
+  // Options mélangées (même ordre pour les 2)
+  var opts = q.o;
+  var container = document.getElementById('duel-options');
+  container.innerHTML = '';
+  opts.forEach(function(opt, i) {
+    var btn = document.createElement('button');
+    btn.className = 'duel-opt';
+    btn.innerHTML = wrapSigles(opt);
+    btn.dataset.idx = i;
+    btn.onclick = function() {
+      document.querySelectorAll('.duel-opt').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      duelSelectedOpt = i;
+    };
+    container.appendChild(btn);
+  });
+
+  // Overlay passe appareil
+  document.getElementById('duel-reveal-overlay').style.display = 'none';
+  document.getElementById('duel-pass-overlay').style.display = 'none';
+
+  // Bouton valider
+  var valBtn = document.getElementById('duel-valider-btn');
+  if(!valBtn) {
+    valBtn = document.createElement('button');
+    valBtn.id = 'duel-valider-btn';
+    valBtn.style.cssText = "width:100%;padding:14px;background:var(--navy);color:#fff;font-weight:800;font-size:1em;border:none;border-radius:14px;cursor:pointer;margin-top:10px";
+    valBtn.onclick = duelValider;
+    document.getElementById('duel-game').appendChild(valBtn);
+  }
+  valBtn.textContent = '✓ Valider';
+}
+
+function duelValider() {
+  if(duelSelectedOpt === -1) { alert('Choisis une réponse !'); return; }
+  var q = duelQuestions[duelCurrent];
+  if(duelPhase === 'p1') {
+    // Sauvegarder réponse P1
+    duelAnswers[duelCurrent] = { p1: duelSelectedOpt, p2: -1 };
+    // Afficher overlay "passe à P2"
+    document.getElementById('duel-pass-msg').textContent = '✅ ' + duelP1 + ' a répondu !';
+    document.getElementById('duel-pass-sub').textContent = 'Passe l\u2019appareil \u00e0 ' + duelP2 + ' sans montrer l\u2019\u00e9cran \ud83d\udc47';
+    document.getElementById('duel-pass-btn').textContent = '▶ Je suis ' + duelP2 + ', prêt !';
+    var po=document.getElementById('duel-pass-overlay'); po.style.display='flex'; po.style.alignItems='center'; po.style.justifyContent='center'; po.style.flexDirection='column';
+  } else {
+    // Sauvegarder réponse P2
+    duelAnswers[duelCurrent].p2 = duelSelectedOpt;
+    // Révélation
+    duelReveler();
+  }
+}
+
+function duelPasserAppareil() {
+  document.getElementById('duel-pass-overlay').style.display = 'none';
+  duelPhase = 'p2';
+  duelSelectedOpt = -1;
+  document.querySelectorAll('.duel-opt').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('duel-whose-turn').textContent = '👤 ' + duelP2 + ' répond';
+  document.getElementById('duel-valider-btn').textContent = '✓ Valider';
+}
+
+function duelReveler() {
+  var q = duelQuestions[duelCurrent];
+  var ans = duelAnswers[duelCurrent];
+  var correctIdx = Array.isArray(q.c) ? q.c[0] : q.c;
+  var p1ok = ans.p1 === correctIdx;
+  var p2ok = ans.p2 === correctIdx;
+
+  if(p1ok) duelScores[0]++;
+  if(p2ok) duelScores[1]++;
+
+  // Afficher overlay révélation
+  var ov = document.getElementById('duel-reveal-overlay');
+  ov.style.display = 'block';
+  document.getElementById('duel-reveal-q').innerHTML = wrapSigles(q.q || '');
+  document.getElementById('duel-reveal-ans').innerHTML = wrapSigles(q.o[correctIdx] || '');
+
+  // Résultat P1
+  var r1 = document.getElementById('duel-reveal-p1-res');
+  r1.style.cssText = 'border-radius:12px;padding:14px;margin-bottom:10px;text-align:center;' +
+    (p1ok ? 'background:#dcfce7;color:#14532d' : 'background:#fde8e8;color:#b71c1c');
+  r1.innerHTML = '<strong>' + duelP1 + '</strong><br>' +
+    (p1ok ? '✅ Bonne réponse !' : '❌ ' + wrapSigles(q.o[ans.p1] || '?'));
+
+  // Résultat P2
+  var r2 = document.getElementById('duel-reveal-p2-res');
+  r2.style.cssText = 'border-radius:12px;padding:14px;margin-bottom:10px;text-align:center;' +
+    (p2ok ? 'background:#dcfce7;color:#14532d' : 'background:#fde8e8;color:#b71c1c');
+  r2.innerHTML = '<strong>' + duelP2 + '</strong><br>' +
+    (p2ok ? '✅ Bonne réponse !' : '❌ ' + wrapSigles(q.o[ans.p2] || '?'));
+
+  // Message points
+  var msg = '';
+  if(p1ok && p2ok) msg = '🤝 Les deux marquent un point !';
+  else if(p1ok) msg = '🏆 Point pour ' + duelP1 + ' !';
+  else if(p2ok) msg = '🏆 Point pour ' + duelP2 + ' !';
+  else msg = '😅 Personne ne marque !';
+  document.getElementById('duel-reveal-point-msg').textContent = msg;
+
+  // Texte bouton suivant
+  var isLast = duelCurrent >= duelQuestions.length - 1;
+  document.getElementById('duel-reveal-next').textContent = isLast ? '🏁 Voir les résultats' : 'Question suivante →';
+}
+
+function duelNextQuestion() {
+  document.getElementById('duel-reveal-overlay').style.display = 'none';
+  var isLast = duelCurrent >= duelQuestions.length - 1;
+  if(isLast) {
+    duelFin();
+    return;
+  }
+  duelCurrent++;
+  duelPhase = 'p1';
+  duelAfficherQuestion();
+}
+
+function duelFin() {
+  document.getElementById('duel-game').style.display = 'none';
+  document.getElementById('duel-fin').style.display = 'block';
+
+  var s1 = duelScores[0], s2 = duelScores[1];
+  var trophy, title;
+  if(s1 > s2) { trophy = '🏆'; title = duelP1 + ' gagne !'; }
+  else if(s2 > s1) { trophy = '🏆'; title = duelP2 + ' gagne !'; }
+  else { trophy = '🤝'; title = 'Égalité !'; }
+
+  document.getElementById('duel-fin-trophy').textContent = trophy;
+  document.getElementById('duel-fin-title').textContent = title;
+  document.getElementById('duel-fin-scores').innerHTML =
+    '<div style="display:flex;justify-content:space-around;align-items:center">' +
+    '<div><div style="font-size:.85em;color:#666;font-weight:600">' + duelP1 + '</div>' +
+    '<div style="font-size:2.5em;font-weight:900;color:var(--navy)">' + s1 + '</div></div>' +
+    '<div style="font-size:1.5em;color:#ccc">VS</div>' +
+    '<div><div style="font-size:.85em;color:#666;font-weight:600">' + duelP2 + '</div>' +
+    '<div style="font-size:2.5em;font-weight:900;color:var(--navy)">' + s2 + '</div></div>' +
+    '</div>';
+
+  // Détail par question
+  var detail = '';
+  duelQuestions.forEach(function(q, i) {
+    var ans = duelAnswers[i] || {};
+    var correctIdx = Array.isArray(q.c) ? q.c[0] : q.c;
+    var p1ok = ans.p1 === correctIdx;
+    var p2ok = ans.p2 === correctIdx;
+    detail += '<div style="background:#f4f6fb;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.82em">';
+    detail += '<div style="font-weight:700;color:#1a2240;margin-bottom:6px">Q' + (i+1) + ' : ' + wrapSigles(q.q.substring(0,70) + (q.q.length>70?'…':'')) + '</div>';
+    detail += '<div style="display:flex;gap:8px">';
+    detail += '<span style="flex:1;text-align:center;padding:5px 8px;border-radius:8px;' + (p1ok?'background:#dcfce7;color:#14532d':'background:#fde8e8;color:#b71c1c') + '">' + duelP1 + ' ' + (p1ok?'✅':'❌') + '</span>';
+    detail += '<span style="flex:1;text-align:center;padding:5px 8px;border-radius:8px;' + (p2ok?'background:#dcfce7;color:#14532d':'background:#fde8e8;color:#b71c1c') + '">' + duelP2 + ' ' + (p2ok?'✅':'❌') + '</span>';
+    detail += '</div></div>';
+  });
+  document.getElementById('duel-fin-detail').innerHTML = detail;
+}
+
 </script>
 
 <!-- ════════════════════════════════════════
@@ -7164,5 +7411,109 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <button id="btnStartSticky" onclick="launchQuiz()">▶ Commencer</button>
+
+<!-- ════════ ÉCRAN DUEL ════════ -->
+<div id="screen-duel" class="screen" style="display:none">
+
+  <!-- Setup -->
+  <div id="duel-setup" style="padding:20px 0">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:2.5em">🎮</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:8px 0 4px">Mode Duel</h2>
+      <p style="font-size:.85em;color:#666">Mêmes questions · réponses cachées · révélation simultanée</p>
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:18px;margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 1</label>
+      <input id="duel-p1-name" type="text" placeholder="Ton prénom..." maxlength="20"
+        style="width:100%;padding:12px 14px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="background:#f4f6fb;border-radius:16px;padding:18px;margin-bottom:20px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:8px">👤 Joueur 2</label>
+      <input id="duel-p2-name" type="text" placeholder="Son prénom..." maxlength="20"
+        style="width:100%;padding:12px 14px;border:2px solid #c7d7f8;border-radius:10px;font-size:1em;font-family:'DM Sans',sans-serif;color:#1a2240;background:#fff;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-weight:700;color:var(--navy);font-size:.9em;display:block;margin-bottom:10px">Nombre de questions</label>
+      <div style="display:flex;gap:10px">
+        <button class="duel-nb-btn active" data-nb="5" onclick="setDuelNb(5,this)">5</button>
+        <button class="duel-nb-btn" data-nb="10" onclick="setDuelNb(10,this)">10</button>
+        <button class="duel-nb-btn" data-nb="15" onclick="setDuelNb(15,this)">15</button>
+        <button class="duel-nb-btn" data-nb="20" onclick="setDuelNb(20,this)">20</button>
+      </div>
+    </div>
+    <button onclick="lancerDuel()" style="width:100%;padding:15px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer">
+      ⚔️ C'est parti !
+    </button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:12px;background:none;border:none;color:#888;font-size:.88em;cursor:pointer;margin-top:8px">← Retour</button>
+  </div>
+
+  <!-- Jeu -->
+  <div id="duel-game" style="display:none">
+    <!-- Header scores -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;background:#f4f6fb;border-radius:14px;padding:12px 16px">
+      <div style="text-align:center;flex:1">
+        <div id="duel-s1-name" style="font-size:.8em;color:#666;font-weight:600"></div>
+        <div id="duel-s1-score" style="font-size:1.8em;font-weight:900;color:var(--navy)">0</div>
+      </div>
+      <div style="font-size:1.2em;color:#ccc;font-weight:900">VS</div>
+      <div style="text-align:center;flex:1">
+        <div id="duel-s2-name" style="font-size:.8em;color:#666;font-weight:600"></div>
+        <div id="duel-s2-score" style="font-size:1.8em;font-weight:900;color:var(--navy)">0</div>
+      </div>
+    </div>
+    <!-- Progress -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span id="duel-progress" style="font-size:.82em;color:#888"></span>
+      <span id="duel-whose-turn" style="font-size:.82em;font-weight:700;color:var(--navy)"></span>
+    </div>
+    <div style="background:#e8edf5;border-radius:4px;height:5px;margin-bottom:16px">
+      <div id="duel-prog-bar" style="background:linear-gradient(90deg,#f0c040,#e6a817);height:5px;border-radius:4px;transition:width .4s"></div>
+    </div>
+    <!-- Question -->
+    <div style="background:#fff;border-radius:16px;padding:18px;border:2px solid #e8edf5;margin-bottom:14px">
+      <div id="duel-q-text" style="font-size:1em;font-weight:700;color:#1a2240;line-height:1.5;margin-bottom:14px"></div>
+      <div id="duel-options" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+    <!-- Passe appareil overlay -->
+    <div id="duel-pass-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9000;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px">
+      <div style="font-size:3em;margin-bottom:16px">📱</div>
+      <div id="duel-pass-msg" style="color:#fff;font-size:1.3em;font-weight:800;margin-bottom:8px"></div>
+      <div id="duel-pass-sub" style="color:#aaa;font-size:.9em;margin-bottom:30px"></div>
+      <button id="duel-pass-btn" onclick="duelPasserAppareil()" style="background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1.05em;padding:14px 32px;border:none;border-radius:14px;cursor:pointer">
+        ▶ Je suis prêt
+      </button>
+    </div>
+    <!-- Révélation overlay -->
+    <div id="duel-reveal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px">
+      <div style="max-width:400px;margin:0 auto;padding-top:10px">
+        <div style="text-align:center;font-size:2em;margin-bottom:12px">🔓</div>
+        <div id="duel-reveal-q" style="color:#fff;font-size:.9em;font-weight:600;margin-bottom:14px;line-height:1.4;text-align:center"></div>
+        <div id="duel-reveal-correct" style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:14px;color:#14532d;font-size:.88em;font-weight:700">
+          ✅ Bonne réponse : <span id="duel-reveal-ans"></span>
+        </div>
+        <div id="duel-reveal-p1-res" style="border-radius:12px;padding:14px;margin-bottom:10px;text-align:center"></div>
+        <div id="duel-reveal-p2-res" style="border-radius:12px;padding:14px;margin-bottom:16px;text-align:center"></div>
+        <div id="duel-reveal-point-msg" style="text-align:center;font-weight:800;font-size:1.1em;color:#f0c040;margin-bottom:20px"></div>
+        <button id="duel-reveal-next" onclick="duelNextQuestion()" style="width:100%;padding:14px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1em;border:none;border-radius:14px;cursor:pointer">
+          Question suivante →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fin -->
+  <div id="duel-fin" style="display:none;text-align:center;padding:20px 0">
+    <div id="duel-fin-trophy" style="font-size:4em;margin-bottom:12px"></div>
+    <div id="duel-fin-title" style="font-family:'Playfair Display',serif;font-size:1.5em;font-weight:800;color:var(--navy);margin-bottom:6px"></div>
+    <div id="duel-fin-scores" style="background:#f4f6fb;border-radius:16px;padding:18px;margin:16px 0"></div>
+    <div id="duel-fin-detail" style="text-align:left;margin-bottom:20px"></div>
+    <button onclick="ouvrirDuel()" style="width:100%;padding:14px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;font-size:1em;border:none;border-radius:14px;cursor:pointer;margin-bottom:10px">
+      🔄 Rejouer
+    </button>
+    <button onclick="showScreen('screen-menu')" style="width:100%;padding:12px;background:none;border:none;color:#888;font-size:.88em;cursor:pointer">
+      ← Menu principal
+    </button>
+  </div>
+</div>
 </body>
 </html>
