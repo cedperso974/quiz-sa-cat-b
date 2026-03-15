@@ -6948,8 +6948,8 @@ function pnLettre(l){
   var gagne=pnMot.split('').every(function(c){return c===' '||c==='-'||pnTrouv.indexOf(c)!==-1;});
   if(gagne){
     pnScore++;
+    var currentEntry=pnPool[pnIdx]; // sauvegarder AVANT pnIdx++
     pnDraw(false);
-    // Flash vert + Suivant
     var fl=document.createElement('div');
     fl.style.cssText='position:fixed;inset:0;background:rgba(22,163,74,.2);z-index:8000;pointer-events:none';
     document.body.appendChild(fl);
@@ -6958,7 +6958,7 @@ function pnLettre(l){
     var resDiv3=document.createElement('div');
     resDiv3.style.cssText='background:#dcfce7;border-radius:12px;padding:12px 14px;text-align:center;margin-top:8px;border-left:4px solid #16a34a';
     resDiv3.innerHTML='<div style="font-weight:800;color:#14532d;font-size:.88em;margin-bottom:4px">🎉 Bravo !</div>'
-      +'<div style="font-size:.8em;color:#166534;line-height:1.5">'+pnPool[pnIdx].definition.slice(0,150)+'</div>';
+      +'<div style="font-size:.8em;color:#166534;line-height:1.5">'+currentEntry.definition+'</div>';
     var btn3=document.createElement('button');
     pnIdx++;
     btn3.textContent=pnIdx>=pnTotal?'🏁 Résultats':'Suivant →';
