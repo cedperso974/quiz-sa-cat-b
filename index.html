@@ -5735,7 +5735,8 @@ function duelToggleAllThemes() {
 
 function duelThemeClick(el) {
   var chk = el.querySelector('.duel-theme-chk');
-  chk.checked = !chk.checked;
+  // Le label a déjà togglé le checkbox — on lit juste l'état résultant
+  // (pas de chk.checked = !chk.checked pour éviter le double toggle)
   el.classList.toggle('active', chk.checked);
   var total = document.querySelectorAll('.duel-theme-chk').length;
   var checked = document.querySelectorAll('.duel-theme-chk:checked').length;
@@ -6025,7 +6026,8 @@ function finDuelCommun(screenId, p1, p2, s1, s2, detailHtml) {
     + '</div>'
     + (detailHtml ? '<div style="text-align:left;margin-bottom:16px">' + detailHtml + '</div>' : '')
     + '<button onclick="ouvrirMode(\'' + screenId + '\')" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">🔄 Rejouer</button>'
-    + '<button onclick="showScreen(\'screen-menu\')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Menu</button>';
+    + '<button onclick="showScreen(\'screen-jeux\')" style="width:100%;padding:11px;background:#f4f6fb;border:2px solid #e0e8f5;color:var(--navy);font-size:.88em;font-weight:700;border-radius:12px;cursor:pointer;margin-bottom:8px">🎮 Choisir un autre jeu</button>'
+    + '<button onclick="showScreen(\'screen-menu\')" style="width:100%;padding:11px;background:none;border:none;color:#888;font-size:.85em;cursor:pointer">← Accueil</button>';
 }
 
 function ouvrirMode(screenId) {
@@ -6120,7 +6122,7 @@ function bzRepondre(player, choix) {
     ?'<div style="background:#dcfce7;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px"><div style="font-size:1.5em">✅</div><div style="font-weight:800;color:#14532d;font-size:1.05em">'+nom+' a bon ! +2 points</div></div>'
     :'<div style="background:#fde8e8;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px"><div style="font-size:1.5em">❌</div><div style="font-weight:800;color:#b71c1c;font-size:1.05em">'+nom+' a faux !<br><span style="font-weight:600;font-size:.85em">'+adversaire+' marque 1 point</span></div><div style="font-size:.85em;color:#555;margin-top:6px">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div></div>';
   var isLast=bzCurrent>=bzQuestions.length-1;
-  var nextBtn='<button onclick="'+(isLast?'bzFin':'bzNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+  var nextBtn='<button onclick="'+(isLast?'bzFin()':'bzNext()')+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
   document.getElementById('buzzer-game').innerHTML='<div style="padding-top:10px">'+msg+nextBtn+'</div>';
 }
 
@@ -6132,7 +6134,7 @@ function bzTimeout() {
     +'<div style="background:#fff3e0;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px">'
     +'<div style="font-size:1.5em">⏱</div><div style="font-weight:800;color:#7c2d12;font-size:1em">Temps écoulé ! Personne ne marque.</div>'
     +'<div style="font-size:.85em;color:#555;margin-top:6px">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div></div>'
-    +'<button onclick="'+(isLast?'bzFin':'bzNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>'
+    +'<button onclick="'+(isLast?'bzFin()':'bzNext()')+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>'
     +'</div>';
 }
 
@@ -6327,16 +6329,26 @@ function prValider(choix){
     var delta2=ok2?m2:(m2===2?-1:0);
     prS1+=delta1; prS2+=delta2;
     var isLast=prCurrent>=prQuestions.length-1;
-    var revHtml='<div style="text-align:center;font-size:1.8em;margin-bottom:12px">🔓</div>'
-      +'<div style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:#14532d">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div>'
-      +prResBloc(prP1,ok1,delta1,prAnswers[prCurrent].p1m)
-      +prResBloc(prP2,ok2,delta2,prAnswers[prCurrent].p2m)
-      +'<button onclick="'+(isLast?'prFin':'prNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-top:8px">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+    // Sauvegarder les mises AVANT prCurrent++
+    var p1m=prAnswers[prCurrent].p1m;
+    var p2m=prAnswers[prCurrent].p2m;
+    var explication=q.e||'';
     var ov2=document.createElement('div');
     ov2.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center';
     var inner=document.createElement('div');
     inner.style.cssText='max-width:400px;width:100%;padding-top:20px';
+    var revHtml='<div style="text-align:center;font-size:1.8em;margin-bottom:12px">🔓</div>'
+      +'<div style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:#14532d">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div>'
+      +prResBloc(prP1,ok1,delta1,p1m)
+      +prResBloc(prP2,ok2,delta2,p2m)
+      +(explication?'<div style="background:#f0f4ff;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.82em;color:#1a2240;line-height:1.5"><strong>💡 Explication</strong><br>'+explication+'</div>':'');
     inner.innerHTML=revHtml;
+    // Bouton Suivant/Résultats créé en DOM pour fermer ov2 proprement
+    var btnSuiv=document.createElement('button');
+    btnSuiv.textContent=isLast?'🏁 Résultats':'Question suivante →';
+    btnSuiv.style.cssText='width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-top:8px;font-family:DM Sans,sans-serif';
+    btnSuiv.onclick=function(){ov2.remove();if(isLast)prFin();else prNext();};
+    inner.appendChild(btnSuiv);
     ov2.appendChild(inner);
     document.body.appendChild(ov2);
     prPhase='p1';
@@ -6483,12 +6495,17 @@ function vlValiderP2(choix){
   var revHtml='<div style="text-align:center;font-size:1.8em;margin-bottom:12px">🔓</div>'
     +'<div style="background:#dcfce7;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.88em;font-weight:700;color:#14532d">✅ Réponse : '+wrapSigles(q.o[correctIdx])+'</div>'
     +'<div style="background:#f4f6fb;border-radius:12px;padding:14px;text-align:center;margin-bottom:12px;font-weight:700;color:#1a2240;font-size:.95em">'+msg+'</div>'
-    +'<button onclick="'+(isLast?'vlFin':'vlNext')()+'" style="width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer">'+(isLast?'🏁 Résultats':'Question suivante →')+'</button>';
+  ;
   var ov=document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(10,22,40,.95);z-index:9001;overflow-y:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center';
   var inner=document.createElement('div');
   inner.style.cssText='max-width:400px;width:100%;padding-top:20px';
   inner.innerHTML=revHtml;
+  var btnVl=document.createElement('button');
+  btnVl.textContent=isLast?'🏁 Résultats':'Question suivante →';
+  btnVl.style.cssText='width:100%;padding:13px;background:linear-gradient(135deg,#f0c040,#e6a817);color:#1a2240;font-weight:800;border:none;border-radius:14px;cursor:pointer;margin-top:8px;font-family:DM Sans,sans-serif';
+  btnVl.onclick=function(){ov.remove();if(isLast)vlFin();else vlNext();};
+  inner.appendChild(btnVl);
   ov.appendChild(inner);
   document.body.appendChild(ov);
   vlCurrent++;
