@@ -4327,6 +4327,277 @@ var INTOX_DATA = [
   {s:"Le contrôle de constitutionnalité des lois est exercé par le Conseil d’Etat.",vrai:false,src:"Art. 61 Constitution",expl:"Faux. Le contrôle de constitutionnalité est exercé par le Conseil Constitutionnel, pas le Conseil d’Etat.",theme:"Statut & Recrutement"},
   {s:"Le RAEP est un dossier utilisé lors des concours internes pour valoriser l’expérience.",vrai:true,src:"Décret 2007-196",expl:"Vrai. Le Dossier de Reconnaissance des Acquis de l’Expérience Professionnelle est une épreuve des concours internes.",theme:"Statut & Recrutement"},
   {s:"La QPC peut être soulevée par tout justiciable.",vrai:true,src:"Art. 61-1 Constitution",expl:"Vrai. Depuis 2010, tout justiciable peut soulever une QPC si une disposition législative porte atteinte à ses droits fondamentaux.",theme:"Statut & Recrutement"}
+,
+  {s:"Le CPF (Compte Personnel de Formation) est accessible à tous les agents publics.",vrai:true,src:"Loi du 5 septembre 2018",theme:"Formation",expl:"Vrai. Depuis la loi du 5 septembre 2018, le CPF est ouvert aux agents publics. Il permet de financer des formations sur son temps libre ou avec accord de l'administration."},
+  {s:"La formation obligatoire à la prise de poste est rémunérée.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. Les formations obligatoires (prise de poste, sécurité...) sont effectuées sur le temps de service et rémunérées normalement."},
+  {s:"Le CNFPT est compétent pour la formation de tous les agents territoriaux.",vrai:true,src:"Art. L451-1 CGFP",theme:"Formation",expl:"Vrai. Le Centre National de la Fonction Publique Territoriale organise les formations de tous les agents territoriaux, quel que soit leur grade."},
+  {s:"Un fonctionnaire peut suivre une formation de sa propre initiative sans accord de l'administration.",vrai:false,src:"Art. L422-3 CGFP",theme:"Formation",expl:"Faux. Les formations sur le temps de service requièrent l'accord de l'administration. Seules les formations hors temps de service sont libres."},
+  {s:"Le DIF (Droit Individuel à la Formation) a été remplacé par le CPF en 2017.",vrai:true,src:"Ordonnance n°2017-53",theme:"Formation",expl:"Vrai. L'ordonnance du 19 janvier 2017 a substitué le CPF au DIF dans la fonction publique."},
+  {s:"Les droits acquis au titre du DIF sont perdus lors du passage au CPF.",vrai:false,src:"Ordonnance n°2017-53",theme:"Formation",expl:"Faux. Les droits acquis au titre du DIF ont été convertis en euros et transférés sur le CPF lors du passage au nouveau dispositif."},
+  {s:"Un fonctionnaire en congé de formation professionnelle conserve 85% de son traitement.",vrai:true,src:"Décret 2007-1845",theme:"Formation",expl:"Vrai. Pendant un congé de formation professionnelle (6 mois max/an), le fonctionnaire perçoit 85% de son traitement brut."},
+  {s:"La Validation des Acquis de l'Expérience permet d'obtenir un diplôme sans suivre une formation.",vrai:true,src:"Art. L6411-1 Code du travail",theme:"Formation",expl:"Vrai. La VAE permet d'obtenir tout ou partie d'une certification en faisant valider son expérience professionnelle, sans formation obligatoire."},
+  {s:"Le plan de formation est élaboré après avis du Comité Social Territorial.",vrai:true,src:"Art. L422-5 CGFP",theme:"Formation",expl:"Vrai. Le plan de formation de la collectivité est soumis pour avis au CST avant son adoption."},
+  {s:"Un agent en période d'essai peut accéder aux formations du plan de formation.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. L'accès à la formation ne dépend pas de l'ancienneté. Un agent en période de stage peut bénéficier des formations obligatoires."},
+  {s:"L'INSP (Institut National du Service Public) forme uniquement les hauts fonctionnaires de l'État.",vrai:false,src:"Décret 2021-1556",theme:"Formation",expl:"Faux. L'INSP forme les cadres A+ de l'État mais aussi des cadres territoriaux et hospitaliers dans le cadre de formations inter-versants."},
+  {s:"Un fonctionnaire qui refuse une formation obligatoire peut faire l'objet d'une sanction disciplinaire.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. Le refus d'une formation obligatoire constitue un manquement aux obligations professionnelles pouvant justifier une sanction disciplinaire."},
+  {s:"La formation continue est un droit pour les fonctionnaires mais aussi une obligation.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. La formation est à la fois un droit (accès garanti) et une obligation (maintien des compétences nécessaires à l'exercice des fonctions)."},
+  {s:"Le télétravail est un droit pour tous les fonctionnaires.",vrai:false,src:"Décret 2016-151",theme:"Conditions de travail",expl:"Faux. Le télétravail est possible mais pas un droit absolu. Il est autorisé par l'autorité territoriale selon les nécessités du service."},
+  {s:"Le travail de nuit dans la FP donne droit à des compensations spécifiques.",vrai:true,src:"Décret 2002-9",theme:"Conditions de travail",expl:"Vrai. Le travail de nuit (entre 22h et 7h) donne droit à des compensations horaires ou indemnitaires spécifiques."},
+  {s:"Le DUERP (Document Unique d'Évaluation des Risques Professionnels) est obligatoire dans toutes les administrations.",vrai:true,src:"Art. L4121-3 Code du travail",theme:"Conditions de travail",expl:"Vrai. Toute administration publique doit établir et mettre à jour un DUERP répertoriant les risques professionnels pour chaque unité de travail."},
+  {s:"Un agent victime de harcèlement moral peut saisir directement le tribunal administratif.",vrai:true,src:"Art. L133-2 CGFP",theme:"Conditions de travail",expl:"Vrai. Le harcèlement moral est interdit dans la FP. L'agent peut saisir le juge administratif, voire le juge pénal."},
+  {s:"Le temps partiel thérapeutique est accordé après un contrôle médical obligatoire.",vrai:true,src:"Art. L822-5 CGFP",theme:"Conditions de travail",expl:"Vrai. Le temps partiel thérapeutique est accordé sur avis du médecin agréé ou du comité médical après examen de la situation médicale de l'agent."},
+  {s:"La protection fonctionnelle couvre les agents victimes d'agression dans l'exercice de leurs fonctions.",vrai:true,src:"Art. L134-1 CGFP",theme:"Conditions de travail",expl:"Vrai. L'administration est tenue de protéger ses agents contre les attaques dont ils peuvent être victimes dans l'exercice ou à l'occasion de leurs fonctions."},
+  {s:"Un agent peut être muté d'office pour raison de service sans son accord.",vrai:true,src:"Art. L512-13 CGFP",theme:"Conditions de travail",expl:"Vrai. L'intérêt du service peut justifier une mutation imposée. Toutefois, l'agent doit être informé et des garanties procedéurales s'appliquent."},
+  {s:"Le droit à la déconnexion est reconnu aux agents publics en télétravail.",vrai:true,src:"Décret 2021-1570",theme:"Conditions de travail",expl:"Vrai. Les agents en télétravail bénéficient du droit à la déconnexion en dehors de leurs horaires de travail habituels."},
+  {s:"Les agents à temps partiel ont les mêmes droits à la formation que les agents à temps plein.",vrai:true,src:"Art. L422-1 CGFP",theme:"Conditions de travail",expl:"Vrai. Le temps partiel ne diminue pas les droits à la formation. Les agents à temps partiel bénéficient des mêmes droits à formation que les agents à temps plein."},
+  {s:"La visite médicale d'aptitude est obligatoire avant toute titularisation.",vrai:true,src:"Art. L321-1 CGFP",theme:"Conditions de travail",expl:"Vrai. Tout candidat à un emploi public doit justifier d'une aptitude physique. Un examen médical est obligatoire avant la prise de fonctions."},
+  {s:"Les élections professionnelles dans la FP ont lieu tous les 4 ans.",vrai:true,src:"Art. L231-1 CGFP",theme:"Dialogue social",expl:"Vrai. Les élections aux instances de représentation du personnel (CST, CAP) se tiennent tous les 4 ans dans la fonction publique."},
+  {s:"Un syndicat doit obtenir au moins 8% des suffrages pour être représentatif dans la FP.",vrai:true,src:"Art. L211-3 CGFP",theme:"Dialogue social",expl:"Vrai. Pour être représentatif, un syndicat doit recueillir au moins 8% des suffrages exprimés lors des élections professionnelles."},
+  {s:"Le service minimum est obligatoire dans tous les services publics en cas de grève.",vrai:false,src:"Art. L114-4 CGFP",theme:"Dialogue social",expl:"Faux. L'obligation de service minimum ne s'applique qu'à certains services essentiels (transport, éducation, hôpitaux...) et non à tous les services publics."},
+  {s:"Les organisations syndicales peuvent négocier des accords collectifs dans la FP.",vrai:true,src:"Loi du 6 août 2019",theme:"Dialogue social",expl:"Vrai. La loi de transformation de la FP de 2019 a renforcé le dialogue social en permettant la négociation et la signature d'accords collectifs."},
+  {s:"Un représentant syndical bénéficie d'une protection contre la mutation imposée.",vrai:true,src:"Art. L214-1 CGFP",theme:"Dialogue social",expl:"Vrai. Les représentants syndicaux bénéficient d'une protection spécifique. Leur mutation ne peut intervenir qu'après accord de leur organisation syndicale ou avis de la CAP."},
+  {s:"Un agent peut utiliser les heures syndicales pour des activités politiques.",vrai:false,src:"Art. L214-5 CGFP",theme:"Dialogue social",expl:"Faux. Les autorisations d'absence syndicale sont strictement réservées aux activités syndicales. Leur utilisation à des fins politiques constitue un détournément sanctionnable."},
+  {s:"Le droit de grève peut être limité pour les agents participant à des missions de sécurité.",vrai:true,src:"Art. L114-2 CGFP",theme:"Dialogue social",expl:"Vrai. Certaines catégories d'agents (police, pompiers, pers. pénitentiaire) voient leur droit de grève limité ou supprimé en raison de leurs missions de sécurité."},
+  {s:"Le CST se réunit au moins deux fois par an.",vrai:true,src:"Décret 2021-1570",theme:"Dialogue social",expl:"Vrai. Le Comité Social Territorial doit se réunir au moins deux fois par an sur convocation de son président."},
+  {s:"Un agent gréviste doit notifier personnellement son intention de faire grève à son administration.",vrai:false,src:"Art. L114-3 CGFP",theme:"Dialogue social",expl:"Faux. C'est l'organisation syndicale qui dépose le préavis collectif. L'agent n'a pas d'obligation individuelle de notification sauf dans certains services."},
+  {s:"La négociation collective dans la FP peut porter sur les rémunérations.",vrai:true,src:"Loi du 6 août 2019",theme:"Dialogue social",expl:"Vrai. La loi TFP de 2019 a ouvert la négociation à de nombreux sujets dont les rémunérations, les conditions de travail et la gestion des ressources humaines."},
+  {s:"Les organisations syndicales sont consultées sur les projets de loi concernant la FP.",vrai:true,src:"Art. L221-1 CGFP",theme:"Dialogue social",expl:"Vrai. Le Conseil Supérieur de la Fonction Publique (CSFPE, CSFPT, CSFPH) est obligatoirement consulté sur les projets de loi relatifs à la FP."},
+  {s:"La fonction publique regroupe environ 5,9 millions d'agents en France.",vrai:true,src:"INSEE 2024",theme:"Chiffres clés",expl:"Vrai. Fin 2024, la fonction publique civile compte environ 5,9 millions d'agents, soit environ 20% de l'emploi total en France."},
+  {s:"La FPT est le versant le plus important de la fonction publique en nombre d'agents.",vrai:false,src:"INSEE 2024",theme:"Chiffres clés",expl:"Faux. La FPE (Etat) reste le plus grand versant avec environ 2,5 millions d'agents. La FPT compte environ 2 millions d'agents et la FPH environ 1,2 million."},
+  {s:"Le point d'indice de la fonction publique a été revalorisé de 3,5% en juillet 2023.",vrai:true,src:"Décret 2023-519",theme:"Chiffres clés",expl:"Vrai. Le point d'indice a été revalorisé de 1,5% en janvier 2023 puis de 3,5% en juillet 2023, soit +5% sur l'année."},
+  {s:"Le taux de féminisation de la fonction publique dépasse 60%.",vrai:true,src:"Rapport annuel FP 2024",theme:"Chiffres clés",expl:"Vrai. La fonction publique est majoritairement féminine avec plus de 60% de femmes parmi les agents civils, avec des disparités selon les versants."},
+  {s:"Le nombre de fonctionnaires en France a augmenté de 10% entre 2010 et 2023.",vrai:false,src:"INSEE 2024",theme:"Chiffres clés",expl:"Faux. L'effectif de la fonction publique est resté globalement stable avec des évolutions limitées. La FPE a même connu des réductions significatives sur cette période."},
+  {s:"La durée moyenne de service d'un fonctionnaire avant retraite est d'environ 40 ans.",vrai:false,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Faux. La durée moyenne est inférieure. La réforme des retraites de 2023 porte l'âge légal de départ à 64 ans mais la durée effective de cotisation varie selon les situations."},
+  {s:"Environ 523 000 recrutements ont eu lieu dans la FP civile en 2023.",vrai:true,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Vrai. Selon la DGAFP, environ 523 200 entrées ont été enregistrées dans la fonction publique civile en 2023."},
+  {s:"Le taux de congé maladie dans la FP est inférieur à celui du secteur privé.",vrai:false,src:"Rapport annuel FP 2024",theme:"Chiffres clés",expl:"Faux. Le taux d'absentéisme pour maladie est généralement plus élevé dans la FP que dans le privé, en raison notamment du maintien de salaire à 100% en CMO."},
+  {s:"Plus de la moitié des fonctionnaires territoriaux sont de catégorie C.",vrai:true,src:"DGCL 2024",theme:"Chiffres clés",expl:"Vrai. La catégorie C (emplois d'exécution) représente plus de 75% des effectifs de la FPT, reflétant la nature des services rendus par les collectivités."},
+  {s:"Le CNFPT forme chaque année plus d'un million de stagiaires.",vrai:true,src:"Rapport CNFPT 2023",theme:"Chiffres clés",expl:"Vrai. Le CNFPT accueille chaque année plus d'un million de stagiaires-jours de formation dans ses établissements répartis sur tout le territoire."},
+  {s:"La France compte environ 35 000 communes, dont une majorité de moins de 2 000 habitants.",vrai:true,src:"INSEE 2024",theme:"Chiffres clés",expl:"Vrai. La France compte environ 34 900 communes. Près de 80% ont moins de 2 000 habitants, illustrant l'émiettement communal français."},
+  {s:"Le recours gracieux s'adresse à l'auteur de la décision contestée.",vrai:true,src:"Art. L410-1 CRPA",theme:"Contentieux",expl:"Vrai. Le recours gracieux est adressé à l'auteur même de la décision contestée, par opposition au recours hiérarchique adressé à son supérieur."},
+  {s:"Le délai de recours contentieux est généralement de 2 mois en droit administratif.",vrai:true,src:"Art. R421-1 CJA",theme:"Contentieux",expl:"Vrai. Le délai de droit commun pour saisir le tribunal administratif est de 2 mois à compter de la notification de la décision ou de sa publication."},
+  {s:"La saisine du tribunal administratif suspend l'exécution de la décision contestée.",vrai:false,src:"Art. L4 CJA",theme:"Contentieux",expl:"Faux. En droit administratif, les recours ne sont pas suspensifs par défaut. La décision administrative reste exécutoire sauf si le juge ordonne un sursis à exécution."},
+  {s:"L'État peut voir sa responsabilité engagée pour une loi inconstitutionnelle.",vrai:true,src:"CE, 24 oct. 2019",theme:"Contentieux",expl:"Vrai. Depuis l'arrêt Mme Poulet du Conseil d'État (2019), l'État peut voir sa responsabilité engagée du fait d'une loi contraire à la Constitution."},
+  {s:"Le principe du contradictoire s'applique dans les procédures administratives disciplinaires.",vrai:true,src:"Art. L532-1 CGFP",theme:"Contentieux",expl:"Vrai. Avant toute sanction disciplinaire, l'agent doit être informé des faits reprochés et avoir la possibilité de présenter sa défense (principe du contradictoire)."},
+  {s:"Un fonctionnaire peut saisir le Défenseur des Droits en cas de discrimination.",vrai:true,src:"Art. 71-1 Constitution",theme:"Contentieux",expl:"Vrai. Le Défenseur des Droits est compétent pour traiter les réclamations relatives aux discriminations, y compris dans la fonction publique."},
+  {s:"Le référé administratif permet d'obtenir une décision en urgence du tribunal administratif.",vrai:true,src:"Art. L521-1 CJA",theme:"Contentieux",expl:"Vrai. La procédure de référé permet d'obtenir une décision rapide du juge administratif (sous 48h pour le référé-liberté) dans des situations d'urgence."},
+  {s:"L'appel d'une décision du tribunal administratif se fait devant le Conseil d'État.",vrai:false,src:"Art. R321-1 CJA",theme:"Contentieux",expl:"Faux. L'appel des décisions du tribunal administratif se fait devant la Cour Administrative d'Appel (CAA). Le Conseil d'État juge en cassation."},
+  {s:"Un contrat administratif illicite peut être annulé par le juge même après son exécution.",vrai:true,src:"CE, 28 déc. 2009, Commune de Bèze",theme:"Contentieux",expl:"Vrai. Le juge administratif peut annuler rétroactivement un contrat illicite, même après son exécution, si l'illégalité est grave."},
+  {s:"La prescription des actions en responsabilité contre l'État est de 4 ans.",vrai:true,src:"Loi du 31 déc. 1968",theme:"Contentieux",expl:"Vrai. Les créances contre l'État et les collectivités publiques se prescrivent par 4 ans à partir du premier jour de l'année suivant celle où les droits ont été acquis."},
+  {s:"Un agent public peut saisir le juge pénal pour harcèlement moral de la part de sa hiérarchie.",vrai:true,src:"Art. 222-33-2 Code pénal",theme:"Contentieux",expl:"Vrai. Le harcèlement moral est un délit pénal puni de 2 ans d'emprisonnement et 30 000€ d'amende. L'agent peut saisir le parquet indépendamment du juge administratif."},
+  {s:"L'indemnité de résidence est uniformément identique pour tous les fonctionnaires.",vrai:false,src:"Décret 85-1148",theme:"Rémunération",expl:"Faux. L'indemnité de résidence varie selon la zone géographique (3%, 1% ou 0% du traitement brut) en fonction du lieu d'affectation de l'agent."},
+  {s:"Le supplément familial de traitement (SFT) est versé pour chaque enfant à charge.",vrai:true,src:"Art. L714-1 CGFP",theme:"Rémunération",expl:"Vrai. Le SFT est versé aux fonctionnaires ayant au moins un enfant à charge. Son montant augmente avec le nombre d'enfants."},
+  {s:"Les heures supplémentaires dans la FP sont toujours rémunérées.",vrai:false,src:"Décret 2002-60",theme:"Rémunération",expl:"Faux. Les heures supplémentaires peuvent être compensées par du repos compensateur plutôt que par une rémunération, selon les dispositions applicables."},
+  {s:"L'IFSE (Indemnité de Fonctions, de Sujétions et d'Expertise) est la part principale du RIFSEEP.",vrai:true,src:"Décret 2014-513",theme:"Rémunération",expl:"Vrai. Le RIFSEEP comprend deux parts : l'IFSE (principale, liée aux fonctions) et le CIA (Complément Indemnitaire Annuel, lié à l'engagement individuel)."},
+  {s:"Un fonctionnaire peut cumuler les indemnités du RIFSEEP avec la NBI.",vrai:true,src:"Décret 2014-513",theme:"Rémunération",expl:"Vrai. La NBI (Nouvelle Bonification Indiciaire) est cumulée aux éléments indemnitaires comme le RIFSEEP, car elle vise à valoriser certaines fonctions spécifiques."},
+  {s:"La rémunération d'un fonctionnaire est soumise à l'impôt sur le revenu.",vrai:true,src:"Art. 79 CGI",theme:"Rémunération",expl:"Vrai. Les traitements et salaires des fonctionnaires sont imposables à l'impôt sur le revenu dans les mêmes conditions que ceux des salariés du privé."},
+  {s:"Le CIA (Complément Indemnitaire Annuel) peut être réduit voire supprimé selon l'évaluation.",vrai:true,src:"Décret 2014-513",theme:"Rémunération",expl:"Vrai. Le CIA est lié à l'engagement professionnel et aux résultats de l'entretien professionnel. Il peut varier d'une année sur l'autre, voire être supprimé."},
+  {s:"La prime de fin d'année est un élément obligatoire de la rémunération des fonctionnaires.",vrai:false,src:"Art. L711-1 CGFP",theme:"Rémunération",expl:"Faux. Il n'existe pas de prime de fin d'année légalement obligatoire dans la FP. Certains accords locaux ou décisions peuvent en prévoir, mais elles ne sont pas légalement dues."},
+  {s:"Un fonctionnaire peut percevoir une prime pour service rendu au-delà de ses obligations de service.",vrai:true,src:"Art. L714-3 CGFP",theme:"Rémunération",expl:"Vrai. Des primes peuvent récompenser l'investissement au-delà des obligations de service (missions ponctuelles, projets spéciaux...) dans le cadre du RIFSEEP."},
+  {s:"La rémunération d'un fonctionnaire territorial peut être inférieure au SMIC.",vrai:false,src:"Art. L3232-1 Code du travail",theme:"Rémunération",expl:"Faux. La rémunération brute d'un fonctionnaire ne peut pas être inférieure au SMIC. Les agents du bas de la grille bénéficient d'indemnités compensatrices si nécessaire."},
+  {s:"La métropole est une catégorie d'EPCI créée par la loi MAPTAM de 2014.",vrai:true,src:"Loi MAPTAM 2014",theme:"Organisation territoriale",expl:"Vrai. La loi de modernisation de l'action publique territoriale et d'affirmation des métropoles (MAPTAM) du 27 janvier 2014 a créé le statut de métropole."},
+  {s:"Les départements et les régions peuvent fusionner avec l'accord du Parlement.",vrai:true,src:"Art. 72-1 Constitution",theme:"Organisation territoriale",expl:"Vrai. La Constitution prévoit la possibilité de modifier les limites des collectivités territoriales. La fusion de la Métropole de Lyon et du département du Rhône l'illustre."},
+  {s:"Le contrôle de légalité exercé par le préfet est un contrôle a priori.",vrai:false,src:"Loi du 2 mars 1982",theme:"Organisation territoriale",expl:"Faux. Depuis la décentralisation de 1982, le contrôle du préfet est a posteriori (après l'acte). Les actes des collectivités sont exécutoires de plein droit sans attendre l'approbation préfectorale."},
+  {s:"La chambre régionale des comptes contrôle les comptes des collectivités territoriales.",vrai:true,src:"Art. L211-1 CJF",theme:"Organisation territoriale",expl:"Vrai. Les chambres régionales des comptes (CRC) contrôlent la gestion des collectivités territoriales et de leurs établissements publics."},
+  {s:"Une commune peut créer une régie pour gérer un service public industriel et commercial.",vrai:true,src:"Art. L2221-1 CGCT",theme:"Organisation territoriale",expl:"Vrai. Les communes peuvent gérer leurs services publics en régie (directe ou autonome), notamment pour les SPIC (eau, transports, stationnement...)."},
+  {s:"Le département est comptétent en matière d'action sociale.",vrai:true,src:"Art. L3211-1 CGCT",theme:"Organisation territoriale",expl:"Vrai. Le département est chef de file de l'action sociale : il gestion le RSA, les allocations personnes âgées (APA), personnes handicapées (PCH) et protection de l'enfance."},
+  {s:"La commune peut déléguer la gestion de ses services publics à une entreprise privée.",vrai:true,src:"Art. L1411-1 CGCT",theme:"Organisation territoriale",expl:"Vrai. La délégation de service public (DSP) permet à une collectivité de confier la gestion d'un service à un opérateur privé par voie de contrat."},
+  {s:"La région est compétente pour le financement des collèges.",vrai:false,src:"Art. L3211-2 CGCT",theme:"Organisation territoriale",expl:"Faux. Les collèges relèvent de la compétence du département. La région est compétente pour les lycées. Cette répartition est fixée par les lois de décentralisation."},
+  {s:"Un fonctionnaire en CLM (Congé Longue Maladie) peut être mis en disponibilité d'office après 3 ans.",vrai:true,src:"Art. L822-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Après épuisement des droits à conge maladie (CMO, CLM, CLD), le fonctionnaire peut être mis en disponibilité d'office s'il n'est pas rétabli."},
+  {s:"Le congé maternité d'une fonctionnaire est pris en charge à 100% de son traitement.",vrai:true,src:"Art. L631-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Contrairement au secteur privé, les fonctionnaires en congé maternité conservent l'intégralité de leur traitement pendant toute la durée du congé."},
+  {s:"Un fonctionnaire peut être licencié après un long arrêt maladie.",vrai:false,src:"Art. L826-1 CGFP",theme:"Santé & Congés",expl:"Faux. Un fonctionnaire ne peut pas être licencié pour cause de maladie. Il peut en revanche être mis à la retraite pour invalidité ou placé en disponibilité d'office si inapte."},
+  {s:"Le congé annuel d'un fonctionnaire à temps plein est de 25 jours ouvrables.",vrai:true,src:"Décret 85-1250",theme:"Santé & Congés",expl:"Vrai. Les fonctionnaires ont droit à 25 jours ouvrables de congé annuel (5 semaines), avec des bonifications possibles selon la façon dont les congés sont pris."},
+  {s:"Les jours de congé non pris peuvent être reportés indéfiniment d'une année sur l'autre.",vrai:false,src:"Décret 85-1250",theme:"Santé & Congés",expl:"Faux. Les congés annuels non pris ne se reportent pas automatiquement. Ils peuvent être placés sur un CET dans certaines conditions, mais ne sont pas indéfiniment reportés."},
+  {s:"Un fonctionnaire en arrêt maladie ordinaire perçoit son plein traitement pendant 3 mois.",vrai:false,src:"Art. L822-1 CGFP",theme:"Santé & Congés",expl:"Faux. Depuis la réforme de 2025 (art. 189 de la loi de finances), le CMO est rémunéré à 90% les 3 premiers mois, puis 50%. Le plein traitement n'est plus la règle."},
+  {s:"Un fonctionnaire doit déclarer ses intérêts auprès de la HATVP dès sa nomination.",vrai:false,src:"Loi du 11 octobre 2013",theme:"Droits & Obligations",expl:"Faux. L'obligation de déclaration auprès de la HATVP ne concerne que certains emplois à responsabilité (directeurs généraux, certains cadres A+). Pas tous les fonctionnaires."},
+  {s:"L'obligation de prise illégale d'intérêts s'applique aux fonctionnaires.",vrai:true,src:"Art. 432-12 Code pénal",theme:"Droits & Obligations",expl:"Vrai. Un fonctionnaire qui prend intérêt dans une affaire dont il a la charge peut être poursuivi pour prise illégale d'intérêts, délit puni de 5 ans d'emprisonnement."},
+  {s:"Un fonctionnaire peut révéler des informations confidentielles pour alerter sur des infractions.",vrai:true,src:"Loi Sapin II 2016",theme:"Droits & Obligations",expl:"Vrai. Le statut de lanceur d'alerte protège les fonctionnaires qui signalent de bonne foi des crimes, délits ou violations graves du droit, y compris en violant le secret professionnel."},
+  {s:"Le droit à la déconnexion s'impose à l'administration comme à l'agent.",vrai:true,src:"Décret 2021-1570",theme:"Droits & Obligations",expl:"Vrai. L'administration doit garantir le droit à la déconnexion de ses agents. Elle ne peut pas imposer à un agent de répondre en dehors de ses horaires de service habituels."},
+  {s:"Un fonctionnaire est responsable pénalement des actes qu'il accomplit dans l'exercice de ses fonctions.",vrai:true,src:"Art. 121-3 Code pénal",theme:"Droits & Obligations",expl:"Vrai. Les fonctionnaires peuvent être mis en cause pénalement pour leurs actes professionnels, notamment en cas de faute détachable du service, de négligence grave ou d'infractions."},
+  {s:"L'obligation de neutralité politique s'applique à tous les agents publics dans l'exercice de leurs fonctions.",vrai:true,src:"Art. L121-2 CGFP",theme:"Droits & Obligations",expl:"Vrai. Tous les agents publics doivent exercer leurs fonctions de façon neutre, sans manifester leurs opinions politiques. Ce principe découle du principe d'égalité de traitement des usagers."},
+  {s:"Un fonctionnaire peut être mis à disposition sans son accord.",vrai:false,src:"Art. L513-1 CGFP",theme:"Carrière & Mobilité",expl:"Faux. La mise à disposition requiert l'accord du fonctionnaire. Elle ne peut lui être imposée."},
+  {s:"L'avancement de grade nécessite d'être inscrit sur un tableau d'avancement.",vrai:true,src:"Art. L522-1 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. L'avancement de grade se fait par voie d'inscription sur un tableau d'avancement établi après avis de la CAP, selon l'ancienneté et la valeur professionnelle."},
+  {s:"Un fonctionnaire territorial peut être recruté directement comme contractuel sans concours pour les postes de direction.",vrai:true,src:"Art. L332-8 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. Les emplois de direction des collectivités (DGS, DGA des grandes collectivités) peuvent être pourvus par voie de contrat sans concours préalable."},
+  {s:"Un fonctionnaire réintégré après disponibilité retrouve obligatoirement son ancien poste.",vrai:false,src:"Art. L514-8 CGFP",theme:"Carrière & Mobilité",expl:"Faux. Après disponibilité, le fonctionnaire est réintégré dans son grade mais pas nécessairement sur son ancien poste. Il est affecté selon les besoins du service."},
+  {s:"La promotion au choix permet d'avancer de grade plus rapidement que la promotion à l'ancienneté.",vrai:true,src:"Art. L522-24 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. La promotion au choix (ou au mérite) permet d'accéder au grade supérieur avant l'échéance liée à l'ancienneté minimale, sur proposition de l'autorité territoriale."}
+,
+  {s:"Le télétravail peut être imposé par l'administration en cas de crise sanitaire.",vrai:true,src:"Ordonnance 2020-323",theme:"Conditions de travail",expl:"Vrai. En cas de crise sanitaire grave, l'autorité peut imposer le télétravail sans accord préalable de l'agent, comme ce fut le cas lors du Covid-19."},
+  {s:"Un agent en télétravail bénéficie exactement des mêmes droits qu'un agent en présentiel.",vrai:true,src:"Décret 2016-151",theme:"Conditions de travail",expl:"Vrai. Le télétravailleur dispose des mêmes droits individuels et collectifs, notamment en matière de formation, rémunération et accès aux avancements."},
+  {s:"L'administration doit fournir le matériel nécessaire au télétravail.",vrai:true,src:"Décret 2016-151",theme:"Conditions de travail",expl:"Vrai. L'administration est tenue de fournir les équipements nécessaires ou de verser une indemnité compensatrice si l'agent utilise son propre matériel."},
+  {s:"Le harcèlement moral nécessite des actes répétés pour être reconnu.",vrai:true,src:"Art. L133-2 CGFP",theme:"Conditions de travail",expl:"Vrai. Le harcèlement moral se caractérise par des agissements répétés ayant pour objet ou effet une dégradation des conditions de travail. Un acte isolé ne suffit pas."},
+  {s:"Un agent victime de violence physique dans l'exercice de ses fonctions bénéficie automatiquement de la protection fonctionnelle.",vrai:true,src:"Art. L134-1 CGFP",theme:"Conditions de travail",expl:"Vrai. La protection fonctionnelle est de droit pour les agents victimes d'agression ou de violence dans le cadre de leurs fonctions. L'administration doit protéger et assisté l'agent."},
+  {s:"Le temps de trajet domicile-travail est compté comme du temps de travail effectif.",vrai:false,src:"Décret 2000-815",theme:"Conditions de travail",expl:"Faux. Le trajet domicile-travail n'est généralement pas du temps de travail effectif, sauf exceptions (déplacements professionnels, astreintes...)."},
+  {s:"Un agent peut refuser une mutation pour convenances personnelles sans justification.",vrai:false,src:"Art. L512-13 CGFP",theme:"Conditions de travail",expl:"Faux. Un agent peut refuser une mutation, mais l'administration peut l'imposer pour nécessité de service. L'agent peut en contester la légalité devant le tribunal administratif."},
+  {s:"Le congé de paternité dans la FP dure 25 jours calendaires.",vrai:true,src:"Décret 2021-1462",theme:"Santé & Congés",expl:"Vrai. Depuis le 1er juillet 2021, le congé de paternité et d'accueil de l'enfant dure 25 jours calendaires (32 jours pour une naissance multiple)."},
+  {s:"La maladie professionnelle reconnue donne droit à un congé rémunéré à 100%.",vrai:true,src:"Art. L822-20 CGFP",theme:"Santé & Congés",expl:"Vrai. Le congé pour maladie professionnelle est rémunéré à plein traitement pendant toute sa durée, contrairement au CMO classique."},
+  {s:"Le fonctionnaire en congé maladie ordinaire conserve ses droits à avancement.",vrai:true,src:"Art. L822-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Les périodes de congé maladie ordinaire sont assimilées à des périodes d'activité pour le calcul de l'ancienneté et les droits à avancement."},
+  {s:"Un fonctionnaire peut être licencié s'il est absent plus de 6 mois pour maladie ordinaire.",vrai:false,src:"Art. L826-1 CGFP",theme:"Santé & Congés",expl:"Faux. La maladie ne peut jamais justifier un licenciement dans la FP. L'agent peut être mis en disponibilité d'office ou à la retraite pour invalidité mais jamais licencié pour ce motif."},
+  {s:"Le CLM (Congé Longue Maladie) peut durer au maximum 3 ans.",vrai:true,src:"Art. L822-13 CGFP",theme:"Santé & Congés",expl:"Vrai. Le CLM a une durée maximale de 3 ans : 1 an à plein traitement et 2 ans à demi-traitement. Il est distinct du CMO (90 jours) et du CLD (5 ans)."},
+  {s:"Le traitement d'un fonctionnaire est calculé en multipliant l'indice brut par la valeur du point.",vrai:false,src:"Décret 85-1148",theme:"Rémunération",expl:"Faux. C'est l'indice majoré (et non l'indice brut) qui est multiplié par la valeur du point d'indice pour calculer le traitement brut annuel."},
+  {s:"La NBI est cumulée avec le traitement indiciaire sans plafond.",vrai:true,src:"Loi du 18 janvier 1991",theme:"Rémunération",expl:"Vrai. La Nouvelle Bonification Indiciaire s'ajoute au traitement sans plafond. Elle est attribuée pour des fonctions impliquant des responsabilités supérieures ou une techncité particulière."},
+  {s:"Les primes et indemnités entrent dans le calcul de la pension de retraite.",vrai:false,src:"Art. L74 CNRACL",theme:"Rémunération",expl:"Faux. La pension de retraite est calculée sur le traitement indiciaire brut des 6 derniers mois. Les primes et indemnités n'entrent pas dans ce calcul (sauf RAFP pour partie)."},
+  {s:"Un fonctionnaire à mi-temps perçoit exactement la moitié de son traitement.",vrai:false,src:"Art. L622-1 CGFP",theme:"Rémunération",expl:"Faux. Le fonctionnaire à 50% perçoit 60% de sa rémunération (traitement + SFT + indemnité résidence). C'est un avantage par rapport à une réduction strictement proportionnelle."},
+  {s:"Le CIA peut être versé en une ou deux fois dans l'année.",vrai:true,src:"Décret 2014-513",theme:"Rémunération",expl:"Vrai. Le Complément Indemnitaire Annuel peut être versé en une ou deux tranches selon les modalités fixées par la collectivité, dans le respect du plafond annuel."},
+  {s:"Un fonctionnaire détaché est noté par son administration d'accueil.",vrai:true,src:"Art. L512-5 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. En détachement, l'agent est placé sous l'autorité de l'administration d'accueil qui assure son évaluation annuelle, transmise à l'administration d'origine."},
+  {s:"L'intégration directe permet à un fonctionnaire de changer de versant sans concours.",vrai:true,src:"Art. L513-3 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. L'intégration directe permet, après détachement, à un fonctionnaire de s'intégrer dans le corps ou cadre d'emplois d'accueil sans passer de nouveau concours."},
+  {s:"Un fonctionnaire en disponibilité peut cotiser volontairement pour sa retraite.",vrai:true,src:"Art. L514-6 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. Un fonctionnaire en disponibilité peut cotiser à titre volontaire auprès de la CNRACL ou du régime général pour maintenir ses droits à la retraite."},
+  {s:"La mobilité entre les trois versants de la FP est totalement libre.",vrai:false,src:"Art. L512-1 CGFP",theme:"Carrière & Mobilité",expl:"Faux. La mobilité inter-versants est encadrée. Elle passe souvent par le détachement puis l'intégration. Des conditions de grade et d'ancienneté peuvent s'appliquer."},
+  {s:"Un fonctionnaire peut être placé en disponibilité pour convenances personnelles.",vrai:true,src:"Art. L514-1 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. La disponibilité pour convenances personnelles existe mais elle est accordée sous réserve des nécessités du service et pour une durée limitée (3 ans renouvelables, 10 ans max)."},
+  {s:"Une organisation syndicale peut négocier même si elle n'est pas représentative.",vrai:false,src:"Art. L221-3 CGFP",theme:"Dialogue social",expl:"Faux. Seules les organisations syndicales représentatives (ayant obtenu au moins 8% des suffrages) peuvent participer aux négociations et signer des accords collectifs."},
+  {s:"Les accords collectifs dans la FP ont force obligatoire pour l'administration.",vrai:false,src:"Loi TFP 2019",theme:"Dialogue social",expl:"Faux. Les accords collectifs dans la FP ont une portée normative limitée. Ils ne sont pas directement contraignants mais s'imposent moralement et politiquement à l'administration."},
+  {s:"Un agent du secteur public peut être sanctionné pour son appartenance à un syndicat.",vrai:false,src:"Art. L211-1 CGFP",theme:"Dialogue social",expl:"Faux. La liberté syndicale est un droit constitutionnel. Toute discrimination fondée sur l'appartenance syndicale est interdite et constitue une faute grave de l'administration."},
+  {s:"Les syndicats participent à la gestion des éuvres sociales des agents publics.",vrai:true,src:"Art. L223-1 CGFP",theme:"Dialogue social",expl:"Vrai. Les organisations syndicales participent à la gestion des activités sociales, culturelles et sportives des agents publics (éléments du ministère, CNAS, amicales...)."},
+  {s:"Un fonctionnaire peut bénéficier de décharges de service pour exercer des mandats syndicaux.",vrai:true,src:"Art. L214-5 CGFP",theme:"Dialogue social",expl:"Vrai. Les fonctionnaires titulaires de mandats syndicaux peuvent obtenir des décharges totales ou partielles de service, proportionnelles à l'audience syndicale."},
+  {s:"Le fonctionnaire qui obéit à un ordre illégal est totalement exonéré de responsabilité.",vrai:false,src:"Art. L121-10 CGFP",theme:"Droits & Obligations",expl:"Faux. Le fonctionnaire qui exécute un ordre manifestement illégal peut voir sa responsabilité engagée. L'obligation d'obéissance ne l'exonère pas en cas de faute grave."},
+  {s:"Le fonctionnaire doit signaler à son supérieur tout ordre qui lui paraît illégal avant de l'exécuter.",vrai:true,src:"Art. L121-10 CGFP",theme:"Droits & Obligations",expl:"Vrai. Face à un ordre qui semble illégal, le fonctionnaire doit en avertir par écrit son supérieur. Si l'ordre est maintenu, il l'exécute sauf s'il est manifestement illicite."},
+  {s:"Le droit d'expression des fonctionnaires sur les réseaux sociaux est totalement libre.",vrai:false,src:"Art. L121-3 CGFP",theme:"Droits & Obligations",expl:"Faux. Les fonctionnaires sont soumis au devoir de réserve, y compris sur les réseaux sociaux. Les propos tenus hors service peuvent constituer une faute disciplinaire si excessifs."},
+  {s:"Un fonctionnaire peut être protégé par le statut de lanceur d'alerte.",vrai:true,src:"Loi Sapin II 2016",theme:"Droits & Obligations",expl:"Vrai. La loi Sapin II de 2016 et la loi Waserman de 2022 protègent les lanceurs d'alerte, y compris les fonctionnaires, contre les représailles quand ils signalent une illégalité."},
+  {s:"L'obligation de discrétion professionnelle interdit au fonctionnaire de témoigner en justice.",vrai:false,src:"Art. L121-6 CGFP",theme:"Droits & Obligations",expl:"Faux. La discrétion professionnelle ne s'applique pas aux témoignages en justice. Un fonctionnaire cité comme témoin est obligé de témoigner, sous peine de sanctions pénales."},
+  {s:"Le département peut lever des impôts locaux.",vrai:true,src:"Art. L3332-1 CGCT",theme:"Organisation territoriale",expl:"Vrai. Les départements bénéficient d'une autonomie fiscale et peuvent lever certains impôts et taxes (taxe foncière, droits de mutation, taxe sur les cartes grises...)."},
+  {s:"Le préfet peut annuler directement un acte illégal d'une collectivité territoriale.",vrai:false,src:"Loi du 2 mars 1982",theme:"Organisation territoriale",expl:"Faux. Depuis 1982, le préfet ne peut plus annuler directement les actes des collectivités. Il peut saisir le tribunal administratif s'il estime un acte illégal (déféré préfectoral)."},
+  {s:"Les intercommunalités peuvent lever leurs propres impôts.",vrai:true,src:"Art. L5214-23 CGCT",theme:"Organisation territoriale",expl:"Vrai. Les EPCI à fiscalité propre (communautés de communes, d'agglomération, urbaines, métropoles) levéent leurs propres taxes (cotisation foncière des entreprises, TEOM...)."},
+  {s:"La région est responsable des transports scolaires.",vrai:false,src:"Loi NOTRe 2015",theme:"Organisation territoriale",expl:"Faux. Depuis la loi NOTRe de 2015, les régions ont récupéré la compétence des transports interurbains mais les transports scolaires relèvent des départements (ou régions depuis 2017)."},
+  {s:"Un maire peut être révoqué par le préfet.",vrai:false,src:"Art. 72 Constitution",theme:"Organisation territoriale",expl:"Faux. Un maire ne peut pas être révoqué par le préfet. Il peut être suspendu par arrêté ministériel ou révoqué par décret en Conseil des ministres pour faute grave."},
+  {s:"Le SMIC brut mensuel sert de référence pour le traitement minimum des fonctionnaires.",vrai:true,src:"Art. L3232-1 Code du travail",theme:"Chiffres clés",expl:"Vrai. La rémunération des fonctionnaires ne peut être inférieure au SMIC. Les agents du bas de grille bénéficient d'indemnités compensatrices si leur traitement est inférieur."},
+  {s:"La FPH (Fonction Publique Hospitalière) regroupe plus d'agents que la FPT.",vrai:false,src:"INSEE 2024",theme:"Chiffres clés",expl:"Faux. La FPT compte environ 2 millions d'agents contre environ 1,2 million pour la FPH. La FPE reste la plus importante avec environ 2,5 millions d'agents."},
+  {s:"Le nombre de communes en France dépasse 30 000.",vrai:true,src:"INSEE 2024",theme:"Chiffres clés",expl:"Vrai. La France compte environ 34 900 communes, ce qui en fait le pays européen ayant le plus grand nombre de communes, reflet de son histoire et de son organisation territoriale."},
+  {s:"Près de 50 000 fonctionnaires partent à la retraite chaque année dans la FPT.",vrai:false,src:"DGCL 2024",theme:"Chiffres clés",expl:"Faux. Le nombre de départs à la retraite dans la FPT est plus élevé (environ 60 000 à 70 000 par an), ce qui représente un enjeu majeur de gestion prévisionnelle."},
+  {s:"Le taux de syndicalisation dans la FP est supérieur à celui du secteur privé.",vrai:true,src:"DARES 2023",theme:"Chiffres clés",expl:"Vrai. Le taux de syndicalisation dans la fonction publique (environ 18%) est nettement supérieur à celui du secteur privé (environ 10%), même s'il tend à décliner."},
+  {s:"Le bilan de compétences est accessible aux fonctionnaires.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. Les fonctionnaires peuvent accéder au bilan de compétences, financé par leur CPF ou par l'administration, pour analyser leurs aptitudes et définir un projet professionnel."},
+  {s:"Une formation suivie hors temps de travail n'a aucune conséquence sur la carrière d'un fonctionnaire.",vrai:false,src:"Art. L422-4 CGFP",theme:"Formation",expl:"Faux. Une formation suivie hors temps de service peut être valorisée dans le cadre du VAE, du CPF ou de l'entretien professionnel annuel, et influer positivement sur la carrière."},
+  {s:"Les agents contractuels peuvent également bénéficier des droits à la formation.",vrai:true,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Vrai. Les agents contractuels bénéficient également du droit à la formation professionnelle, y compris du CPF, au même titre que les fonctionnaires."},
+  {s:"L'employeur public peut refuser une demande de formation sans justification.",vrai:false,src:"Art. L422-3 CGFP",theme:"Formation",expl:"Faux. Le refus d'une demande de congé de formation doit être motivé et ne peut reposer que sur des nécessités de service. Il peut être contesté par l'agent."},
+  {s:"La formation à la prise de poste d'un fonctionnaire nouvellement nommé est obligatoire.",vrai:true,src:"Art. L422-2 CGFP",theme:"Formation",expl:"Vrai. La formation statutaire obligatoire (FSO) à la prise de poste est obligatoire pour les fonctionnaires de la FPT nouvellement nommés dans leur grade, organisée par le CNFPT."},
+  {s:"Le tribunal administratif peut condamner l'administration à verser des dommages et intérêts.",vrai:true,src:"Art. L911-1 CJA",theme:"Contentieux",expl:"Vrai. Le juge administratif peut prononcer des injonctions et condamner l'administration à réparer les préjudices causés par ses actes ou ses carences fautives."},
+  {s:"Un fonctionnaire peut saisir directement le Conseil d'État sans passer par le tribunal administratif.",vrai:false,src:"Art. R311-1 CJA",theme:"Contentieux",expl:"Faux. Le Conseil d'État est juge de cassation et non de premier ressort dans la grande majorité des cas. Les recours se font d'abord devant le TA, puis la CAA, puis le CE."},
+  {s:"L'administration est présumée avoir refusé si elle ne répond pas à une demande dans les 2 mois.",vrai:true,src:"Art. L231-1 CRPA",theme:"Contentieux",expl:"Vrai. Le silence de l'administration vaut décision implicite de rejet au bout de 2 mois, sauf exceptions prévues par la loi (accord implicite dans certains cas)."},
+  {s:"Un syndicat peut ester en justice pour défendre les intérêts collectifs de ses membres.",vrai:true,src:"Art. L211-3 CGFP",theme:"Contentieux",expl:"Vrai. Les organisations syndicales représentatives ont qualité pour ester en justice pour défendre les intérêts collectifs de leurs membres ou de la profession."},
+  {s:"Le recours hiérarchique interrompt le délai de recours contentieux.",vrai:true,src:"Art. R421-2 CJA",theme:"Contentieux",expl:"Vrai. L'exercice d'un recours administratif préalable (gracieux ou hiérarchique) interrompt le délai de 2 mois pour saisir le tribunal administratif, qui repart à zéro à compter de la réponse."}
+,
+  {s:"La valeur du point d'indice est identique dans les trois versants de la fonction publique.",vrai:true,src:"Décret 2010-1402",theme:"Chiffres clés",expl:"Vrai. Le point d'indice est unique et s'applique de façon identique à la FPE, la FPT et la FPH. Seuls les grilles indiciaires diffèrent selon les corps et cadres d'emplois."},
+  {s:"La France est le pays de l'OCDE avec le plus grand nombre de fonctionnaires en proportion de la population active.",vrai:false,src:"OCDE 2023",theme:"Chiffres clés",expl:"Faux. La France n'est pas en tête de ce classement. Des pays scandinaves comme la Norvège ou le Danemark ont des taux d'emploi public plus élevés en proportion de la population active."},
+  {s:"Environ 75% des agents de la FPT sont de catégorie C.",vrai:true,src:"DGCL 2024",theme:"Chiffres clés",expl:"Vrai. La catégorie C (emplois d'exécution) représente environ 75% des effectifs de la FPT, contre environ 25% dans la FPE, reflet des missions opérationnelles des collectivités."},
+  {s:"Le nombre d'EPCI à fiscalité propre en France est inférieur à 2 000.",vrai:true,src:"INSEE 2024",theme:"Chiffres clés",expl:"Vrai. Il existe environ 1 254 EPCI à fiscalité propre en France, couvrant la quasi-totalité du territoire national grâce à la carte intercommunale."},
+  {s:"La retraite d'un fonctionnaire de catégorie A représente en moyenne 75% de son dernier traitement.",vrai:false,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Faux. Le taux de remplacement (pension/dernier salaire) est variable et généralement inférieur à 75% pour la plupart des fonctionnaires, car les primes ne sont pas intégrées au calcul."},
+  {s:"Les fonctionnaires représentent environ 20% de l'emploi total en France.",vrai:true,src:"INSEE 2024",theme:"Chiffres clés",expl:"Vrai. Avec environ 5,9 millions d'agents publics pour environ 29 millions d'actifs en emploi, les fonctionnaires représentent environ 20% de l'emploi total en France."},
+  {s:"Le département est l'acheteur public le plus important en France après l'État.",vrai:false,src:"DAJ 2024",theme:"Chiffres clés",expl:"Faux. Considérés globalement, les communes et EPCI représentent le premier poste de la dépense publique locale. Les départements sont importants mais pas nécessairement en tête."},
+  {s:"En France, il y a plus de fonctionnaires de catégorie A que de catégorie C dans la FPE.",vrai:true,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Vrai. Dans la FPE, les catégories A et A+ sont majoritaires, notamment dans l'éducation nationale (enseignants = cat. A). C'est l'inverse de la FPT où le cat. C domine."},
+  {s:"Un fonctionnaire peut cumuler plusieurs années de CPF.",vrai:true,src:"Ordonnance 2017-53",theme:"Formation",expl:"Vrai. Les droits CPF s'accumulent d'année en année jusqu'à un plafond. Les droits non utilisés se conservent et peuvent être mobilisés à tout moment de la carrière."},
+  {s:"La formation initiale d'application est financée par l'agent lui-même.",vrai:false,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Faux. La formation initiale d'application, obligatoire à la prise de poste dans la FPT (organisée par le CNFPT), est financée par la cotisation versée par la collectivité au CNFPT."},
+  {s:"Une formation suivie avec l'accord de l'administration est assimilée à du temps de travail effectif.",vrai:true,src:"Art. L422-3 CGFP",theme:"Formation",expl:"Vrai. Les formations autorisées et effectuées sur le temps de service comptent comme du temps de travail effectif et sont rémunérées normalement."},
+  {s:"Le refus de deux offres d'emploi après une formation de reconversion peut entraîner une radiation.",vrai:true,src:"Art. L422-8 CGFP",theme:"Formation",expl:"Vrai. Un fonctionnaire qui refuse sans motif légitime deux offres d'emploi correspondant à sa formation peut être radié des cadres, après avis de la CAP."},
+  {s:"Le CNFPT est financé exclusivement par les cotisations de l'État.",vrai:false,src:"Art. L452-13 CGFP",theme:"Formation",expl:"Faux. Le CNFPT est financé par une cotisation obligatoire versée par les collectivités territoriales et leurs établissements publics (0,9% de la masse salariale), pas par l'État."},
+  {s:"Le congé de formation professionnelle peut être accordé plusieurs fois au cours de la carrière.",vrai:true,src:"Décret 2007-1845",theme:"Formation",expl:"Vrai. Il n'existe pas de limite au nombre de congés de formation professionnelle dans la carrière. Cependant, la durée totale est limitée à 36 mois de service effectif."},
+  {s:"Un fonctionnaire peut refuser une formation si elle se déroule hors de son lieu habituel de travail.",vrai:false,src:"Art. L422-1 CGFP",theme:"Formation",expl:"Faux. La localisation de la formation n'est pas un motif légitime de refus. L'agent peut s'y opposer uniquement pour des raisons liées à ses contraintes personnelles impérieuses."},
+  {s:"Le CPF peut être utilisé pour financer une préparation à un concours de la fonction publique.",vrai:true,src:"Ordonnance 2017-53",theme:"Formation",expl:"Vrai. La préparation aux concours et examens de la fonction publique est une utilisation éligible du CPF, permettant de financer les frais de formation préparatoire."},
+  {s:"Un stagaire de la fonction publique peut être licencié pour insuffisance professionnelle.",vrai:true,src:"Art. L552-1 CGFP",theme:"Statut & Recrutement",expl:"Vrai. Contrairement au titulaire, le stagiaire peut être licencié pour insuffisance professionnelle ou faute sans passer par le conseil de discipline. Sa situation est précaire."},
+  {s:"La titularisation est automatique au bout d'un an de stage.",vrai:false,src:"Art. L322-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. Le stage dure un an mais la titularisation n'est pas automatique. Elle intervient après une évaluation positive. L'administration peut prolonger le stage ou ne pas titulariser."},
+  {s:"Un fonctionnaire peut perdre la nationalité française après sa titularisation sans être révoqué.",vrai:false,src:"Art. L321-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. La perte de la nationalité entraîne la radiation des cadres pour les emplois réservés aux nationaux. La nationalité est une condition d'accès et de maintien dans certains emplois."},
+  {s:"Un fonctionnaire peut être recruté par contrat à durée indéterminée dans la fonction publique.",vrai:true,src:"Art. L332-25 CGFP",theme:"Statut & Recrutement",expl:"Vrai. Depuis la loi du 3 août 2009, des CDI peuvent être conclus dans la FP pour certains emplois. La loi TFP 2019 a élargi cette possibilité, notamment pour les emplois de direction."},
+  {s:"Le concours est le seul mode de recrutement des fonctionnaires de catégorie A.",vrai:false,src:"Art. L332-8 CGFP",theme:"Statut & Recrutement",expl:"Faux. Des exceptions existent pour la catégorie A : emplois de direction, recrutement direct pour certains corps (ex : ingénieurs des ponts), ou nomination au choix pour les grades les plus élevés."},
+  {s:"Les agents de catégorie C peuvent accéder à la catégorie B par promotion interne.",vrai:true,src:"Art. L522-24 CGFP",theme:"Statut & Recrutement",expl:"Vrai. La promotion interne permet aux agents de catégorie C d'accéder à la catégorie B (et de B à A) par voie de liste d'aptitude ou d'examen professionnel, selon les cadres d'emplois."},
+  {s:"Un fonctionnaire démissioné peut être réintégré dans la FP sans repasser de concours.",vrai:false,src:"Art. L552-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. La démission est irrévocable et entraîne la perte de la qualité de fonctionnaire. Pour réintégrer la FP, l'ancien fonctionnaire doit en général repasser un concours."},
+  {s:"Le principe de séparabilité interdit à un même fonctionnaire d'exercer des fonctions dans plusieurs administrations.",vrai:false,src:"Art. L123-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. Ce principe n'existe pas. Le cumul d'emplois est encadré mais possible dans certains cas (temps incomplet, autorisations spécifiques). Ce n'est pas une interdiction absolue."},
+  {s:"La limite d'âge pour passer un concours de la fonction publique est de 45 ans.",vrai:false,src:"Loi du 13 juillet 1983",theme:"Statut & Recrutement",expl:"Faux. Les limites d'âge pour les concours de la FP ont été supprimées en 1982. Tout candidat remplissant les conditions d'études et d'aptitude peut se présenter quel que soit son âge."},
+  {s:"Un fonctionnaire non titularisé à l'issue de son stage a droit aux allocations chômage.",vrai:true,src:"Art. L5424-1 Code du travail",theme:"Statut & Recrutement",expl:"Vrai. Un stagiaire non titularisé (licencié ou démissionnaire justifié) peut bénéficier des allocations chômage, l'administration étant son propre assureur chômage."},
+  {s:"La sélection par concours garantit l'égalité d'accès aux emplois publics.",vrai:true,src:"Art. 6 Déclaration 1789",theme:"Statut & Recrutement",expl:"Vrai. Le concours est le mode de recrutement de droit commun de la FP car il garantit l'égalité d'accès (mêmes épreuves, même jury) consacrée par la Déclaration des droits de l'homme."}
+,
+  {s:"Un stagiaire peut être titularisé avant la fin de son stage si ses résultats sont exceptionnels.",vrai:false,src:"Art. L322-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. La période de stage doit être intégralement effectuée. Il n'existe pas de titularisation anticipée pour mérite, sauf prolongation inverse (en cas d'insuffisance)."},
+  {s:"Un fonctionnaire peut être titulé dans deux corps différents simultanément.",vrai:false,src:"Art. L512-1 CGFP",theme:"Statut & Recrutement",expl:"Faux. Un fonctionnaire ne peut appartenir qu'à un seul corps ou cadre d'emplois à la fois. Le changement de corps implique une intégration ou un détachement."},
+  {s:"La période de stage peut être prolongée en cas d'insuffisance professionnelle.",vrai:true,src:"Art. L322-3 CGFP",theme:"Statut & Recrutement",expl:"Vrai. L'administration peut prolonger le stage d'une durée égale à la période initiale si le stagiaire n'a pas donné satisfaction, avant de décider de sa titularisation ou de son licenciement."},
+  {s:"Les fonctionnaires sont recensés dans trois catégories : A, B et C selon leur niveau de qualification.",vrai:true,src:"Art. L411-1 CGFP",theme:"Statut & Recrutement",expl:"Vrai. La catégorie A correspond aux emplois de conception et d'encadrement (Bac+3 min), la B aux emplois d'application (Bac), la C aux emplois d'exécution."},
+  {s:"Un agent licencié pour insuffisance professionnelle reçoit une indemnité de licenciement.",vrai:true,src:"Art. L552-3 CGFP",theme:"Statut & Recrutement",expl:"Vrai. Contrairement à la révocation disciplinaire, le licenciement pour insuffisance professionnelle ouvre droit à une indemnité de licenciement et aux allocations chômage."},
+  {s:"Le fonctionnaire territorial est employé par l'État.",vrai:false,src:"Art. L4 CGFP",theme:"Statut & Recrutement",expl:"Faux. Le fonctionnaire territorial est employé par une collectivité territoriale (commune, département, région, EPCI...), non par l'État. C'est une distinction fondamentale entre les versants."},
+  {s:"Un fonctionnaire intégré dans un nouveau cadre d'emplois perd son ancienneté.",vrai:false,src:"Art. L513-5 CGFP",theme:"Carrière & Mobilité",expl:"Faux. Lors de l'intégration, les services accomplis dans le corps d'origine sont généralement repris pour le calcul de l'ancienneté et les droits à avancement dans le nouveau cadre."},
+  {s:"La promotion interne dans la FPT est soumise à des quotas.",vrai:true,src:"Art. L522-24 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. La promotion interne (passage de catégorie C à B ou B à A) est encadrée par des ratios fixant le nombre de promotions possibles par rapport aux recrutements externes."},
+  {s:"Un fonctionnaire peut être affecté dans un autre pays dans le cadre de la mobilité européenne.",vrai:true,src:"Art. L512-1 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. Des dispositifs de mobilité européenne permettent aux fonctionnaires d'être détachés auprès d'institutions ou d'administrations d'états membres de l'UE."},
+  {s:"Un fonctionnaire en détachement n'avance plus dans son corps d'origine.",vrai:false,src:"Art. L512-5 CGFP",theme:"Carrière & Mobilité",expl:"Faux. Le fonctionnaire en détachement continue d'être promu dans son corps d'origine et conserve ses droits à avancement et à pension comme s'il avait été en activité."},
+  {s:"Le tableau d'avancement est établi chaque année.",vrai:true,src:"Art. L522-19 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. Le tableau d'avancement de grade est établi annuellement par l'autorité territoriale après avis de la CAP. Seuls les agents inscrits peuvent être promus."},
+  {s:"Un fonctionnaire peut refuser une promotion de grade sans sanction.",vrai:true,src:"Art. L522-22 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. La promotion est un droit, pas une obligation. Un fonctionnaire peut refuser d'être inscrit au tableau d'avancement ou d'être promu sans que cela constitue une faute."},
+  {s:"La mise à disposition rémunère l'agent par l'organisme d'accueil.",vrai:false,src:"Art. L513-1 CGFP",theme:"Carrière & Mobilité",expl:"Faux. En mise à disposition, l'agent est rémunéré par son administration d'origine. L'organisme d'accueil peut rembourser tout ou partie de la rémunération à l'administration d'origine."},
+  {s:"L'intégration directe est irréversible une fois prononcée.",vrai:true,src:"Art. L513-3 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. L'intégration directe met fin au lien avec le corps d'origine. L'agent est intégré définitivement dans le nouveau cadre d'emplois, contrairement au détachement qui reste réversible."},
+  {s:"Un fonctionnaire peut cumuler détachement et disponibilité simultanément.",vrai:false,src:"Art. L512-1 CGFP",theme:"Carrière & Mobilité",expl:"Faux. Les positions statutaires sont exclusives les unes des autres. Un fonctionnaire ne peut être simultanément en détachement et en disponibilité."},
+  {s:"La mutation entre deux collectivités différentes est toujours soumise à l'accord des deux employeurs.",vrai:true,src:"Art. L512-13 CGFP",theme:"Carrière & Mobilité",expl:"Vrai. Une mutation entre deux collectivités nécessite l'accord de la collectivité d'accueil. La collectivité d'origine ne peut pas s'y opposer si les conditions sont réunies."},
+  {s:"Le devoir de réserve est plus strict pour les fonctionnaires occupant des postes à responsabilité.",vrai:true,src:"Art. L121-3 CGFP",theme:"Droits & Obligations",expl:"Vrai. L'étendue du devoir de réserve est proportionnelle aux responsabilités exercées. Un directeur général est soumis à un devoir de réserve plus strict qu'un agent d'exécution."},
+  {s:"Un fonctionnaire peut créer une entreprise pendant son temps libre.",vrai:true,src:"Art. L123-1 CGFP",theme:"Droits & Obligations",expl:"Vrai. Sous réserve des règles sur le cumul d'activités et la déontologie, un fonctionnaire peut créer et diriger une entreprise, notamment en tant qu'associé non gérant."},
+  {s:"L'obligation de discrétion professionnelle dure uniquement pendant la période d'activité.",vrai:false,src:"Art. L121-6 CGFP",theme:"Droits & Obligations",expl:"Faux. L'obligation de discrétion professionnelle perdure après la cessation des fonctions. Un ancien fonctionnaire reste tenu de ne pas divulguer les informations confidentielles obtenues."},
+  {s:"Un fonctionnaire peut être sanctionné pour des faits commis en dehors du service.",vrai:true,src:"Art. L532-1 CGFP",theme:"Droits & Obligations",expl:"Vrai. Des faits commis hors service peuvent constituer une faute disciplinaire s'ils sont incompatibles avec les obligations d'un agent public (délits, comportements déshonorants...)."},
+  {s:"Le conflit d'intérêts oblige le fonctionnaire à se déporter de la procédure concernée.",vrai:true,src:"Art. L121-5 CGFP",theme:"Droits & Obligations",expl:"Vrai. Face à un conflit d'intérêts, le fonctionnaire doit s'abstenir de participer à la procédure. Il en informe son supérieur et se déporte."},
+  {s:"La neutralité politique interdit à un fonctionnaire de voter aux élections.",vrai:false,src:"Art. L121-2 CGFP",theme:"Droits & Obligations",expl:"Faux. La neutralité politique concerne uniquement l'exercice des fonctions. Un fonctionnaire conserve tous ses droits civiques, notamment le droit de vote, en dehors du service."},
+  {s:"Un fonctionnaire peut être poursuivi pénalement et disciplinairement pour les mêmes faits.",vrai:true,src:"Art. L532-1 CGFP",theme:"Droits & Obligations",expl:"Vrai. Les procédures pénale et disciplinaire sont indépendantes. Un même fait peut entraîner simultanément une sanction disciplinaire et une condamnation pénale."},
+  {s:"L'abandon de poste constitue une démission implicite du fonctionnaire.",vrai:false,src:"Art. L552-4 CGFP",theme:"Droits & Obligations",expl:"Faux. L'abandon de poste n'est pas une démission. L'administration doit mettre l'agent en demeure de reprendre son service. Sans réponse, il peut être radié des cadres après procédure."},
+  {s:"Un fonctionnaire peut se présenter à des élections politiques sans quitter ses fonctions.",vrai:true,src:"Art. L121-4 CGFP",theme:"Droits & Obligations",expl:"Vrai. Un fonctionnaire peut être candidat à des élections tout en restant en poste. S'il est élu, il peut demander un détachement ou une disponibilité pour exercer son mandat."},
+  {s:"La protection fonctionnelle peut être retirée si le fonctionnaire a commis une faute personnelle.",vrai:true,src:"Art. L134-3 CGFP",theme:"Droits & Obligations",expl:"Vrai. L'administration peut refuser ou retirer la protection fonctionnelle si les faits résultent d'une faute personnelle détachable du service, ou si l'agent a commis une infraction."},
+  {s:"Un fonctionnaire condamné pénalement est automatiquement radié des cadres.",vrai:false,src:"Art. L532-1 CGFP",theme:"Droits & Obligations",expl:"Faux. Une condamnation pénale n'entraîne pas automatiquement la radiation. L'administration doit engager une procédure disciplinaire distincte. Seule la déchéance des droits civiques emporte radiation automatique."},
+  {s:"Les départements d'outre-mer ont le même statut que les départements métropolitains.",vrai:true,src:"Art. 73 Constitution",theme:"Organisation territoriale",expl:"Vrai. Les DOM (Guadeloupe, Martinique, Guyane, La Réunion, Mayotte) sont des départements français de plein droit. Les lois et règlements y sont applicables, avec adaptations possibles."},
+  {s:"Une métropole peut exercer certaines compétences du département.",vrai:true,src:"Loi MAPTAM 2014",theme:"Organisation territoriale",expl:"Vrai. Les métropoles peuvent exercer par convention des compétences du département ou de la région sur leur territoire, comme le développement économique ou la voirie."},
+  {s:"Le budget d'une collectivité territoriale doit impérativement être équilibré.",vrai:true,src:"Art. L1612-4 CGCT",theme:"Organisation territoriale",expl:"Vrai. Le principe d'équilibre budgétaire réel est obligatoire pour les collectivités. Contrairement à l'État, elles ne peuvent pas voter un budget en déficit."},
+  {s:"La tutelle préfectorale sur les actes des collectivités a été supprimée en 1982.",vrai:true,src:"Loi du 2 mars 1982",theme:"Organisation territoriale",expl:"Vrai. La loi Defferre de 1982 a supprimé la tutelle a priori du préfet et institué un simple contrôle de légalité a posteriori devant le tribunal administratif."},
+  {s:"Une communauté de communes peut lever une taxe d'habitation.",vrai:false,src:"Art. L5214-23 CGCT",theme:"Organisation territoriale",expl:"Faux. La taxe d'habitation a été supprimée pour les résidences principales. Les EPCI à fiscalité propre lèvent la CFE, la TEOM, ou la taxe foncière sur les propriétés bâties."},
+  {s:"Le contrôle de légalité s'applique à tous les actes des collectivités territoriales.",vrai:false,src:"Art. L2131-2 CGCT",theme:"Organisation territoriale",expl:"Faux. Seuls les actes listés par la loi sont obligatoirement transmis en préfecture (délibérations, marchés, permis...). De nombreux actes courants ne sont pas soumis au contrôle de légalité."},
+  {s:"Les collectivités territoriales peuvent émettre des emprunts pour financer leurs investissements.",vrai:true,src:"Art. L1611-3 CGCT",theme:"Organisation territoriale",expl:"Vrai. Les collectivités peuvent recourir à l'emprunt pour financer leurs investissements (pas leur fonctionnement). C'est une source importante de financement des équipements locaux."},
+  {s:"La CRC (Chambre Régionale des Comptes) peut prononcer des sanctions disciplinaires contre les élus.",vrai:false,src:"Art. L211-1 CJF",theme:"Organisation territoriale",expl:"Faux. La CRC contrôle la gestion des collectivités mais ne prononce pas de sanctions disciplinaires contre les élus. Elle peut toutefois saisir le parquet en cas d'infraction pénale."},
+  {s:"Le maire est à la fois agent de l'État et exécutif de la commune.",vrai:true,src:"Art. L2122-27 CGCT",theme:"Organisation territoriale",expl:"Vrai. Le maire exerce une double fonction : il est l'exécutif de la commune (délibérations du conseil) et agent de l'État (exécution des lois, état civil, ordre public)."},
+  {s:"Une commune peut établir son propre droit local distinct des lois nationales.",vrai:false,src:"Art. 72 Constitution",theme:"Organisation territoriale",expl:"Faux. Les communes ne disposent pas d'un pouvoir législatif. Elles exercent leurs compétences dans le cadre des lois et règlements nationaux. Seules les collectivités d'outre-mer spécifiques ont des adaptations."},
+  {s:"Le traitement brut est identique pour tous les fonctionnaires du même grade.",vrai:true,src:"Décret 85-1148",theme:"Rémunération",expl:"Vrai. Le traitement indiciaire est fixé par l'indice majoré du grade et de l'échelon. Il est identique pour tous les fonctionnaires du même grade et échelon, quelle que soit la collectivité."},
+  {s:"Un fonctionnaire peut percevoir une prime pour avoir accompli des actes contraires à ses obligations.",vrai:false,src:"Art. L532-1 CGFP",theme:"Rémunération",expl:"Faux. Les primes sont liées à l'exercice normal et satisfaisant des fonctions. Un agent faisant l'objet de sanctions disciplinaires peut voir ses indemnités réduites ou supprimées."},
+  {s:"Les indemnités de déplacement sont soumises à l'impôt sur le revenu.",vrai:false,src:"Art. 81 CGI",theme:"Rémunération",expl:"Faux. Les indemnités de déplacement (frais de mission, remboursements kilométriques...) sont exonérées d'impôt sur le revenu car elles compensent des dépenses réellement engagées."},
+  {s:"Le RIFSEEP a été conçu pour simplifier le paysage indemnitaire de la FP.",vrai:true,src:"Décret 2014-513",theme:"Rémunération",expl:"Vrai. Le Régime Indemnitaire tenant compte des Fonctions, Sujétions, Expertise et Engagement Professionnel vise à remplacer la multitude de primes spécifiques par un dispositif unifié."},
+  {s:"Les fonctionnaires ne cotisent pas à l'assurance chômage.",vrai:true,src:"Art. L5422-13 Code du travail",theme:"Rémunération",expl:"Vrai. Les fonctionnaires titulaires ne cotisent pas à l'assurance chômage. En cas de perte d'emploi, leur indemnisation est assurée directement par l'administration (régime du TRE)."},
+  {s:"Les contractuels publics cotisent à l'assurance chômage.",vrai:true,src:"Art. L5422-13 Code du travail",theme:"Rémunération",expl:"Vrai. Contrairement aux fonctionnaires titulaires, les agents contractuels de droit public cotisent à l'assurance chômage et bénéficient des allocations chômage de droit commun."},
+  {s:"Le SFT (Supplément Familial de Traitement) est versé à partir du premier enfant.",vrai:true,src:"Art. L714-1 CGFP",theme:"Rémunération",expl:"Vrai. Le SFT est versé dès le premier enfant à charge. Cependant, son montant est relativement faible pour un enfant et augmente de façon plus significative à partir du deuxième."},
+  {s:"Deux fonctionnaires conjoints peuvent tous deux percevoir le SFT.",vrai:false,src:"Art. L714-2 CGFP",theme:"Rémunération",expl:"Faux. Le SFT ne peut être versé qu'à un seul des deux parents fonctionnaires. En cas de demande simultanée, il est attribué selon des règles de priorité fixées par décret."},
+  {s:"Le traitement d'un fonctionnaire est indexé automatiquement sur l'inflation.",vrai:false,src:"Décret 85-1148",theme:"Rémunération",expl:"Faux. Il n'y a pas d'indexation automatique sur l'inflation dans la FP. La valeur du point d'indice est fixée par décret et décidée par le gouvernement après négociations."},
+  {s:"Un fonctionnaire en congé sans traitement conserve ses droits à avancement.",vrai:false,src:"Art. L622-1 CGFP",theme:"Rémunération",expl:"Faux. La disponibilité ou le congé sans traitement n'est pas assimilé à une période d'activité. L'agent ne bénéficie plus de droits à avancement pendant cette période."},
+  {s:"Le congé maternité d'une fonctionnaire ne peut pas être réduit même à sa demande.",vrai:true,src:"Art. L631-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Le congé maternité comporte une durée minimale obligatoire (6 semaines post-natales). Aucune disposition ne peut y déroger, y compris à la demande de l'agent."},
+  {s:"Un fonctionnaire peut poser des RTT le même jour que ses congés annuels.",vrai:true,src:"Décret 2001-623",theme:"Santé & Congés",expl:"Vrai. RTT et congés annuels sont deux droits distincts qui peuvent être cumulés. L'agent peut poser des RTT et des CA simultanément, sous réserve de l'accord du responsable."},
+  {s:"Le congé pour accident de service est rémunéré à plein traitement sans limite de durée.",vrai:true,src:"Art. L822-20 CGFP",theme:"Santé & Congés",expl:"Vrai. En cas d'accident de service ou de maladie professionnelle reconnue, le fonctionnaire bénéficie du plein traitement pendant toute la durée de son arrêt, sans délai de carence."},
+  {s:"Le jour de carênce en cas de maladie s'applique à tous les fonctionnaires depuis 2018.",vrai:true,src:"Loi de finances 2018",theme:"Santé & Congés",expl:"Vrai. Depuis 2018, un jour de carênce non payé s'applique au premier arrêt maladie ordinaire par année. Il ne s'applique pas pour les accidents de service ni pour les rechutes."},
+  {s:"Un congé de proche aidant existe dans la fonction publique.",vrai:true,src:"Loi du 22 mai 2019",theme:"Santé & Congés",expl:"Vrai. La loi de transformation de la FP de 2019 a créé le congé de proche aidant non rémunéré pour les fonctionnaires devant s'occuper d'un proche en perte d'autonomie."},
+  {s:"Un fonctionnaire peut être mis à la retraite pour invalidité s'il est inapte à tout emploi.",vrai:true,src:"Art. L826-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Si un fonctionnaire est reconnu définitivement inapte à l'exercice de tout emploi public, il peut être admis à la retraite pour invalidité avant l'âge légal."},
+  {s:"Les jours feriés sont toujours chômés et payés pour les fonctionnaires.",vrai:false,src:"Décret 85-1250",theme:"Santé & Congés",expl:"Faux. Les jours fériés sont en principe chômés, mais des nécessités de service peuvent imposer de travailler certains jours fériés, avec compensation en repos ou rémunération."},
+  {s:"Le délai de carênce s'applique en cas d'hospitalisation.",vrai:false,src:"Décret 2014-1133",theme:"Santé & Congés",expl:"Faux. Le jour de carênce ne s'applique pas en cas d'hospitalisation, ni lors d'un arrêt consécutif à un accident de service, ni lors d'une affection de longue durée reconnue."},
+  {s:"Le congé parental dans la FP peut durer jusqu'à 3 ans.",vrai:true,src:"Art. L634-1 CGFP",theme:"Santé & Congés",expl:"Vrai. Le congé parental peut durer jusqu'à 3 ans par enfant (jusqu'à ses 3 ans). Il est non rémunéré mais le fonctionnaire conserve ses droits à la retraite pour moitié."},
+  {s:"Un fonctionnaire peut être mis d'office en congé maladie contre son gré.",vrai:true,src:"Art. L822-6 CGFP",theme:"Santé & Congés",expl:"Vrai. L'administration peut placer d'office un agent en congé maladie sur avis médical, même si l'agent ne se sent pas malade. Cela évite la présence d'un agent inapte."},
+  {s:"Le droit de grève dans la FP date de la Constitution de 1946.",vrai:true,src:"Préambule Constitution 1946",theme:"Dialogue social",expl:"Vrai. Le préambule de la Constitution de 1946 reconnat le droit de grève qui s'exerce dans le cadre des lois qui le réglementent. Ce droit s'applique à la fonction publique."},
+  {s:"Le principe de continuité du service public peut limiter le droit de grève.",vrai:true,src:"CC, Décision 79-105 DC",theme:"Dialogue social",expl:"Vrai. Le Conseil Constitutionnel a reconnu que le principe de continuité du service public peut justifier des restrictions au droit de grève, notamment dans les services essentiels."},
+  {s:"Un syndicat non représentatif peut organiser un piquet de grève.",vrai:true,src:"Art. L211-1 CGFP",theme:"Dialogue social",expl:"Vrai. La liberté syndicale permet à tout syndicat, même non représentatif, d'organiser des actions syndicales. Seule la négociation d'accords collectifs est réservée aux syndicats représentatifs."},
+  {s:"La durée du mandat des membres du CST est de 4 ans.",vrai:true,src:"Décret 2021-571",theme:"Dialogue social",expl:"Vrai. Les membres des Comités Sociaux Territoriaux sont élus pour 4 ans, comme les membres des autres instances représentatives du personnel dans la fonction publique."},
+  {s:"Les congés syndicaux sont financés par les cotisations des syndicats.",vrai:false,src:"Art. L214-5 CGFP",theme:"Dialogue social",expl:"Faux. Les décharges de service et autorisations d'absence syndicales sont accordées par l'administration et rémunérées par elle. Ce n'est pas à la charge des syndicats."},
+  {s:"Un agent gréviste peut être remplacé par un agent contractuel durant la grève.",vrai:false,src:"Art. L114-5 CGFP",theme:"Dialogue social",expl:"Faux. Il est interdit de recourir à des travailleurs intérimaires ou contractuels pour remplacer des fonctionnaires en grève. Cette interdiction vise à préserver l'effectivité du droit de grève."},
+  {s:"La CAP peut être saisie par l'agent lui-même en cas de litige sur sa notation.",vrai:true,src:"Art. L232-1 CGFP",theme:"Dialogue social",expl:"Vrai. Un agent peut demander la saisine de la CAP en cas de désaccord sur son évaluation annuelle ou sur une décision individuelle relevant de sa compétence."},
+  {s:"Toutes les organisations syndicales siègent de droit au Conseil Supérieur de la FP.",vrai:false,src:"Art. L221-2 CGFP",theme:"Dialogue social",expl:"Faux. Seules les organisations syndicales représentatives siègent au Conseil Supérieur. La représentativité est déterminée par les résultats aux élections professionnelles."},
+  {s:"Le CST est obligatoirement consulté sur le projet de budget de la collectivité.",vrai:false,src:"Décret 2021-571",theme:"Dialogue social",expl:"Faux. Le CST n'est pas obligatoirement consulté sur le budget. Il est en revanche consulté sur les règles générales relatives aux conditions de travail, au temps de travail et à l'organisation des services."},
+  {s:"Un agent en grève peut être convoqué en urgence pour raison de service.",vrai:true,src:"Art. L114-4 CGFP",theme:"Dialogue social",expl:"Vrai. Dans les services soumis au service minimum, un agent gréviste peut être réquisitionné par l'autorité administrative. En dehors de ce cadre, la réquisition est très encadrée."},
+  {s:"Le déféré préfectoral peut viser les actes non transmis par la collectivité.",vrai:true,src:"Art. L2131-6 CGCT",theme:"Contentieux",expl:"Vrai. Le préfet peut déférer au TA non seulement les actes qui lui ont été transmis, mais aussi ceux dont il a eu connaissance par d'autres moyens."},
+  {s:"Le juge administratif peut moduler les effets dans le temps d'une annulation.",vrai:true,src:"CE, 11 mai 2004, Association AC !",theme:"Contentieux",expl:"Vrai. Le Conseil d'État peut décider de ne pas appliquer rétroactivement une annulation si ses effets seraient excessivement perturbateurs, tout en condamnant l'administration."},
+  {s:"L'excès de pouvoir est le seul recours contentieux possible en droit administratif.",vrai:false,src:"Art. R311-1 CJA",theme:"Contentieux",expl:"Faux. Il existe plusieurs types de recours : l'excès de pouvoir (annulation d'un acte), le plein contentieux (indemnisation), le contentieux de l'interprétation, et les référés."},
+  {s:"Un agent public peut saisir le conseil de prud'hommes pour un litige avec son administration.",vrai:false,src:"Art. L11 CJA",theme:"Contentieux",expl:"Faux. Les litiges entre un fonctionnaire et son administration relèvent exclusivement du juge administratif (tribunal administratif). Le conseil de prud'hommes n'est compétent que pour les salariés de droit privé."},
+  {s:"L'administration peut être condamnée à payer des astreintes si elle n'exécute pas un jugement.",vrai:true,src:"Art. L911-3 CJA",theme:"Contentieux",expl:"Vrai. Le juge administratif peut assortir ses injonctions d'astreintes (somme par jour de retard) pour contraindre l'administration à exécuter ses décisions."},
+  {s:"Le délai de recours contentieux est suspendu pendant les vacances judiciaires.",vrai:false,src:"Art. R421-7 CJA",theme:"Contentieux",expl:"Faux. Les délais de recours contentieux ne sont pas suspendus pendant les vacances judiciaires. Ils continuent de courir et leur dépassement entraîne l'irrecevabilité du recours."},
+  {s:"La théorie des circonstances exceptionnelles peut justifier des actes normalement illégaux.",vrai:true,src:"CE, 28 juin 1918, Heyriès",theme:"Contentieux",expl:"Vrai. En cas de circonstances exceptionnelles (guerre, catastrophe...), le juge admet que l'administration puisse prendre des mesures qui seraient normalement illégales pour assurer la continuité de l'État."},
+  {s:"Un recours sans objet peut être rejeté même si l'illégalité est établie.",vrai:true,src:"Art. L9 CJA",theme:"Contentieux",expl:"Vrai. Si l'acte contesté a été retiré ou a cessé de produire ses effets, le juge peut considérer que le recours est devenu sans objet, même si l'acte était illégal."},
+  {s:"L'agent public bénéficie de l'aide juridictionnelle pour ses litiges avec son administration.",vrai:true,src:"Loi 91-647 du 10 juillet 1991",theme:"Contentieux",expl:"Vrai. Les agents publics peuvent bénéficier de l'aide juridictionnelle devant le tribunal administratif sous conditions de ressources, comme tout justiciable."},
+  {s:"La CAA (Cour Administrative d'Appel) rend des décisions définitives.",vrai:false,src:"Art. R321-1 CJA",theme:"Contentieux",expl:"Faux. Les décisions de la CAA peuvent être pourvues en cassation devant le Conseil d'État. Seul le Conseil d'État rend des décisions définitives au niveau national."},
+  {s:"La FPE (Etat) est le versant le plus important avec plus de 2 millions d'agents.",vrai:true,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Vrai. La FPE compte environ 2,5 millions d'agents civils. C'est le versant le plus important, devant la FPT (environ 2 millions) et la FPH (environ 1,2 million)."},
+  {s:"Plus de 200 000 personnes se présentent aux concours de la FP chaque année.",vrai:true,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Vrai. Chaque année, entre 200 000 et 250 000 candidats se présentent aux épreuves des concours de la fonction publique, pour un nombre de postes offerts bien inférieur."},
+  {s:"La catégorie A représente la majorité des fonctionnaires de l'État.",vrai:false,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Faux. Si la catégorie A est sur-représentée dans la FPE par rapport aux autres versants, elle ne représente pas la majorité des agents. La catégorie B est la plus nombreuse dans la FPE hors enseignants."},
+  {s:"Le point d'indice est la même valeur pour tous les fonctionnaires des 3 versants.",vrai:true,src:"Décret 2010-1656",theme:"Chiffres clés",expl:"Vrai. La valeur du point d'indice est unique pour l'ensemble de la fonction publique (FPE, FPT, FPH). C'est un des éléments d'unité du statut général des fonctionnaires."},
+  {s:"Les enseignants du public représentent plus de 50% des fonctionnaires de l'État.",vrai:true,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Vrai. Le ministère de l'Éducation nationale emploie à lui seul plus d'un million d'agents, soit plus de la moitié des fonctionnaires de la FPE."},
+  {s:"La durée moyenne de la procédure devant le tribunal administratif est inférieure à un an.",vrai:false,src:"Rapport Conseil d'État 2023",theme:"Chiffres clés",expl:"Faux. La durée moyenne de traitement d'un dossier devant le tribunal administratif dépasse généralement un an. Les délais varient selon les juridictions et la complexité des affaires."},
+  {s:"Plus de 300 statuts particuliers coexistent dans la fonction publique de l'État.",vrai:true,src:"DGAFP 2023",theme:"Chiffres clés",expl:"Vrai. Il existe plusieurs centaines de corps et statuts particuliers dans la FPE, ce qui rend la gestion des ressources humaines très complexe. La simplification est un objectif récurrent."},
+  {s:"Le taux d'encadrement (cat A) est plus élevé dans la FPT que dans la FPE.",vrai:false,src:"DGAFP 2024",theme:"Chiffres clés",expl:"Faux. La FPT est structurellement plus orientée vers les catégories B et C (exécution, terrain). Le taux d'agents de catégorie A est bien plus élevé dans la FPE que dans la FPT."},
+  {s:"Le budget de la fonction publique représente environ 25% du budget de l'État.",vrai:false,src:"PLF 2024",theme:"Chiffres clés",expl:"Faux. La masse salariale de la FPE représente environ 45% des dépenses nettes du budget général de l'État, soit une part bien supérieure à 25%."},
+  {s:"La France est le pays de l'OCDE avec le plus grand nombre de fonctionnaires en proportion de la population.",vrai:false,src:"OCDE 2023",theme:"Chiffres clés",expl:"Faux. Bien que la France ait un secteur public important, elle n'est pas en tête dans ce classement. Les pays nordiques (Suède, Norvège, Danemark) ont des taux de fonctionnaires supérieurs en proportion."},
+  {s:"La formation initiale d'un fonctionnaire territorial catégorie B est organisée par le CNFPT.",vrai:true,src:"Art. L451-1 CGFP",theme:"Formation",expl:"Vrai. Le CNFPT organise la formation d'intégration et de professionnalisation des agents territoriaux, y compris pour la catégorie B. Pour la cat A+, l'INSP intervient."},
+  {s:"Le CPF peut être utilisé pendant les horaires de travail sans accord de l'employeur.",vrai:false,src:"Art. L422-3 CGFP",theme:"Formation",expl:"Faux. L'utilisation du CPF sur le temps de service requière l'accord de l'administration. En dehors du temps de service, l'agent peut l'utiliser librement."},
+  {s:"La période de professionnalisation peut être utilisée pour une reconversion professionnelle.",vrai:true,src:"Art. L422-4 CGFP",theme:"Formation",expl:"Vrai. La période de professionnalisation permet aux agents de se former en vue d'accéder à d'autres fonctions, de changer de métier ou de s'adapter à l'évolution de leur emploi."},
+  {s:"Une formation refusée deux fois par l'administration est automatiquement accordée la troisième fois.",vrai:false,src:"Art. L422-3 CGFP",theme:"Formation",expl:"Faux. Il n'existe pas de mécanisme d'accord automatique après deux refus en droit de la formation. L'agent peut contester les refus mais il n'y a pas d'automaticité."},
+  {s:"Les écoles de service public assurent la formation initiale des fonctionnaires de catégorie A.",vrai:true,src:"Art. L451-4 CGFP",theme:"Formation",expl:"Vrai. Les écoles de service public (INSP, INET, écoles médicales, ENSP...) assurent la formation initiale des fonctionnaires de catégorie A, notamment pour les corps d'encadrement."},
+  {s:"Un fonctionnaire peut utiliser son CPF pour financer le passage d'un permis de conduire professionnel.",vrai:true,src:"Décret 2020-958",theme:"Formation",expl:"Vrai. Le permis de conduire est éligible au CPF lorsqu'il est nécessaire à l'exercice des fonctions ou à un projet professionnel. Cela peut inclure le permis B ou des permis professionnels."},
+  {s:"La formation continue est gratuite pour les agents dans le cadre du plan de formation.",vrai:true,src:"Art. L422-5 CGFP",theme:"Formation",expl:"Vrai. Les formations inscrites au plan de formation de la collectivité sont prises en charge intégralement par l'employeur (frais pédagogiques, déplacement, hébergement)."},
+  {s:"Un agent qui suit une formation hors temps de service peut prétendre à une compensation.",vrai:false,src:"Art. L422-4 CGFP",theme:"Formation",expl:"Faux. En principe, les formations suivies hors temps de service sont sur le temps personnel de l'agent. Il n'existe pas de droit général à une compensation, sauf accords spécifiques."},
+  {s:"Le tuteur d'un agent en formation peut bénéficier d'une indemnité.",vrai:true,src:"Décret 2008-731",theme:"Formation",expl:"Vrai. Les fonctionnaires exerçant des fonctions de tutorat d'agents en formation peuvent percevoir une indemnité spécifique de tutorat, selon les conditions fixées par l'administration."},
+  {s:"Le plan de formation est obligatoire pour toutes les collectivités territoriales.",vrai:true,src:"Art. L422-5 CGFP",theme:"Formation",expl:"Vrai. Toute collectivité territoriale a l'obligation d'élaborer un plan de formation. Ce plan définit les orientations et les priorités de formation pour les agents."}
 ];
 
 var intoxIdx=0, intoxScore=0, intoxStreak=0, intoxMaxStreak=0, intoxInterval=null, intoxTimeLeft=10, intoxData=[], intoxBonnes=0;
@@ -4713,7 +4984,7 @@ function finDossier(){
 // ──────────────────────────────────────
 var CARTE_DATA = [
   // ── 1. PROCÉDURE DISCIPLINAIRE ──
-  {centre:"PROCÉDURE\nDISCIPLINAIRE",theme:"Sanctions & groupes",
+  {centre:"PROCÉDURE\nDISCIPLINAIRE",theme:"Statut & Recrutement",
    zones:["Groupe 1","Groupe 2","Groupe 3","Groupe 4"],
    hints:["Sanction légère, avertissement ou blâme ?","Exclusion courte : combien de jours max ?","Exclusion longue ou rétrogradation ?","Sanction ultime, fin de carrière ?"],
    pieces:["Avertissement / Blâme","Exclusion 1 à 10 jours","Rétrogradation / Exclusion 11j-2ans","Révocation / Retraite d'office"],
@@ -4722,7 +4993,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc arrive régulièrement en retard → avertissement (G1). S'il falsifie un document officiel → exclusion 11j-2ans (G3). S'il détourne des fonds publics → révocation (G4)."},
 
   // ── 2. LOIS DE ROLLAND ──
-  {centre:"LOIS DE\nROLLAND",theme:"Principes du Service Public",
+  {centre:"LOIS DE\nROLLAND",theme:"Droits & Obligations",
    zones:["Continuité","Égalité","Mutabilité","Neutralité"],
    hints:["Pas d'interruption du service ?","Même traitement pour tous les usagers ?","Le service évolue avec la société ?","Pas d'opinion dans les fonctions ?"],
    pieces:["Pas d'interruption du SP","Même service pour tous","Adaptation aux besoins","Pas d'opinion dans les fonctions"],
@@ -4731,7 +5002,7 @@ var CARTE_DATA = [
    exemple:"📋 Une mairie ferme son état-civil 3 semaines → viole la Continuité. Elle refuse l'accès à une personne handicapée → viole l'Égalité. Elle refuse d'adopter la dématérialisation → viole la Mutabilité."},
 
   // ── 3. POSITIONS DU FONCTIONNAIRE ──
-  {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Positions statutaires",
+  {centre:"POSITIONS\nDU FONCTIONNAIRE",theme:"Carrière & Mobilité",
    zones:["Position normale","Hors corps / organisme accueil","Sans traitement","Droits suspendus"],
    hints:["Agent sur son poste habituel ?","Agent placé hors de son corps ?","Agent hors administration, sans traitement ?","Agent en congé pour enfant ?"],
    pieces:["Activité (poste habituel)","Détachement","Disponibilité","Congé parental"],
@@ -4740,7 +5011,7 @@ var CARTE_DATA = [
    exemple:"📋 Sophie demande une disponibilité pour créer son entreprise → sans traitement, droits suspendus. Paul est détaché à la Région → rémunéré par la Région, conserve ses droits à avancement."},
 
   // ── 4. CNRACL RÉFORME 2025 ──
-  {centre:"CNRACL\nRÉFORME 2025",theme:"Trajectoire des cotisations",
+  {centre:"CNRACL\nRÉFORME 2025",theme:"Rémunération",
    zones:["Taux 2025","Taux 2026","Taux 2027","Taux 2028"],
    hints:["Taux 2025 : +4pts → quel % ?","Taux 2026 : +3pts supplémentaires ?","Taux 2027 : vers quel % ?","Taux 2028 : objectif final ?"],
    pieces:["34,65%","37,65%","40,65%","43,65%"],
@@ -4749,7 +5020,7 @@ var CARTE_DATA = [
    exemple:"📋 En 2024 la commune paye 30,65% pour Marc (2 000€ brut) = 613€/mois. En 2028 au taux 43,65% = 873€/mois. Surcoût : +260€/mois par agent, soit +3 120€/an."},
 
   // ── 5. CST ──
-  {centre:"DIALOGUE\nSOCIAL FPT",theme:"Le Comité Social Territorial",
+  {centre:"DIALOGUE\nSOCIAL FPT",theme:"Dialogue social",
    zones:["Fusion de quoi ?","Nom de l'instance","Compétence principale","Date de création"],
    hints:["Fusion CTE + CHSCT → quel sigle ?","Nom de la nouvelle instance unifiée ?","Compétence : conditions de travail & … ?","Réforme entrée en vigueur quand ?"],
    pieces:["CTM + CHSCT","CST","Conditions de travail & formation","Janvier 2023"],
@@ -4758,7 +5029,7 @@ var CARTE_DATA = [
    exemple:"📋 La mairie modifie les horaires → consulte le CST. Un agent conteste sa note → saisit la CAP. Un accident survient → le FSSCT est réuni d\'urgence."},
 
   // ── 6. PSC ──
-  {centre:"PROTECTION\nSOCIALE PSC",theme:"Participation employeur territorial",
+  {centre:"PROTECTION\nSOCIALE PSC",theme:"Rémunération",
    zones:["Prévoyance — depuis","Prévoyance — montant","Santé — depuis","Santé — montant"],
    hints:["Participation employeur santé : depuis quand ?","Montant minimum mensuel santé ?","Participation prévoyance : depuis quand ?","Montant minimum mensuel prévoyance ?"],
    pieces:["Janvier 2025","7€/mois min (20% de 35€)","Janvier 2026","15€/mois min (50% de 30€)"],
@@ -4767,7 +5038,7 @@ var CARTE_DATA = [
    exemple:"📋 Depuis jan. 2025, la commune verse 7€/mois pour la prévoyance de Léa. Dès jan. 2026 : +15€/mois pour la mutuelle santé. Total employeur minimum : 22€/mois par agent."},
 
   // ── 7. RUPTURE CONVENTIONNELLE ──
-  {centre:"RUPTURE\nCONVENTIONNELLE",theme:"Dispositif pérennisé 2026",
+  {centre:"RUPTURE\nCONVENTIONNELLE",theme:"Rémunération",
    zones:["Fondement légal","Indemnité versée","Droit chômage ?","Remboursement si..."],
    hints:["Article du CGFP qui la codifie ?","Nom de l'indemnité versée à l'agent ?","L'agent a-t-il droit au chômage ?","Condition : ancienneté minimum ?"],
    pieces:["CGFP art. L552-1 à L552-5","ISRC","Oui — allocation chômage","Retour FP dans les 6 ans"],
@@ -4776,7 +5047,7 @@ var CARTE_DATA = [
    exemple:"📋 Paul, SA depuis 12 ans, traitement 2 200€. ISRC = 1/4 mois × 2 200€ × 12 = 6 600€ net d\'impôt. Il touche aussi l\'ARE (chômage) pendant 2 ans."},
 
   // ── 8. CATÉGORIES HIÉRARCHIQUES ──
-  {centre:"CATÉGORIES\nHIÉRARCHIQUES",theme:"Organisation de la FP",
+  {centre:"CATÉGORIES\nHIÉRARCHIQUES",theme:"Statut & Recrutement",
    zones:["Catégorie A","Catégorie B","Catégorie C","Exemple concours B"],
    hints:["Catégorie C : niveau d'études requis ?","Catégorie B : niveau d'études requis ?","Catégorie A : niveau d'études requis ?","Exemple de poste de direction ?"],
    pieces:["Cadres (niveau licence)","Intermédiaires (niveau bac)","Exécution (niveau < bac)","Secrétaire Administratif"],
@@ -4785,7 +5056,7 @@ var CARTE_DATA = [
    exemple:"📋 Adjoint administratif (C) : gère le courrier. SA (B) : coordonne un service, rédige les délibérations. Attaché territorial (A) : pilote une direction, conseille les élus."},
 
   // ── 9. RÉFORME CMO 2025 ──
-  {centre:"RÉFORME CMO\n2025",theme:"Congé maladie ordinaire",
+  {centre:"RÉFORME CMO\n2025",theme:"Santé & Congés",
    zones:["Durée période 1 (CMO)","Taux période 1","Durée période 2 + taux","Congés NON concernés"],
    hints:["Combien de mois ?","Quel % du traitement ?","Mois suivants → quel taux ?","Quels congés exclus ?"],
    pieces:["3 premiers mois du CMO","90% du traitement brut","Mois 4 à 12 → maintenu à 50%","CLM et CLD inchangés"],
@@ -4794,7 +5065,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc arrêté 5 mois en 2025 : mois 1-3 = 90% (avant : 100%), mois 4-5 = 50%. Perte totale : 3 × 10% de son traitement. CLM pour longue maladie : inchangé."},
 
   // ── 10. DOSSIER ADMINISTRATIF ──
-  {centre:"DOSSIER\nADMINISTRATIF",theme:"Droits de l'agent",
+  {centre:"DOSSIER\nADMINISTRATIF",theme:"Droits & Obligations",
    zones:["Droit principal","Quand s'exerce-t-il ?","Ce qui est interdit","Base légale"],
    hints:["Quel droit ?","À quel moment ?","Quels contenus ?","Quel article ?"],
    pieces:["Consulter son dossier complet","Avant toute décision défavorable","Mentions de condamnations pénales","CGFP art. L131-2"],
@@ -4803,7 +5074,7 @@ var CARTE_DATA = [
    exemple:"📋 Julie veut consulter son dossier avant un entretien disciplinaire → droit absolu, 48h accordées. Son chef ne peut pas y glisser une note anonyme → strictement interdit."},
 
   // ── 11. RECRUTEMENT CONCOURS ──
-  {centre:"RECRUTEMENT\nCONCOURS SA",theme:"Voies d'accès catégorie B",
+  {centre:"RECRUTEMENT\nCONCOURS SA",theme:"Statut & Recrutement",
    zones:["Concours externe","Concours interne","3ème concours","Promotion interne"],
    hints:["Concours externe : ouvert à qui ?","Concours interne : ouvert à qui ?","3e voie : pour quel profil ?","Durée du stage après réussite ?"],
    pieces:["Diplômés sans expérience FP","Fonctionnaires avec 1 an de services","Élus, bénévoles, mandataires (4 ans)","Au choix / examen professionnel"],
@@ -4812,7 +5083,7 @@ var CARTE_DATA = [
    exemple:"📋 Aïcha réussit le concours SA externe → inscrite sur liste d\'aptitude 2 ans. Recrutée par Saint-Denis → stage 1 an. Titularisée après avis favorable. Refus = licenciement indemnisé."},
 
   // ── 12. OBLIGATIONS DU FONCTIONNAIRE ──
-  {centre:"OBLIGATIONS\nDU FONCTIONNAIRE",theme:"Devoirs statutaires",
+  {centre:"OBLIGATIONS\nDU FONCTIONNAIRE",theme:"Droits & Obligations",
    zones:["Obligation n°1","Obligation n°2","Obligation n°3","Obligation n°4"],
    hints:["Obéissance à...","Ne pas divulguer...","S'abstenir de...","Consacrer son temps à..."],
    pieces:["Obéissance hiérarchique","Secret professionnel","Neutralité / Réserve","Exercice exclusif des fonctions"],
@@ -4821,7 +5092,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc refuse de falsifier un document (ordre illégal) → il est protégé. Mais il refuse un ordre légal sans raison → faute disciplinaire passible de sanction."},
 
   // ── 13. DROITS DU FONCTIONNAIRE ──
-  {centre:"DROITS\nDU FONCTIONNAIRE",theme:"Droits statutaires",
+  {centre:"DROITS\nDU FONCTIONNAIRE",theme:"Droits & Obligations",
    zones:["Droit collectif","Droit individuel formation","Droit de protection","Droit de retrait"],
    hints:["Quel droit syndical ?","Quel compte ?","Quelle protection ?","Dans quelle situation ?"],
    pieces:["Droit syndical (organisations)","CPF — 24h/an, plafond 120h","Protection fonctionnelle (L134-1)","Danger grave et imminent"],
@@ -4830,7 +5101,7 @@ var CARTE_DATA = [
    exemple:"📋 Sophie se syndique → libre, sans autorisation. Elle consulte son dossier → droit absolu. Formation continue à sa demande : peut être refusée si nécessités de service."},
 
   // ── 14. RESPONSABILITÉ ADMINISTRATIVE ──
-  {centre:"RESPONSABILITÉ\nADMINISTRATIVE",theme:"Faute service vs personnelle",
+  {centre:"RESPONSABILITÉ\nADMINISTRATIVE",theme:"Contentieux",
    zones:["Faute de service","Faute personnelle","Conséquence faute service","Conséquence faute perso"],
    hints:["Faute de service : qui est responsable ?","Faute personnelle : qui est responsable ?","Réparation faute service : qui paie ?","Réparation faute personnelle : qui paie ?"],
    pieces:["L'administration répond","L'agent répond personnellement","Indemnisation par la collectivité","Indemnisation par l'agent lui-même"],
@@ -4839,7 +5110,7 @@ var CARTE_DATA = [
    exemple:"📋 Agent blesse un usager avec le véhicule de service → faute de service → commune responsable. Il insulte un usager par malveillance → faute personnelle → il paie sur ses deniers propres."},
 
   // ── 15. DECENTRALISATION ──
-  {centre:"3 VAGUES DE\nDÉCENTRALISATION",theme:"Histoire de la décentralisation",
+  {centre:"3 VAGUES DE\nDÉCENTRALISATION",theme:"Organisation territoriale",
    zones:["1ère vague — 1982","2ème vague — 2003","3ème vague — 2015","Principe commun"],
    hints:["1ère vague 1982 : quelle loi fondatrice ?","2ème vague 2003 : quelle révision ?","3ème vague 2015 : quelle loi ?","Contrôle remplacé par quoi en 1982 ?"],
    pieces:["Lois Defferre — libertés communes","Acte II — expérimentation, RF autonome","Loi NOTRe — blocs de compétences","Contrôle de légalité a posteriori"],
@@ -4848,7 +5119,7 @@ var CARTE_DATA = [
    exemple:"📋 1982 : la commune signe ses contrats sans visa préfectoral. 2003 : le département reçoit le RSA. 2015 (NOTRe) : la région devient chef de file du développement économique."},
 
   // ── 16. COMPÉTENCES COLLECTIVITÉS ──
-  {centre:"COMPÉTENCES\nCOLLECTIVITÉS",theme:"Loi NOTRe 2015",
+  {centre:"COMPÉTENCES\nCOLLECTIVITÉS",theme:"Organisation territoriale",
    zones:["Région","Département","Commune","EPCI"],
    hints:["Compétence principale de la Région ?","Compétence principale du Département ?","Compétence principale de la Commune ?","Domaine partagé entre tous les niveaux ?"],
    pieces:["Développement économique & formation","Solidarités & action sociale","Services de proximité (clause générale)","Coopération intercommunale"],
@@ -4857,7 +5128,7 @@ var CARTE_DATA = [
    exemple:"📋 La Région finance lycées et TER. Le Département gère collèges et RSA. La Commune délivre les permis de construire. La culture et le sport sont partagés entre tous."},
 
   // ── 17. ÉGALITÉ PROFESSIONNELLE ──
-  {centre:"ÉGALITÉ\nPROFESSIONNELLE F/H",theme:"Obligations des collectivités",
+  {centre:"ÉGALITÉ\nPROFESSIONNELLE F/H",theme:"Organisation territoriale",
    zones:["Index obligatoire dès","Quota nominations","Écart salarial FPT","Base légale"],
    hints:["Quel seuil habitants ?","Quel pourcentage ?","Quel écart moyen ?","Quelle loi ?"],
    pieces:["40 000 habitants","50% primo-nominations chaque sexe","-410€/mois en défaveur des femmes","Loi du 6 août 2019"],
@@ -4866,7 +5137,7 @@ var CARTE_DATA = [
    exemple:"📋 Collectivité 50 000 hab., 2 femmes sur 10 postes de direction : pénalité. Publie son index F/H annuellement. Objectif légal : 40% de femmes aux primo-nominations."},
 
   // ── 18. TÉLÉTRAVAIL ──
-  {centre:"TÉLÉTRAVAIL\nFP 2023",theme:"Règles et limites",
+  {centre:"TÉLÉTRAVAIL\nFP 2023",theme:"Statut & Recrutement",
    zones:["Maximum jours/semaine","Présence site obligatoire","Forfait journalier","Plafond annuel"],
    hints:["Combien de jours max ?","Minimum sur site ?","Quel montant ?","Quel plafond ?"],
    pieces:["3 jours maximum","2 jours minimum sur site","2,88€ / jour","253,44€ / an"],
@@ -4875,7 +5146,7 @@ var CARTE_DATA = [
    exemple:"📋 Léa télétravaille 2j\/semaine (plafond 3j). Elle perçoit 2,88€ × 88j max = 253,44€\/an. Elle doit avoir un espace de travail adapté et une connexion sécurisée."},
 
   // ── 19. RIFSEEP ──
-  {centre:"RIFSEEP",theme:"Régime indemnitaire",
+  {centre:"RIFSEEP",theme:"Rémunération",
    zones:["Nom complet","Composante fixe","Composante variable","Décret fondateur"],
    hints:["Que signifie l'acronyme ?","Nom de la part fixe ?","Nom de la part variable ?","Quelle année ?"],
    pieces:["Fonctions Sujétions Expertise Engagement Pro","IFSE (Indemnité de Fonctions)","CIA (Complément Indemnitaire Annuel)","Décret n°2014-513"],
@@ -4884,7 +5155,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc, SA groupe 2 : IFSE = 450€\/mois (fixe). En décembre : CIA = 800€ selon son entretien. Total indemnitaire annuel : 6 200€ bruts. Montant fixé par délibération."},
 
   // ── 20. RECOURS ADMINISTRATIFS ──
-  {centre:"RECOURS\nADMINISTRATIFS",theme:"Voies de recours",
+  {centre:"RECOURS\nADMINISTRATIFS",theme:"Contentieux",
    zones:["Recours gracieux","Recours hiérarchique","Recours contentieux","Délai de droit commun"],
    hints:["Recours gracieux : auprès de qui ?","Recours hiérarchique : auprès de qui ?","Recours contentieux : devant qui ?","Délai pour saisir le juge ?"],
    pieces:["Auprès de l'auteur de l'acte","Auprès du supérieur hiérarchique","Tribunal administratif","2 mois à compter de la notification"],
@@ -4893,7 +5164,7 @@ var CARTE_DATA = [
    exemple:"📋 Paul conteste son affectation → recours gracieux auprès du maire (2 mois). Refus → recours hiérarchique au Préfet. Nouveau refus → recours contentieux TA dans les 2 mois."},
 
   // ── 21. ABANDON DE POSTE ──
-  {centre:"ABANDON\nDE POSTE",theme:"Procédure et conséquences",
+  {centre:"ABANDON\nDE POSTE",theme:"Contentieux",
    zones:["Nature juridique","Étape obligatoire","Conséquence","≠ Sanction disciplinaire ?"],
    hints:["Absence sans justification : combien de jours ?","Que doit envoyer l'administration ?","Conséquence : radiation ou licenciement ?","L'agent a-t-il droit à l'ARE ?"],
    pieces:["Constat de rupture du lien de service","Mise en demeure préalable écrite","Radiation des cadres","Vrai — pas de conseil de discipline"],
@@ -4902,7 +5173,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc absent 10 jours sans justification. Commune envoie une mise en demeure recommandée. Sans réponse sous 15 jours → radiation d\'office, sans droit au chômage."},
 
   // ── 22. PROTECTION FONCTIONNELLE ──
-  {centre:"PROTECTION\nFONCTIONNELLE",theme:"CGFP art. L134-1",
+  {centre:"PROTECTION\nFONCTIONNELLE",theme:"Droits & Obligations",
    zones:["Qui bénéficie ?","Ce que couvre","Qui paie ?","Cas de refus"],
    hints:["S'applique à tous les agents ? (oui/non)","Couvre attaques, menaces et … ?","Qui prend en charge les frais de justice ?","Exception : faute personnelle détachable ?"],
    pieces:["Tout fonctionnaire (titulaire et stagiaire)","Menaces, violences, injures, poursuites","L'administration (collectivité)","Faute personnelle détachable du service"],
@@ -4911,7 +5182,7 @@ var CARTE_DATA = [
    exemple:"📋 Un élu menace Sophie après sa décision → elle demande la protection fonctionnelle. La commune paie son avocat et couvre les dommages et intérêts éventuels."},
 
   // ── 23. CONGÉS STATUTAIRES ──
-  {centre:"CONGÉS\nSTATUTAIRES",theme:"Principaux congés du fonctionnaire",
+  {centre:"CONGÉS\nSTATUTAIRES",theme:"Santé & Congés",
    zones:["CMO — durée max","CLM — durée max","CLD — durée max","Congé maternité"],
    hints:["Congé annuel : combien de jours ouvrés ?","CLM : durée maximale totale ?","CLD : durée maximale totale ?","CET : plafond de jours accumulés ?"],
    pieces:["12 mois sur 12 mois consécutifs","3 ans (1 an plein + 2 ans demi)","5 ans (2 ans pleins + 3 ans demi)","16 semaines (6 avant + 10 après)"],
@@ -4920,7 +5191,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc a 25j de CA, en pose 20 → peut reporter 5j dans son CET (plafond 60j). Arrêt maladie 2 mois → CMO. Cancer diagnostiqué → CLM : 1 an à 100% puis 2 ans à 50%."},
 
   // ── 24. LAÏCITÉ ──
-  {centre:"LAÏCITÉ ET\nFONCTION PUBLIQUE",theme:"Obligations de neutralité",
+  {centre:"LAÏCITÉ ET\nFONCTION PUBLIQUE",theme:"Droits & Obligations",
    zones:["Obligation de l'agent","Ce qui est interdit","Ce qui est permis","Texte de référence"],
    hints:["Quel comportement ?","Quel acte précis ?","Quelle liberté résiduelle ?","Quelle loi ?"],
    pieces:["Neutralité stricte dans les fonctions","Tout signe religieux ostensible","Pratiquer sa religion hors service","Loi du 9 décembre 1905"],
@@ -4929,7 +5200,7 @@ var CARTE_DATA = [
    exemple:"📋 Un agent porte un voile pendant l\'accueil du public → interdit (neutralité). Un usager exige d\'être servi par un homme → la commune refuse (principe d\'égalité de traitement)."},
 
   // ── 25. GRÈVE DANS LA FP ──
-  {centre:"DROIT DE GRÈVE\nFONCTION PUBLIQUE",theme:"Encadrement et limites",
+  {centre:"DROIT DE GRÈVE\nFONCTION PUBLIQUE",theme:"Statut & Recrutement",
    zones:["Préavis obligatoire","Formes interdites","Agents ne pouvant grever","Fondement légal"],
    hints:["Préavis obligatoire : combien de jours francs ?","Forme interdite : grève … ?","Corps totalement privés du droit de grève ?","Retenue sur salaire : quel fraction ?"],
    pieces:["5 jours francs","Grève tournante et surprise","Policiers, militaires (certains)","Loi du 31 juillet 1963"],
@@ -4938,7 +5209,7 @@ var CARTE_DATA = [
    exemple:"📋 CGT dépose un préavis le lundi pour grève vendredi → 5 jours francs respectés. Paul fait grève 2 jours → retenue 2\/30ème. Grève sans préavis syndical → illégale."},
 
   // ── 26. CUMUL D'ACTIVITÉS ──
-  {centre:"CUMUL\nD'ACTIVITÉS",theme:"Règles et exceptions",
+  {centre:"CUMUL\nD'ACTIVITÉS",theme:"Statut & Recrutement",
    zones:["Principe général","Activités autorisées","Obligation formelle","Décret de référence"],
    hints:["Cumul avec emploi privé : interdit ou encadré ?","Création d'entreprise : durée maximum ?","Démarche obligatoire : déclaration à qui ?","Texte de référence : loi du … ?"],
    pieces:["Interdiction de principe","Activités accessoires (enseignement, créations...)","Déclaration à l'autorité hiérarchique","Décret n°2020-69 du 30 jan. 2020"],
@@ -4947,7 +5218,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc donne des cours de tennis le week-end → autorisé avec déclaration. Il crée une SARL de conseil RH → autorisé 2 ans max. Il travaille pour un concurrent privé → interdit."},
 
   // ── 27. NOTATION ET ÉVALUATION ──
-  {centre:"ÉVALUATION\nPROFESSIONNELLE",theme:"Entretien professionnel",
+  {centre:"ÉVALUATION\nPROFESSIONNELLE",theme:"Carrière & Mobilité",
    zones:["Fréquence","Qui conduit ?","Contenu principal","Conséquences sur carrière"],
    hints:["Tous les combien ?","Quel supérieur ?","Que comprend-il ?","Quel impact ?"],
    pieces:["Annuelle","Le supérieur hiérarchique direct","Résultats, objectifs, compétences, formation","Avancement d'échelon et de grade"],
@@ -4956,7 +5227,7 @@ var CARTE_DATA = [
    exemple:"📋 Julie conteste sa note → entretien DRH puis recours CAP. Depuis les LDG 2022, la CIA est directement liée à l\'entretien annuel. Pas d\'entretien = pas de CIA modulé."},
 
   // ── 28. JURIDICTIONS ADMINISTRATIVES ──
-  {centre:"JURIDICTIONS\nADMINISTRATIVES",theme:"Organisation de la justice admin.",
+  {centre:"JURIDICTIONS\nADMINISTRATIVES",theme:"Contentieux",
    zones:["1ère instance","Appel","Cassation","Juge du référé"],
    hints:["Quel tribunal ?","Quelle cour ?","Quelle juridiction suprême ?","Procédure d'urgence ?"],
    pieces:["Tribunal Administratif (TA)","Cour Administrative d'Appel (CAA)","Conseil d'État (CE)","TA en référé (48h)"],
@@ -4965,7 +5236,7 @@ var CARTE_DATA = [
    exemple:"📋 Paul conteste son licenciement → TA de Saint-Denis. Commune fait appel → CAA de Bordeaux. Pourvoi en cassation → Conseil d\'État. Conflit État\/commune → Tribunal des conflits."},
 
   // ── 29. STATUT GÉNÉRAL FP ──
-  {centre:"STATUT GÉNÉRAL\nFONCTION PUBLIQUE",theme:"3 versants de la FP",
+  {centre:"STATUT GÉNÉRAL\nFONCTION PUBLIQUE",theme:"Statut & Recrutement",
    zones:["FPE","FPT","FPH","Effectif total approx."],
    hints:["Versant État : sigle ?","Versant Territorial : sigle ?","Versant Hospitalier : sigle ?","Loi fondatrice commune aux 3 versants ?"],
    pieces:["~2,5 millions d'agents","~1,9 million d'agents","~1,2 million d'agents","~5,7 millions d'agents"],
@@ -4974,7 +5245,7 @@ var CARTE_DATA = [
    exemple:"📋 Marc recruté par concours (titre), nommé stagiaire puis titularisé (grade), affecté sur un poste SA (emploi). Loi 1983 : principes communs aux 3 versants FPE\/FPT\/FPH."},
 
   // ── 30. CONFLITS D'INTÉRÊTS ──
-  {centre:"CONFLIT\nD'INTÉRÊTS",theme:"Prévention et déontologie",
+  {centre:"CONFLIT\nD'INTÉRÊTS",theme:"Droits & Obligations",
    zones:["Définition","Mécanisme de prévention","Qui contrôle ?","Texte clé"],
    hints:["C'est quoi ?","Que doit faire l'agent ?","Quelle autorité ?","Quelle loi ?"],
    pieces:["Intérêt personnel influençant une décision","Déport (délégation à un tiers)","HATVP + référent déontologue","Loi Sapin II — 2016"],
@@ -10969,7 +11240,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-var vfPool=[],vfIdx=0,vfScore=0,vfTotal=0,vfNb=20;
+var vfPool=[],vfIdx=0,vfScore=0,vfTotal=0,vfNb=10;
 var vfThemes = new Set(['Tous']);
 
 var VF_THEMES_LIST = [
@@ -11041,14 +11312,14 @@ function vfInitSetup(){
   // Nombre
   var nbDiv=document.createElement('div');
   nbDiv.style.cssText='margin-bottom:14px';
-  nbDiv.innerHTML='<div style="font-weight:700;color:#1a2240;font-size:.9em;margin-bottom:8px">Nombre de questions</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><button onclick="vfSetNb(10,this)" class="mode-btn active" style="padding:12px;font-size:.9em;border-radius:12px">10</button><button onclick="vfSetNb(20,this)" class="mode-btn" style="padding:12px;font-size:.9em;border-radius:12px">20</button><button onclick="vfSetNb(999,this)" class="mode-btn" style="padding:12px;font-size:.9em;border-radius:12px">Tout</button></div>';
+  var nb10=(vfNb===10?' active':''), nb20=(vfNb===20?' active':''), nbTout=(vfNb===999?' active':'');
+  nbDiv.innerHTML='<div style="font-weight:700;color:#1a2240;font-size:.9em;margin-bottom:8px">Nombre de questions</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><button onclick="vfSetNb(10,this)" class="mode-btn'+nb10+'" style="padding:12px;font-size:.9em;border-radius:12px">10</button><button onclick="vfSetNb(20,this)" class="mode-btn'+nb20+'" style="padding:12px;font-size:.9em;border-radius:12px">20</button><button onclick="vfSetNb(999,this)" class="mode-btn'+nbTout+'" style="padding:12px;font-size:.9em;border-radius:12px">Tout</button></div>';
   el.appendChild(nbDiv);
   var btn2=document.createElement('button');
   btn2.innerHTML='&#9654; C&rsquo;est parti !';
   btn2.style.cssText='width:100%;padding:15px;background:linear-gradient(135deg,#ec4899,#9d174d);color:#fff;font-weight:800;font-size:1.05em;border:none;border-radius:14px;cursor:pointer;font-family:DM Sans,sans-serif';
   btn2.onclick=vfDemarrer;
   el.appendChild(btn2);
-  vfNb=20;
 }
 
 function lancerVraiFaux(){
